@@ -1,0 +1,54 @@
+{
+  "name": "saboot",
+  "version": "1.0.0",
+  "description": "Saboot — a disaster crop-loss evidence layer, two rails on one core (static simulation)",
+  "scripts": {
+    "dev": "vite",
+    "gen": "node --import ./scripts/ts-resolve.mjs scripts/gen-scenario.ts",
+    "facts": "node scripts/docs-facts.mjs",
+    "facts:check": "node scripts/docs-facts.mjs --check",
+    "fonts": "python scripts/build-fonts.py",
+    "build": "vite build --logLevel warn && node scripts/postbuild.mjs",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit -p . && tsc --noEmit -p tsconfig.node.json",
+    "lint": "biome lint src scripts tests",
+    "test": "node --test --import ./scripts/ts-resolve.mjs \"tests/unit/*.test.ts\"",
+    "qa": "playwright test",
+    "verify": "node scripts/run-sh.mjs verify.sh",
+    "markers": "node scripts/markers.mjs",
+    "i18n": "node scripts/i18n-check.mjs --write",
+    "deploy": "node scripts/run-sh.mjs scripts/deploy.sh",
+    "qr": "node scripts/qr.mjs",
+    "audio": "powershell -ExecutionPolicy Bypass -File scripts/gen-audio.ps1",
+    "audio:import": "powershell -ExecutionPolicy Bypass -File scripts/audio-import.ps1",
+    "og": "node scripts/og-image.mjs",
+    "sw:update-check": "node scripts/check-sw-update.mjs",
+    "validate:real": "node --import ./scripts/ts-resolve.mjs scripts/validation/run.ts",
+    "validate:fixture": "node --import ./scripts/ts-resolve.mjs scripts/validation/run.ts --fixture"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@preact/signals": "^2.11.3",
+    "jsqr": "^1.4.0",
+    "preact": "^11.0.1",
+    "uqr": "^0.1.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@playwright/test": "^1.64.0",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.5",
+    "axe-core": "^4.14.0",
+    "chrome-launcher": "^1.2.2",
+    "lighthouse": "^13.5.0",
+    "preact-render-to-string": "^6.8.0",
+    "qrcode": "^1.5.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  }
+}
