@@ -1,0 +1,203 @@
+// Judge tour (feature E): six steps, about 105 s when auto-advancing, Skip and Restart. Drives the
+// replay, the simulation tabs and farmer screens. Under reduced motion it never auto-advances.
+import '../styles/tour.css';
+import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
+import { Icon } from '../ui/Icon';
+import { tourStep } from './state';
+import { tourSeen, reducedMotion } from '../lib/prefs';
+import { announce } from '../lib/announce';
+import { tr, trr } from '../lib/i18n';
+import { fmtDur } from '../lib/time';
+import { eventToCall } from '../sim/metrics';
+import { layout, openPlot, insurerView, simTab, scrollToId, type SimTab } from '../site/layout';
+import { pause, seek, t, model, demoPlot, demoDet } from '../sim/engine';
+import { jumpTo } from '../sim/moments';
+import { screen } from '../farmer/nav';
+import { ensureFocus, full } from '../farmer/focus';
+
+interface Step {
+  key: string;
+  target: () => string | null;
+  setup: () => Promise<void> | void;
+}
+
+const STEP_MS = 17500;
+const go = (tab: SimTab) => { simTab.value = tab; };
+const desk = () => layout.value === 'desktop';
+
+export const STEPS: Step[] = [
+  {
+    key: 's1',
+    target: () => '#problem .cards3',
+    setup: () => { pause(); openPlot.value = null; seek(0); screen.value = null; go('farmer'); scrollToId('problem', false); },
+  },
+  {
+    key: 's2',
+    target: () => '[data-tour=rules] .rules',
+    setup: async () => { openPlot.value = null; go('explainer'); await jumpTo('trigger'); },
+  },
+  {
+    key: 's3',
+    target: () => (desk() ? '[data-tour=alert]' : '[data-tour=alert] .countdown'),
+    setup: async () => { go('farmer'); await jumpTo('alert'); },
+  },
+  {
+    key: 's4',
+    target: () => (desk() ? '[data-tour=phone]' : '[data-tour=shots]'),
+    setup: async () => { go('farmer'); await jumpTo('capture'); screen.value = 'capture'; },
+  },
+  {
+    key: 's5',
+    target: () => (desk() ? '[data-tour=phone]' : '[data-tour=hash]'),
+    setup: async () => {
+      go('farmer');
+      await ensureFocus('sealed');
+      const sealT = full.value.seal?.simT;
+      if (sealT !== undefined) seek(Math.max(t.value, sealT + 0.05));
+      screen.value = 'packet';
+    },
+  },
+  {
+    key: 's6',
+    target: () => '[data-tour=pipeline]',
+    setup: async () => { insurerView.value = 'claims'; go('insurer'); await jumpTo('confirm'); openPlot.value = null; },
+  },
+];
+
+/** Numbers and names for the tour text, taken from the loaded scenario so they cannot go stale. */
+function tourVars(): Record<string, string> {
+  const m = model.value, p = demoPlot.value, d = demoDet.value;
+  if (!m || !p || !d || d.alertT === null || d.eventT === null) return {};
+  const e = eventToCall(m);
+  return {
+    name: p.name,
+    language: tr('lang.name.' + p.lang),
+    gauge: m.stations[p.station].name.replace(/ gauge$/, ''),
+    focus: fmtDur(d.alertT - d.eventT),
+    left: fmtDur(d.deadlineT! - d.alertT),
+    median: e.median === null ? '—' : fmtDur(e.median),
+    p90: e.p90 === null ? '—' : fmtDur(e.p90),
+  };
+}
+
+interface Box { x: number; y: number; w: number; h: number }
+
+/** Wide screens: the card sits bottom-right; when that would cover the spotlight, it moves to the free space on the
+ *  left (the width it gets there), or stays put when there is no such space. */
+function dockLeft(b: Box, card: HTMLElement | null): number | null {
+  if (!card || innerWidth < 768) return null;
+  const w = Math.min(440, innerWidth - 48);
+  const top = innerHeight - 24 - card.offsetHeight;
+  if (b.x + b.w <= innerWidth - 24 - w || b.y + b.h <= top) return null;
+  const room = b.x - 48;
+  return room >= 320 ? Math.min(440, room) : null;
+}
+
+export default function Tour() {
+  const i = tourStep.value ?? 0;
+  const step = STEPS[i];
+  const manual = reducedMotion.value;
+  const [box, setBox] = useState<Box | null>(null);
+  const [dock, setDock] = useState<number | null>(null);
+  const card = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(manual);
+  const [elapsed, setElapsed] = useState(0);
+  const head = useRef<HTMLHeadingElement>(null);
+  const title = tr(`tour.${step.key}.t`);
+
+  const close = () => { tourStep.value = null; tourSeen.value = true; };
+  const next = () => (i < STEPS.length - 1 ? (tourStep.value = i + 1) : close());
+  const back = () => i > 0 && (tourStep.value = i - 1);
+
+  useEffect(() => {
+    let alive = true;
+    setElapsed(0);
+    Promise.resolve(step.setup()).then(() => {
+      if (!alive) return;
+      head.current?.focus({ preventScroll: true });
+      announce(`${tr('tour.step', { n: i + 1, total: STEPS.length })}: ${title}`);
+    });
+    return () => { alive = false; };
+  }, [i]);
+
+  // Track the spotlight target (tabs and lazy chunks render asynchronously).
+  useLayoutEffect(() => {
+    let raf = 0;
+    let n = 0;
+    let scrolled = false;
+    const tick = () => {
+      const sel = step.target();
+      const el = sel ? document.querySelector(sel) : null;
+      if (el) {
+        if (!scrolled) {
+          el.scrollIntoView({ block: desk() ? 'center' : 'start', behavior: reducedMotion.value ? 'auto' : 'smooth' });
+          scrolled = true;
+        }
+        const r = el.getBoundingClientRect();
+        const b = { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 };
+        setBox(b);
+        setDock(dockLeft(b, card.current));
+      } else {
+        setBox(null);
+        setDock(null);
+      }
+      if (++n < 600) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [i]);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setElapsed((e) => {
+      if (e + 250 >= STEP_MS) { next(); return 0; }
+      return e + 250;
+    }), 250);
+    return () => clearInterval(id);
+  }, [paused, i]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+      else if (e.key === 'ArrowRight' && tag !== 'INPUT') next();
+      else if (e.key === 'ArrowLeft' && tag !== 'INPUT') back();
+    };
+    addEventListener('keydown', onKey, true);
+    return () => removeEventListener('keydown', onKey, true);
+  }, [i]);
+
+  return (
+    <div class="tour" role="dialog" aria-modal="false" aria-labelledby="tour-h" aria-describedby="tour-b">
+      {box && <div class="spot" style={{ left: `${box.x}px`, top: `${box.y}px`, width: `${box.w}px`, height: `${box.h}px` }} aria-hidden="true" />}
+      <div class="tour-card" ref={card} style={dock ? { left: '24px', right: 'auto', width: `${dock}px` } : undefined}>
+        <div class="tour-top">
+          <span class="eyebrow">{tr('tour.step', { n: i + 1, total: STEPS.length })}</span>
+          <button type="button" class="link-arrow" onClick={close}>{tr('tour.skip')}</button>
+        </div>
+        <h2 id="tour-h" class="h-sm" tabIndex={-1} ref={head}>{title}</h2>
+        <p id="tour-b">{trr(`tour.${step.key}.b`, tourVars())}</p>
+        {manual && <p class="muted tour-manual">{tr('tour.manual')}</p>}
+        <div class="tour-foot">
+          <div class="tour-progress" aria-hidden="true">
+            {STEPS.map((_, k) => <i key={k} style={{ '--k': k < i ? 1 : k === i ? (manual ? 1 : elapsed / STEP_MS) : 0 } as Record<string, number>} />)}
+          </div>
+          <div class="tour-actions">
+            <button type="button" class="iconbtn" onClick={back} disabled={i === 0} aria-label={tr('tour.prev')}><Icon name="left" /></button>
+            {!manual && (
+              <button type="button" class="pill pill-ghost pill-sm" onClick={() => setPaused(!paused)} aria-pressed={paused}>
+                <Icon name={paused ? 'play' : 'pause'} size={16} /> <span class="lbl">{paused ? tr('tour.resume') : tr('tour.pause')}</span>
+              </button>
+            )}
+            <button type="button" class="pill pill-ghost pill-sm" onClick={() => { setElapsed(0); if (i === 0) STEPS[0].setup(); else tourStep.value = 0; }}>
+              <Icon name="reset" size={16} /> <span class="lbl">{tr('tour.restart')}</span>
+            </button>
+            <button type="button" class="pill pill-dark pill-sm" onClick={next}>
+              {i === STEPS.length - 1 ? tr('tour.finish') : tr('tour.next')} <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

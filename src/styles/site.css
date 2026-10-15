@@ -1,0 +1,196 @@
+/* Page sections: announcement, nav, hero, problem, simulation layout, limits, footer.
+   Sticky offsets use measured heights (--nav-real, --ctrl-real, --dock-real, set by layout.ts), never guesses. */
+
+/* announcement bar: ink, 40px, scrolls away (the nav keeps the SIMULATION tag visible) */
+.ann { background: var(--ink); color: var(--parchment); }
+.ann-in { min-height: var(--ann-h); display: flex; align-items: center; justify-content: space-between; gap: var(--s2); }
+.ann p { font-size: var(--fs-sm); letter-spacing: var(--track-caps); text-transform: var(--caps); min-width: 0; padding-block: 8px; }
+.ann .pill { min-height: 44px; margin-block: -2px; padding: 0 4px; border: 0; flex: none; color: var(--parchment); }
+.ann .pill > span { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 14px; border: 1px solid var(--parchment); border-radius: var(--r-pill); }
+@media (max-width: 599px) { .ann p { font-size: var(--fs-xs); } }
+
+/* nav: sticky, parchment. Its contents adapt to the nav's own width in em (so 200% text gets the compact bar). */
+.nav { position: sticky; top: 0; z-index: var(--z-sticky); background: var(--parchment); border-bottom: var(--bd); container: nav / inline-size; font-size: 1rem; }
+.nav-in { min-height: var(--nav-h); display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; padding-block: 4px; }
+.brand { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; text-decoration: none; flex: none; }
+.brand-word { font-family: var(--font-serif); font-size: 1.375rem; line-height: 1; letter-spacing: -0.02em; }
+.brand-mark { width: 24px; height: 24px; }
+.nav-links { display: none; }
+.nav-links a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none;
+  font-size: var(--fs-ui); text-transform: var(--caps); letter-spacing: var(--track-caps); border-radius: var(--r-pill);
+}
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.nav-actions { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 4px; min-width: 0; padding-block: 4px; }
+.nav .tag-sim { flex: none; }
+.nav .tag-sim .tag-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.nav-cta { display: none; }
+.nav-menu { flex: none; }
+.lang-btn { gap: 6px; padding: 8px 10px; min-width: 44px; }
+.lang-all { display: none; }
+.lang-cur { display: inline; }
+@container nav (min-width: 24em) {
+  .nav-in, .nav-actions { gap: 0 var(--s1); }
+  .brand-word { font-size: 1.625rem; }
+  .nav .tag-sim .tag-long { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+  .nav .tag-sim .tag-short { display: none; }
+  .lang-btn { padding: 8px 14px; }
+}
+@container nav (min-width: 37.5em) { .lang-all { display: inline; } .lang-cur { display: none; } }
+@container nav (min-width: 48em) { .nav-cta { display: inline-flex; } }
+@container nav (min-width: 64em) { .brand-word { font-size: 2rem; } .brand-mark { width: 28px; height: 28px; } }
+@container nav (min-width: 76em) {
+  .nav-links { display: flex; gap: 4px; margin-left: var(--s3); }
+  .nav-menu { display: none; }
+}
+/* the SIM tag in sheet headers swaps by viewport */
+@media (max-width: 379px) { .sheet-tools .tag-sim .tag-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+@media (min-width: 380px) { .sheet-tools .tag-sim .tag-short { display: none; } }
+.sheet-tools { flex: none; flex-wrap: nowrap; }
+
+.lang { position: relative; flex: none; }
+.lang-btn .ic { width: 16px; height: 16px; }
+.lang-all .on { text-decoration: underline; text-underline-offset: 4px; }
+.lang-menu {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: var(--z-modal); min-width: 200px;
+  background: var(--parchment); border: 1px solid var(--off-black); border-radius: var(--r-ctl); padding: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.lang-menu button {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 8px 16px;
+  border: 0; border-radius: 12px; background: transparent; text-align: left; font-size: 1rem;
+}
+.lang-menu button[aria-checked='true'] { background: var(--off-black); color: var(--white); }
+.lang-menu button:hover:not([aria-checked='true']) { background: rgba(36, 36, 36, 0.06); }
+
+.menu-links { display: flex; flex-direction: column; }
+.menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: var(--bd); text-decoration: none; font-family: var(--font-head); font-size: var(--fs-h-sm); }
+
+/* sections */
+.sec { padding-block: var(--sec-gap); }
+.sec + .sec { border-top: var(--bd); }
+.sec-head { display: flex; flex-direction: column; gap: var(--s2); margin-bottom: var(--s4); max-width: 900px; }
+.sec-head h2 { font-size: var(--fs-h-lg); }
+
+/* hero: typographic, centered, one wash */
+.hero { padding-block: var(--s5) var(--sec-gap); text-align: center; overflow: hidden; }
+.hero-in { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
+.hero h1 { max-width: 14ch; }
+.hero-lines { display: flex; flex-direction: column; gap: 4px; max-width: 58ch; color: var(--graphite); }
+.cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s2); }
+.hero-visual { position: relative; width: 100%; max-width: 980px; margin-top: var(--s2); border-radius: var(--r-card); padding: var(--s5) var(--s2); display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; gap: var(--s1); container-type: inline-size; }
+.hero-visual > :not(.wash) { position: relative; z-index: 1; }
+.hero-clock { font-family: var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -0.04em; font-size: min(clamp(3.5rem, 1.9rem + 7vw, 9rem), 100cqi / 4.7); line-height: 1; color: var(--off-black); }
+.hero-clock-cap { font-size: var(--fs-sm); color: var(--off-black); text-wrap: balance; max-width: 40ch; }
+@media (min-width: 1024px) {
+  .hero { padding-block: var(--s7) var(--s6); }
+  .hero-visual { padding-block: var(--s6); }
+}
+
+/* problem */
+.cards3 { display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); }
+.feature { display: flex; flex-direction: column; gap: var(--s2); height: 100%; }
+.feature p { color: var(--graphite); font-size: 1rem; }
+.feature .ic { width: 20px; height: 20px; }
+@media (min-width: 768px) { .cards3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3); } }
+
+/* simulation section — layout classes (lay-desktop/tablet/mobile) come from layout.ts and follow text size */
+.sim { padding-bottom: 0; }
+.sim-head { display: flex; flex-direction: column; gap: var(--s2); margin-bottom: var(--s3); }
+.sim-head h2 { font-size: var(--fs-h-lg); }
+/* the process choice and the radar cadence */
+.rails { display: flex; flex-direction: column; gap: var(--s2); }
+.rail { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+.rail-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s2); }
+.rail-l { font-size: var(--fs-ui); text-transform: var(--caps); letter-spacing: var(--track-caps); color: var(--graphite); }
+.rail-d { margin: 0; max-width: 62ch; font-size: 1rem; color: var(--graphite); }
+.rail-seg > button { padding-inline: 14px; }
+.sim-ph { min-height: 900px; }
+.sim-body { min-width: 0; padding-bottom: var(--s5); }
+/* anything scrolled to inside the simulation clears the sticky control bar too */
+.sim-body * { scroll-margin-top: var(--ctrl-real, 0px); }
+.sim-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border: var(--bd-ctl); border-radius: 28px; margin-bottom: var(--s3); }
+.sim-tabs button {
+  min-height: 48px; padding: 8px 12px; border: 0; border-radius: var(--r-pill); background: transparent;
+  font-size: var(--fs-ui); text-transform: var(--caps); letter-spacing: var(--track-caps); display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.sim-tabs button[aria-selected='true'] { background: var(--off-black); color: var(--white); }
+@media (min-width: 520px) { .sim-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: var(--r-pill); } }
+.sim-tabs.panel-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: var(--r-pill); }
+.sim-grid { display: grid; gap: var(--s4); grid-template-columns: 362px minmax(0, 1fr); align-items: start; }
+.panel { min-width: 0; }
+.phone-col { display: flex; flex-direction: column; align-items: center; gap: var(--s1); min-width: 0; }
+.phone {
+  width: 100%; max-width: 422px; height: 742px; border: 1px solid var(--off-black); border-radius: 40px; overflow: clip;
+  background: var(--parchment); display: flex;
+}
+.sim-grid .phone { width: 362px; max-width: none; }
+/* the phone stays beside the console only where the whole frame fits under the sticky chrome */
+@media (min-height: 1010px) {
+  .sim-grid > .phone-col { position: sticky; top: calc(var(--nav-real, var(--nav-h)) + var(--ctrl-real, 0px) + 16px); }
+}
+/* Unframed farmer (phones, or text above 125%). On a phone the app owns the screen width, as the real app would;
+   on wider screens it stays a phone-width column with a frame line. */
+.farmer-solo { max-width: 40rem; margin-inline: auto; }
+html:not(.lay-mobile) .farmer-solo { border: 1px solid var(--off-black); border-radius: var(--r-card); overflow: clip; }
+.wrap.sim-bleed { padding-inline: env(safe-area-inset-left) env(safe-area-inset-right); }
+.sim-bleed > .sim-tabs { margin-inline: var(--gutter); }
+.sim-bleed .farmer { --f-pad: var(--gutter); }
+.phone-cap { font-size: var(--fs-sm); color: var(--graphite); text-align: center; max-width: 36ch; }
+.invite { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); border: var(--bd); border-radius: var(--r-ctl); margin-bottom: var(--s3); }
+.invite p { flex: 1 1 260px; min-width: 0; font-size: 1rem; }
+
+/* control bar: two compact rows stuck under the nav (desktop), or a bottom dock (tablet/phone) */
+.ctrl { position: sticky; z-index: var(--z-sticky); background: var(--parchment); container: ctrl / inline-size; font-size: 1rem; }
+.ctrl-dock { bottom: 0; border-top: 1px solid var(--off-black); padding-bottom: var(--safe-b); }
+.ctrl-top { top: var(--nav-real, var(--nav-h)); border-top: 1px solid var(--off-black); border-bottom: 1px solid var(--off-black); margin-bottom: var(--s4); }
+.ctrl-in { display: flex; align-items: center; gap: var(--s1); min-height: var(--dock-h); padding-block: 8px; }
+.ctrl-top .ctrl-in { min-height: 64px; flex-wrap: nowrap; gap: var(--s2); }
+.ctrl-time { display: flex; flex-direction: column; min-width: 0; flex: 0 1 auto; line-height: 1.2; overflow-wrap: anywhere; }
+.ctrl-top .ctrl-time { min-width: 150px; }
+.ctrl-time strong { font-family: var(--font-num); font-weight: 500; font-size: 1rem; letter-spacing: 0; }
+.ctrl-time span { font-family: var(--font-num); font-size: var(--fs-xs); color: var(--graphite); letter-spacing: 0; }
+.ctrl-dock .ctrl-date { display: none; }
+.scrub { position: relative; flex: 1; min-width: 80px; display: flex; align-items: center; min-height: 44px; }
+.scrub input { width: 100%; height: 44px; margin: 0; accent-color: var(--off-black); background: transparent; }
+/* moment ticks cross the track, so they read as marks on the timeline */
+.ticks { position: absolute; left: 10px; right: 10px; top: 50%; height: 14px; transform: translateY(-50%); pointer-events: none; }
+.tick { position: absolute; top: 0; width: 2px; height: 14px; background: var(--off-black); transform: translateX(-1px); border-radius: 1px; }
+.ctrl-more { flex: none; }
+.ctrl-row2 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s1); padding-bottom: 12px; }
+.ctrl-sheet .seg { align-self: flex-start; }
+/* narrow desktop: moment chips go icon-only (they keep their accessible names) so the bar stays two rows */
+@container ctrl (max-width: 76em) { .ctrl-row2 .chip-btn > span { display: none; } }
+.net-seg button { display: inline-flex; align-items: center; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 6px 14px; border: var(--bd-ctl);
+  border-radius: var(--r-pill); background: transparent; font-size: var(--fs-ui); text-transform: var(--caps); letter-spacing: var(--track-caps);
+}
+.chip-btn.at { background: var(--off-black); border-color: var(--off-black); color: var(--white); }
+
+/* honest limits (FAQ) */
+.faq { border-top: var(--bd); }
+.faq details { border-bottom: var(--bd); }
+.faq summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--s2);
+  padding-block: var(--s3); font-family: var(--font-head); font-size: var(--fs-h-sm); line-height: var(--lh-head); letter-spacing: var(--track-head);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary > span { min-width: 0; }
+.faq summary .ic { transition: transform 0.15s; flex: none; }
+.faq details[open] summary .ic { transform: rotate(180deg); }
+.faq .ans { padding-bottom: var(--s4); max-width: 70ch; color: var(--graphite); display: flex; flex-direction: column; gap: var(--s2); }
+@media (min-width: 1024px) { .faq summary { padding-block: var(--s5); } }
+
+/* footer */
+.foot { border-top: var(--bd); padding-block: var(--s5) calc(var(--s5) + var(--safe-b)); }
+.foot-in { display: grid; gap: var(--s3); grid-template-columns: minmax(0, 1fr); }
+.foot .brand-word { font-size: 2.25rem; }
+.foot dl { display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); font-size: var(--fs-sm); }
+.foot dt { color: var(--graphite); text-transform: var(--caps); letter-spacing: var(--track-caps); }
+@media (min-width: 768px) {
+  .foot-in { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .foot dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) { .foot dl { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

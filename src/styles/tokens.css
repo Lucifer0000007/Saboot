@@ -1,0 +1,130 @@
+/* Saboot design tokens — editorial technical journal on warm parchment.
+   Every colour, size, radius, layer and sticky height lives here. scripts/contrast.mjs reads this file. */
+:root {
+  /* palette */
+  --parchment: #f6f3f1;
+  --lake-blue: #2b59d1;
+  --periwinkle-mist: #cfdaf5;
+  --off-black: #242424;
+  --ink: #000000;
+  --graphite: #4e4d4d;
+  --smoke: #797776;
+  --ash: #cecac8;
+  --white: #ffffff;
+  /* decorative washes only */
+  --coral: #ff9473;
+  --sky: #a0b5eb;
+  --mint: #a7fccd;
+  --gold: #ecda98;
+  /* status (never decorative, never colour alone) */
+  --ok: #1f6b4a;
+  --ok-tint: #e4eee8;
+  --warn: #8a5a00;
+  --warn-tint: #f3e8cf;
+  --bad: #b3402a;
+  --bad-tint: #f4e1db; /* spec #f3dfd9 measured 4.44:1 with --bad text; lightened one step to pass AA */
+
+  /* type */
+  --font-serif: 'Saboot Serif', 'Saboot Serif Fallback', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Saboot Mono', 'Saboot Mono Fallback', ui-monospace, 'Courier New', monospace;
+  --font-head: var(--font-serif);
+  --font-body: var(--font-mono);
+  --font-num: var(--font-mono);
+  --lh-body: 1.5;
+  --lh-head: 1.1;
+  --track-head: -0.02em;
+  --track-body: -0.02em;
+  --track-caps: -0.01em;
+  --caps: uppercase;
+  --fs-display: clamp(2.5rem, 1.66rem + 3.73vw, 5rem);
+  --fs-h-lg: clamp(2rem, 1.66rem + 1.49vw, 3rem);
+  --fs-h: clamp(1.75rem, 1.5rem + 1.12vw, 2.5rem);
+  --fs-h-sm: clamp(1.5rem, 1.33rem + 0.75vw, 2rem);
+  --fs-sub: clamp(1.25rem, 1.17rem + 0.37vw, 1.5rem);
+  --fs-body: clamp(1rem, 0.92rem + 0.37vw, 1.25rem);
+  --fs-ui: 0.875rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.75rem;
+
+  /* spacing (8px grid) */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 40px;
+  --s6: 64px;
+  --s7: 80px;
+  --gutter: 16px;
+  --sec-gap: 48px;
+  --page-max: 1432px;
+
+  /* shape */
+  --r-pill: 100px;
+  --r-card: 24px;
+  --r-ctl: 16px;
+  --card-pad: 24px;
+  --bd: 1px solid var(--ash);
+  --bd-ctl: 1px solid var(--smoke);
+  --shadow-overlay: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* layers and sticky chrome */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-drawer: 20;
+  --z-modal: 30;
+  --z-toast: 40;
+  --ann-h: 40px;
+  --nav-h: 56px;
+  --ctrl-h: 0px;
+  --dock-h: 64px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+@media (min-width: 480px) {
+  :root { --r-card: 32px; --card-pad: 32px; }
+}
+@media (min-width: 600px) {
+  :root { --gutter: 24px; }
+}
+@media (min-width: 1024px) {
+  :root { --nav-h: 80px; --ctrl-h: 122px; --dock-h: 0px; --gutter: 40px; --sec-gap: 64px; --r-card: 40px; --card-pad: 40px; }
+}
+
+/* Indic scripts: no mono, no tracking, no uppercase, taller lines (matras clip at 1.2). Font families are
+   switched by class (not :lang) so a stray Devanagari label never triggers a lazy font download. */
+html.l-hi {
+  --indic-head: 'Saboot Deva Serif', 'Saboot Serif', 'Saboot Deva Fallback', 'Saboot Serif Fallback', serif;
+  --indic-body: 'Saboot Deva Sans', 'Saboot Mono', 'Saboot Deva Fallback', 'Saboot Mono Fallback', sans-serif;
+  --font-head: var(--indic-head);
+  --font-body: var(--indic-body);
+}
+html.l-pa {
+  --indic-head: 'Saboot Guru Serif', 'Saboot Serif', 'Saboot Guru Fallback', 'Saboot Serif Fallback', serif;
+  --indic-body: 'Saboot Guru Sans', 'Saboot Mono', 'Saboot Guru Fallback', 'Saboot Mono Fallback', sans-serif;
+  --font-head: var(--indic-head);
+  --font-body: var(--indic-body);
+}
+:lang(hi), :lang(pa) {
+  --lh-body: 1.6;
+  --lh-head: 1.4;
+  --track-head: 0;
+  --track-body: 0;
+  --track-caps: 0;
+  --caps: none;
+}
+/* English-only regions (insurer console) keep Latin typography inside a Hindi/Punjabi page. */
+[lang='en'] {
+  --font-head: var(--font-serif);
+  --font-body: var(--font-mono);
+  --lh-body: 1.5;
+  --lh-head: 1.1;
+  --track-head: -0.02em;
+  --track-body: -0.02em;
+  --track-caps: -0.01em;
+  --caps: uppercase;
+}
+/* a translated note inside an English region (the console note in the plot drawer) */
+html.l-hi [lang='hi'], html.l-pa [lang='pa'] { --font-head: var(--indic-head); --font-body: var(--indic-body); }
+/* Typography is computed on <body> and inherited as values: regions that switch script re-declare it.
+   :where() keeps this at attribute specificity, so component rules still win; inline <span lang> labels are untouched. */
+:where(div, aside, section, p)[lang] { font-family: var(--font-body); line-height: var(--lh-body); letter-spacing: var(--track-body); }

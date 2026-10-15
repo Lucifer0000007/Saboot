@@ -1,0 +1,12 @@
+/* Always loaded: the panel container, lazy placeholders and the few console rules the main bundle uses.
+   Everything else for the console lives in console.css, loaded with the console chunks. */
+.panel, .panel-col { min-width: 0; }
+.panel { container: panel / inline-size; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.loading { display: grid; place-items: center; gap: 8px; color: var(--graphite); }
+.load-failed { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s2); padding: var(--s3); text-align: center; }
+.load-failed p { max-width: 40ch; }
+.muted { color: var(--graphite); }
+.cnt { display: inline-grid; place-items: center; min-width: 2em; padding: 0 8px; border-radius: var(--r-pill); border: var(--bd-ctl); font-size: 0.875rem; font-family: var(--font-num); vertical-align: middle; }
+h4 { margin: 0; font-family: var(--font-head); font-weight: 400; font-size: 1.25rem; letter-spacing: var(--track-head); }
+.tier small { margin-left: 2px; }

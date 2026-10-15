@@ -1,0 +1,43 @@
+/* How it works (lazy chunk). */
+.how-body { container: panel / inline-size; display: flex; flex-direction: column; gap: var(--s5); }
+.how-body .sec-head { margin-bottom: 0; }
+.how-block { display: flex; flex-direction: column; gap: var(--s3); }
+.how-notes { display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); }
+@container panel (min-width: 44em) { .how-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* architecture: pill nodes joined by thin curved ash lines, mint glow behind the hub */
+.arch { margin: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.arch-grid { position: relative; display: grid; gap: var(--s5); grid-template-columns: minmax(0, 1fr); padding: var(--s4) var(--s3); border: var(--bd); border-radius: var(--r-card); overflow: hidden; }
+.arch-lines { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.arch-group { position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--s2); min-width: 0; }
+.arch-label { padding-bottom: 8px; border-bottom: 1px dashed var(--smoke); }
+.g-server .arch-label::after { content: ''; }
+.arch-nodes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s4); }
+.arch-node { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.an-pill {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; max-width: 100%; overflow-wrap: anywhere;
+  background: var(--parchment); border: 1px solid var(--off-black); border-radius: var(--r-pill);
+  font-size: 0.875rem; line-height: 1.25; text-transform: var(--caps); letter-spacing: var(--track-caps);
+}
+.an-pill .ic { width: 12px; height: 12px; }
+.an-sub { position: relative; z-index: 1; font-size: 0.875rem; color: var(--graphite); max-width: 32ch; padding-left: 28px; }
+.arch-node.hub .an-sub { max-width: 24ch; }
+.arch-node.hub .an-pill { background: var(--off-black); color: var(--white); }
+.glow { position: absolute; z-index: 0; left: -40px; top: -48px; width: 280px; height: 160px; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(167, 252, 205, 0.85), rgba(167, 252, 205, 0)); }
+@container panel (min-width: 22em) and (max-width: 51.99em) {
+  .g-out .arch-nodes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3) var(--s2); }
+}
+@container panel (min-width: 52em) {
+  .arch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); padding: var(--s5); }
+}
+
+.workflow { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); }
+.workflow li { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.workflow p { color: var(--graphite); font-size: 1rem; }
+.workflow h4 { font-size: var(--fs-h-sm); }
+.wf-n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--off-black); font-size: 1rem; }
+@container panel (min-width: 44em) { .workflow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container panel (min-width: 70em) { .workflow { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.rs-table { font-size: 1rem; }
+.rs-table th[scope='row'] { font-weight: 400; font-family: var(--font-head); font-size: 1.125rem; }

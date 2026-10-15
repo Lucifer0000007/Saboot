@@ -1,0 +1,114 @@
+import { useState } from 'preact/hooks';
+import { Icon } from '../../ui/Icon';
+import { lazy } from '../../lib/lazy';
+import { tr, trr } from '../../lib/i18n';
+import { fmtClock, fmtDur } from '../../lib/time';
+import { short } from '../../lib/hash';
+import { network } from '../../lib/prefs';
+import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link } from '../focus';
+import { SHOTS } from '../photo';
+import { screen } from '../nav';
+import { activePlotId } from '../../sim/engine';
+import { backToQueue } from '../helper';
+import { SyncLog } from '../SyncLog';
+import { Thumb } from './Capture';
+
+const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
+
+function ShareCard() {
+  const [open, setOpen] = useState(false);
+  return (
+    <section class="share-card" aria-labelledby="share-h" data-tour="share">
+      <h3 id="share-h"><Icon name="qr" /> {tr('k.title')}</h3>
+      <p class="f-help">{tr('k.body')}</p>
+      <button type="button" class="pill pill-ghost" onClick={() => setOpen(true)}><Icon name="qr" /> {tr('k.btn')}</button>
+      {open && <ShareSheet onClose={() => setOpen(false)} />}
+    </section>
+  );
+}
+
+const EV_LABEL: Record<string, string> = {
+  shot: 'cap.taken', seal: 'pk.sealed', sync: 'pk.server', ref: 'fl.ref', no_damage: 'al.noDamage', consent: 'as.consent',
+};
+
+function groups(h: string) {
+  return h.match(/.{1,8}/g)!.join(' ');
+}
+
+export function Packet() {
+  const v = view.value;
+  if (!v.shotCount) return <div class="stack f-stack"><h2 class="f-title">{tr('pk.title')}</h2><p>{tr('pk.empty')}</p><SyncLog /></div>;
+  const gaps = SHOTS.map((k) => v.shots[k]).filter((s) => s && s.recvT !== null && s.recvT - s.simT > GAP_FLAG_H);
+  const maxGap = gaps.reduce((a, s) => Math.max(a, s!.recvT! - s!.simT), 0);
+  const first = v.shots.wide ?? Object.values(v.shots)[0]!;
+  return (
+    <div class="stack f-stack">
+      <div class="row-between">
+        <h2 class="f-title">{tr('pk.title')}</h2>
+        <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
+      </div>
+
+      <ul class="pk-photos" role="list">
+        {SHOTS.filter((k) => v.shots[k]).map((k) => (
+          <li key={k}>
+            <Thumb id={v.shots[k]!.photoId} alt={tr('shot.' + k)} />
+            <span>{tr('shot.' + k)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <dl class="facts">
+        <div><dt>{tr('pk.location')}</dt><dd><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</dd></div>
+        {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
+        <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
+        <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>
+        {v.seal && (
+          <div class="full" data-tour="hash"><dt>{tr('pk.hash')} (SHA-256)</dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>
+        )}
+      </dl>
+
+      {v.queued > 0 ? (
+        <div class="note note-plain" role="status">
+          <Icon name="clock" /> <span>{tr('pk.queued', { n: v.queued })}</span>
+          {!isOffline() && network.value === 'online' && <button type="button" class="pill pill-ghost pill-sm" onClick={syncOutbox}>{tr('pk.syncNow')}</button>}
+        </div>
+      ) : (
+        v.syncedT !== null && <p class="note note-ok"><Icon name="okShape" /><span>{tr('pk.synced', { time: fmtClock(v.syncedT) })}</span></p>
+      )}
+      {gaps.length > 0 && <p class="note note-warn"><Icon name="flag" /><span>{tr('pk.gap', { gap: fmtDur(maxGap) })}</span></p>}
+
+      <SyncLog />
+      {v.seal && <ShareCard />}
+
+      <section class="chain" aria-labelledby="chain-h">
+        <h3 id="chain-h"><Icon name="link" /> {tr('pk.chain')}</h3>
+        <p class="f-help">{tr('pk.chainHelp')}</p>
+        <ol role="list">
+          {v.events.map((l: Link) => (
+            <li key={l.hash}>
+              <span class="seq num">#{l.seq + 1}</span>
+              <span class="ev">{tr(EV_LABEL[l.body.type] ?? l.body.type)}{l.body.type === 'shot' ? ' · ' + tr('shot.' + l.body.data.kind) : ''}</span>
+              <span class="when num">{fmtClock(l.body.simT, false)}</span>
+              <span class="hash h">{short(l.hash, 8)}</span>
+              <span class="hash p"><span class="sr-only">{tr('pk.prev')}: </span><span aria-hidden="true">← </span>{short(l.prev, 6)}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {v.seal && activePlotId.value !== null ? (
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={backToQueue}>
+          <Icon name="users" /> {tr('hm.next')} <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      ) : v.seal ? (
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'file')}>
+          <Icon name="file" /> {trr('pk.cta')} <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      ) : (
+        <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={seal}>
+          <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      )}
+    </div>
+  );
+}

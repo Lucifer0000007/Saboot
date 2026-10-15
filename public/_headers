@@ -1,0 +1,16 @@
+# Netlify / Cloudflare Pages headers. The ONLY place headers are defined (netlify.toml holds build settings only).
+# scripts/postbuild.mjs replaces the script-hash token in script-src with the SHA-256 of each inline script in
+# the built index.html, so scripts need no 'unsafe-inline'. Inline styles stay allowed: the page's CSS is inlined
+# and components set a few style attributes. The service worker, WebCrypto, camera, microphone (consent
+# recording), geolocation and the lazily loaded QR decoder chunk all work under this policy (tests/qa).
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __SCRIPT_HASHES__; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=(self), payment=(), usb=(), fullscreen=(self)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/sw.js
+  Cache-Control: no-cache

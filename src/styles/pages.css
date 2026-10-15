@@ -1,0 +1,16 @@
+/* Always loaded: the how-it-works placeholder and the presenter HUD. The how-it-works section, the detection
+   explainer and the judge tour load their own styles (how.css, explainer.css, tour.css) with their chunks. */
+
+/* ---------- how it works ---------- */
+.how-ph { min-height: 2200px; }
+@media (min-width: 1024px) { .how-ph { min-height: 1700px; } }
+/* ---------- presenter ---------- */
+.hud {
+  position: fixed; left: 12px; bottom: calc(var(--dock-real, 0px) + 20px); z-index: var(--z-toast);
+  display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 16px;
+  background: var(--off-black); color: var(--white); font-size: 0.8125rem; max-width: calc(100vw - 24px);
+}
+.hud .muted { color: var(--ash); }
+.keylist { margin: 0; display: flex; flex-direction: column; }
+.keylist div { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: var(--bd); align-items: baseline; }
+.keylist dd { margin: 0; font-size: 0.9375rem; }

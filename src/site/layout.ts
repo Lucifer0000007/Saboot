@@ -1,0 +1,99 @@
+// Page layout state: breakpoint, simulation tabs, the open plot, deep links and section scrolling.
+// SSR-safe (the prerender imports this module in Node).
+import { signal, computed } from '@preact/signals';
+
+export type Layout = 'mobile' | 'tablet' | 'desktop';
+export type SimTab = 'farmer' | 'insurer' | 'ledger' | 'explainer';
+export type InsurerView = 'claims' | 'triage' | 'draft' | 'impact';
+export type SectionId = 'problem' | 'simulation' | 'how' | 'limits';
+
+const hasDom = typeof window !== 'undefined';
+
+/**
+ * The breakpoint follows the width in *text units*: at 200% text a 1280px window behaves like a 640px one, so the
+ * phone frame and the two-column desktop grid only appear when the text actually fits. Mirrored on <html> as
+ * lay-desktop / lay-tablet / lay-mobile so CSS and components always agree.
+ */
+const rootPx = () => (hasDom ? parseFloat(getComputedStyle(document.documentElement).fontSize) || 16 : 16);
+function current(): Layout {
+  if (!hasDom) return 'mobile';
+  const px = rootPx();
+  const w = (innerWidth * 16) / px;
+  const l: Layout = w >= 1024 ? 'desktop' : w >= 600 ? 'tablet' : 'mobile';
+  return l === 'desktop' && px > 20 ? 'tablet' : l;
+}
+
+export const layout = signal<Layout>(current());
+/** Text above 125%: the farmer app drops its phone frame and uses the full width instead. */
+export const bigText = signal(rootPx() > 20);
+
+function sync() {
+  const l = current();
+  if (layout.value !== l) layout.value = l;
+  bigText.value = rootPx() > 20;
+  const c = document.documentElement.classList;
+  c.toggle('lay-desktop', l === 'desktop');
+  c.toggle('lay-tablet', l === 'tablet');
+  c.toggle('lay-mobile', l === 'mobile');
+}
+if (hasDom) {
+  sync();
+  addEventListener('resize', sync);
+  // text-size changes (in-app 125/150%) toggle classes on <html>
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
+}
+
+/** Publish an element's rendered height as a CSS variable (sticky offsets use real heights, not guesses). */
+export function measureInto(el: Element, cssVar: string) {
+  const root = document.documentElement.style;
+  const ro = new ResizeObserver(() => root.setProperty(cssVar, el.getBoundingClientRect().height + 'px'));
+  ro.observe(el);
+  return () => { ro.disconnect(); root.removeProperty(cssVar); };
+}
+
+export const simTab = signal<SimTab>('farmer');
+/** Right-hand panel on desktop (the farmer is always visible there). */
+export const panelTab = computed<Exclude<SimTab, 'farmer'>>(() => (simTab.value === 'farmer' ? 'insurer' : simTab.value));
+export const insurerView = signal<InsurerView>('claims');
+/** Plot open in the insurer drawer. */
+export const openPlot = signal<string | null>(null);
+/** Feature K: a code to import (from a #k= link), or '' to open the import sheet empty. */
+export const importCode = signal<string | null>(null);
+
+/** Is the given simulation view on screen right now? */
+export const showing = (v: SimTab) => (layout.value === 'desktop' ? v === 'farmer' || panelTab.value === v : simTab.value === v);
+
+export function scrollToId(id: string, focus = true) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  if (focus) {
+    const h = el.querySelector<HTMLElement>('h2, h1') ?? el;
+    if (!h.hasAttribute('tabindex')) h.setAttribute('tabindex', '-1');
+    h.focus({ preventScroll: true });
+  }
+}
+
+export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow' }
+
+/** ?at=alert (QR target), ?tab=insurer, ?rail=pmfby, ?cadence=slow, #how, #k=<payload>; old #/dashboard style links still work. */
+export function readDeepLink(): DeepLink {
+  if (!hasDom) return {};
+  const q = new URLSearchParams(location.search);
+  const out: DeepLink = {};
+  const at = q.get('at');
+  if (at && /^(trigger|alert|capture|deadline|confirm)$/.test(at)) out.at = at;
+  const rail = q.get('rail');
+  if (rail === 'relief' || rail === 'pmfby') out.rail = rail;
+  const cad = q.get('cadence');
+  if (cad === 'demo' || cad === 'slow') out.cadence = cad;
+  const tab = q.get('tab');
+  if (tab && /^(farmer|insurer|ledger|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  const h = location.hash;
+  if (h.startsWith('#k=')) out.k = h.slice(3);
+  else if (/^#\/dashboard/.test(h)) out.tab = 'insurer';
+  else if (/^#\/detect/.test(h)) out.tab = 'explainer';
+  else if (/^#\/how/.test(h)) out.section = 'how';
+  else if (/^#(problem|simulation|how|limits)$/.test(h)) out.section = h.slice(1) as SectionId;
+  return out;
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Saboot — the clock starts at the storm</title>
+    <meta name="description" content="Saboot is a simulation of a disaster crop-loss evidence layer: it starts an evidence clock at the flood, alerts the farmer by voice, and seals photo evidence so any edit shows. Two rails, a relief assessment and a crop-insurance intimation. Synthetic data, fictional district." />
+    <meta name="theme-color" content="#f6f3f1" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <script>
+      // Apply saved per-viewer preferences before first paint (no layout shift). A saved Hindi/Punjabi
+      // choice keeps the prerendered English shell hidden until its dictionary and fonts are ready.
+      (function () {
+        var c = document.documentElement.classList;
+        function get(k) { try { return JSON.parse(localStorage.getItem('saboot.' + k)); } catch (e) { return null; } }
+        var ts = get('textScale');
+        if (ts === 125 || ts === 150) c.add('t' + ts);
+        if (get('lowData')) c.add('lowdata', 'still');
+        if (get('hc')) c.add('hc');
+        var l = get('lang');
+        if (l === 'hi' || l === 'pa') { c.add('lang-pending', 'l-' + l); setTimeout(function () { c.remove('lang-pending'); }, 2500); }
+      })();
+    </script>
+    <style>html.lang-pending #app { visibility: hidden; }</style>
+    <link rel="preload" href="data/flood-replay.json" as="fetch" crossorigin fetchpriority="low" />
+    <!--fonts-->
+  </head>
+  <body>
+    <div id="app"><!--ssr--></div>
+    <noscript><p style="padding:16px">Saboot is an interactive simulation and needs JavaScript.</p></noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
