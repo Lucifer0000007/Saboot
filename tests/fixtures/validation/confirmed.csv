@@ -1,0 +1,8 @@
+# FIXTURE: hand-made synthetic numbers that prove the validation harness runs. Not real data. Never shown in the product.
+event_id,window_start_utc,window_end_utc,village,status,source
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-A,affected,FIXTURE: invented label
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-B,not_affected,FIXTURE: invented label
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-C,affected,FIXTURE: invented label
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-D,not_affected,FIXTURE: invented label
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-E,affected,FIXTURE: invented label
+FIX-1,2000-01-01T00:00:00Z,2000-01-03T00:00:00Z,Fixture-F,affected,FIXTURE: invented label

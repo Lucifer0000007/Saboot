@@ -1,0 +1,131 @@
+{
+  "format": "Saboot evidence packet, version 1 (docs/EVIDENCE-FORMAT.md)",
+  "note": "Synthetic: a made-up plot, made-up photo fingerprints and a throw-away key. ECDSA signatures are randomised, so these strings are the fixed vectors. Regenerate with scripts/evidence-vectors.ts only when the format changes.",
+  "vectors": [
+    {
+      "name": "valid",
+      "description": "A packet exactly as the phone sealed and signed it.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f7fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "valid-link",
+      "description": "The same packet inside a link: everything after #k= is the code. The fragment never reaches a server.",
+      "input": "https://example.org/saboot/#k=AQUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f7fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "tampered-photo-hash",
+      "description": "One bit of the first photo fingerprint changed. The chain no longer matches its head.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKChoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": false,
+        "failed": "chain",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f7fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a0a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "tampered-chain-head",
+      "description": "One bit of the chain head changed. The recomputed chain no longer matches it.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_b6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": false,
+        "failed": "chain",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f6fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "tampered-seal-time",
+      "description": "The seal time changed. The seal record is part of the chain, so the head no longer matches.",
+      "input": "AQUETAdjalYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": false,
+        "failed": "chain",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f7fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "edited-and-rechained",
+      "description": "A photo fingerprint changed AND the chain head recomputed to match. The chain passes, the signature does not: only the phone’s key could sign.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKChoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_6GtsHTTyfwpYejiKRtP_fbRopDaUQXfblBFiZKi_OhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": false,
+        "failed": "signature",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "fe86b6c1d34f27f0a587a388a46d3ff7db468a436944177db94116264a8bf3a1",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a0a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "wrong-signature",
+      "description": "One bit of the signature changed.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_A",
+      "expect": {
+        "ok": false,
+        "failed": "signature",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f7fa7bd3eeb23ebdc08c9f647e6703018f2d0b82bae5d010f3898419d2ccf921",
+        "publicKey": "032b7e52971cd17ab82269a39e4667da98abcc45e9f4a94acb297b43603a6384f5",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      }
+    },
+    {
+      "name": "wrong-version",
+      "description": "The version byte says 2. A verifier must refuse versions it does not know.",
+      "input": "AgUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_HohlQNWvoqdRK_Q",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "truncated",
+      "description": "The last ten bytes are missing.",
+      "input": "AQUETAdialYkwAAAdasAASbAAwAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhAQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrICB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_f6e9Pusj69wIyfZH5nAwGPLQuCuuXQEPOJhBnSzPkhAyt-Upcc0Xq4ImmjnkZn2pirzEXp9KlKyyl7Q2A6Y4T1m0NQpqgiey7e4vetmG_xKZqS_OW1WiEEbtExt25ul4tU2hb6m5OK-28YjN4X3Cttm-q6X1_H",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "not-a-code",
+      "description": "Not an evidence code at all.",
+      "input": "hello world",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    }
+  ]
+}

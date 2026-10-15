@@ -1,0 +1,7 @@
+# FIXTURE: hand-made synthetic numbers that prove the validation harness runs. Not real data. Never shown in the product.
+plot_id,village,lat,lon,area_ha,crop,elev_above_river_m,low_lying,river_reach
+FA-1,Fixture-A,30.001,75.001,1.2,paddy,1.5,1,
+FB-1,Fixture-B,30.301,75.301,1.0,wheat,1.8,1,
+FC-1,Fixture-C,30.302,75.302,0.8,wheat,2.0,1,
+FD-1,Fixture-D,30.101,75.101,1.1,maize,4.5,0,FIXTURE-G1:2
+FF-1,Fixture-F,31.500,76.500,1.0,paddy,1.5,1,

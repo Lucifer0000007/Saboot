@@ -1,0 +1,583 @@
+{
+  "generatedBy": "scripts/gen-scenario.ts (npm run gen). Do not edit by hand.",
+  "rulesVersion": {
+    "A": "1",
+    "B": "2",
+    "C": "1"
+  },
+  "file": {
+    "name": "public/data/flood-replay.json",
+    "bytes": 25896,
+    "sha256": "7e3d2f239ab04a21fecad2cb70b4d91181be8dd90dda00fc51facde5c14eff8f"
+  },
+  "scenario": {
+    "name": "Flood replay",
+    "seed": 20260714,
+    "hours": 168,
+    "t0": "2026-07-14T00:00:00+05:30",
+    "plots": 50,
+    "villages": [
+      "Kesarpur",
+      "Neelkot",
+      "Ambwali",
+      "Dhanpura",
+      "Sarangwal"
+    ],
+    "rainGauges": 3,
+    "riverGauges": 2,
+    "radarDemoCadenceH": 12,
+    "radarSlowCadenceH": 72,
+    "crops": {
+      "Paddy": 30,
+      "Maize": 7,
+      "Vegetables": 5,
+      "Sugarcane": 3,
+      "Cotton": 5
+    },
+    "languages": {
+      "hi": 18,
+      "pa": 23,
+      "en": 9
+    },
+    "personas": {
+      "partial": 2,
+      "slowack": 2,
+      "noref": 1,
+      "focus": 1,
+      "normal": 15,
+      "nodamage": 12,
+      "offline": 1,
+      "quiet": 14,
+      "assisted": 1,
+      "missed": 1
+    },
+    "terrain": {
+      "mid": 19,
+      "low": 5,
+      "high": 26
+    },
+    "floodedInTruth": 24,
+    "riverReach": {
+      "riverside": 31,
+      "out of reach": 18,
+      "low-lying": 1
+    },
+    "baselineWetPlots": 30,
+    "thresholds": {
+      "rain24": 64.5,
+      "rainHeavy": 100,
+      "floodFrac": 0.3,
+      "clearFrac": 0.05,
+      "damageFrac": 0.3,
+      "damageHours": 12,
+      "lowElev": 2.6,
+      "midElev": 4.2
+    },
+    "river": {
+      "reachM": 1000,
+      "lowReachM": 1500,
+      "adjacentM": 500,
+      "waveKmh": 0.7,
+      "maxLagH": 12,
+      "latencyH": 0.5,
+      "gauges": [
+        {
+          "id": "RG-1",
+          "unit": "cm",
+          "danger": 300
+        },
+        {
+          "id": "RG-2",
+          "unit": "cm",
+          "danger": 300
+        }
+      ]
+    },
+    "baselineWet": {
+      "crops": [
+        "Paddy"
+      ],
+      "frac": 0.6
+    }
+  },
+  "parameters": {
+    "relief": {
+      "captureSoonHours": 48,
+      "damageShareThreshold": 0.33,
+      "perAcreAmount": null,
+      "acreageCapHa": null,
+      "publishAtHour": 96,
+      "objectionWindowHours": 48
+    },
+    "pmfby": {
+      "windowHours": 72,
+      "state": "Haryana"
+    }
+  },
+  "combos": {
+    "relief-demo": {
+      "rail": "relief",
+      "cadence": "demo",
+      "windowHours": 48,
+      "detected": 36,
+      "rulesFired": {
+        "A": 3,
+        "B": 22,
+        "C": 32
+      },
+      "onlyRule": {
+        "A": 0,
+        "B": 4,
+        "C": 14
+      },
+      "multipleRules": 18,
+      "eventSource": {
+        "rain": 29,
+        "river": 7
+      },
+      "confidence": {
+        "high": 18,
+        "medium": 15,
+        "low": 3
+      },
+      "eventToCall": {
+        "n": 36,
+        "minH": 0.75,
+        "medianH": 2.75,
+        "p90H": 18.25,
+        "maxH": 18.25
+      },
+      "clockLeftAtCallMedianH": 45.25,
+      "firstTriggerT": 14,
+      "consistencyCheck": {
+        "note": "against the generator's own synthetic ground truth: a consistency check, not a validation",
+        "tp": 24,
+        "fp": 12,
+        "fn": 0,
+        "tn": 14,
+        "precision": 0.67,
+        "recall": 1,
+        "misses": [],
+        "falseAlarms": [
+          "P-06",
+          "P-07",
+          "P-08",
+          "P-10",
+          "P-11",
+          "P-13",
+          "P-15",
+          "P-16",
+          "P-18",
+          "P-20",
+          "P-41",
+          "P-48"
+        ]
+      },
+      "pilot": {
+        "onList": 24,
+        "truthFlooded": 24,
+        "truthWithEvidence": 23,
+        "eventToEvidenceMedianH": 11.05,
+        "eventToEvidenceP90H": 25.85,
+        "objections": 5,
+        "objectionsAnswered": 3,
+        "objectionRatePct": 21
+      },
+      "cohortJudgeIdle": {
+        "alerted": 36,
+        "floodEvents": 24,
+        "filedInWindow": 21,
+        "filedLate": 1,
+        "missed": 2
+      },
+      "stages": {
+        "acknowledged": 21,
+        "filed": 3,
+        "evidence": 1,
+        "missed": 1,
+        "no-damage": 12,
+        "unconfirmed": 8,
+        "monitoring": 4
+      },
+      "tiers": {
+        "partial": 8,
+        "supported": 18,
+        "none": 16,
+        "insufficient": 8
+      },
+      "hail": {
+        "prompted": 10,
+        "replied": 2
+      },
+      "focus": {
+        "id": "P-04",
+        "name": "Harjit Kaur",
+        "lang": "pa",
+        "village": "Kesarpur",
+        "rainCrossT": 11,
+        "riverCrossT": 15,
+        "detectT": 14,
+        "eventT": 11,
+        "alertT": 14.25,
+        "deadlineT": 59,
+        "fired": "A+B+C",
+        "eventSource": "rain",
+        "confidence": "high",
+        "eventToCallH": 3.25,
+        "hoursLeftAtAlertH": 44.75
+      }
+    },
+    "relief-slow": {
+      "rail": "relief",
+      "cadence": "slow",
+      "windowHours": 48,
+      "detected": 32,
+      "rulesFired": {
+        "A": 3,
+        "B": 4,
+        "C": 32
+      },
+      "onlyRule": {
+        "A": 0,
+        "B": 0,
+        "C": 27
+      },
+      "multipleRules": 5,
+      "eventSource": {
+        "rain": 25,
+        "river": 7
+      },
+      "confidence": {
+        "medium": 27,
+        "high": 5
+      },
+      "eventToCall": {
+        "n": 32,
+        "minH": 0.75,
+        "medianH": 2.75,
+        "p90H": 4.75,
+        "maxH": 4.75
+      },
+      "clockLeftAtCallMedianH": 45.25,
+      "firstTriggerT": 14,
+      "consistencyCheck": {
+        "note": "against the generator's own synthetic ground truth: a consistency check, not a validation",
+        "tp": 20,
+        "fp": 12,
+        "fn": 4,
+        "tn": 14,
+        "precision": 0.63,
+        "recall": 0.83,
+        "misses": [
+          "P-34 Paddy",
+          "P-35 Vegetables",
+          "P-39 Paddy",
+          "P-40 Paddy"
+        ],
+        "falseAlarms": [
+          "P-06",
+          "P-07",
+          "P-08",
+          "P-10",
+          "P-11",
+          "P-13",
+          "P-15",
+          "P-16",
+          "P-18",
+          "P-20",
+          "P-41",
+          "P-48"
+        ]
+      },
+      "pilot": {
+        "onList": 20,
+        "truthFlooded": 24,
+        "truthWithEvidence": 19,
+        "eventToEvidenceMedianH": 10.05,
+        "eventToEvidenceP90H": 15.15,
+        "objections": 5,
+        "objectionsAnswered": 3,
+        "objectionRatePct": 25
+      },
+      "cohortJudgeIdle": {
+        "alerted": 32,
+        "floodEvents": 20,
+        "filedInWindow": 17,
+        "filedLate": 1,
+        "missed": 2
+      },
+      "stages": {
+        "acknowledged": 17,
+        "filed": 3,
+        "evidence": 1,
+        "missed": 1,
+        "no-damage": 12,
+        "unconfirmed": 8,
+        "monitoring": 8
+      },
+      "tiers": {
+        "partial": 11,
+        "supported": 11,
+        "none": 20,
+        "insufficient": 8
+      },
+      "hail": {
+        "prompted": 10,
+        "replied": 2
+      },
+      "focus": {
+        "id": "P-04",
+        "name": "Harjit Kaur",
+        "lang": "pa",
+        "village": "Kesarpur",
+        "rainCrossT": 11,
+        "riverCrossT": 15,
+        "detectT": 14,
+        "eventT": 11,
+        "alertT": 14.25,
+        "deadlineT": 59,
+        "fired": "A+B+C",
+        "eventSource": "rain",
+        "confidence": "high",
+        "eventToCallH": 3.25,
+        "hoursLeftAtAlertH": 44.75
+      }
+    },
+    "pmfby-demo": {
+      "rail": "pmfby",
+      "cadence": "demo",
+      "windowHours": 72,
+      "detected": 36,
+      "rulesFired": {
+        "A": 3,
+        "B": 22,
+        "C": 32
+      },
+      "onlyRule": {
+        "A": 0,
+        "B": 4,
+        "C": 14
+      },
+      "multipleRules": 18,
+      "eventSource": {
+        "rain": 29,
+        "river": 7
+      },
+      "confidence": {
+        "high": 18,
+        "medium": 15,
+        "low": 3
+      },
+      "eventToCall": {
+        "n": 36,
+        "minH": 0.75,
+        "medianH": 2.75,
+        "p90H": 18.25,
+        "maxH": 18.25
+      },
+      "clockLeftAtCallMedianH": 69.25,
+      "firstTriggerT": 14,
+      "consistencyCheck": {
+        "note": "against the generator's own synthetic ground truth: a consistency check, not a validation",
+        "tp": 24,
+        "fp": 12,
+        "fn": 0,
+        "tn": 14,
+        "precision": 0.67,
+        "recall": 1,
+        "misses": [],
+        "falseAlarms": [
+          "P-06",
+          "P-07",
+          "P-08",
+          "P-10",
+          "P-11",
+          "P-13",
+          "P-15",
+          "P-16",
+          "P-18",
+          "P-20",
+          "P-41",
+          "P-48"
+        ]
+      },
+      "pilot": {
+        "onList": 24,
+        "truthFlooded": 24,
+        "truthWithEvidence": 23,
+        "eventToEvidenceMedianH": 11.05,
+        "eventToEvidenceP90H": 25.85,
+        "objections": 0,
+        "objectionsAnswered": 0,
+        "objectionRatePct": null
+      },
+      "cohortJudgeIdle": {
+        "alerted": 36,
+        "floodEvents": 24,
+        "filedInWindow": 21,
+        "filedLate": 1,
+        "missed": 2
+      },
+      "stages": {
+        "acknowledged": 21,
+        "filed": 3,
+        "evidence": 1,
+        "missed": 1,
+        "no-damage": 12,
+        "unconfirmed": 8,
+        "monitoring": 4
+      },
+      "tiers": {
+        "partial": 8,
+        "supported": 18,
+        "none": 16,
+        "insufficient": 8
+      },
+      "hail": {
+        "prompted": 10,
+        "replied": 2
+      },
+      "focus": {
+        "id": "P-04",
+        "name": "Harjit Kaur",
+        "lang": "pa",
+        "village": "Kesarpur",
+        "rainCrossT": 11,
+        "riverCrossT": 15,
+        "detectT": 14,
+        "eventT": 11,
+        "alertT": 14.25,
+        "deadlineT": 83,
+        "fired": "A+B+C",
+        "eventSource": "rain",
+        "confidence": "high",
+        "eventToCallH": 3.25,
+        "hoursLeftAtAlertH": 68.75
+      }
+    },
+    "pmfby-slow": {
+      "rail": "pmfby",
+      "cadence": "slow",
+      "windowHours": 72,
+      "detected": 32,
+      "rulesFired": {
+        "A": 3,
+        "B": 4,
+        "C": 32
+      },
+      "onlyRule": {
+        "A": 0,
+        "B": 0,
+        "C": 27
+      },
+      "multipleRules": 5,
+      "eventSource": {
+        "rain": 25,
+        "river": 7
+      },
+      "confidence": {
+        "medium": 27,
+        "high": 5
+      },
+      "eventToCall": {
+        "n": 32,
+        "minH": 0.75,
+        "medianH": 2.75,
+        "p90H": 4.75,
+        "maxH": 4.75
+      },
+      "clockLeftAtCallMedianH": 69.25,
+      "firstTriggerT": 14,
+      "consistencyCheck": {
+        "note": "against the generator's own synthetic ground truth: a consistency check, not a validation",
+        "tp": 20,
+        "fp": 12,
+        "fn": 4,
+        "tn": 14,
+        "precision": 0.63,
+        "recall": 0.83,
+        "misses": [
+          "P-34 Paddy",
+          "P-35 Vegetables",
+          "P-39 Paddy",
+          "P-40 Paddy"
+        ],
+        "falseAlarms": [
+          "P-06",
+          "P-07",
+          "P-08",
+          "P-10",
+          "P-11",
+          "P-13",
+          "P-15",
+          "P-16",
+          "P-18",
+          "P-20",
+          "P-41",
+          "P-48"
+        ]
+      },
+      "pilot": {
+        "onList": 20,
+        "truthFlooded": 24,
+        "truthWithEvidence": 19,
+        "eventToEvidenceMedianH": 10.05,
+        "eventToEvidenceP90H": 15.15,
+        "objections": 0,
+        "objectionsAnswered": 0,
+        "objectionRatePct": null
+      },
+      "cohortJudgeIdle": {
+        "alerted": 32,
+        "floodEvents": 20,
+        "filedInWindow": 17,
+        "filedLate": 1,
+        "missed": 2
+      },
+      "stages": {
+        "acknowledged": 17,
+        "filed": 3,
+        "evidence": 1,
+        "missed": 1,
+        "no-damage": 12,
+        "unconfirmed": 8,
+        "monitoring": 8
+      },
+      "tiers": {
+        "partial": 11,
+        "supported": 11,
+        "none": 20,
+        "insufficient": 8
+      },
+      "hail": {
+        "prompted": 10,
+        "replied": 2
+      },
+      "focus": {
+        "id": "P-04",
+        "name": "Harjit Kaur",
+        "lang": "pa",
+        "village": "Kesarpur",
+        "rainCrossT": 11,
+        "riverCrossT": 15,
+        "detectT": 14,
+        "eventT": 11,
+        "alertT": 14.25,
+        "deadlineT": 83,
+        "fired": "A+B+C",
+        "eventSource": "rain",
+        "confidence": "high",
+        "eventToCallH": 3.25,
+        "hoursLeftAtAlertH": 68.75
+      }
+    }
+  },
+  "text": {
+    "medianEventToCall": "2 h 45 min",
+    "p90EventToCall": "18 h 15 min",
+    "focusEventToCall": "3 h 15 min",
+    "focusHoursLeftPmfby": "68 h 45 min",
+    "focusHoursLeftRelief": "44 h 45 min",
+    "medianEventToCallSlow": "2 h 45 min"
+  }
+}

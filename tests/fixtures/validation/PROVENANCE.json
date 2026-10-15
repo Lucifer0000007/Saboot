@@ -1,0 +1,24 @@
+{
+  "_fixture": true,
+  "_dataset": "FIXTURE: hand-made synthetic numbers that prove the harness runs. Not real data.",
+  "rainfall.csv": {
+    "source": "FIXTURE (hand-made numbers for rainfall)",
+    "licence": "none: synthetic, no real source",
+    "retrieved": "not applicable"
+  },
+  "river.csv": {
+    "source": "FIXTURE (hand-made numbers for river stage)",
+    "licence": "none: synthetic, no real source",
+    "retrieved": "not applicable"
+  },
+  "confirmed.csv": {
+    "source": "FIXTURE (hand-made numbers for village labels)",
+    "licence": "none: synthetic, no real source",
+    "retrieved": "not applicable"
+  },
+  "plots.csv": {
+    "source": "FIXTURE (hand-made numbers for plots)",
+    "licence": "none: synthetic, no real source",
+    "retrieved": "not applicable"
+  }
+}
