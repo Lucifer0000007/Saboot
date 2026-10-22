@@ -18,8 +18,8 @@ claim, places a real call, or connects to any government system. The decision ha
 Built for the Code Yudh Hackathon, Chandigarh University · Track: AgriTech & Rural Transformation · Agri-FinTech.
 Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · rules for contributors:
 
-**Live site:** _not deployed yet — the link goes here after `npm run deploy` (it is the `PUBLIC_URL` in
-[`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code)._
+**Live site:** https://moonlit-pixie-248afc.netlify.app (this is the `PUBLIC_URL` in
+[`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code).
 
 ![The Saboot landing page: the hero clock, the three problem cards and the simulation below](docs/screenshot.jpg)
 
@@ -246,27 +246,25 @@ Claims in `docs/` carry the same marker text so they can be found with a search,
 <!-- markers:start -->
 | # | Where | What to check, and where |
 |---|---|---|
-| 1 | `src/config.ts:2` | replace TEAM_NAME with your registered Code Yudh team name, then delete this marker |
-| 2 | `src/config.ts:11` | set PUBLIC_URL to the final public address of the deployed site (for example https://<site-name>.netlify.app), then delete this marker |
-| 3 | `src/config.ts:37` | damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA) |
-| 4 | `src/config.ts:52` | that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department |
-| 5 | `src/dashboard/DraftView.tsx:17` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; the same claim sits in src/i18n/en.ts (ob.*) |
-| 6 | `src/dashboard/Impact.tsx:124` | that a real radar satellite revisits a given field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
-| 7 | `src/explainer/Explainer.tsx:281` | paddy fields are normally flooded on purpose in the kharif transplanting season, so radar change detection cannot separate irrigation water from flood water — UN-SPIDER recommended practice for SAR flood mapping, and the state agriculture department crop calendar |
-| 8 | `src/explainer/Explainer.tsx:287` | IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in) |
-| 9 | `src/explainer/Explainer.tsx:302` | C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping |
-| 10 | `src/explainer/Explainer.tsx:304` | real satellite radar revisits a field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview |
-| 11 | `src/i18n/en.ts:45` | that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority |
-| 12 | `src/i18n/en.ts:48` | that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App |
-| 13 | `src/i18n/en.ts:61` | 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in |
-| 14 | `src/i18n/en.ts:137` | Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
-| 15 | `src/i18n/en.ts:234` | official intimation channels — the Crop Insurance App and the Krishi Rakshak Portal and Helpline 14447 — pmfby.gov.in and agriwelfare.gov.in |
-| 16 | `src/i18n/en.ts:250` | satellite radar revisit over a given field is several days — ESA Sentinel-1 mission overview |
-| 17 | `src/i18n/en.ts:293` | river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in) |
-| 18 | `src/i18n/en.ts:449` | that farmers can intimate loss through an official crop-insurance helpline or app (named in the How it works section) — pmfby.gov.in |
-| 19 | `src/i18n/en.ts:501` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx |
-| 20 | `src/i18n/en.ts:539` | that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines |
-| 21 | `src/i18n/en.ts:584` | that a missed call to a number shown on a village noticeboard is a workable way to reach farmers without a smartphone — a design assumption to confirm with the district office and a telephony partner, not an existing service; key fp.s1.b and its hi/pa lines |
+| 1 | `src/config.ts:34` | damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA) |
+| 2 | `src/config.ts:49` | that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department |
+| 3 | `src/dashboard/DraftView.tsx:17` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; the same claim sits in src/i18n/en.ts (ob.*) |
+| 4 | `src/dashboard/Impact.tsx:124` | that a real radar satellite revisits a given field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
+| 5 | `src/explainer/Explainer.tsx:281` | paddy fields are normally flooded on purpose in the kharif transplanting season, so radar change detection cannot separate irrigation water from flood water — UN-SPIDER recommended practice for SAR flood mapping, and the state agriculture department crop calendar |
+| 6 | `src/explainer/Explainer.tsx:287` | IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in) |
+| 7 | `src/explainer/Explainer.tsx:302` | C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping |
+| 8 | `src/explainer/Explainer.tsx:304` | real satellite radar revisits a field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview |
+| 9 | `src/i18n/en.ts:44` | that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority |
+| 10 | `src/i18n/en.ts:47` | that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App |
+| 11 | `src/i18n/en.ts:60` | 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in |
+| 12 | `src/i18n/en.ts:136` | Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
+| 13 | `src/i18n/en.ts:233` | official intimation channels — the Crop Insurance App and the Krishi Rakshak Portal and Helpline 14447 — pmfby.gov.in and agriwelfare.gov.in |
+| 14 | `src/i18n/en.ts:249` | satellite radar revisit over a given field is several days — ESA Sentinel-1 mission overview |
+| 15 | `src/i18n/en.ts:292` | river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in) |
+| 16 | `src/i18n/en.ts:448` | that farmers can intimate loss through an official crop-insurance helpline or app (named in the How it works section) — pmfby.gov.in |
+| 17 | `src/i18n/en.ts:500` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx |
+| 18 | `src/i18n/en.ts:538` | that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines |
+| 19 | `src/i18n/en.ts:583` | that a missed call to a number shown on a village noticeboard is a workable way to reach farmers without a smartphone — a design assumption to confirm with the district office and a telephony partner, not an existing service; key fp.s1.b and its hi/pa lines |
 <!-- markers:end -->
 
 ## Translations (machine-drafted)
@@ -343,7 +341,7 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
 - Paddy in the standing-water season: radar cannot tell flood from irrigation, so only water above the expected level counts and
   the radar weight is lowered. This is an unvalidated design decision.
 - Weak (2G) networking is simulated as one small message about every 1.2 s, hash-first.
-- The team name in the footer is a placeholder (`src/config.ts`, marked) until you set it. The licence holder is a placeholder too.
+- The licence holder is a placeholder.
 - The officer and district console stays English; the farmer-facing and public parts are trilingual.
 - The nav's "Run the simulation" pill is off-black while another primary action is on screen and turns blue otherwise, so each
   screen has exactly one blue primary.

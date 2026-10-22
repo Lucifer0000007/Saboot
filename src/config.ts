@@ -1,15 +1,12 @@
-// Project facts shown in the footer. Same in every language.
-// {{VERIFY: replace TEAM_NAME with your registered Code Yudh team name, then delete this marker}}
-export const TEAM_NAME = 'Team Saboot';
+// Project facts shown in the footer. Same in every language. The footer label already says "Team".
+export const TEAM_NAME = 'Overflow';
 export const PROJECT = 'Saboot';
 export const TRACK = 'AgriTech & Rural Transformation · Agri-FinTech';
 export const EVENT = 'Code Yudh Hackathon, Chandigarh University';
 
 // The one place the public address lives. The build writes it into the canonical link and the Open Graph /
-// Twitter tags (scripts/postbuild.mjs); `npm run qr` encodes it. The `.invalid` placeholder never resolves,
-// so nothing can be mistaken for a live link, and the marker below keeps `npm run deploy` refusing until it is set.
-// {{VERIFY: set PUBLIC_URL to the final public address of the deployed site (for example https://<site-name>.netlify.app), then delete this marker}}
-export const PUBLIC_URL = 'https://saboot-placeholder.invalid';
+// Twitter tags (scripts/postbuild.mjs); `npm run qr` encodes it. Change it here when the site moves.
+export const PUBLIC_URL = 'https://moonlit-pixie-248afc.netlify.app';
 /** Appended to PUBLIC_URL for the judges' QR code: opens the simulation at the farmer's alert. */
 export const QR_PATH = '?at=alert';
 
