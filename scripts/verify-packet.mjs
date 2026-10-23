@@ -28,10 +28,18 @@ const cat = (...parts) => {
 };
 const sha256 = async (b) => new Uint8Array(await subtle.digest('SHA-256', b));
 
-function unb64url(s) {
-  if (!/^[A-Za-z0-9_-]+$/.test(s)) throw new Error('not base64url');
-  const t = s.replace(/-/g, '+').replace(/_/g, '/');
-  return new Uint8Array(Buffer.from(t + '='.repeat((4 - (t.length % 4)) % 4), 'base64'));
+// A code is about 338 characters; anything much longer is not one.
+const MAX_CODE_CHARS = 1024;
+const toB64url = (b) => Buffer.from(b).toString('base64url');
+/**
+ * The code as bytes, or null. Whitespace is ignored (a pasted code may wrap), only the base64url alphabet is allowed, and only
+ * the canonical spelling counts: the last character carries unused bits, and one packet must have exactly one text.
+ */
+function codeBytes(input) {
+  const code = String(input).trim().replace(/^[\s\S]*#k=/, '').replace(/\s+/g, '');
+  if (!code || code.length > MAX_CODE_CHARS || code.length % 4 === 1 || !/^[A-Za-z0-9_-]+$/.test(code)) return null;
+  const bytes = new Uint8Array(Buffer.from(code, 'base64url'));
+  return toB64url(bytes) === code ? bytes : null;
 }
 
 // ---- P-256 point decompression: WebCrypto imports an uncompressed point (65 bytes), the packet carries 33 ----
@@ -62,6 +70,8 @@ function decompress(c) {
  *   u8 version | u8 plot number | u16 event hour x100 | u16 seal hour x100 | u32 phone clock, unix seconds
  *   i32 latitude x1000 | i32 longitude x1000 | u8 n photos | n x (u8 kind, u16 capture hour x100, 32 bytes SHA-256)
  *   32 bytes chain head | 33 bytes compressed P-256 public key | 64 bytes ECDSA signature over everything before it
+ * A photo's kind byte: bits 0-1 the kind, bits 2-3 where the photo came from, bits 4-5 where its location came from
+ * (0 not recorded, 1 live, 2 simulated, 3 entered by hand); bits 6-7 must be 0.
  * Chain: link = SHA-256(previous link, record), starting from 32 zero bytes. Records: each photo's 35 bytes, then a
  * seal record made of 0xff and bytes 1..17 of the body.
  */
@@ -74,14 +84,11 @@ async function chainHead(body) {
   return link;
 }
 
+const ORIGIN_NAMES = ['not recorded', 'live', 'simulated', 'hand'];
+
 export async function verify(input) {
-  const code = String(input).trim().replace(/^.*#k=/, '');
-  let all;
-  try {
-    all = unb64url(code);
-  } catch {
-    return { ok: false, failed: 'decode', reason: 'Not a Saboot evidence code.' };
-  }
+  const all = codeBytes(input);
+  if (!all) return { ok: false, failed: 'decode', reason: 'Not a Saboot evidence code.' };
   if (all.length < 19 || all[0] !== VERSION) return { ok: false, failed: 'decode', reason: 'Unknown code version or too short.' };
   const n = all[18];
   const bodyLen = 19 + n * 35;
@@ -91,6 +98,14 @@ export async function verify(input) {
   const pub = all.slice(bodyLen + 32, bodyLen + 65);
   const sig = all.slice(bodyLen + 65);
   const dv = new DataView(body.buffer, body.byteOffset, body.byteLength);
+  if (Math.abs(dv.getInt32(10) / 1000) > 90 || Math.abs(dv.getInt32(14) / 1000) > 180) return { ok: false, failed: 'decode', reason: 'The location is not a place on Earth.' };
+  const kinds = [];
+  for (let i = 0; i < n; i++) {
+    const kb = dv.getUint8(19 + i * 35);
+    if ((kb & 3) > 2 || kb & 0xc0) return { ok: false, failed: 'decode', reason: 'A photo record has a kind this format does not define.' };
+    kinds.push(kb & 3);
+  }
+  if (new Set(kinds).size !== n) return { ok: false, failed: 'decode', reason: 'Two photos have the same kind.' };
   const payload = {
     formatVersion: dv.getUint8(0),
     plot: 'P-' + String(dv.getUint8(1)).padStart(2, '0'),
@@ -100,7 +115,9 @@ export async function verify(input) {
     lat: dv.getInt32(10) / 1000,
     lon: dv.getInt32(14) / 1000,
     photos: Array.from({ length: n }, (_, i) => ({
-      kind: KINDS[dv.getUint8(19 + i * 35)] ?? 'unknown',
+      kind: KINDS[kinds[i]],
+      photoOrigin: ORIGIN_NAMES[(dv.getUint8(19 + i * 35) >> 2) & 3],
+      locationOrigin: ORIGIN_NAMES[(dv.getUint8(19 + i * 35) >> 4) & 3],
       captureHour: dv.getUint16(19 + i * 35 + 1) / 100,
       sha256: toHex(body.slice(19 + i * 35 + 3, 19 + i * 35 + 35)),
     })),
@@ -167,7 +184,7 @@ async function main() {
       console.log(`  seal hour       ${p.sealHour} (replay hours since T0)`);
       console.log(`  phone clock     ${p.phoneClockUtc}  (as the phone reported it; not checked against a trusted clock)`);
       console.log(`  location        ${p.lat}, ${p.lon}  (rounded to 0.001 degrees, about 100 m)`);
-      for (const ph of p.photos) console.log(`  photo ${ph.kind.padEnd(8)} hour ${ph.captureHour}  sha256 ${ph.sha256}`);
+      for (const ph of p.photos) console.log(`  photo ${ph.kind.padEnd(8)} hour ${ph.captureHour}  sha256 ${ph.sha256}  (photo: ${ph.photoOrigin}, location: ${ph.locationOrigin})`);
       console.log(`  chain head      ${p.chainHead}`);
       console.log(`  public key      ${p.publicKey}`);
     }

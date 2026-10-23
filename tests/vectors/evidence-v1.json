@@ -1,6 +1,6 @@
 {
   "format": "Saboot evidence packet, version 1 (docs/EVIDENCE-FORMAT.md)",
-  "note": "Synthetic: a made-up plot, made-up photo fingerprints and a throw-away key. ECDSA signatures are randomised, so these strings are the fixed vectors. Regenerate with scripts/evidence-vectors.ts only when the format changes.",
+  "note": "Synthetic: a made-up plot, made-up photo fingerprints and throw-away keys. ECDSA signatures are randomised, so these strings are the fixed vectors: this file is only ever appended to, never regenerated. The first ten were made before the origin bits and the strict decoding rules were added; every one of them still gives the same result.",
   "vectors": [
     {
       "name": "valid",
@@ -122,6 +122,180 @@
       "name": "not-a-code",
       "description": "Not an evidence code at all.",
       "input": "hello world",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "origin-live",
+      "description": "Every photo and its location came from the live camera and GPS. The origin bits are inside the chained, signed bytes.",
+      "input": "AQUETAdialYkwAAAdasAASbAAxQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_TlZbjPRBpnViHmLqG4t6N0qJYVeEjUcMzHQnr2pAWvAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOI_V6S8NLSn6A8sBFZOth3fF-2Ol1SvX0tABpf3RVzVtcVCO74av5DEXSSJZ8BgtDxaiFdSRIoxZHVItJmVkL8g",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f4e565b8cf441a675621e62ea1b8b7a374a896157848d470ccc7427af6a405af",
+        "publicKey": "026104ecf682c96434a875a0470ab20c5a47ca1ab98a1693f0d9e84246bd09fa4e",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "photoOrigins": [
+          "live",
+          "live",
+          "live"
+        ],
+        "locationOrigins": [
+          "live",
+          "live",
+          "live"
+        ]
+      }
+    },
+    {
+      "name": "origin-simulated",
+      "description": "Every photo and its location was simulated. A laptop must say so.",
+      "input": "AQUETAdialYkwAAAdasAASbAAygHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhKQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIqB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_vYV7awdBZrV6GZAmcGE8GsrqALcrb2j7wRvxPKDXWNAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOP3sss61_xScelRhUkIO_L_eWXB4JuD8BmKpQN2Azkr4HxNCq4x-o6MafVho21ijfDyuQThIu3tQD_M4ZdqXa_g",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "fbd857b6b074166b57a19902670613c1acaea00b72b6f68fbc11bf13ca0d758d",
+        "publicKey": "026104ecf682c96434a875a0470ab20c5a47ca1ab98a1693f0d9e84246bd09fa4e",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "photoOrigins": [
+          "simulated",
+          "simulated",
+          "simulated"
+        ],
+        "locationOrigins": [
+          "simulated",
+          "simulated",
+          "simulated"
+        ]
+      }
+    },
+    {
+      "name": "origin-hand-location",
+      "description": "Live photos, but the first location was entered by hand.",
+      "input": "AQUETAdialYkwAAAdasAASbAAzQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDwwPYAty24_GT-tb4597w0AIIWtjeueHuJoNiI3iGDC_BAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOSnwtjj1wegIMhEbqeGEuWT80kIj0ixy23GoplbQMTGpeAwyYYT6Rh0gWhl7lTH8Ac8J4dnU6FUrAmqr--lAAHQ",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "03d802dcb6e3f193fad6f8e7def0d002085ad8deb9e1ee2683622378860c2fc1",
+        "publicKey": "026104ecf682c96434a875a0470ab20c5a47ca1ab98a1693f0d9e84246bd09fa4e",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "photoOrigins": [
+          "live",
+          "live",
+          "live"
+        ],
+        "locationOrigins": [
+          "hand",
+          "live",
+          "live"
+        ]
+      }
+    },
+    {
+      "name": "origin-changed-after-sealing",
+      "description": "One origin bit of the first photo was cleared (live to not recorded). The kind byte is part of the chain, so the head no longer matches.",
+      "input": "AQUETAdialYkwAAAdasAASbAAxAHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_TlZbjPRBpnViHmLqG4t6N0qJYVeEjUcMzHQnr2pAWvAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOI_V6S8NLSn6A8sBFZOth3fF-2Ol1SvX0tABpf3RVzVtcVCO74av5DEXSSJZ8BgtDxaiFdSRIoxZHVItJmVkL8g",
+      "expect": {
+        "ok": false,
+        "failed": "chain",
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f4e565b8cf441a675621e62ea1b8b7a374a896157848d470ccc7427af6a405af",
+        "publicKey": "026104ecf682c96434a875a0470ab20c5a47ca1ab98a1693f0d9e84246bd09fa4e",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "photoOrigins": [
+          "not recorded",
+          "live",
+          "live"
+        ],
+        "locationOrigins": [
+          "live",
+          "live",
+          "live"
+        ]
+      }
+    },
+    {
+      "name": "wrapped-lines",
+      "description": "The same live packet pasted with line breaks every 64 characters. Whitespace is ignored.",
+      "input": "AQUETAdialYkwAAAdasAASbAAxQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGh\noaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PD\nw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_TlZbjPRBpnViHmLqG4t6N0qJYV\neEjUcMzHQnr2pAWvAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOI_V6\nS8NLSn6A8sBFZOth3fF-2Ol1SvX0tABpf3RVzVtcVCO74av5DEXSSJZ8BgtDxaiF\ndSRIoxZHVItJmVkL8g",
+      "expect": {
+        "ok": true,
+        "failed": null,
+        "plot": "P-05",
+        "photos": 3,
+        "chainHead": "f4e565b8cf441a675621e62ea1b8b7a374a896157848d470ccc7427af6a405af",
+        "publicKey": "026104ecf682c96434a875a0470ab20c5a47ca1ab98a1693f0d9e84246bd09fa4e",
+        "firstPhotoSha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "photoOrigins": [
+          "live",
+          "live",
+          "live"
+        ],
+        "locationOrigins": [
+          "live",
+          "live",
+          "live"
+        ]
+      }
+    },
+    {
+      "name": "not-canonical-last-character",
+      "description": "The last character changed in its four unused bits, so the bytes are identical. Only the canonical spelling is accepted: one packet, one text.",
+      "input": "AQUETAdialYkwAAAdasAASbAAxQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_TlZbjPRBpnViHmLqG4t6N0qJYVeEjUcMzHQnr2pAWvAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOI_V6S8NLSn6A8sBFZOth3fF-2Ol1SvX0tABpf3RVzVtcVCO74av5DEXSSJZ8BgtDxaiFdSRIoxZHVItJmVkL8h",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "code-too-long",
+      "description": "More than 1,024 characters. Not a code.",
+      "input": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "reserved-bits-set",
+      "description": "Correctly signed, but bit 6 of the first kind byte is set. Those bits must be 0.",
+      "input": "AQUETAdialYkwAAAdasAASbAA1QHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw05F3PHweFsFj1myMSElPM2osg8BygitO0znOFUee1btAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOPfuB1mvwX8_sY6hg7ogfJpSISZds1hr44yWCUOkamSrf0_cv8FiIFYY5bXSpoQn1ncUTQkYPcQ8-3SfFd1QUFg",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "unknown-photo-kind",
+      "description": "Correctly signed, but the first photo kind is 3. Only 0, 1 and 2 exist.",
+      "input": "AQUETAdialYkwAAAdasAASbAAxcHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw2RWl85OsByfGYxLGTdOsDwRbyS6Vz6mpBuazBXxZe45AmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOyekoDq9cvdg8ACVkYlIto3DTLoNssI_azbubLRYwkUlVX9Cawz2RpXKM6UtPaatraoJPtRPPy6nxYyD8YZHLpA",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "duplicate-photo-kind",
+      "description": "Correctly signed, but two photos both say \"wide\".",
+      "input": "AQUETAdialYkwAAAdasAASbAAxQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFAddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDwwehhjUan9I9DnK4X9KKbONkLcH_Rnk4aQHjywmhXak8AmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpOiC6oTGpM4JQKOWMSI8KXzyRzSEkjRJxMCFjZuhhWiCuYj4kI2jgCFpisKAiVkSk-Jqbw_Jz481MWwjngTkDiwQ",
+      "expect": {
+        "ok": false,
+        "failed": "decode"
+      }
+    },
+    {
+      "name": "latitude-out-of-range",
+      "description": "Correctly signed, but the latitude is 100 degrees.",
+      "input": "AQUETAdialYkwAABhqAAASbAAxQHWKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhFQddsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrIWB2LDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw_ERGbauL6gujL6HQSG5pVUzupkzlqyUALQehYPGS5XEAmEE7PaCyWQ0qHWgRwqyDFpHyhq5ihaT8NnoQka9CfpO3KujbhUxJ36Bq5Zi-_7sETJVz1CtKWtdBCQCYXoG8QVtzE5-7ZvogJJ8ClEtpf9jSKx5fRWrosoNykM46u0ilA",
       "expect": {
         "ok": false,
         "failed": "decode"

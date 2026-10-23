@@ -7,7 +7,8 @@ export interface StandalonePayload {
   phoneClockUtc: string;
   lat: number;
   lon: number;
-  photos: { kind: string; captureHour: number; sha256: string }[];
+  /** photoOrigin and locationOrigin: 'not recorded', 'live', 'simulated' or 'hand' */
+  photos: { kind: string; photoOrigin: string; locationOrigin: string; captureHour: number; sha256: string }[];
   chainHead: string;
   publicKey: string;
 }

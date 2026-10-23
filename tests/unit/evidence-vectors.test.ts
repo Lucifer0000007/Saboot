@@ -14,21 +14,38 @@ interface Vector {
   name: string;
   description: string;
   input: string;
-  expect: { ok: boolean; failed: string | null; plot?: string; photos?: number; chainHead?: string; publicKey?: string; firstPhotoSha256?: string };
+  expect: { ok: boolean; failed: string | null; plot?: string; photos?: number; chainHead?: string; publicKey?: string; firstPhotoSha256?: string; photoOrigins?: string[]; locationOrigins?: string[] };
 }
 const file = JSON.parse(readFileSync('tests/vectors/evidence-v1.json', 'utf8')) as { vectors: Vector[] };
 const byName = (n: string) => file.vectors.find((v) => v.name === n)!;
 
+/** The origin names both verifiers use; the app's own words are live, sim and hand, and an absent value is "not recorded". */
+const NAME: Record<string, string> = { live: 'live', sim: 'simulated', hand: 'hand' };
+const origin = (o: string | undefined) => (o ? NAME[o] : 'not recorded');
+
 test('the vector set covers a valid packet, a link, a tampered photo hash, a tampered chain, a wrong signature and a wrong version', () => {
   const names = file.vectors.map((v) => v.name);
-  for (const n of ['valid', 'valid-link', 'tampered-photo-hash', 'tampered-chain-head', 'tampered-seal-time', 'edited-and-rechained', 'wrong-signature', 'wrong-version', 'truncated', 'not-a-code']) {
-    assert.ok(names.includes(n), `vector ${n}`);
-  }
+  // the first ten were fixed before the origin bits and the strict decoding rules were added: they must stay, and must give the same result
+  assert.deepEqual(names.slice(0, 10), ['valid', 'valid-link', 'tampered-photo-hash', 'tampered-chain-head', 'tampered-seal-time', 'edited-and-rechained', 'wrong-signature', 'wrong-version', 'truncated', 'not-a-code']);
   assert.equal(byName('valid').expect.ok, true);
   assert.deepEqual(
     Object.fromEntries(file.vectors.filter((v) => !v.expect.ok).map((v) => [v.name, v.expect.failed])),
-    { 'tampered-photo-hash': 'chain', 'tampered-chain-head': 'chain', 'tampered-seal-time': 'chain', 'edited-and-rechained': 'signature', 'wrong-signature': 'signature', 'wrong-version': 'decode', truncated: 'decode', 'not-a-code': 'decode' },
+    {
+      'tampered-photo-hash': 'chain', 'tampered-chain-head': 'chain', 'tampered-seal-time': 'chain', 'edited-and-rechained': 'signature', 'wrong-signature': 'signature', 'wrong-version': 'decode', truncated: 'decode', 'not-a-code': 'decode',
+      'origin-changed-after-sealing': 'chain', 'not-canonical-last-character': 'decode', 'code-too-long': 'decode', 'reserved-bits-set': 'decode', 'unknown-photo-kind': 'decode', 'duplicate-photo-kind': 'decode', 'latitude-out-of-range': 'decode',
+    },
   );
+});
+
+test('origin bits: live, simulated and hand are read back, an older packet reads "not recorded", and changing a bit breaks the seal', async () => {
+  assert.deepEqual(byName('origin-live').expect.photoOrigins, ['live', 'live', 'live']);
+  assert.deepEqual(byName('origin-simulated').expect.locationOrigins, ['simulated', 'simulated', 'simulated']);
+  assert.deepEqual(byName('origin-hand-location').expect.locationOrigins, ['hand', 'live', 'live']);
+  const app = await verifyCode(byName('valid').input);
+  assert.deepEqual(app.payload!.shots.map((s) => origin(s.photo)), ['not recorded', 'not recorded', 'not recorded'], 'every packet made before the bits were used');
+  const alone = await verifyStandalone(byName('valid').input);
+  assert.deepEqual(alone.payload!.photos.map((p: { photoOrigin: string }) => p.photoOrigin), ['not recorded', 'not recorded', 'not recorded']);
+  assert.equal(byName('origin-changed-after-sealing').expect.failed, 'chain');
 });
 
 for (const v of file.vectors) {
@@ -42,6 +59,8 @@ for (const v of file.vectors) {
       assert.equal(r.payload?.head, v.expect.chainHead);
       assert.equal(r.payload?.pub, v.expect.publicKey);
       assert.equal(r.payload?.shots[0].sha, v.expect.firstPhotoSha256);
+      if (v.expect.photoOrigins) assert.deepEqual(r.payload?.shots.map((s) => origin(s.photo)), v.expect.photoOrigins);
+      if (v.expect.locationOrigins) assert.deepEqual(r.payload?.shots.map((s) => origin(s.loc)), v.expect.locationOrigins);
     } else {
       assert.equal(r.payload, undefined);
     }
@@ -58,6 +77,8 @@ for (const v of file.vectors) {
       assert.equal(p.chainHead, v.expect.chainHead);
       assert.equal(p.publicKey, v.expect.publicKey);
       assert.equal(p.photos[0].sha256, v.expect.firstPhotoSha256);
+      if (v.expect.photoOrigins) assert.deepEqual(p.photos.map((x: { photoOrigin: string }) => x.photoOrigin), v.expect.photoOrigins);
+      if (v.expect.locationOrigins) assert.deepEqual(p.photos.map((x: { locationOrigin: string }) => x.locationOrigin), v.expect.locationOrigins);
     } else {
       assert.equal(r.payload, undefined);
     }
@@ -96,8 +117,8 @@ test('the command-line verifier reads a code from a file, from an evidence bundl
   assert.equal(viaStdin.status, 0);
 });
 
-test('any single-bit change anywhere in a valid packet is caught, and both verifiers name the same failing step', async () => {
-  const raw = unb64url(byName('valid').input);
+for (const name of ['valid', 'origin-live']) test(`any single-bit change anywhere in the packet "${name}" is caught, and both verifiers name the same failing step`, async () => {
+  const raw = unb64url(byName(name).input);
   let checked = 0;
   for (let i = 0; i < raw.length; i++) {
     for (let bit = 0; bit < 8; bit++) {
