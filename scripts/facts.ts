@@ -10,7 +10,7 @@ import { buildModel, type Model } from '../src/sim/model.ts';
 import { modelOptions } from '../src/sim/options.ts';
 import { plotState } from '../src/sim/cohort.ts';
 import { evidenceFor } from '../src/sim/evidence.ts';
-import { metrics, pilotMetrics } from '../src/sim/metrics.ts';
+import { metrics, pilotMetrics, q } from '../src/sim/metrics.ts';
 import { reduce } from '../src/farmer/focus.ts';
 import { RULE_VERSIONS } from '../src/sim/rules.ts';
 import { RAILS, RELIEF, PMFBY, type Rail } from '../src/config.ts';
@@ -19,7 +19,6 @@ import type { ScenarioRaw } from '../src/sim/types.ts';
 const R2 = (x: number) => Math.round(x * 100) / 100;
 const R2n = (x: number | null) => (x === null ? null : R2(x));
 const count = <T,>(xs: T[], f: (x: T) => string) => xs.reduce<Record<string, number>>((o, x) => { const k = f(x); o[k] = (o[k] ?? 0) + 1; return o; }, {});
-const q = (xs: number[], p: number) => { if (!xs.length) return null; const s = [...xs].sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(p * (s.length - 1) + 0.5))]; };
 
 /** 3.25 -> "3 h 15 min", 0.5 -> "30 min", 68.75 -> "68 h 45 min". */
 export function fmtHM(h: number): string {

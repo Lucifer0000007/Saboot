@@ -2,9 +2,11 @@
 import type { Model } from './model';
 import type { PlotState } from './cohort';
 
+/** Nearest-rank percentile, except that the median of an even count is the mean of the two middle values. */
 export const q = (xs: number[], p: number) => {
   if (!xs.length) return null;
   const s = [...xs].sort((a, b) => a - b);
+  if (p === 0.5 && s.length % 2 === 0) return (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
   return s[Math.min(s.length - 1, Math.floor(p * (s.length - 1) + 0.5))];
 };
 
