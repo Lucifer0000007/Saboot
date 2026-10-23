@@ -1,6 +1,6 @@
 // In-page layout checks (spec §10.2). Self-contained: Playwright serialises this function into the page.
 export interface CheckOpts {
-  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel, tokens
+  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel, prov, tokens
   stickyMax?: number; // max share of the viewport sticky chrome may take (mobile)
 }
 
@@ -221,6 +221,23 @@ export function runChecks(opts: CheckOpts): string[] {
       return !!hit && (hit === el || el.contains(hit));
     });
     if (!onScreen) out.push('no SIMULATION indicator visible on this screen');
+  }
+
+  // 8b. every value carries a valid provenance label (LIVE, REPLAY, SIMULATED, HAND, or "not recorded" for an old packet), and
+  //     no latitude/longitude is printed outside a labelled element: a coordinate must always say where it came from
+  if (want('prov')) {
+    const valid = ['live', 'replay', 'sim', 'hand', 'unrecorded'];
+    for (const el of document.querySelectorAll('[data-v]')) {
+      const p = el.getAttribute('data-prov');
+      if (!p || !valid.includes(p)) out.push(`value without a valid provenance label (data-prov="${p ?? ''}"): ${desc(el)}`);
+    }
+    const coord = /-?\d{1,2}\.\d{3,}°?\s*[NS]?,?\s+-?\d{1,3}\.\d{3,}°?\s*[EW]?/;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const el = n.parentElement;
+      if (!el || el.closest('script, style, template, [data-prov]')) continue;
+      if (coord.test(n.textContent || '')) out.push(`a coordinate outside any provenance label: ${desc(el)}`);
+    }
   }
 
   // 9. no raw {token} in the copy: a string that was meant to be filled in and was not. Reads the text itself, so the
