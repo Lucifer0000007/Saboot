@@ -30,9 +30,11 @@ export function scanQr(video: HTMLVideoElement, onText: (t: string) => void, onE
   let alive = true;
   const canvas = document.createElement('canvas');
   (async () => {
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } }, audio: false });
-    if (!alive) return;
-    video.srcObject = stream;
+    const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } }, audio: false });
+    // stopped before the camera answered: the answer must not leave the camera on
+    if (!alive) { s.getTracks().forEach((t) => t.stop()); return; }
+    stream = s;
+    video.srcObject = s;
     await video.play();
     const detect = await detector();
     while (alive) {

@@ -27,7 +27,21 @@ export function Assist() {
   const [rec, setRec] = useState<MediaRecorder | null>(null);
   const raf = useRef(0);
   const start = useRef(0);
-  useEffect(() => () => cancelAnimationFrame(raf.current), []);
+  const mic = useRef<{ r: MediaRecorder; stream: MediaStream } | null>(null);
+  const gone = useRef(false);
+  // Leaving the screen ends the hold and the recording, and switches the microphone off. A recording the person walked away
+  // from is not consent, so it is dropped, not saved.
+  useEffect(() => () => {
+    gone.current = true;
+    cancelAnimationFrame(raf.current);
+    const m = mic.current;
+    if (!m) return;
+    m.r.onstop = null;
+    m.r.ondataavailable = null;
+    if (m.r.state !== 'inactive') m.r.stop();
+    m.stream.getTracks().forEach((x) => x.stop());
+    mic.current = null;
+  }, []);
 
   if (v.consent) {
     return (
@@ -92,11 +106,14 @@ export function Assist() {
     if (!ready()) return;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // the person left while the phone asked for the microphone: the answer must not leave it on
+      if (gone.current) { stream.getTracks().forEach((x) => x.stop()); return; }
       const r = new MediaRecorder(stream);
       const parts: Blob[] = [];
       r.ondataavailable = (e) => parts.push(e.data);
       r.onstop = async () => {
         stream.getTracks().forEach((x) => x.stop());
+        mic.current = null;
         setRec(null);
         const blob = new Blob(parts, { type: r.mimeType });
         const h = await sha256(blob);
@@ -104,6 +121,7 @@ export function Assist() {
         await commit('voice', h);
       };
       r.start();
+      mic.current = { r, stream };
       setRec(r);
     } catch {
       showToast(tr('as.noMic'), 'warn');
