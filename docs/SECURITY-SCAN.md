@@ -58,6 +58,15 @@ small commit with a test during implementation. **Decision** is fix, accept or d
 | L2-17 | Info | `public/_headers:7,11` | `style-src 'unsafe-inline'` is needed only for three inline style blocks and one noscript style attribute, which could be hashed. The Permissions-Policy has no deny list for unused features. | **Defer** (hardening, medium effort). |
 | L2-18 | Info | `src/dashboard/draftList.ts:180`, `scripts/vite-plugins.mjs:65-66`, `src/sim/moments.ts:31-34`, `scripts/deploy.sh:12`, `scripts/snap.mjs:9` | The CSV cell writer has no guard for cells starting with `=`, `+`, `-` or `@` (today no names reach cells). `?tab=constructor` throws a harmless TypeError in the build-injected preload. `?at=capture` writes synthetic shots on open. `npx --yes netlify-cli` is unpinned and `puppeteer-core` is imported but undeclared. | **Defer** the CSV guard and the pin. Hygiene items, recorded here. |
 
+## Status after Phase 4
+Every "fix in Phase 4" row is fixed on `overflow/final-prep`, each with a test: L2-01 (`tests/qa/devices.spec.ts`), L2-02,
+L2-11 and L2-12 (`tests/qa/mvp.spec.ts`, `tests/unit/evidence-vectors.test.ts`), L2-03 (`tests/unit/serve.test.ts`; the server
+keeps every interface on purpose, see `docs/DECISIONS.md` D-35), L2-04 (local voices only), L2-05 (the privacy document now
+says what export and delete do), L2-08 (provenance bits), L2-09 (a photo that cannot be re-encoded is refused), L2-10
+(`onabort`, storage banner), L2-13 (reset asks first), L2-14 (clips precached, range answers). L2-15 is fixed too (a loop
+replaces the spread; a command-line number is checked). Accepted or deferred as before: S-01, S-03, L2-06, L2-07, L2-16,
+L2-17, L2-18. The rerun and `/security-review` happen in the final loop.
+
 ## Reviewed, no issue
 - **HTML sinks:** no `innerHTML`, `dangerouslySetInnerHTML`, `eval`, `document.write` or `srcdoc` in `src`, `index.html` or
   the built JavaScript. Photos load through `<img data:>`, where scripts do not run.

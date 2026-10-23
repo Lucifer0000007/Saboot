@@ -153,3 +153,25 @@ and a real phone.
   blue primary per screen.
 - Hindi and Punjabi dictionaries: 567 keys each, no missing keys or mismatched placeholders.
 - `npm audit --omit=dev`: 0 vulnerabilities. No HTML sinks, no outbound requests other than two same-origin GETs.
+
+## 7. Status after Phase 4
+
+Every row names the test that keeps it fixed on `overflow/final-prep`. Rows not listed are open.
+
+| IDs | Status | Where |
+|---|---|---|
+| L3-01, L1-03, L3-03, L1-06, L3-02 | Fixed | the log only moves forward, serialised appends, a sync reads the stored log, seal once; `tests/unit/evidence-safety.test.ts`, reload/reconnect/two-tab tests in `tests/qa/mvp.spec.ts` |
+| A-01, A-05, A-10, A-11, A-14, L2-02, L2-11, L3-07 | Fixed | import pauses and seeks, bare-code QR version 10, `hashchange`, stable import key, one-click changed copy, result cleared on edit, clock at seal with a skew flag; `tests/qa/mvp.spec.ts` |
+| A-02, L2-08, L1-01 | Fixed | provenance bits in the packet, labels on every photo and location, untrue phrases removed; `tests/unit/copy-honesty.test.ts`, the provenance QA check in `tests/qa/checks.ts` |
+| A-04 | Fixed | `tList` takes values; the "no raw token" QA check |
+| A-06, L3-04, L2-10, L4-07 | Fixed | 3.5 s location wait, try/finally, `onabort`, storage banner, no silent simulated swap, inline camera message, 5 s toasts |
+| A-09, A-13 | Fixed | GitHub footer link with a named allowlist entry; `verify.sh` reconstruction |
+| A-15, L4-17, L4-03, L4-04, L4-05, L4-06, L3-05, L3-09, L4-01, L4-02 | Fixed | consent toast, empty Proof button, device language, high contrast, scroll padding, scenario retry with a button, language chunk retry, offline-ready cue, the one button under its message, a deep link scrolls to the phone; `tests/qa/mvp.spec.ts` |
+| L1-02, L1-04, L1-07, L1-08, L1-12, L1-13, L1-09, L1-10, L1-11 | Fixed | `tests/unit/relief.test.ts`, `rail-parity.test.ts`, `helper.test.ts`, `console-parity.test.ts`, `score-display.test.ts`, `median.test.ts`, `validation.test.ts` |
+| L1-05 | Fixed | consent before real photos and the seal; `tests/unit/consent-first.test.ts`, `tests/qa/helper.spec.ts` |
+| L1-14, L1-15, L2-12 | Fixed | strict decoding in both verifiers, appended vectors; `tests/unit/evidence-vectors.test.ts` |
+| L2-01, L2-03, L2-04, L2-05, L2-09, L2-13, L2-14, L3-10, L2-15 | Fixed | `tests/qa/devices.spec.ts`, `tests/unit/serve.test.ts`, local voices, the privacy document, photo refusal, reset confirmation, audio precached with range answers, a loop instead of a spread |
+| A-03, A-07, A-08 | Fixed | Phase 1 |
+| A-12 | Mitigated | the sync and log fixes above; do not deploy during the event |
+| L2-06, L2-07, L2-16, L2-17, L2-18, A-19, A-20, L5-03 | Accepted or deferred | reasons in `docs/SECURITY-SCAN.md` and `docs/DECISIONS.md` |
+| A-16, A-17, A-18, L1-16, L1-17, L1-18, L3-08, L3-11, L4-08 to L4-16, L4-18, L5-01, L5-02, L5-04, L5-05 | Open | the typography and layout rows are Phase 5; the rest are listed in the final report as remaining risks |

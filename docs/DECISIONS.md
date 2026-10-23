@@ -83,6 +83,15 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 | Prove the Semgrep packs actually detect something | A planted `eval` and `innerHTML` file is flagged | 2 | Attempt 1: nothing flagged, because `p/javascript` has no DOM-sink rules. Attempt 2: the same rules run by name were flagged. The engine works. Extra packs and named rules were then run on the repository. |
 | Semgrep coverage | No parse errors | 1 | Two build scripts partly parsed. Reviewed by hand (S-02). |
 | Performance audit on a throttled phone profile | Cold-load, deep-link, MVP-flow and play-cost numbers for three profiles | 2 | Attempt 1 (a delegated agent) stalled with no progress for ten minutes after saving a cold-load matrix. Attempt 2 ran the missing measurements directly in smaller steps. Pass. |
+| The log only moves forward (L3-01, L3-03, L1-06) | `tests/unit/evidence-safety.test.ts` and the reload, reconnect and two-tab tests in `tests/qa/mvp.spec.ts` | 2 | Attempt 1 serialised appends and stamped events forward; the e2e reconnect test still showed one queued item. Attempt 2 found a second bug: a sync at page load ran before the stored log was in memory and dropped the packet. Pass. |
+| Camera and microphone off when a screen is left (L2-01) | `tests/qa/devices.spec.ts`, four cases | 2 | Attempt 1 used Chrome's fake camera, whose track ends by itself within a second, so "off" proved nothing. Attempt 2 gives the page stand-in devices that stay live until stopped. Pass. |
+| The MVP flow end to end (A-01, A-05, A-10, A-11, A-14) | `tests/qa/mvp.spec.ts`: phone to laptop, QR version 10, dedupe, changed copy, link paste | 1 | Pass |
+| The FAQ raw tokens (A-04) | A new QA check fails on any `{token}` in the page text; red on the old page, green on every state | 1 | Pass |
+| `verify.sh` (A-13) | `npm run verify -- --quick` runs every gate end to end | 2 | Attempt 1 failed at the URL gate: the new GitHub link was read with the backtick that followed it. Attempt 2 ends a URL at a backtick. Pass. |
+| Replay R-1 (B) | Method committed first; raw files fetched with a manifest; harness run three ways with the network blocked; two runs byte-identical; fixture test; console block with raw counts | 1 | Pass. Rule A caught 47 of 138 mapped-flooded points and alarmed on 39 of 151 mapped-dry points; 0 alarms in the quiet window. Rule C fires for every point in its nominal reach, as the method said to expect. |
+| Validation harness correctness (L1-09, L1-10, L1-11) | Nine new unit tests; the fixture's counts unchanged | 1 | Pass |
+| Console parity (L1-08), rail parity (L1-04), hail prompt (L1-02), helper flag (L1-07), band rounding (L1-12), median (L1-13) | One unit test file each, red on the old code | 1 | Pass |
+| High contrast (L4-04), scroll padding (L4-05), device language (L4-03), scenario and language chunk retry (L4-06, L3-05), offline-ready cue (L3-09), audio offline (L2-14) | A QA test each, red before the change | 1 | Pass |
 
 ## 4b. Phase 3 decisions
 
@@ -95,8 +104,23 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 | D-26 | New tests as new files | **GO** | `claims.test.ts` is not edited. Checks such as "no raw token", "no capability claims" and the MVP flow go in new test files. |
 | D-27 | Backup recording | **GO (you record)** | Three clips with a "RECORDED" caption, played from a media player. A scripted video of the phone flow is optional and last. |
 
+## 4c. Phase 4 decisions (taken while building, each with its reason)
+
+| ID | Item | Decision | Reason |
+|---|---|---|---|
+| D-28 | Hand-entered water depth (N4) | **CUT** | First on the cut line after the MVP flow. The HAND trust rule is built and unit-tested (`capHand`, `tests/unit/hand-cap.test.ts`) and says it has no input yet. Typed values that exist today (filing reference, helper name) never enter the evidence score. |
+| D-29 | The photo factor's time window | **Same on both rails: 72 h after the event** | The relief rail's capture-soon advice is not a deadline, yet it halved a late photo's strength on that rail only. The spec promises identical tiers on both rails; a test now pins it. |
+| D-30 | "Missed" in the console figures | **No evidence captured yet after the window closed** | The old definition counted a plot as missed and as late at once, and the top strip and the pilot-metrics tab disagreed. One function feeds both. The facts file changed from 2 to 1 missed. |
+| D-31 | A hail prompt still waiting for a reply | **Unconfirmed in the draft list from the start** | It used to count as flooded until its window ended, so the published list rewrote itself when the prompts closed. |
+| D-32 | The Open-Meteo credit | **Link to open-meteo.com in-app, licence link in the data README** | The licence asks for credit, a licence link and a note of changes. A third outside address (the licence page) would widen the gate beyond the two entries approved; the data README carries it. |
+| D-33 | Rule C danger level for the replay | **The 90th percentile of the point's own baseline days, labelled** | No official level exists for a discharge grid point. Fixed in the method before the run; shown as "not an official level" wherever it appears. |
+| D-34 | Replay Rule A low-lying input | **Every point assumed low-lying, stated as an upper bound** | The real data has no elevation per point. Stated before the run; the Rule A + low-lying test of the app is not exercised. |
+| D-35 | The QA file server's bind address | **Keep every interface, fix the path check** | A phone on the same Wi-Fi opens the laptop's address to rehearse the demo. After the fix it can serve only the public build. |
+| D-36 | The voice clips | **Precached with the app** | "Cached on first play" never worked: a media element asks for a byte range and the cache refuses a 206. Four clips, 62 KB. |
+| D-37 | Toast duration | **5 s** | 3.6 s was gone before a warning could be read, in Hindi and Punjabi least of all. |
+
 ## 5. Blocked log
-None so far.
+None. Three tasks needed a second attempt (section 4).
 
 ## 6. Compliance check
 Instruction | met, partly or not | evidence | gap. "Met" is claimed only where a file, test or command shows it. Rows are updated at
@@ -105,20 +129,20 @@ each checkpoint and at the end.
 | Instruction | Status | Evidence | Gap |
 |---|---|---|---|
 | Features first, then the evaluator, mentor and judge review | Met | `docs/FEATURE-MAP.md` (Phase 2) was written and approved before `docs/USP-MVP.md` (Phase 3), which holds the three seats | None |
-| USP and MVP | Partly | Defined in `docs/USP-MVP.md`: one USP sentence, a five-step MVP with a success check for each step, the X factor and a demo order | The MVP is not yet proven live. `tests/qa/mvp.spec.ts` and the real-phone rehearsal come in Phase 4 |
-| Two checkpoints only, autonomy between | Met so far | One "go" at Checkpoint 1. Phase 3 ran without a question. Work stops at Checkpoint 2 | Phase 4 to 6 follow Checkpoint 2 |
+| USP and MVP | Met in the browser | `docs/USP-MVP.md`; `tests/qa/mvp.spec.ts` runs the five steps on a touch phone and a laptop, with the changed copy failing and the original restored | The real-phone and webcam rehearsal is yours (hand steps) |
+| Two checkpoints only, autonomy between | Met | Two approvals. Phases 4 to 6 ran without a question | None |
 | Viability gate before building | Met so far | Section 1 of this file. Nothing was built beyond the trivial placeholder fixes | Applies to every Phase 4 task |
-| Looping engineer, three attempts at most | Partly | Section 4: four tasks, one needed two attempts, none blocked | Phase 4 loops have not started |
-| Karpathy rules | Partly | `CLAUDE.md`. `git log` shows three commits, one concern each, no refactors. `docs/TOOLS.md` pins the plugin | Judged on the Phase 4 diffs |
-| All four labels (LIVE, REPLAY, SIMULATED, HAND) | Not yet | Design only, in `docs/FEATURE-MAP.md` | Phase 4. The audit shows why it is needed (A-02, L1-01) |
-| Real or past data | Partly | Section 2: test requests for rain, discharge and the extent listing all succeeded. Nothing downloaded or run | Method document, retrieval and harness run in Phase 4. Fallback: "Not run" |
-| Semgrep | Partly | `docs/SECURITY-SCAN.md`: version 1.182.1, metrics off, registry packs plus named rules, one false positive documented, positive control in section 4 | True positives are fixed in Phase 4. Rerun in the final loop. `/security-review` not yet run |
+| Looping engineer, three attempts at most | Met | Section 4: every task has a check that was red before the change; three needed a second attempt; none blocked | None |
+| Karpathy rules | Met | `CLAUDE.md`. `git log` on `overflow/final-prep`: one concern per commit, assumptions stated in the message, no drive-by refactors (the one helper moved, `importWithRetry`, was moved because a second caller needed it) | None |
+| All four labels (LIVE, REPLAY, SIMULATED, HAND) | Met | `src/lib/prov.ts`, `ProvTag`/`Val`; LIVE and SIMULATED on every photo and location on the phone and the laptop; REPLAY on the console's replay block; HAND on the typed reference and the helper name; the packet carries live/sim/hand bits; a QA check over every state fails on a value without a label or a coordinate outside one | No hand-entered value reaches the evidence (D-28) |
+| Real or past data | Met | `docs/REPLAY-METHOD.md` committed before the run; `data/replay/`; `scripts/replay/`; the console shows raw counts under REPLAY with the source ID and credit lines | The event is on the Pakistan side; India has no public activation. Rule B is not independently validated |
+| Semgrep | Partly | `docs/SECURITY-SCAN.md`: version 1.182.1, metrics off, registry packs plus named rules, one false positive documented; every "fix in Phase 4" row is fixed with a test (status section) | Rerun and `/security-review` in the final loop |
 | Chrome tooling | Partly | `docs/SETUP.md`. Claude Code 2.1.302 meets the 2.0.73 minimum. No Chrome browser tools were present in this session | You install the extension and run `/chrome` |
 | Curated tools | Partly | `docs/TOOLS.md`: 11 audited, a shortlist of 7, pins checked against the installed-plugins record. Nothing installed | Needs your go on pins, scope and disables |
 | No calendar dates | Met in the new files | A date search over `CLAUDE.md` and the new docs finds none (version strings such as 2026.10.4 aside). The plan file has no schedule | The earlier Word guide (`docs/Saboot-Complete-Guide.docx`, untracked) has dates on its cover and in its source notes |
-| Non-negotiables | Partly | 127 unit tests pass, including the claims tests. Budgets pass. No amount is shown anywhere | The audit finds the demo path breaking three: honest labels (A-02), no claims of capabilities that do not exist (L1-01), and per-farmer consent in helper mode (L1-05) |
+| Non-negotiables | Met | The claims tests pass; budgets pass; no amount anywhere; labels on every value (A-02); the untrue capability phrases are gone and a test keeps them out (L1-01); a helper cannot capture or seal without that farmer's consent (L1-05) | None known |
 | Nothing non-viable is mapped | Met | `docs/FEATURE-MAP.md` has no NO-GO items. They are in section 1 (D-01 to D-05, D-12, D-16) | None |
-| Mistakes found and explained | Partly | `docs/AUDIT-REPORT.md`: 6 blocker rows, 31 major, 43 minor, each with repro, why it matters, fix and effort. Three were fixed | The plain-language explanation comes in the final report |
+| Mistakes found and explained | Met | `docs/AUDIT-REPORT.md` with its status section: every blocker and every major on the demo path fixed, each with a test | The plain-language account is in the final report |
 | Text, font and spacing fixes | Not yet | Measurements and a monospace judgement are in the audit (L4-10 to L4-15) | Phase 5 |
-| Honesty about real versus simulated | Partly | Meta, manifest and noscript reworded. The placeholder host is gone from `dist/` | A-02, A-04 and L1-01 are open and the labels are unbuilt |
+| Honesty about real versus simulated | Met | Labels per value; the FAQ answer fixed; the AI step described as planned, not built; the replay says what it is and is not | Native-speaker review of the Hindi and Punjabi labels is yours |
 | Stop list respected | Met so far | No account, key, payment, user-wide install, `semgrep login`, upload or deploy. Semgrep lives outside the repository. `tests/unit/claims.test.ts` is untouched | I deleted two `{{VERIFY}}` markers in `src/config.ts`. They were placeholders for the team name and public URL, which you supplied, not real-world claims. The other 19 markers are untouched |
