@@ -140,7 +140,8 @@ export function plotState(m: Model, p: Plot, t: number, focus: FocusView | null,
   if (shotsNow && tm.geoOffM > 100) flags.push('geo-mismatch');
   if (at(tm.syncT) && tm.syncT! - tm.captureT! > 2) flags.push('sync-gap');
   if (at(tm.captureT) && tm.deadlineT !== null && tm.captureT! > tm.deadlineT) flags.push('late');
-  if (at(tm.captureT) && tm.fileT === null && t > tm.captureT! + 12 && persona !== 'focus') flags.push('no-ref');
+  // a log made on a phone has no filing step for a helper to take, so only the scripted cohort can be missing a receipt
+  if (at(tm.captureT) && tm.fileT === null && t > tm.captureT! + 12 && persona !== 'focus' && !tm.live) flags.push('no-ref');
   if (at(tm.fileT) && t > tm.fileT! + SCRIPT.ackDue && !at(tm.ackT)) flags.push('ack-overdue');
   if (at(tm.fileT) && t > tm.fileT! + SCRIPT.escalate && !at(tm.ackT)) flags.push('escalated');
   if (at(tm.consentT)) flags.push('assisted');
