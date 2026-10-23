@@ -129,6 +129,12 @@ button:disabled { cursor: not-allowed; }
 .tag-warn { background: var(--warn-tint); border-color: var(--warn); color: var(--warn); }
 .tag-bad { background: var(--bad-tint); border-color: var(--bad); color: var(--bad); }
 .tag-sim { border-color: var(--off-black); flex-wrap: nowrap; white-space: nowrap; }
+/* origin labels (live, replay, simulated, entered by hand): the words and a different icon carry the meaning, the border style is a third cue */
+.val { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-width: 0; }
+.tag-prov { min-height: 24px; padding: 2px 10px; flex-wrap: nowrap; }
+.tag-prov-hand { border-style: dashed; }
+.tag-prov-sim { border-style: dotted; }
+.tag-prov-unrecorded { border-style: dashed; color: var(--graphite); }
 /* a tag with a sentence in it: the icon stays beside the first line, the text wraps in its own column, and the shape is a
    rounded rectangle (a 100px radius on two lines is an oval) */
 .tag-flow { flex-wrap: nowrap; align-items: flex-start; border-radius: 20px; }
