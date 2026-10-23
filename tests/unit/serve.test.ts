@@ -2,6 +2,7 @@
 // that decodes to ".." is a 404, not package.json.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+// @ts-expect-error the file server is plain JavaScript, imported as the QA specs import it
 import { serve } from '../../scripts/snap.mjs';
 
 test('a request that escapes the served folder is refused; a file inside it is served', async () => {
