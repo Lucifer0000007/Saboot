@@ -18,7 +18,12 @@
         if (ts === 125 || ts === 150) c.add('t' + ts);
         if (get('lowData')) c.add('lowdata', 'still');
         if (get('hc')) c.add('hc');
+        // no saved choice: the device's language, the same rule as pickLang() in src/lib/prefs.ts
         var l = get('lang');
+        if (l === null) {
+          var ls = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+          for (var i = 0; i < ls.length; i++) { var p = String(ls[i]).slice(0, 2).toLowerCase(); if (p === 'hi' || p === 'pa' || p === 'en') { l = p; break; } }
+        }
         if (l === 'hi' || l === 'pa') { c.add('lang-pending', 'l-' + l); setTimeout(function () { c.remove('lang-pending'); }, 2500); }
       })();
     </script>

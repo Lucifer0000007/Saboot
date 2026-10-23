@@ -300,3 +300,21 @@ test('high contrast, switched on in Settings, turns the page black on white and 
   expect(await axe(page)).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+test.describe('a phone set to Hindi', () => {
+  test.use({ locale: 'hi-IN' });
+  test('with no saved choice the page opens in Hindi, and a saved choice still wins', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+    await page.goto('/');
+    await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'hi', { timeout: 20_000 });
+    expect(await page.evaluate(() => localStorage.getItem('saboot.lang'))).toBe('"hi"');
+    // the person picks English: that stays, whatever the phone says
+    await page.evaluate(() => localStorage.setItem('saboot.lang', '"en"'));
+    await page.reload();
+    await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    expect(errors).toEqual([]);
+  });
+});

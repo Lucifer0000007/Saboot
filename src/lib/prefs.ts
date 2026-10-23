@@ -23,7 +23,17 @@ export type TextScale = 100 | 125 | 150;
 /** Simulated phone network. 'offline' = airplane mode; 'weak' = 2G (slow, hash-first sync). */
 export type Net = 'online' | 'weak' | 'offline';
 
-export const lang = signal<Lang>(load('lang', 'en'));
+/** The language a first-time visitor sees: the first of their device's languages that the app has, else English. */
+export function pickLang(languages: readonly string[] | undefined): Lang {
+  for (const l of languages ?? []) {
+    const p = l.slice(0, 2).toLowerCase();
+    if (p === 'hi' || p === 'pa' || p === 'en') return p;
+  }
+  return 'en';
+}
+const deviceLang = (): Lang => (typeof navigator === 'undefined' ? 'en' : pickLang(navigator.languages?.length ? navigator.languages : [navigator.language]));
+
+export const lang = signal<Lang>(load('lang', deviceLang()));
 export const textScale = signal<TextScale>(load<TextScale>('textScale', load('largeText', false) ? 125 : 100));
 export const voiceMode = signal<boolean>(load('voice', false));
 export const lowData = signal<boolean>(load('lowData', false));
