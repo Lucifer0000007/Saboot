@@ -525,6 +525,7 @@ const pa: Record<string, string | string[]> = {
   'as.record': 'ਬੋਲ ਕੇ ਸਹਿਮਤੀ ਰਿਕਾਰਡ ਕਰੋ', // needs-native-review
   'as.recording': 'ਰਿਕਾਰਡਿੰਗ… ਰੋਕਣ ਲਈ ਦਬਾਓ', // needs-native-review
   'as.done': 'ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ', // needs-native-review
+  'as.doneToast': 'ਸਹਿਮਤੀ ਦਰਜ ਹੋਈ।', // needs-native-review
   'as.start': 'ਫ਼ੋਟੋਆਂ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
   'as.needName': 'ਪਹਿਲਾਂ ਸਹਾਇਕ ਦਾ ਨਾਂ ਲਿਖੋ।', // needs-native-review
   'as.voiceSha': 'ਆਵਾਜ਼ ਨਾਲ ਸਹਿਮਤੀ · ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ {h}', // needs-native-review

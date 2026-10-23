@@ -525,6 +525,7 @@ const hi: Record<string, string | string[]> = {
   'as.record': 'बोलकर सहमति रिकॉर्ड करें', // needs-native-review
   'as.recording': 'रिकॉर्डिंग… रोकने के लिए दबाएँ', // needs-native-review
   'as.done': 'सहमति {time} पर दर्ज हुई', // needs-native-review
+  'as.doneToast': 'सहमति दर्ज हुई।', // needs-native-review
   'as.start': 'फ़ोटो शुरू करें', // needs-native-review
   'as.needName': 'पहले सहायक का नाम लिखें।', // needs-native-review
   'as.voiceSha': 'आवाज़ से सहमति · फ़िंगरप्रिंट {h}', // needs-native-review

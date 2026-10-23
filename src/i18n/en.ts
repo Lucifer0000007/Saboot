@@ -537,6 +537,7 @@ const en: Record<string, string | string[]> = {
   'as.record': 'Record spoken consent',
   'as.recording': 'Recording… tap to stop',
   'as.done': 'Consent recorded at {time}',
+  'as.doneToast': 'Consent recorded.',
   'as.start': 'Start photos',
   'as.needName': 'Enter the helper’s name first.',
   'as.voiceSha': 'Voice consent · fingerprint {h}',

@@ -82,7 +82,7 @@ export function Assist() {
 
   async function commit(method: 'hold' | 'voice', audioSha?: string) {
     await recordConsent({ farmer: p.name, helper, role: session ? session.role : tr(role), method, audioSha, text });
-    showToast(tr('as.done', { time: '' }).trim(), 'ok');
+    showToast(tr('as.doneToast'), 'ok');
   }
 
   function begin() {
