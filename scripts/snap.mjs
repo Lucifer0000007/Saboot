@@ -4,7 +4,7 @@
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { readFile, mkdir, stat } from 'node:fs/promises';
-import { join, extname } from 'node:path';
+import { join, extname, resolve, sep } from 'node:path';
 import { brotliCompressSync, gzipSync, constants } from 'node:zlib';
 import puppeteer from 'puppeteer-core';
 import { Launcher } from 'chrome-launcher';
@@ -37,6 +37,8 @@ function headerRules(dir) {
  * mounted under a sub-path (`prefix: '/demo/'`) to prove relative URLs, the manifest and the worker scope hold there.
  */
 export function serve(dir = 'dist', port = 4321, { prefix = '/', onRequest } = {}) {
+  // It listens on every interface on purpose: a phone on the same Wi-Fi opens the laptop's address to rehearse the demo.
+  // What it can serve is the built public site and nothing else (the path check below).
   // Compressed bodies are cached per file version (path + size + mtime), so parallel QA runs stay cheap.
   const cache = new Map();
   const rules = headerRules(dir);
@@ -52,7 +54,10 @@ export function serve(dir = 'dist', port = 4321, { prefix = '/', onRequest } = {
     const route = p;
     if (p.endsWith('/')) p += 'index.html';
     try {
-      const file = join(dir, p);
+      // only files inside the served folder: "/..%2fpackage.json" decodes to a path outside it and gets a 404
+      const root = resolve(dir);
+      const file = resolve(root, '.' + p);
+      if (file !== root && !file.startsWith(root + sep)) throw new Error('outside the served folder');
       const st = await stat(file);
       let body = await readFile(file);
       const headers = { 'content-type': TYPES[extname(p)] ?? 'application/octet-stream', 'cache-control': 'no-cache' };
