@@ -6,6 +6,8 @@ import { PUBLIC_URL } from '../src/config.ts';
 
 /** The site's own public address (canonical link, social tags) is not a third party. */
 const OWN_HOST = new URL(PUBLIC_URL).host;
+/** Addresses a person can follow from the page. Each is named here on purpose, and the page never fetches one. */
+const LINKS = new Set(['https://github.com/Lucifer0000007/Saboot']);
 
 const KB = 1024;
 const B = { initial: 200 * KB, total: 700 * KB, lazy: 60 * KB, data: 40 * KB, clip: 20 * KB };
@@ -53,8 +55,9 @@ for (const f of files.filter((f) => f.path.startsWith('audio/'))) check(f.raw <=
 const offenders = files
   .filter((f) => /\.(js|html|css|webmanifest|json)$/.test(f.path))
   .flatMap((f) =>
-    [...readFileSync(join(DIST, f.path), 'utf8').matchAll(/https?:\/\/(?!localhost|127\.0\.0\.1|www\.w3\.org)[a-z0-9.-]+\.[a-z]{2,}[^"'\s)<>]*/gi)]
+    [...readFileSync(join(DIST, f.path), 'utf8').matchAll(/https?:\/\/(?!localhost|127\.0\.0\.1|www\.w3\.org)[a-z0-9.-]+\.[a-z]{2,}[^"'`\s)<>]*/gi)]
       .map((m) => m[0])
+      .filter((u) => !LINKS.has(u))
       .filter((u) => { try { return new URL(u).host !== OWN_HOST; } catch { return true; } })
       .map((u) => `${f.path}: ${u}`));
 check(offenders.length === 0, `no third-party URLs in the bundle${offenders.length ? ':\n      ' + offenders.slice(0, 10).join('\n      ') : ''}`);

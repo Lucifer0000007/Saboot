@@ -146,6 +146,7 @@ const pa: Record<string, string | string[]> = {
   'foot.project': 'ਪ੍ਰੋਜੈਕਟ', // needs-native-review
   'foot.track': 'ਟ੍ਰੈਕ', // needs-native-review
   'foot.event': 'ਸਮਾਗਮ', // needs-native-review
+  'foot.code': 'GitHub ਉੱਤੇ ਸੋਰਸ ਕੋਡ', // needs-native-review
 
   'tour.step': 'ਜੱਜ ਟੂਰ · {n} / {total}', // needs-native-review
   'tour.skip': 'ਟੂਰ ਛੱਡੋ', // needs-native-review

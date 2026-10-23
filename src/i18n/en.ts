@@ -150,6 +150,7 @@ const en: Record<string, string | string[]> = {
   'foot.project': 'Project',
   'foot.track': 'Track',
   'foot.event': 'Event',
+  'foot.code': 'Source code on GitHub',
 
   // ---- judge tour ----
   'tour.step': 'Judge tour · {n} / {total}',

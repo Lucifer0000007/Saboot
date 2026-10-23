@@ -187,6 +187,7 @@ html:not(.lay-mobile) .farmer-solo { border: 1px solid var(--off-black); border-
 .foot { border-top: var(--bd); padding-block: var(--s5) calc(var(--s5) + var(--safe-b)); }
 .foot-in { display: grid; gap: var(--s3); grid-template-columns: minmax(0, 1fr); }
 .foot .brand-word { font-size: 2.25rem; }
+.foot-link { display: inline-flex; align-items: center; width: fit-content; min-height: 48px; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
 .foot dl { display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); font-size: var(--fs-sm); }
 .foot dt { color: var(--graphite); text-transform: var(--caps); letter-spacing: var(--track-caps); }
 @media (min-width: 768px) {

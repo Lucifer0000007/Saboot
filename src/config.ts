@@ -3,6 +3,8 @@ export const TEAM_NAME = 'Overflow';
 export const PROJECT = 'Saboot';
 export const TRACK = 'AgriTech & Rural Transformation · Agri-FinTech';
 export const EVENT = 'Code Yudh Hackathon, Chandigarh University';
+/** Where the code lives: a link a person can follow, never fetched by the page. scripts/budgets.mjs names it as the one outside address allowed. */
+export const REPO_URL = 'https://github.com/Lucifer0000007/Saboot';
 
 // The one place the public address lives. The build writes it into the canonical link and the Open Graph /
 // Twitter tags (scripts/postbuild.mjs); `npm run qr` encodes it. Change it here when the site moves.

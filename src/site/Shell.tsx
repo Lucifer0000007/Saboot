@@ -4,7 +4,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { Icon, Mark, type IconName } from '../ui/Icon';
 import { tr, tList } from '../lib/i18n';
 import { reducedMotion } from '../lib/prefs';
-import { TEAM_NAME, PROJECT, TRACK, EVENT } from '../config';
+import { TEAM_NAME, PROJECT, TRACK, EVENT, REPO_URL } from '../config';
 import { SCENARIO } from '../generated/scenario-summary';
 import { scrollToId } from './layout';
 import { runSimulation } from './actions';
@@ -121,6 +121,7 @@ export function Footer() {
         <div class="stack">
           <span class="brand"><Mark class="brand-mark" /><span class="brand-word">saboot</span></span>
           <p class="small muted">{tr('foot.note')}</p>
+          <a class="foot-link" href={REPO_URL} target="_blank" rel="noopener noreferrer">{tr('foot.code')}</a>
         </div>
         <dl>
           <div><dt>{tr('foot.team')}</dt><dd>{TEAM_NAME}</dd></div>

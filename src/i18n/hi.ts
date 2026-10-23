@@ -146,6 +146,7 @@ const hi: Record<string, string | string[]> = {
   'foot.project': 'प्रोजेक्ट', // needs-native-review
   'foot.track': 'ट्रैक', // needs-native-review
   'foot.event': 'आयोजन', // needs-native-review
+  'foot.code': 'GitHub पर सोर्स कोड', // needs-native-review
 
   'tour.step': 'जज टूर · {n} / {total}', // needs-native-review
   'tour.skip': 'टूर छोड़ें', // needs-native-review
