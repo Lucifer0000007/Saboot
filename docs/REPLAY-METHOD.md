@@ -51,6 +51,10 @@ Every polygon in that layer counts as flooded. Later monitoring products are not
 - **not_affected**: the point is inside the area's outline and **at least 1 km** from every polygon of that layer.
 - Points outside the outline are unknown and not used. Points inside the outline but closer than 1 km to an extent edge, and not
   inside it, are dropped (positional error and edge pixels).
+- A grid point that lies inside the outlines of **two areas** is dropped: the two layers could disagree about it.
+
+*Clarification added before any harness run, after the extent files were fetched and before any point was sampled: the outlines
+of areas 1 and 8 overlap.*
 
 **Sample.** In each area, up to **30 affected** and up to **30 not_affected** points, drawn without replacement from the grid
 points of that class, in grid order shuffled by a fixed generator (`mulberry32`, seed `838`). If an area has fewer than 30
