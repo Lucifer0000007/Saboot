@@ -4,6 +4,7 @@ import { sarExcess, TALL_CROPS, type Model } from './model';
 import { SAR_LATENCY_H } from './rules';
 import { PMFBY } from '../config';
 import type { PlotState } from './cohort';
+import type { Prov } from '../lib/prov';
 
 export type Tier = 'supported' | 'partial' | 'insufficient' | 'none';
 export type FactorId = 'rain' | 'river' | 'terrain' | 'flood' | 'photos' | 'integrity';
@@ -15,6 +16,19 @@ export interface Factor {
   value: number; // 0..1
   unc: number; // ± on value
   detail: string;
+  /** where the factor's input came from; a factor without one is an observation of the replay (live or simulated) */
+  prov?: Prov;
+}
+
+/**
+ * The HAND trust rule (docs/FEATURE-MAP.md): a value a person typed or chose can never, on its own, make a plot "supported".
+ * If every factor that adds to the score was entered by hand, "supported" becomes "partial". No factor is hand-entered in
+ * this prototype (the hand-entered water depth was cut), so the rule has no input yet; it is unit-tested and waits.
+ */
+export function capHand(tier: Tier, factors: readonly Pick<Factor, 'weight' | 'value' | 'prov'>[]): Tier {
+  if (tier !== 'supported') return tier;
+  const adding = factors.filter((f) => f.weight > 0 && f.value > 0);
+  return adding.length && adding.every((f) => f.prov === 'hand') ? 'partial' : tier;
 }
 
 export interface Evidence {
@@ -165,6 +179,7 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   if (s.stage !== 'monitoring' && s.stage !== 'no-damage') {
     tier = lo >= TIER_RULE.supportedLo ? 'supported' : hi < TIER_RULE.insufficientHi ? 'insufficient' : 'partial';
     if (s.times.hail && tier === 'supported') tier = 'partial'; // honest limit: hail never auto-"supported"
+    tier = capHand(tier, factors);
   }
   return { factors, score, lo, hi, tier, notes: p.baselineWet ? [PADDY_NOTE] : [], floodShare: s.times.hail ? 0 : obs, floodShareUnc: flood.unc * 0.5 };
 }
