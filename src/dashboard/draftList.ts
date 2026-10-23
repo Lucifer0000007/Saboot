@@ -4,7 +4,7 @@
 import { RELIEF } from '../config';
 import type { Model } from '../sim/model';
 import { flagLabel, stageLabel } from '../sim/cohort';
-import { PADDY_RADAR_SCALE, PRIORITY_WEIGHTS, RIVER_WEIGHT, TIER_LABEL, TIER_RULE, WEIGHTS, type Tier } from '../sim/evidence';
+import { PADDY_RADAR_SCALE, PRIORITY_WEIGHTS, RIVER_WEIGHT, TIER_LABEL, TIER_RULE, WEIGHTS, bandPct, type Tier } from '../sim/evidence';
 import { RULE_VERSIONS } from '../sim/rules';
 import type { Row } from './state';
 
@@ -90,8 +90,9 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
     unconfirmed: unconfirmedStage(r),
     tier: r.e.tier,
     tierLabel: TIER_LABEL[r.e.tier],
-    scoreLo: r2(r.e.lo),
-    scoreHi: r2(r.e.hi),
+    // band ends are rounded down, like the screen, so an export never prints a line the exact value has not reached
+    scoreLo: bandPct(r.e.lo) / 100,
+    scoreHi: bandPct(r.e.hi) / 100,
     floodShare: r2(r.e.floodShare),
     floodShareUnc: r2(r.e.floodShareUnc),
     atOrAboveShareParameter: r.e.floodShare >= share,

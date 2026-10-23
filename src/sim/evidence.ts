@@ -33,6 +33,12 @@ export interface Evidence {
 export const TIER_RULE = { supportedLo: 0.6, insufficientHi: 0.45 };
 
 /**
+ * A band end shown as a whole percent, rounded DOWN: a printed end must never reach a tier line the exact value has not
+ * (0.5964 is not "60" beside Partial). The tiny term stops 0.57 from reading 56 (57 / 100 is 56.99999999999999).
+ */
+export const bandPct = (x: number) => Math.floor(x * 100 + 1e-9);
+
+/**
  * UNCALIBRATED scenario parameters (docs/SABOOT-SPEC.md, section 15). Not fitted to any claims data.
  * BASE is the original five-factor model. A plot the river can reach adds the river factor at RIVER_WEIGHT and the
  * other factors scale down together, so a plot out of the river's reach scores exactly as before. Paddy in the
