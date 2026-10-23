@@ -7,7 +7,7 @@ import { RailSwitch, CadenceSwitch } from '../ui/RailSwitch';
 import { SCENARIO } from '../generated/scenario-summary';
 import { ConsoleNote } from '../dashboard/ConsoleNote';
 import { tourSeen } from '../lib/prefs';
-import { model, loadError } from '../sim/engine';
+import { model, loadError, loadScenario } from '../sim/engine';
 import { FarmerApp } from '../farmer/FarmerApp';
 import { ControlBar } from '../ui/ControlBar';
 import { Icon, type IconName } from '../ui/Icon';
@@ -104,7 +104,12 @@ export function Simulation() {
     idle(() => { Dashboard.preload(); });
   }, []);
   const body = !m ? (
-    loadError.value ? <p class="note note-bad" role="alert">{tr('sim.loadError', { err: loadError.value })}</p> : <div class="loading sim-ph" role="status">{tr('sim.loading')}</div>
+    loadError.value ? (
+      <div class="stack">
+        <p class="note note-bad" role="alert">{tr('sim.loadError')}</p>
+        <button type="button" class="pill pill-primary" onClick={() => void loadScenario()}>{tr('sim.retry')}</button>
+      </div>
+    ) : <div class="loading sim-ph" role="status">{tr('sim.loading')}</div>
   ) : L === 'desktop' ? (
     <div class="sim-grid">
       <div class="phone-col">

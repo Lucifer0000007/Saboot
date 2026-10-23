@@ -68,7 +68,8 @@ const hi: Record<string, string | string[]> = {
   'sim.tab.explainer': 'व्याख्या', // needs-native-review
   'sim.phoneCap': 'किसान का फ़ोन, आपके ब्राउज़र में सचमुच चल रहा है', // needs-native-review
   'sim.loading': 'बाढ़ का रीप्ले लोड हो रहा है…', // needs-native-review
-  'sim.loadError': 'परिदृश्य डेटा लोड नहीं हो सका ({err})। पेज दोबारा लोड करें।', // needs-native-review
+  'sim.loadError': 'सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
+  'sim.retry': 'फिर कोशिश करें', // needs-native-review
   'lazy.failed': 'पेज का यह हिस्सा लोड नहीं हो सका। कनेक्शन जाँचें, फिर पेज दोबारा लोड करें।', // needs-native-review
   'lazy.reload': 'पेज दोबारा लोड करें', // needs-native-review
   'sim.consoleNote': 'बीमा कंपनी और ज़िले का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review

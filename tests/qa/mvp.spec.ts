@@ -318,3 +318,16 @@ test.describe('a phone set to Hindi', () => {
     expect(errors).toEqual([]);
   });
 });
+
+test('if the scenario data does not load, the page says so plainly and a button tries again', async ({ page }) => {
+  let block = true;
+  await page.route('**/data/flood-replay.json', (r) => (block ? r.abort() : r.continue()));
+  await page.goto('/');
+  const note = page.locator('#simulation .note-bad');
+  await expect(note).toBeVisible({ timeout: 30_000 });
+  await expect(note).not.toContainText(/TypeError|Failed to fetch|HTTP/);
+  block = false;
+  await page.getByRole('button', { name: 'Try again' }).click();
+  await expect(note).toHaveCount(0, { timeout: 20_000 });
+  await expect(page.locator('.farmer').first()).toBeVisible({ timeout: 20_000 });
+});

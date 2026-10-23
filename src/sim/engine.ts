@@ -65,17 +65,27 @@ export function seek(h: number) {
   tSlow.value = v;
 }
 
+/** Waits before each try: at once, then after 1 s, then after 3 s. One dropped request on a weak link must not be final. */
+const LOAD_TRIES_MS = [0, 1000, 3000];
+
 export async function loadScenario() {
-  try {
-    const res = await fetch('data/flood-replay.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const raw = JSON.parse(text) as ScenarioRaw;
-    rawScenario.value = raw;
-    void sha256(text).then((h) => (scenarioHash.value = h));
-  } catch (e) {
-    loadError.value = String(e);
+  loadError.value = null;
+  let last: unknown = null;
+  for (const wait of LOAD_TRIES_MS) {
+    if (wait) await new Promise((r) => setTimeout(r, wait));
+    try {
+      const res = await fetch('data/flood-replay.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const raw = JSON.parse(text) as ScenarioRaw;
+      rawScenario.value = raw;
+      void sha256(text).then((h) => (scenarioHash.value = h));
+      return;
+    } catch (e) {
+      last = e;
+    }
   }
+  loadError.value = String(last);
 }
 
 /** The demo farmer: the plot the story, the tour and the explainer follow. */
