@@ -23,9 +23,15 @@ function done() {
   speakingId.value = null;
 }
 
+/**
+ * A voice that runs on the device. The consent sentence carries the farmer's and the helper's names, and some browsers send
+ * text to a remote voice: those are never used. No local voice for the language means captions only (null). An empty list
+ * means the browser has not loaded its voices yet (undefined): the text is not spoken until it has.
+ */
 function pickVoice(lang: Lang): SpeechSynthesisVoice | null | undefined {
-  const vs = speechSynthesis.getVoices();
-  if (!vs.length) return undefined; // unknown yet: let the engine choose by lang
+  const all = speechSynthesis.getVoices();
+  if (!all.length) return undefined;
+  const vs = all.filter((v) => v.localService);
   const want = BCP[lang].toLowerCase();
   return vs.find((v) => v.lang.toLowerCase().replace('_', '-') === want) ?? vs.find((v) => v.lang.toLowerCase().startsWith(lang)) ?? null;
 }
