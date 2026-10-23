@@ -148,7 +148,14 @@ const walk = (d: string): string[] => readdirSync(d).flatMap((n) => (statSync(jo
 test('nothing in the product reads or names the fixture, and the product status starts as "not run"', () => {
   for (const f of walk('src')) assert.ok(!/fixtures?\/validation|FIXTURE/.test(readFileSync(f, 'utf8')), `${f} must not mention the validation fixture`);
   const status = JSON.parse(readFileSync('public/data/validation-status.json', 'utf8'));
-  assert.deepEqual(status, { v: 1, run: false });
+  // "not run", or a replay of a real past flood published by scripts/replay/publish.ts: raw counts, no fixture, no percentage
+  if (status.run) {
+    assert.equal(status.v, 2);
+    assert.equal(status.replay.id, 'R-1');
+    assert.ok(status.replay.runs.A.events['R1-FLOOD'].points > 0);
+    assert.ok(!/fixture|FIXTURE/.test(JSON.stringify(status)));
+    assert.ok(!('precision' in status) && !('recall' in status));
+  } else assert.deepEqual(status, { v: 1, run: false });
   assert.ok(!existsSync('public/data/validation-fixture.json'));
 });
 

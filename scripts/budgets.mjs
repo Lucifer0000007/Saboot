@@ -7,7 +7,7 @@ import { PUBLIC_URL } from '../src/config.ts';
 /** The site's own public address (canonical link, social tags) is not a third party. */
 const OWN_HOST = new URL(PUBLIC_URL).host;
 /** Addresses a person can follow from the page. Each is named here on purpose, and the page never fetches one. */
-const LINKS = new Set(['https://github.com/Lucifer0000007/Saboot']);
+const LINKS = new Set(['https://github.com/Lucifer0000007/Saboot', 'https://open-meteo.com/']); // the replay's data licence (CC BY 4.0) asks for a link beside the data
 
 const KB = 1024;
 const B = { initial: 200 * KB, total: 700 * KB, lazy: 60 * KB, data: 40 * KB, clip: 20 * KB };
