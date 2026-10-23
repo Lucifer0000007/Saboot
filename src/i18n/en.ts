@@ -599,7 +599,7 @@ const en: Record<string, string | string[]> = {
   'fp.helper': 'The helper visits with a smartphone, reads the consent aloud with the farmer, takes the three photos and seals the packet. The packet names the helper and carries the farmer’s consent.',
   'fp.open': 'Open helper mode',
   'fp.again': 'Start again',
-  'f.rewound': 'Replay rewound — your later actions were replaced.',
+  'f.rewound': 'The replay moved forward to your latest action, so nothing you did is lost.',
   'f.ok': 'OK',
   'set.title': 'Settings',
   'set.lang': 'Language',

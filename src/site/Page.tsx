@@ -6,14 +6,14 @@ import { liveMsg, toast } from '../lib/announce';
 import { tr } from '../lib/i18n';
 import { loadScenario, model } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
-import { loadFocus } from '../farmer/focus';
+import { loadFocus, restoreClock } from '../farmer/focus';
 import { Settings } from '../ui/Settings';
 import { Presenter } from '../tour/Presenter';
 import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, simTab, importCode } from './layout';
+import { readDeepLink, scrollToId, simTab, importCode, deepLinkDone } from './layout';
 import { rail, cadence } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0);
@@ -55,31 +55,38 @@ function useNear(id: string) {
 }
 
 let deepLinked = false;
-function applyDeepLink() {
+async function applyDeepLink() {
   if (deepLinked || !model.value) return;
   deepLinked = true;
-  const d = readDeepLink();
-  if (d.rail) rail.value = d.rail;
-  if (d.cadence) cadence.value = d.cadence;
-  if (d.tab) simTab.value = d.tab;
-  if (d.k) {
-    simTab.value = 'insurer';
-    importCode.value = d.k;
+  try {
+    // the stored log must be in memory before a moment jump decides what the farmer is still missing
+    await loadFocus();
+    const d = readDeepLink();
+    if (d.rail) rail.value = d.rail;
+    if (d.cadence) cadence.value = d.cadence;
+    if (d.tab) simTab.value = d.tab;
+    if (d.k) {
+      simTab.value = 'insurer';
+      importCode.value = d.k;
+    }
+    if (d.at) {
+      simTab.value = 'farmer';
+      await jumpTo(d.at as MomentId);
+    }
+    if (d.at || d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
+    else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
+    restoreClock();
+  } finally {
+    deepLinkDone.value = true;
   }
-  if (d.at) {
-    simTab.value = 'farmer';
-    void jumpTo(d.at as MomentId);
-  }
-  if (d.at || d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
-  else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
 }
 
 export function Page({ ssr }: { ssr?: boolean }) {
   useEffect(() => {
     loadScenario();
-    loadFocus();
+    void loadFocus().then(restoreClock);
   }, []);
-  useEffect(applyDeepLink, [model.value]);
+  useEffect(() => { void applyDeepLink(); }, [model.value]);
   return (
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{tr('skip.main')}</a>

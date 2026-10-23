@@ -585,7 +585,7 @@ const hi: Record<string, string | string[]> = {
   'fp.helper': 'सहायक स्मार्टफ़ोन लेकर आता है, किसान के साथ सहमति बोलकर पढ़ता है, तीन फ़ोटो लेता है और पैकेट सील करता है। पैकेट में सहायक का नाम और किसान की सहमति दर्ज रहती है।', // needs-native-review
   'fp.open': 'सहायक मोड खोलें', // needs-native-review
   'fp.again': 'फिर से शुरू करें', // needs-native-review
-  'f.rewound': 'रीप्ले पीछे किया गया — आपकी बाद की गतिविधियाँ बदल दी गईं।', // needs-native-review
+  'f.rewound': 'रीप्ले आपकी आख़िरी कार्रवाई तक आगे बढ़ गया, इसलिए आपका किया हुआ कुछ भी नहीं खोया।', // needs-native-review
   'f.ok': 'ठीक है', // needs-native-review
   'set.title': 'सेटिंग्स', // needs-native-review
   'set.lang': 'भाषा', // needs-native-review

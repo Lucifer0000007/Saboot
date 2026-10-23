@@ -59,6 +59,8 @@ export const insurerView = signal<InsurerView>('claims');
 export const openPlot = signal<string | null>(null);
 /** Feature K: a code to import (from a #k= link), or '' to open the import sheet empty. */
 export const importCode = signal<string | null>(null);
+/** True once the link's tab, moment and code have been applied (the stored log is loaded first). The QA hook waits for it. */
+export const deepLinkDone = signal(false);
 
 /** Is the given simulation view on screen right now? */
 export const showing = (v: SimTab) => (layout.value === 'desktop' ? v === 'farmer' || panelTab.value === v : simTab.value === v);

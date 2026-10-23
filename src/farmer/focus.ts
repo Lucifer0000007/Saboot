@@ -6,7 +6,7 @@ import { signal, computed } from '@preact/signals';
 import { appendLink, canonical, sha256, type ChainLink } from '../lib/hash';
 import { dbGet, dbSet, dbDel, dbClear, dbKeys } from '../lib/db';
 import { network, browserOnline } from '../lib/prefs';
-import { t, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
+import { t, seek, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
 import { imported } from '../k/imported';
 
@@ -93,18 +93,45 @@ export async function endHelperSession() {
   await dbDel('kv', SESSION);
 }
 
-/** Append an event at the current sim time. Discards "future" events first if the replay was rewound. */
-async function append(ev: FocusEvent, key: string = activeKey.value) {
-  if (!loaded) await loadFocus();
-  let c = logs.value[key] ?? [];
-  if (c.some((l) => l.body.simT > ev.simT)) {
-    c = c.filter((l) => l.body.simT <= ev.simT);
-    rewound.value = true;
-  }
-  const link = await appendLink(c, ev);
-  logs.value = { ...logs.value, [key]: [...c, link] };
-  await save(key);
-  return link;
+/** Writes one at a time (and across tabs where the browser has Web Locks), so two actions can never overwrite each other. */
+let writes: Promise<unknown> = Promise.resolve();
+function exclusive<T>(fn: () => Promise<T>): Promise<T> {
+  const run = writes.then(() => (typeof navigator !== 'undefined' && navigator.locks ? navigator.locks.request('saboot-log', fn) : fn()));
+  writes = run.catch(() => undefined);
+  return run as Promise<T>;
+}
+
+/**
+ * Append an event. A log only moves forward: an event that would land before the last one is stamped just after it, so
+ * scrubbing the replay back, reloading or reconnecting can never remove sealed evidence. When a person acts while the
+ * replay is behind their last action, the replay moves forward to it so they can see what they did. A `passive` event (a
+ * sync) never moves the replay.
+ */
+async function append(ev: FocusEvent, key: string = activeKey.value, passive = false) {
+  return exclusive(async () => {
+    if (!loaded) await loadFocus();
+    // Another tab may have written since this one read the log: start from the longer one.
+    const stored = await dbGet<Link[]>('kv', kvKey(key));
+    let c = logs.value[key] ?? [];
+    if (stored && stored.length > c.length) c = stored;
+    const last = c.length ? c[c.length - 1].body.simT : -Infinity;
+    const simT = Math.max(ev.simT, last);
+    if (simT > ev.simT && !passive) {
+      seek(simT);
+      rewound.value = true;
+    }
+    const link = await appendLink(c, simT === ev.simT ? ev : ({ ...ev, simT } as FocusEvent));
+    logs.value = { ...logs.value, [key]: [...c, link] };
+    await save(key);
+    return link;
+  });
+}
+
+/** After a reload the replay clock is back at the start: take it to the last thing the person did, so their evidence shows. */
+export function restoreClock() {
+  let last = 0;
+  for (const c of Object.values(logs.value)) if (c.length) last = Math.max(last, c[c.length - 1].body.simT);
+  if (t.value < last) seek(last);
 }
 
 export async function resetFocus() {
@@ -160,7 +187,7 @@ export interface FocusView {
   /** received as a hash only; photo body still waiting for a better network */
   bodyPending: number;
   items: SyncItem[];
-  seal: { simT: number; packetHash: string; recvT: number | null } | null;
+  seal: { simT: number; packetHash: string; recvT: number | null; shots: string[] } | null;
   ref: { ref: string; simT: number } | null;
   noDamage: number | null;
   consent: (Consent & { simT: number }) | null;
@@ -188,7 +215,7 @@ export function reduce(events: Link[], at: number): FocusView {
         if ((e.data.stage ?? 'full') === 'full' && !body.has(id)) body.set(id, e.simT);
       }
       if (e.data.packet && v.seal && v.seal.recvT === null) v.seal.recvT = e.simT;
-    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT };
+    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT, shots: e.data.shots };
     else if (e.type === 'ref') v.ref = { ref: e.data.ref, simT: e.simT };
     else if (e.type === 'no_damage') v.noDamage = e.data.undo ? null : e.simT;
     else if (e.type === 'consent') v.consent = { ...e.data, simT: e.simT };
@@ -312,7 +339,7 @@ export function packetBody(v: FocusView) {
 
 export async function seal() {
   const v = view.value;
-  if (!v.shotCount) return;
+  if (!v.shotCount || full.value.seal) return;
   busy.value = true;
   try {
     const body = packetBody(v);
@@ -352,10 +379,10 @@ export async function syncOutbox() {
         const [k, e] = left[0];
         const owner = e?.plot ?? DEMO;
         if (k.startsWith('packet-')) {
-          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(logs.value[owner] ?? [], t.value).seal?.packetHash, stage: 'hash' } }, owner);
+          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(logs.value[owner] ?? [], Infinity).seal?.packetHash, stage: 'hash' } }, owner, true);
           await dbDel('outbox', k);
         } else {
-          await append({ type: 'sync', simT: t.value, data: { photoIds: [k], stage: 'hash' } }, owner);
+          await append({ type: 'sync', simT: t.value, data: { photoIds: [k], stage: 'hash' } }, owner, true);
           await dbSet('outbox', k, { ...e, hashSent: true });
         }
         continue;
@@ -366,9 +393,9 @@ export async function syncOutbox() {
       for (const owner of owners) {
         const mine = entries.filter(([, e]) => (e?.plot ?? DEMO) === owner).map(([k]) => k);
         const ids = mine.filter((k) => k.startsWith('ph-'));
-        const seal = reduce(logs.value[owner] ?? [], t.value).seal;
+        const seal = reduce(logs.value[owner] ?? [], Infinity).seal;
         const packet = mine.some((k) => k.startsWith('packet-')) && seal ? seal.packetHash : undefined;
-        await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner);
+        await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner, true);
       }
       await dbClear('outbox');
       return;
@@ -397,6 +424,7 @@ export const policyNo = (plotId: string) => `SIM-KSG-26-${plotId.replace('P-', '
 export const SCRIPT = { capture: 3, seal: 3.1, ref: 5.1, ackDue: 48, escalate: 72, ack: 70, survey: 30, objectionResponse: 20 };
 
 export async function ensureFocus(stage: 'captured' | 'sealed' | 'filed') {
+  if (!loaded) await loadFocus();
   const d = focusDet.value;
   if (!d || d.alertT === null) return;
   const back = t.value;

@@ -585,7 +585,7 @@ const pa: Record<string, string | string[]> = {
   'fp.helper': 'ਸਹਾਇਕ ਸਮਾਰਟਫ਼ੋਨ ਲੈ ਕੇ ਆਉਂਦਾ ਹੈ, ਕਿਸਾਨ ਨਾਲ ਸਹਿਮਤੀ ਬੋਲ ਕੇ ਪੜ੍ਹਦਾ ਹੈ, ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਪੈਕੇਟ ਸੀਲ ਕਰਦਾ ਹੈ। ਪੈਕੇਟ ਵਿੱਚ ਸਹਾਇਕ ਦਾ ਨਾਂ ਅਤੇ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਦਰਜ ਰਹਿੰਦੀ ਹੈ।', // needs-native-review
   'fp.open': 'ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ', // needs-native-review
   'fp.again': 'ਫਿਰ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
-  'f.rewound': 'ਰੀਪਲੇ ਪਿੱਛੇ ਕੀਤਾ — ਤੁਹਾਡੀਆਂ ਬਾਅਦ ਦੀਆਂ ਕਾਰਵਾਈਆਂ ਬਦਲ ਦਿੱਤੀਆਂ ਗਈਆਂ।', // needs-native-review
+  'f.rewound': 'ਰੀਪਲੇ ਤੁਹਾਡੀ ਆਖ਼ਰੀ ਕਾਰਵਾਈ ਤੱਕ ਅੱਗੇ ਵਧ ਗਿਆ, ਇਸ ਲਈ ਤੁਹਾਡਾ ਕੀਤਾ ਹੋਇਆ ਕੁਝ ਵੀ ਨਹੀਂ ਗੁਆਚਿਆ।', // needs-native-review
   'f.ok': 'ਠੀਕ ਹੈ', // needs-native-review
   'set.title': 'ਸੈਟਿੰਗਾਂ', // needs-native-review
   'set.lang': 'ਭਾਸ਼ਾ', // needs-native-review
