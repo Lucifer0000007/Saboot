@@ -57,16 +57,22 @@ function lookup(key: string): string | string[] {
   return dicts[l]?.[key] ?? en[key] ?? key;
 }
 
-export function tr(key: string, vars?: Record<string, string | number>): string {
-  let s = lookup(key);
-  if (Array.isArray(s)) s = s.join(' ');
+type Vars = Record<string, string | number>;
+
+/** Put each value where its {name} stands. */
+function fill(s: string, vars?: Vars): string {
   if (vars) for (const k in vars) s = s.split('{' + k + '}').join(String(vars[k]));
   return s;
 }
 
-export const tList = (key: string): string[] => {
+export function tr(key: string, vars?: Vars): string {
+  const s = lookup(key);
+  return fill(Array.isArray(s) ? s.join(' ') : s, vars);
+}
+
+export const tList = (key: string, vars?: Vars): string[] => {
   const v = lookup(key);
-  return Array.isArray(v) ? v : [v];
+  return (Array.isArray(v) ? v : [v]).map((s) => fill(s, vars));
 };
 
 /** Does the current dictionary (or English) have this key? */

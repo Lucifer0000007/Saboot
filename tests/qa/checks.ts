@@ -1,6 +1,6 @@
 // In-page layout checks (spec §10.2). Self-contained: Playwright serialises this function into the page.
 export interface CheckOpts {
-  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel
+  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel, tokens
   stickyMax?: number; // max share of the viewport sticky chrome may take (mobile)
 }
 
@@ -221,6 +221,24 @@ export function runChecks(opts: CheckOpts): string[] {
       return !!hit && (hit === el || el.contains(hit));
     });
     if (!onScreen) out.push('no SIMULATION indicator visible on this screen');
+  }
+
+  // 9. no raw {token} in the copy: a string that was meant to be filled in and was not. Reads the text itself, so the
+  //    answer in a closed <details> counts too.
+  if (want('tokens')) {
+    const raw = /\{[A-Za-z][A-Za-z0-9_]*\}/;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const el = n.parentElement;
+      const m = el && !el.closest('script, style, template') ? raw.exec(n.textContent || '') : null;
+      if (el && m) out.push(`raw placeholder ${m[0]} in the copy: ${desc(el)}`);
+    }
+    for (const el of document.querySelectorAll('[aria-label], [title], [alt], [placeholder]')) {
+      for (const a of ['aria-label', 'title', 'alt', 'placeholder']) {
+        const m = raw.exec(el.getAttribute(a) || '');
+        if (m) out.push(`raw placeholder ${m[0]} in ${a}: ${desc(el)}`);
+      }
+    }
   }
   return out;
 }

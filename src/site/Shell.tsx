@@ -5,6 +5,7 @@ import { Icon, Mark, type IconName } from '../ui/Icon';
 import { tr, tList } from '../lib/i18n';
 import { reducedMotion } from '../lib/prefs';
 import { TEAM_NAME, PROJECT, TRACK, EVENT } from '../config';
+import { SCENARIO } from '../generated/scenario-summary';
 import { scrollToId } from './layout';
 import { runSimulation } from './actions';
 
@@ -89,6 +90,9 @@ export function Problem() {
   );
 }
 
+/** The numbers an answer may quote: the scenario's own, so the page cannot disagree with the data. */
+const FAQ_VARS = { plots: SCENARIO.plots, cadence: SCENARIO.radarCadenceHours, slow: SCENARIO.radarSlowCadenceHours };
+
 export function Limits() {
   return (
     <section id="limits" class="sec" aria-labelledby="faq-h">
@@ -101,7 +105,7 @@ export function Limits() {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <details key={i} open={i === 1}>
               <summary><span>{tr('faq.q' + i)}</span><Icon name="down" /></summary>
-              <div class="ans">{tList('faq.a' + i).map((p, j) => <p key={j}>{p}</p>)}</div>
+              <div class="ans">{tList('faq.a' + i, FAQ_VARS).map((p, j) => <p key={j}>{p}</p>)}</div>
             </details>
           ))}
         </div>
