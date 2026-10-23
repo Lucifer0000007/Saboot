@@ -331,3 +331,25 @@ test('if the scenario data does not load, the page says so plainly and a button 
   await expect(note).toHaveCount(0, { timeout: 20_000 });
   await expect(page.locator('.farmer').first()).toBeVisible({ timeout: 20_000 });
 });
+
+test('one dropped request for the Hindi dictionary does not strand the language switch', async ({ page }) => {
+  let n = 0;
+  await page.route(/\/assets\/hi-[^/?]*\.js(\?.*)?$/, (r) => (++n === 1 ? r.abort('failed') : r.continue()));
+  await open(page, V('390x844'), 'en', []);
+  await page.keyboard.press('l');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'hi', { timeout: 20_000 });
+  expect(n).toBeGreaterThan(1);
+});
+
+test('if the Hindi dictionary cannot be fetched at all, the page stays in English and says so, and a second try works', async ({ page }) => {
+  let block = true;
+  await page.route(/\/assets\/hi-[^/?]*\.js(\?.*)?$/, (r) => (block ? r.abort('failed') : r.continue()));
+  await open(page, V('390x844'), 'en', []);
+  await page.keyboard.press('l');
+  await expect(page.locator('.toast.warn')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('.nav .spin')).toHaveCount(0);
+  block = false;
+  await page.keyboard.press('l');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'hi', { timeout: 20_000 });
+});

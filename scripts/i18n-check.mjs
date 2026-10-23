@@ -54,7 +54,8 @@ for (const l of ['hi', 'pa']) {
 
 // unused keys (warning only): look for the literal key or its dynamic prefix in src/
 const walk = (d) => readdirSync(d).flatMap((n) => (statSync(join(d, n)).isDirectory() ? walk(join(d, n)) : [join(d, n)]));
-const code = walk('src').filter((f) => /\.tsx?$/.test(f) && !f.includes('i18n')).map((f) => readFileSync(f, 'utf8')).join('\n');
+// the dictionaries themselves are not usage; src/lib/i18n.ts (which shows a toast) is
+const code = walk('src').filter((f) => /\.tsx?$/.test(f) && !f.split(/[\\/]/).includes('i18n')).map((f) => readFileSync(f, 'utf8')).join('\n');
 const dynamic = ['shot.', 'crop.', 'm.', 'net.', 'conn.', 'sync.st.', 'set.t', 'faq.', 'pb.', 'tour.s', 'arch.', 'wf.', 'rs.', 'sim.tab.', 'conn.live.', 'f.nav.', 'as.', 'st.', 'fl.s', 'rail.', 'cad.', 'lang.name.'];
 // a rail variant (key.pmfby or key.relief) is used when its base key is: the app reads them with trr()
 const baseOf = (k) => k.replace(/\.(pmfby|relief)$/, '');

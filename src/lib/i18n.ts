@@ -2,13 +2,15 @@ import { signal } from '@preact/signals';
 import en from '../i18n/en';
 import { lang, rail } from './prefs';
 import type { Lang } from '../sim/types';
+import { importWithRetry } from './chunk';
+import { showToast } from './announce';
 
 export type Dict = Record<string, string | string[]>;
 const dicts: Partial<Record<Lang, Dict>> = { en };
 const loaders: Record<Lang, () => Promise<{ default: Dict }>> = {
   en: async () => ({ default: en }),
-  hi: () => import('../i18n/hi'),
-  pa: () => import('../i18n/pa'),
+  hi: () => importWithRetry(() => import('../i18n/hi')),
+  pa: () => importWithRetry(() => import('../i18n/pa')),
 };
 /** Bumps when a dictionary arrives so readers re-render. */
 const ver = signal(0);
@@ -32,14 +34,23 @@ export function prefetchLang(l: Lang): Promise<unknown> {
   }
   const p = Promise.race([Promise.all(tasks), new Promise((r) => setTimeout(r, 4000))]);
   pending[l] = p;
+  // a failed load is not remembered: the next tap tries again
+  p.catch(() => { if (pending[l] === p) delete pending[l]; });
   return p;
 }
 
 /** Load dictionary + fonts BEFORE switching so text reflows exactly once (no visible font swap). */
 export async function setLang(l: Lang) {
   langLoading.value = l;
-  await prefetchLang(l);
-  if (!dicts[l]) { const m = await loaders[l](); dicts[l] = m.default; }
+  try {
+    await prefetchLang(l);
+    if (!dicts[l]) { const m = await loaders[l](); dicts[l] = m.default; }
+  } catch {
+    // stay in the language the person is reading, say so, and let them try again
+    langLoading.value = null;
+    showToast(tr('lang.fail', { lang: LANGS.find((x) => x.id === l)!.label }), 'warn');
+    return;
+  }
   lang.value = l;
   langReady.value = l;
   ver.value++;

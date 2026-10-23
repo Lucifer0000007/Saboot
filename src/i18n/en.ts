@@ -73,6 +73,7 @@ const en: Record<string, string | string[]> = {
   'sim.loading': 'Loading the flood replay…',
   'sim.loadError': 'The simulation data did not load. Check your connection and try again.',
   'sim.retry': 'Try again',
+  'lang.fail': 'Could not load {lang}. Check your connection and try again.',
   'lazy.failed': 'This part of the page did not load. Check the connection, then reload the page.',
   'lazy.reload': 'Reload the page',
   'sim.consoleNote': 'The insurer and district console is shown in English.',
