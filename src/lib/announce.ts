@@ -16,5 +16,5 @@ export function showToast(text: string, tone?: 'ok' | 'warn') {
   toast.value = { id: ++n, text, tone };
   announce(text);
   clearTimeout(timer);
-  timer = setTimeout(() => (toast.value = null), 3600);
+  timer = setTimeout(() => (toast.value = null), 5000);
 }
