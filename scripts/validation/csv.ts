@@ -2,6 +2,11 @@
 // comment lines that start with "#" (so a file can say where it came from). Empty lines are skipped.
 
 export function parseCsv(text: string): string[][] {
+  return parseCsvChecked(text).rows;
+}
+
+/** The rows, and whether a quote was still open at the end of the text (an unbalanced quote swallows the rest of the file). */
+export function parseCsvChecked(text: string): { rows: string[][]; unterminated: boolean } {
   const rows: string[][] = [];
   let row: string[] = [];
   let field = '';
@@ -25,17 +30,18 @@ export function parseCsv(text: string): string[][] {
     else if (c === '\r') { if (src[i + 1] !== '\n') endRow(); }
     else field += c;
   }
+  const unterminated = quoted;
   if (field !== '' || row.length) endRow();
-  return rows.filter((r) => !r[0].trimStart().startsWith('#'));
+  return { rows: rows.filter((r) => !r[0].trimStart().startsWith('#')), unterminated };
 }
 
-export interface Table { header: string[]; rows: Record<string, string>[]; lines: number }
+export interface Table { header: string[]; rows: Record<string, string>[]; lines: number; unterminated?: boolean }
 
 /** Header row plus records keyed by column name (trimmed). Rows shorter than the header leave the rest empty. */
 export function readTable(text: string): Table {
-  const all = parseCsv(text);
-  if (!all.length) return { header: [], rows: [], lines: 0 };
+  const { rows: all, unterminated } = parseCsvChecked(text);
+  if (!all.length) return { header: [], rows: [], lines: 0, unterminated };
   const header = all[0].map((h) => h.trim());
   const rows = all.slice(1).map((r) => Object.fromEntries(header.map((h, i) => [h, (r[i] ?? '').trim()])));
-  return { header, rows, lines: all.length };
+  return { header, rows, lines: all.length, unterminated };
 }

@@ -102,13 +102,18 @@ export interface Report {
 
 const sha256 = (b: string | Buffer) => createHash('sha256').update(b).digest('hex');
 const round = (x: number | null, d = 3) => (x === null ? null : Math.round(x * 10 ** d) / 10 ** d);
-const TZ = /(Z|[+-][0-9]{2}:?[0-9]{2})$/;
+/** A full ISO-8601 date and time with its zone: 2000-01-01T08:00:00Z, 2000-01-01 08:00+05:30. Seconds and fractions are optional. */
+const ISO_TIME = /^[0-9]{4}-[0-9]{2}-[0-9]{2}[T ][0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?(Z|[+-][0-9]{2}:?[0-9]{2})$/;
 const HOUR = 3600e3;
 
-/** Parse an ISO-8601 time that carries its zone. Anything else is rejected: a time without a zone is ambiguous. */
-function parseTime(s: string | undefined): number | null {
-  if (s === undefined || !TZ.test(s.trim())) return null;
-  const t = Date.parse(s.trim());
+/**
+ * Parse an ISO-8601 time that carries its zone. Anything else is rejected: a time without a zone is ambiguous, and a looser
+ * check let the digits of a year ("01-02-2000") pass for an offset.
+ */
+export function parseTime(s: string | undefined): number | null {
+  const x = s?.trim() ?? '';
+  if (!ISO_TIME.test(x)) return null;
+  const t = Date.parse(x.replace(' ', 'T').replace(/([+-][0-9]{2})([0-9]{2})$/, '$1:$2'));
   return Number.isFinite(t) ? t : null;
 }
 const num = (s: string | undefined): number | null => (s === undefined || s.trim() === '' ? null : Number.isFinite(Number(s)) ? Number(s) : null);
@@ -136,7 +141,24 @@ export function defaultParams(scenarioPath = 'public/data/flood-replay.json', ov
   };
 }
 
-interface Rain { id: string; pos: [number, number]; /** hourly depth by absolute hour (ms since epoch / HOUR) */ perHour: Map<number, number> }
+interface Rain {
+  id: string;
+  pos: [number, number];
+  /** depth by absolute hour (ms since epoch / HOUR): a reading counts from the hour boundary at or after its time */
+  perHour: Map<number, number>;
+  /** the hours a reading covers (its interval ending at its time), whether or not the depth is placed there */
+  covered: Set<number>;
+}
+
+/** A rain station is used when, between its first and last hour in the window, at least this share of the hours were reported. */
+const MIN_COVERAGE = 0.9;
+
+/** Hours reported in [from, to]: usable when there are some and few of the hours between the first and the last are missing. */
+function reportsCleanly(s: Rain, from: number, to: number): boolean {
+  let first = Infinity, last = -Infinity, n = 0;
+  for (const h of s.covered) if (h >= from && h <= to) { n++; if (h < first) first = h; if (h > last) last = h; }
+  return n > 0 && n / (last - first + 1) >= MIN_COVERAGE;
+}
 interface Gauge { id: string; pos: [number, number]; kind: 'stage' | 'release'; unit: string; danger: number; readings: [number, number][] }
 
 export function runValidation(opt: Options): Report {
@@ -148,6 +170,8 @@ export function runValidation(opt: Options): Report {
 
   const inputs: Record<string, InputInfo> = {};
   const tables = {} as Record<FileName, Table>;
+  /** files whose header lacks a required column: counted as one problem that is not a row */
+  const headerProblem = new Set<FileName>();
   for (const f of FILES) {
     const p = join(opt.dir, f);
     if (!existsSync(p)) {
@@ -160,7 +184,12 @@ export function runValidation(opt: Options): Report {
     tables[f] = t;
     const problems: string[] = [];
     const missing = REQUIRED[f].filter((c) => !t.header.includes(c));
-    if (missing.length) problems.push(`missing column(s): ${missing.join(', ')}`);
+    if (missing.length) {
+      problems.push(`missing column(s): ${missing.join(', ')}`);
+      errors.push(`${f} is missing column(s): ${missing.join(', ')}`);
+      headerProblem.add(f);
+    }
+    if (t.unterminated) errors.push(`${f} has an unbalanced quote: everything after it was read as one field. Fix the file and run again.`);
     const pv = prov?.[f];
     const provenance = pv && typeof pv === 'object' ? pv : null;
     if (!provenance) errors.push(`no provenance for ${f}: add its source, licence and retrieval date to PROVENANCE.json`);
@@ -173,10 +202,15 @@ export function runValidation(opt: Options): Report {
     if (pr.samples.length < 20) pr.samples.push(`row ${line + 2}: ${msg}`);
   };
   const timeRange = (f: FileName, ts: number[]) => {
-    if (ts.length) inputs[f].timeRange = [iso(Math.min(...ts)), iso(Math.max(...ts))];
+    if (!ts.length) return;
+    // a loop, not Math.min(...ts): spreading a very large array into a call overflows the stack
+    let lo = ts[0], hi = ts[0];
+    for (const x of ts) { if (x < lo) lo = x; if (x > hi) hi = x; }
+    inputs[f].timeRange = [iso(lo), iso(hi)];
   };
 
-  // ---- rainfall: depth in the interval ENDING at time_utc, spread evenly over the hours of that interval
+  // ---- rainfall: depth in the interval ENDING at time_utc. The whole depth counts from the first whole hour at or after
+  // that time, and is not spread back over a longer interval: a daily total must not fire a rule before it was known.
   const stations = new Map<string, Rain>();
   const rainTimes: number[] = [];
   tables['rainfall.csv'].rows.forEach((r, i) => {
@@ -187,10 +221,11 @@ export function runValidation(opt: Options): Report {
     }
     rainTimes.push(t);
     let s = stations.get(r.station_id);
-    if (!s) stations.set(r.station_id, (s = { id: r.station_id, pos: [lat, lon], perHour: new Map() }));
-    const hours = Math.max(1, Math.round(k));
-    const endHour = Math.floor(t / HOUR);
-    for (let j = 0; j < hours; j++) s.perHour.set(endHour - j, (s.perHour.get(endHour - j) ?? 0) + mm / hours);
+    if (!s) stations.set(r.station_id, (s = { id: r.station_id, pos: [lat, lon], perHour: new Map(), covered: new Set() }));
+    // rounded UP: a reading taken at 08:30 counts from 09:00, never from 08:00
+    const endHour = Math.ceil(t / HOUR);
+    s.perHour.set(endHour, (s.perHour.get(endHour) ?? 0) + mm);
+    for (let j = 0, hours = Math.max(1, Math.round(k)); j < hours; j++) s.covered.add(endHour - j);
   });
   timeRange('rainfall.csv', rainTimes);
 
@@ -251,11 +286,22 @@ export function runValidation(opt: Options): Report {
   });
   timeRange('confirmed.csv', [...events.values()].flatMap((e) => [e.start, e.end]));
 
+  // ---- a row that was rejected is a row the rules never saw: say so as an error, which keeps the report from being published
+  for (const f of FILES) {
+    const info = inputs[f];
+    if (!info) continue;
+    const bad = info.problems.count - (headerProblem.has(f) ? 1 : 0);
+    if (bad > 0) errors.push(`${bad} of ${info.rows} rows in ${f} were rejected or had problems (first: ${info.problems.samples.find((s) => s.startsWith('row ')) ?? 'see the report'})`);
+  }
+
   // ---- run the rules, plot by plot, per event
   const results: EventResult[] = [];
   for (const ev of events.values()) {
     const T0 = Math.floor(ev.start / HOUR) * HOUR;
     const H = Math.ceil((ev.end - T0) / HOUR);
+    // a station is used for this event only when it reported cleanly in its window; its gaps would read as dry weather
+    const usable = new Set<string>();
+    for (const s of stations.values()) if (reportsCleanly(s, T0 / HOUR - 24, ev.end / HOUR)) usable.add(s.id);
     const byVillage = new Map<string, P[]>();
     for (const p of plots) byVillage.set(p.village, [...(byVillage.get(p.village) ?? []), p]);
     const villages: VillageResult[] = [];
@@ -269,14 +315,15 @@ export function runValidation(opt: Options): Report {
       const fired = new Set<string>();
       let first: number | null = null;
       for (const p of ps) {
-        // nearest rain station with data, within reach
+        // nearest rain station that reported cleanly, within reach
         let near: Rain | null = null, best = Infinity;
         for (const s of stations.values()) {
           const d = haversineKm(p.pos, s.pos);
-          if (d <= params.maxStationKm && d < best && [...s.perHour.keys()].some((h) => h * HOUR >= T0 - 24 * HOUR && h * HOUR <= ev.end)) { near = s; best = d; }
+          if (d <= params.maxStationKm && d < best && usable.has(s.id)) { near = s; best = d; }
         }
         let a = { crossT: null as number | null, fireT: null as number | null };
-        if (near) {
+        // Rule A needs to know whether the plot is low-lying: without that, it could never fire, which is not the same as "no event"
+        if (near && p.lowLying !== null) {
           const r24: number[] = [];
           for (let h = 0; h <= H; h++) {
             let sum = 0;
