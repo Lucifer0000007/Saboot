@@ -316,7 +316,7 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   // evidence on file, event to evidence, objections: each with its definition
   await expect(panel.locator('[data-metric="evidence-on-file"]')).toContainText(`${f.pilot.truthWithEvidence} of ${f.pilot.truthFlooded} plots flooded in the synthetic truth`);
   await expect(panel.locator('[data-metric="event-to-evidence"] strong')).toHaveText(dur(f.pilot.eventToEvidenceMedianH));
-  await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objections} of ${f.pilot.onList} listed entries`);
+  await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objections} of the ${f.pilot.onList} plots the rules found an event for`);
   await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objectionsAnswered} answered by the officer, outside Saboot`);
   // no "visits avoided": there is no honest baseline for it
   await expect(panel).not.toContainText(/visits? avoided/i);

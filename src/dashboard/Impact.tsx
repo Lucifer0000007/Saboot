@@ -69,7 +69,7 @@ function useValidationStatus() {
 export function ImpactCards({ k, pm }: { k: Metrics; pm: PilotMetrics }) {
   const m = model.value!;
   const relief = m.opts.rail === 'relief';
-  const all = eventToCall(m);
+  const fastest = k.tta.length ? Math.min(...k.tta) : null;
   const focusD = m.det[m.plots.findIndex((p) => p.id === m.raw.focus)];
   const focusTta = focusD && focusD.alertT !== null && focusD.eventT !== null ? focusD.alertT - focusD.eventT : null;
   const share = k.floodEvents ? k.filedInWindow / k.floodEvents : null;
@@ -80,7 +80,7 @@ export function ImpactCards({ k, pm }: { k: Metrics; pm: PilotMetrics }) {
         <strong class="num">{dur(k.ttaMedian)}</strong>
         <span>
           Hours from the start of the event to the voice call, over every alerted plot ({k.alerted} of them). Half of the farmers hear sooner, half later.
-          90th percentile <span class="num">{dur(k.ttaP90)}</span>. Fastest plot <span class="num">{dur(all.min)}</span>.
+          90th percentile <span class="num">{dur(k.ttaP90)}</span>. Fastest plot so far <span class="num">{dur(fastest)}</span>.
           The demo farmer {m.raw.focus} is one plot, at <span class="num">{dur(focusTta)}</span>: not the typical case.
         </span>
       </li>
@@ -100,7 +100,7 @@ export function ImpactCards({ k, pm }: { k: Metrics; pm: PilotMetrics }) {
           <strong class="num">{pm.published ? pct(pm.objectionRate) : '—'}</strong>
           <span>
             {pm.published
-              ? `${pm.objections} of ${pm.onList} listed entries had sealed evidence attached in the objection window; ${pm.objectionsAnswered} answered by the officer, outside Saboot. Scripted, not a forecast.`
+              ? `${pm.objections} of the ${pm.onList} plots the rules found an event for had sealed evidence attached in the objection window; ${pm.objectionsAnswered} answered by the officer, outside Saboot. Scripted, not a forecast.`
               : 'The officer publishes the draft list later in the replay (simulated). Objections are counted from then.'}
           </span>
         </li>

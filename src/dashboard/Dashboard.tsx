@@ -31,7 +31,7 @@ function Kpis() {
   const items: [string, number, string, ('warn' | 'bad')?][] = [
     ['Events alerted', k.events, 'Plots with a detected event or a hail prompt'],
     ['Evidence received', k.received, 'Packets received by the simulated server'],
-    pm ? ['Reported in window', k.inWindow, 'Reference recorded before the deadline'] : ['Shown to the officer', k.reported, 'Receipt number noted by the farmer'],
+    pm ? ['Reported in window', k.inWindow, 'Detected floods with a reference recorded before the deadline'] : ['Shown to the officer', k.reported, 'Receipt number noted by the farmer'],
     pm ? ['At risk', k.atRisk, 'Alerted, no evidence, under 24 h left', k.atRisk ? 'warn' : undefined] : ['Capture soon', k.atRisk, 'Alerted, no evidence yet, under 24 h of advice left', k.atRisk ? 'warn' : undefined],
     pm ? ['Window missed', k.missed, 'Deadline passed without evidence', k.missed ? 'bad' : undefined] : ['No evidence yet', k.missed, 'Advice window passed with no evidence', k.missed ? 'warn' : undefined],
     ['Flagged for review', k.flagged, pm ? 'Sync gaps, off-plot photos, overdue acknowledgements' : 'Sync gaps, off-plot photos, overdue officer acknowledgements'],
