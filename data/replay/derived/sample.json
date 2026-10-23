@@ -1,0 +1,276 @@
+{
+  "method": {
+    "areas": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8
+    ],
+    "gridDeg": 0.01,
+    "bufferKm": 1,
+    "perClass": 30,
+    "seed": 838,
+    "reachKm": 48,
+    "waveKmh": 4,
+    "daysBefore": 9,
+    "daysAfter": 6,
+    "quietStartDaysBefore": 120,
+    "quietLengthDays": 14,
+    "dangerPercentile": 0.9,
+    "baselineDays": 90,
+    "baselineEndsDaysBefore": 30
+  },
+  "windows": {
+    "D": "2025-08-29",
+    "event": [
+      "2025-08-20T00:00:00Z",
+      "2025-09-04T00:00:00Z"
+    ],
+    "quiet": [
+      "2025-05-01T00:00:00Z",
+      "2025-05-15T00:00:00Z"
+    ],
+    "baseline": [
+      "2025-05-02",
+      "2025-07-30"
+    ]
+  },
+  "areas": [
+    {
+      "area": 1,
+      "name": "Rasoo Nagar",
+      "gridPointsInOutline": 4124,
+      "droppedInTwoOutlines": 2293,
+      "droppedNearAnEdge": 596,
+      "affectedAvailable": 329,
+      "notAffectedAvailable": 906,
+      "floodPolygons": 1291
+    },
+    {
+      "area": 2,
+      "name": "Sharaqpur",
+      "gridPointsInOutline": 565,
+      "droppedInTwoOutlines": 0,
+      "droppedNearAnEdge": 279,
+      "affectedAvailable": 99,
+      "notAffectedAvailable": 187,
+      "floodPolygons": 382
+    },
+    {
+      "area": 3,
+      "name": "Pir Khalis",
+      "gridPointsInOutline": 2899,
+      "droppedInTwoOutlines": 1581,
+      "droppedNearAnEdge": 417,
+      "affectedAvailable": 293,
+      "notAffectedAvailable": 608,
+      "floodPolygons": 860
+    },
+    {
+      "area": 4,
+      "name": "Najabat",
+      "gridPointsInOutline": 343,
+      "droppedInTwoOutlines": 0,
+      "droppedNearAnEdge": 120,
+      "affectedAvailable": 72,
+      "notAffectedAvailable": 151,
+      "floodPolygons": 150
+    },
+    {
+      "area": 5,
+      "name": "Trimmu",
+      "gridPointsInOutline": 954,
+      "droppedInTwoOutlines": 0,
+      "droppedNearAnEdge": 228,
+      "affectedAvailable": 18,
+      "notAffectedAvailable": 708,
+      "floodPolygons": 443
+    },
+    {
+      "area": 7,
+      "name": "Sahuka",
+      "gridPointsInOutline": 1581,
+      "droppedInTwoOutlines": 1581,
+      "droppedNearAnEdge": 0,
+      "affectedAvailable": 0,
+      "notAffectedAvailable": 0,
+      "floodPolygons": 140
+    },
+    {
+      "area": 8,
+      "name": "Vanike",
+      "gridPointsInOutline": 2294,
+      "droppedInTwoOutlines": 2293,
+      "droppedNearAnEdge": 0,
+      "affectedAvailable": 0,
+      "notAffectedAvailable": 1,
+      "floodPolygons": 2174
+    }
+  ],
+  "taken": {
+    "affected": 138,
+    "not_affected": 151,
+    "points": 289
+  },
+  "pointsWithRiverReach": 155,
+  "rainCells": [
+    {
+      "lat": 32.25,
+      "lon": 74,
+      "points": 7
+    },
+    {
+      "lat": 32.25,
+      "lon": 73.75,
+      "points": 2
+    },
+    {
+      "lat": 32.5,
+      "lon": 74,
+      "points": 18
+    },
+    {
+      "lat": 32.5,
+      "lon": 74.25,
+      "points": 18
+    },
+    {
+      "lat": 32.5,
+      "lon": 73.75,
+      "points": 7
+    },
+    {
+      "lat": 32.5,
+      "lon": 74.5,
+      "points": 3
+    },
+    {
+      "lat": 32.75,
+      "lon": 74,
+      "points": 1
+    },
+    {
+      "lat": 32.75,
+      "lon": 74.25,
+      "points": 4
+    },
+    {
+      "lat": 32.75,
+      "lon": 74.5,
+      "points": 1
+    },
+    {
+      "lat": 31.25,
+      "lon": 74,
+      "points": 30
+    },
+    {
+      "lat": 31.25,
+      "lon": 73.75,
+      "points": 1
+    },
+    {
+      "lat": 31.5,
+      "lon": 74,
+      "points": 7
+    },
+    {
+      "lat": 31.5,
+      "lon": 74.25,
+      "points": 18
+    },
+    {
+      "lat": 31.75,
+      "lon": 74.25,
+      "points": 3
+    },
+    {
+      "lat": 31.75,
+      "lon": 74.5,
+      "points": 1
+    },
+    {
+      "lat": 30.25,
+      "lon": 73.5,
+      "points": 14
+    },
+    {
+      "lat": 30.25,
+      "lon": 73.25,
+      "points": 2
+    },
+    {
+      "lat": 30.25,
+      "lon": 73.75,
+      "points": 6
+    },
+    {
+      "lat": 30.5,
+      "lon": 73.75,
+      "points": 14
+    },
+    {
+      "lat": 30.5,
+      "lon": 74,
+      "points": 12
+    },
+    {
+      "lat": 30.75,
+      "lon": 74,
+      "points": 6
+    },
+    {
+      "lat": 30.75,
+      "lon": 74.25,
+      "points": 26
+    },
+    {
+      "lat": 31,
+      "lon": 74.25,
+      "points": 8
+    },
+    {
+      "lat": 31,
+      "lon": 74.5,
+      "points": 25
+    },
+    {
+      "lat": 31,
+      "lon": 74.75,
+      "points": 7
+    },
+    {
+      "lat": 30.75,
+      "lon": 71.75,
+      "points": 1
+    },
+    {
+      "lat": 30.75,
+      "lon": 72,
+      "points": 13
+    },
+    {
+      "lat": 31,
+      "lon": 72,
+      "points": 21
+    },
+    {
+      "lat": 31,
+      "lon": 72.25,
+      "points": 8
+    },
+    {
+      "lat": 31.25,
+      "lon": 72.25,
+      "points": 3
+    },
+    {
+      "lat": 31.25,
+      "lon": 72,
+      "points": 2
+    }
+  ]
+}
