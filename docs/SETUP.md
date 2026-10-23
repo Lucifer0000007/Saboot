@@ -3,7 +3,7 @@
 Notes for whoever works on this repository next. Nothing here is a product feature.
 
 ## Gates
-`verify.sh` is not in the repository, so run the gates as separate commands. The list is in `CLAUDE.md`.
+`npm run verify` runs every gate (`verify.sh`); `npm run verify -- --quick` is the fast version. The separate commands are listed in `CLAUDE.md`.
 On Windows PowerShell 5.1 there is no `&&`: run commands one by one, or use Git Bash.
 
 ## Browser tooling: Claude in Chrome (manual checks only)

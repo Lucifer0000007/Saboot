@@ -30,7 +30,7 @@ One concern per commit. Work on a branch. Never deploy.
 - Never edit `{{VERIFY}}` claims or `tests/unit/claims.test.ts` without the owner.
 
 ## Gates
-`verify.sh` is not in the repository, so run the gates as separate commands.
+`npm run verify` runs every gate (`verify.sh`, a reconstruction from the README list; `-- --quick` skips Lighthouse and uses the quick matrix). The separate commands:
 
 - Fast loop after every task: `npm run typecheck`, `npm run lint`, `npm test`.
   Add `node scripts/i18n-check.mjs` when copy changes, `npm run facts:check` when docs or the model change, and
