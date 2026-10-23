@@ -11,6 +11,8 @@
 // these bits were used has them at 0, so it still verifies and reads "not recorded". They are inside the chained, signed bytes.
 // Chain: link_i = SHA-256(link_{i-1} ‖ record_i), link_-1 = 32 zero bytes; records = each shot, then the seal.
 
+import { QR_PREFIX, fromBase45, toBase45 } from './base45';
+
 export type KKind = 'wide' | 'close' | 'landmark';
 const KINDS: KKind[] = ['wide', 'close', 'landmark'];
 /** Where a photo or its location came from. Absent means "not recorded". */
@@ -210,4 +212,19 @@ export async function verifyCode(code: string): Promise<KResult> {
     return { ok: false, failed: 'signature', reason: 'The public key in the code is not valid.', payload };
   }
   return { ok: true, failed: null, payload };
+}
+
+// ---------- the share QR spells the code in base45 (see base45.ts) ----------
+/** The text the share QR holds for a code. */
+export function qrTextOf(code: string): string {
+  const bytes = codeBytes(code);
+  if (!bytes) throw new Error('Cannot make the QR code: not a Saboot code.');
+  return QR_PREFIX + toBase45(bytes);
+}
+/** What a scan or a paste gives back as a code: QR text becomes the base64url code, anything else is left as it is. */
+export function codeFromQrText(text: string): string {
+  const t = text.trim();
+  if (!t.startsWith(QR_PREFIX)) return text;
+  const bytes = fromBase45(t.slice(QR_PREFIX.length));
+  return bytes ? b64url(bytes) : text;
 }

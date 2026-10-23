@@ -31,7 +31,7 @@ export type SyncStage = 'hash' | 'full';
 export type FocusEvent =
   | { type: 'shot'; simT: number; data: ShotData }
   | { type: 'sync'; simT: number; data: { photoIds: string[]; packet?: string; stage?: SyncStage } }
-  | { type: 'seal'; simT: number; data: { packetHash: string; shots: string[]; queued: boolean } }
+  | { type: 'seal'; simT: number; data: { packetHash: string; shots: string[]; queued: boolean; /** the phone's own clock when it sealed (older logs have none) */ deviceMs?: number } }
   | { type: 'ref'; simT: number; data: { ref: string } }
   | { type: 'no_damage'; simT: number; data: { undo?: boolean } }
   | { type: 'consent'; simT: number; data: Consent }
@@ -187,7 +187,7 @@ export interface FocusView {
   /** received as a hash only; photo body still waiting for a better network */
   bodyPending: number;
   items: SyncItem[];
-  seal: { simT: number; packetHash: string; recvT: number | null; shots: string[] } | null;
+  seal: { simT: number; packetHash: string; recvT: number | null; shots: string[]; deviceMs?: number } | null;
   ref: { ref: string; simT: number } | null;
   noDamage: number | null;
   consent: (Consent & { simT: number }) | null;
@@ -215,7 +215,7 @@ export function reduce(events: Link[], at: number): FocusView {
         if ((e.data.stage ?? 'full') === 'full' && !body.has(id)) body.set(id, e.simT);
       }
       if (e.data.packet && v.seal && v.seal.recvT === null) v.seal.recvT = e.simT;
-    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT, shots: e.data.shots };
+    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT, shots: e.data.shots, deviceMs: e.data.deviceMs };
     else if (e.type === 'ref') v.ref = { ref: e.data.ref, simT: e.simT };
     else if (e.type === 'no_damage') v.noDamage = e.data.undo ? null : e.simT;
     else if (e.type === 'consent') v.consent = { ...e.data, simT: e.simT };
@@ -346,7 +346,7 @@ export async function seal() {
     const packetHash = await sha256(canonical(body));
     const queued = isOffline() || isWeak();
     if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: activeKey.value });
-    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued } });
+    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } });
   } finally {
     busy.value = false;
   }
