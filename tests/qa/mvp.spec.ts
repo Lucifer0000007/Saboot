@@ -4,7 +4,7 @@
 // Also the cases that used to lose or mislabel evidence: a reconnect after a reload, two tabs, storage that will not keep
 // anything, and whether the one button is on the first screen.
 import { test, expect, type Page, type Browser } from '@playwright/test';
-import { ALL_VIEWPORTS, open } from './harness';
+import { ALL_VIEWPORTS, open, check, axe } from './harness';
 
 const V = (name: string) => ALL_VIEWPORTS.find((v) => v.name === name)!;
 const sab = (page: Page, js: string) => page.evaluate(`(async () => { const s = window.__sab; ${js} })()`);
@@ -282,5 +282,21 @@ test('tabbing to a button is never left under the bottom dock (360 px phone)', a
     return document.querySelector('.ctrl-dock')!.getBoundingClientRect().top - el.getBoundingClientRect().bottom;
   });
   expect(gap, 'the focused button ends above the dock').toBeGreaterThanOrEqual(0);
+  expect(errors).toEqual([]);
+});
+
+test('high contrast, switched on in Settings, turns the page black on white and keeps every layout and axe check', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  await expect(page.locator('html.hc')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('switch', { name: 'High contrast' }).check();
+  await expect(page.locator('html.hc')).toHaveCount(1);
+  await page.locator('.set-sheet').getByRole('button', { name: 'Close' }).last().click();
+  const [bg, fg] = await page.evaluate(() => { const cs = getComputedStyle(document.body); return [cs.backgroundColor, cs.color]; });
+  expect([bg, fg]).toEqual(['rgb(255, 255, 255)', 'rgb(0, 0, 0)']);
+  expect(await check(page, V('390x844'))).toEqual([]);
+  expect(await axe(page)).toEqual([]);
   expect(errors).toEqual([]);
 });

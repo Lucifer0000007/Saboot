@@ -80,6 +80,28 @@
   --safe-b: env(safe-area-inset-bottom, 0px);
   color-scheme: light;
 }
+/* High contrast (Settings): black on white, no tints, heavier borders. Only tokens change, so every screen follows. The
+   primary blue and the type are untouched. scripts/contrast.mjs checks every pair again with these values. */
+html.hc {
+  --parchment: #ffffff;
+  --periwinkle-mist: #ffffff;
+  --off-black: #000000;
+  --graphite: #000000;
+  --smoke: #000000;
+  --ash: #000000;
+  --ok: #004d2c;
+  --warn: #5c3b00;
+  --bad: #8a1f0a;
+  --ok-tint: #ffffff;
+  --warn-tint: #ffffff;
+  --bad-tint: #ffffff;
+  --coral: #ffffff;
+  --sky: #ffffff;
+  --mint: #ffffff;
+  --gold: #ffffff;
+  --bd: 2px solid #000000;
+  --bd-ctl: 2px solid #000000;
+}
 @media (min-width: 480px) {
   :root { --r-card: 32px; --card-pad: 32px; }
 }
