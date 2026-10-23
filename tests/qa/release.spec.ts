@@ -296,7 +296,7 @@ test('ledger: verify passes, the tamper test fails verification from the edited 
   expect(errors).toEqual([]);
 });
 
-test('impact panel: the figures match the facts file, the median leads, the check is not called validation, and validation is "not run"', async ({ page }) => {
+test('impact panel: the figures match the facts file, the median leads, the check is not called validation, and the replay block is on record', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `s.seek(168); s.tab('insurer'); s.insurer('impact');`);
@@ -332,9 +332,10 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   await expect(cc.locator('h4')).toHaveText('Simulated consistency check, not validation');
   await expect(cc).toContainText(`Precision ${Math.round(f.consistencyCheck.precision * 100)}%, recall ${Math.round(f.consistencyCheck.recall * 100)}%`);
   await expect(panel.locator('.impact')).not.toContainText(/precision|recall/i);
-  // real-data validation: not run
+  // real-data validation: the published replay, with raw counts under a REPLAY label (its own test is in relief.spec.ts)
   const val = panel.locator('[data-metric="validation"]');
-  await expect(val.locator('[data-validation-run="false"]')).toContainText('Not run.', { timeout: 20_000 });
+  await expect(val.locator('[data-replay="R-1"]')).toBeVisible({ timeout: 20_000 });
+  await expect(val).not.toContainText('Not run.');
   await expect(panel).toContainText('Decision happens outside Saboot.');
   expect(raw.seed).toBe(20260714);
   expect(raw.focus).toBe('P-04');
