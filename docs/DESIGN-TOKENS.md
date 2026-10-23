@@ -35,7 +35,9 @@ Hindi and Punjabi switch `--font-head`, `--font-body` and `--font-read` to the N
 `html.l-pa`), loaded only when that language is chosen, in the 400 and 500 weights. In those scripts: no mono, no tracking, no
 uppercase; body line-height 1.6, headings 1.4 and chrome (pills, tags, nav) 1.45 (`--lh-chrome`), because matras sit above
 and below the line; nothing under 16 px (`--fs-xs`, `--fs-sm` and `--fs-ui` rise to 1rem); `strong` is the loaded 500 weight,
-never a browser-made bold (`--weight-strong`). The officer console stays English and Latin inside any page (`[lang='en']`).
+never a browser-made bold (`--weight-strong`). At 125% and 150% text the floor is already far exceeded, so the chrome keeps
+its normal sizes and a 1.3 line-height: otherwise the nav and the dock took 202 of 640 px on a small phone in Hindi. The
+officer console stays English and Latin inside any page (`[lang='en']`).
 
 Scale (clamped between the phone and the desktop): display, h-lg, h, h-sm, sub, body (16 to 20 px), ui and sm (14 px, 16 px in
 Indic), xs (12 px, 16 px in Indic). The farmer app's body is 18 px and its labels 16 px.

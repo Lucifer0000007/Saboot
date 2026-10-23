@@ -156,6 +156,14 @@ html.l-pa {
   --track-caps: 0;
   --caps: none;
 }
+/* At 125% and 150% text the 16 px floor is already far exceeded, and the taller chrome would push the sticky bars past
+   30% of a small phone: the chrome keeps its normal sizes and a line-height that still clears the matras. */
+html.t125 :lang(hi), html.t125 :lang(pa), html.t150 :lang(hi), html.t150 :lang(pa) {
+  --fs-xs: 0.875rem;
+  --fs-sm: 0.875rem;
+  --fs-ui: 0.875rem;
+  --lh-chrome: 1.3;
+}
 /* English-only regions (insurer console) keep Latin typography inside a Hindi/Punjabi page. */
 [lang='en'] {
   --font-head: var(--font-serif);
