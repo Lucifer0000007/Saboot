@@ -71,6 +71,7 @@ const hi: Record<string, string | string[]> = {
   'sim.loadError': 'सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'sim.retry': 'फिर कोशिश करें', // needs-native-review
   'lang.fail': '{lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
+  'app.offlineReady': 'ऑफ़लाइन चलने के लिए तैयार।', // needs-native-review
   'lazy.failed': 'पेज का यह हिस्सा लोड नहीं हो सका। कनेक्शन जाँचें, फिर पेज दोबारा लोड करें।', // needs-native-review
   'lazy.reload': 'पेज दोबारा लोड करें', // needs-native-review
   'sim.consoleNote': 'बीमा कंपनी और ज़िले का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review

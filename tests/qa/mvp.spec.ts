@@ -356,6 +356,10 @@ test('if the Hindi dictionary cannot be fetched at all, the page stays in Englis
 
 test.describe('the voice alert offline', () => {
   test.use({ serviceWorkers: 'allow' });
+  test('the first visit says when the app is ready to work offline', async ({ page }) => {
+    await open(page, V('390x844'), 'en', []);
+    await expect(page.locator('.toast')).toContainText('Ready to work offline', { timeout: 40_000 });
+  });
   test('the English voice clip is cached by the worker and plays with the network off', async ({ page, context }) => {
     const errors: string[] = [];
     await open(page, V('390x844'), 'en', errors);
