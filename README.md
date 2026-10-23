@@ -297,12 +297,12 @@ Playwright + axe QA matrix, and Lighthouse.
 
 | Budget | Limit | Measured |
 |---|---|---|
-| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 87.3 KB (the HTML itself: 12.6 KB brotli, inside one TCP round trip) |
-| Whole site excluding audio, gzip | ≤ 700 KB | 389.6 KB |
+| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 89.5 KB (the HTML itself: about 13 KB brotli, inside one TCP round trip) |
+| Whole site excluding audio, gzip | ≤ 700 KB | 397.4 KB |
 | Largest lazy chunk, gzip | ≤ 60 KB | 45.3 KB (jsQR, only on laptops without `BarcodeDetector`) |
 | Scenario data | ≤ 40 KB | 25.3 KB raw |
-| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 3: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 / 100 / 100 on all three pages |
-| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.41 s / 0.000 to 0.001 / 2.48 to 2.53 s |
+| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 3: Perf / A11y / BP | ≥ 90 / 95 / 95 | 98 / 100 / 100 on all three pages |
+| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.41 s / 0.000 to 0.001 / 2.41 s |
 | INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 ms at 4× CPU |
 | QA captures (states × viewports × languages + extra runs) | 0 problems | 540 captures, 0 problems (556 tests pass; every state, 7 viewports, English, Hindi and Punjabi) |
 
