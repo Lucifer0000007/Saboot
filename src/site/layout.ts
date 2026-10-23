@@ -76,6 +76,13 @@ export function scrollToId(id: string, focus = true) {
   }
 }
 
+/** Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin). */
+export function scrollToPhone() {
+  const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
+  if (!el) return scrollToId('simulation', false);
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}
+
 export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow' }
 
 /** ?at=alert (QR target), ?tab=insurer, ?rail=pmfby, ?cadence=slow, #how, #k=<payload>; old #/dashboard style links still work. */

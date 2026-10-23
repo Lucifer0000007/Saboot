@@ -13,7 +13,7 @@ import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, simTab, importCode, deepLinkDone } from './layout';
+import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
 import { rail, cadence } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0);
@@ -73,7 +73,8 @@ async function applyDeepLink() {
       simTab.value = 'farmer';
       await jumpTo(d.at as MomentId);
     }
-    if (d.at || d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
+    if (d.at) requestAnimationFrame(() => scrollToPhone());
+    else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
     restoreClock();
   } finally {

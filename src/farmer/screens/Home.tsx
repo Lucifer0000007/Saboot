@@ -67,12 +67,23 @@ export function Home() {
     );
   }
 
+  // the one action sits right under the message, so it is on the first screen on a small phone
+  const cta = done ? (
+    <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'packet')}>
+      {tr('al.next')} <span class="arrow" aria-hidden="true">→</span>
+    </button>
+  ) : (
+    <button type="button" class="pill pill-primary pill-lg pill-block" data-tour="cta" onClick={() => (screen.value = 'capture')}>
+      <Icon name="camera" /> {tr('al.cta')} <span class="arrow" aria-hidden="true">→</span>
+    </button>
+  );
   return (
     <div class="stack f-stack">
       <div class={'card-elev alert-card tone-' + countdownTone(left, hard)} data-tour="alert">
         <p class="alert-kicker"><Icon name={expired ? 'clock' : 'water'} /><span>{tr('m.alert')}</span></p>
         <h2 class="f-title">{expired && !done ? trr('al.expired') : tr('al.title')}</h2>
         <p>{tr('al.msg')}</p>
+        {cta}
         <div class="alert-clock">
           <p class="clock-label">{trr('al.clock')}</p>
           <Countdown left={left} total={windowH} hard={hard} />
@@ -84,17 +95,9 @@ export function Home() {
         <p class="note note-warn" role="status"><Icon name="clock" /><span>{trr('al.reminder', { left: fmtDur(left) })}</span></p>
       )}
       {done ? (
-        <>
-          <p class="note note-ok"><Icon name="okShape" /><span>{trr('al.done')}</span></p>
-          <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'packet')}>
-            {tr('al.next')} <span class="arrow" aria-hidden="true">→</span>
-          </button>
-        </>
+        <p class="note note-ok"><Icon name="okShape" /><span>{trr('al.done')}</span></p>
       ) : (
         <>
-          <button type="button" class="pill pill-primary pill-lg pill-block" data-tour="cta" onClick={() => (screen.value = 'capture')}>
-            <Icon name="camera" /> {tr('al.cta')} <span class="arrow" aria-hidden="true">→</span>
-          </button>
           <VoiceCaption id="alert" text={trr('al.voice')} clip={'alert-' + rail.value} label={tr('al.play')} />
           <div class="f-row2">
             <button type="button" class="pill pill-ghost" onClick={() => reportNoDamage()}>
