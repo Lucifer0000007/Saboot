@@ -37,6 +37,8 @@ export interface PlotTimes {
   helper: { name: string; role: string; method: 'hold' | 'voice' } | null;
   shots: number;
   geoOffM: number;
+  /** Driven by a real log on a phone, not by the script: nothing is known about where its photos were taken relative to the plot. */
+  live: boolean;
   hail: boolean;
 }
 
@@ -67,11 +69,12 @@ export function plotTimes(m: Model, p: Plot, focus: FocusView | null, live?: Rec
   const [persona, cap, shots, geoOff, sync, file, ack] = p.b;
   const base: PlotTimes = {
     eventT: d.eventT, alertT: d.alertT, deadlineT: d.deadlineT, consentT: null, captureT: null, syncT: null,
-    fileT: null, ackT: null, noDamageT: null, objectionT: null, objectionRespT: null, helper: null, shots: 0, geoOffM: geoOff, hail: false,
+    fileT: null, ackT: null, noDamageT: null, objectionT: null, objectionRespT: null, helper: null, shots: 0, geoOffM: geoOff, hail: false, live: false,
   };
   const lv = live?.[p.id] ?? (persona === 'focus' ? focus : null);
   if (lv) {
-    const all = lv.shotCount >= 3;
+    base.live = true;
+    const all = lv.shotCount >= 3 || !!lv.seal;
     base.shots = lv.shotCount;
     base.captureT = lv.shotCount ? lv.lastShotT : null;
     base.syncT = all && lv.queued === 0 ? lv.syncedT : null;

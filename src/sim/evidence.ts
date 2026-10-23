@@ -127,13 +127,15 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
 
   const n = s.shotsNow;
   const inWindow = s.times.captureT !== null && s.times.deadlineT !== null && s.times.captureT <= s.times.deadlineT;
-  const geoOk = s.times.geoOffM <= 100;
+  // a real capture cannot be compared with a fictional plot, so it is neither passed nor penalised, and the text says so
+  const geoOk = s.times.live || s.times.geoOffM <= 100;
+  const where = s.times.live ? 'location not checked against the plot' : geoOk ? 'location on plot' : `${s.times.geoOffM} m from plot`;
   const photos: Factor = {
     id: 'photos', label: 'Geo-tagged photos', weight: 0,
     value: n ? clamp((n / 3) * (inWindow ? 1 : 0.5) * (geoOk ? 1 : 0.4)) : 0,
     unc: (n ? 0.08 : 0.02) + (p.baselineWet && n ? PADDY_PHOTO_UNC : 0),
     detail: n
-      ? `${n}/3 shots · ${inWindow ? (s.rail === 'pmfby' ? 'within window' : 'within the capture-soon advice') : (s.rail === 'pmfby' ? 'after deadline' : 'after the capture-soon advice')} · ${geoOk ? 'location on plot' : `${s.times.geoOffM} m from plot`} · water visible (AI perception, ±)${p.baselineWet ? ' · expected on paddy anyway' : ''}`
+      ? `${n}/3 shots · ${inWindow ? (s.rail === 'pmfby' ? 'within window' : 'within the capture-soon advice') : (s.rail === 'pmfby' ? 'after deadline' : 'after the capture-soon advice')} · ${where}${p.baselineWet ? ' · expected on paddy anyway' : ''}`
       : 'No photos yet',
   };
   const gap = s.times.syncT !== null && s.times.captureT !== null ? s.times.syncT - s.times.captureT : 0;
@@ -141,7 +143,7 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   const integrity: Factor = {
     id: 'integrity', label: 'Integrity (hash chain, clocks)', weight: 0,
     value: received ? (gap > 2 ? 0.6 : 1) : 0, unc: 0.03,
-    detail: received ? `Hashes verify · device→server gap ${gap.toFixed(1)} h${gap > 2 ? ' (flagged)' : ''}` : 'Nothing received yet',
+    detail: received ? `Evidence received · phone-to-server gap ${gap.toFixed(1)} h${gap > 2 ? ' (flagged)' : ''}` : 'Nothing received yet',
   };
 
   const w = weightsFor({ river: river !== null, baselineWet: p.baselineWet });

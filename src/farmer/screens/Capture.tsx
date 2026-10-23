@@ -9,6 +9,7 @@ import { view, addShot, addSyntheticShot, getGeo, seal, busy, photoUrl, photoTic
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
 import { ShotPicto } from '../parts';
+import { Val } from '../../ui/ProvTag';
 
 export function Thumb({ id, alt }: { id: string; alt: string }) {
   const [url, setUrl] = useState<string | null>(null);
@@ -160,9 +161,9 @@ export function Capture() {
             <li key={k}>
               <Thumb id={s.photoId} alt={tr('shot.' + k)} />
               <div class="shot-meta">
-                <strong>{tr('shot.' + k)}</strong>
+                <Val kind="photo" prov={s.synthetic ? 'sim' : 'live'}><strong>{tr('shot.' + k)}</strong></Val>
                 <span class="num">{fmtClock(s.simT)}</span>
-                <span>{s.geo.src === 'gps' ? tr('cap.gps', { acc: s.geo.acc }) : tr('cap.simGps')}</span>
+                <Val kind="loc" prov={s.geo.src === 'gps' ? 'live' : 'sim'}>{s.geo.src === 'gps' ? tr('cap.gps', { acc: s.geo.acc }) : tr('cap.simGps')}</Val>
                 <span class="hash">{short(s.sha, 12)}</span>
                 <span class={s.recvT === null ? 'tag' : 'tag tag-ok'}>
                   <Icon name={s.recvT === null ? 'clock' : 'okShape'} size={16} /> {s.recvT === null ? tr('cap.queued') : tr('cap.sent')}

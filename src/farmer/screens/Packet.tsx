@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Icon } from '../../ui/Icon';
+import { Val } from '../../ui/ProvTag';
 import { lazy } from '../../lib/lazy';
 import { tr, trr } from '../../lib/i18n';
 import { fmtClock, fmtDur } from '../../lib/time';
@@ -41,6 +42,10 @@ export function Packet() {
   const gaps = SHOTS.map((k) => v.shots[k]).filter((s) => s && s.recvT !== null && s.recvT - s.simT > GAP_FLAG_H);
   const maxGap = gaps.reduce((a, s) => Math.max(a, s!.recvT! - s!.simT), 0);
   const first = v.shots.wide ?? Object.values(v.shots)[0]!;
+  // where the photos came from: one label for each origin that is present, with how many
+  const photoOrigins = (['live', 'sim'] as const)
+    .map((o) => [o, SHOTS.filter((k) => v.shots[k] && (v.shots[k]!.synthetic ? 'sim' : 'live') === o).length] as const)
+    .filter(([, n]) => n > 0);
   return (
     <div class="stack f-stack">
       <div class="row-between">
@@ -58,7 +63,8 @@ export function Packet() {
       </ul>
 
       <dl class="facts">
-        <div><dt>{tr('pk.location')}</dt><dd><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</dd></div>
+        <div><dt>{tr('f.nav.photos')}</dt><dd>{photoOrigins.map(([o, n]) => <Val key={o} kind="photo" prov={o}><span class="num">{n}</span></Val>)}</dd></div>
+        <div><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</Val></dd></div>
         {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
         <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
         <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>

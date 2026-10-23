@@ -287,7 +287,7 @@ export default function Explainer() {
           {/* {{VERIFY: IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in)}} */}
           <li><strong>Clock start:</strong> the <em>earliest</em> qualifying signal: when 24-hour rain crossed <span class="num">{th.rain24}</span> mm (the threshold IMD uses for “heavy rain”), or the river reached its danger level, or else the last clear radar pass. Never the alert time. If unsure, the farmer gets less time, not more.</li>
         </ol>
-        <p>AI is used only for perception (is water visible in a photo?) and language (voice prompts). It never sets a deadline and never decides anything.</p>
+        <p>By design, AI would be used only for perception (is water visible in a photo?) and language. It would never set a deadline and never decide anything. This prototype runs no AI model: the photo check is planned, not built, and the voice is a recorded clip or the phone’s speech synthesis.</p>
       </div>
       <div class="xgrid">
         <RainPanel m={m} />
