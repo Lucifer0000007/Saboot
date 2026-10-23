@@ -8,20 +8,20 @@ function toBlob(c: HTMLCanvasElement, q = 0.78): Promise<Blob> {
   return new Promise((res, rej) => c.toBlob((b) => (b ? res(b) : rej(new Error('encode'))), 'image/jpeg', q));
 }
 
-/** Real photo: downscale to <= 1280 px JPEG on device (saves data); the stored bytes are what we hash. */
+/**
+ * Real photo: downscale to <= 1280 px JPEG on device (saves data); the stored bytes are what we hash. Re-encoding through a
+ * canvas also strips the camera's metadata (exact GPS, device, time). A file that cannot be re-encoded is refused, never
+ * stored as it came: its metadata would travel with it.
+ */
 export async function normalizePhoto(file: Blob): Promise<{ blob: Blob; w: number; h: number }> {
-  try {
-    const bmp = await createImageBitmap(file);
-    const k = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
-    const c = document.createElement('canvas');
-    c.width = Math.round(bmp.width * k);
-    c.height = Math.round(bmp.height * k);
-    c.getContext('2d')!.drawImage(bmp, 0, 0, c.width, c.height);
-    bmp.close?.();
-    return { blob: await toBlob(c, 0.8), w: c.width, h: c.height };
-  } catch {
-    return { blob: file, w: 0, h: 0 };
-  }
+  const bmp = await createImageBitmap(file);
+  const k = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k);
+  c.height = Math.round(bmp.height * k);
+  c.getContext('2d')!.drawImage(bmp, 0, 0, c.width, c.height);
+  bmp.close?.();
+  return { blob: await toBlob(c, 0.8), w: c.width, h: c.height };
 }
 
 function rng(seed: number) {

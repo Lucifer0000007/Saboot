@@ -126,14 +126,17 @@ export function Capture() {
     input.value = '';
     if (!f) return;
     if (!isFresh(f)) { setMsg(tr('cap.old')); return; }
+    setPhase('hashing');
+    let photo: Awaited<ReturnType<typeof normalizePhoto>>;
     try {
-      setPhase('hashing');
-      const { blob, w, h } = await normalizePhoto(f);
-      await take(blob, w, h);
+      photo = await normalizePhoto(f);
     } catch {
+      // a file the phone cannot decode is refused, not stored as it came
       setPhase('idle');
-      setMsg(tr('cap.saveFail'));
+      setMsg(tr('cap.badPhoto'));
+      return;
     }
+    await take(photo.blob, photo.w, photo.h);
   }
 
   const all = SHOTS.every((k) => v.shots[k]);

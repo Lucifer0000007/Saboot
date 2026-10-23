@@ -435,6 +435,7 @@ const hi: Record<string, string | string[]> = {
   'k.fail': 'कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें।', // needs-native-review
   'cap.camDenied': 'कैमरा बंद है या उपलब्ध नहीं है। अपनी ब्राउज़र सेटिंग में कैमरे की अनुमति दें और फिर कोशिश करें। आप सिमुलेटेड फ़ोटो भी ले सकते हैं; उस पर "सिमुलेटेड" लिखा होगा।', // needs-native-review
   'cap.saveFail': 'फ़ोटो इस फ़ोन में सहेजी नहीं जा सकी। थोड़ी जगह खाली करें और फिर कोशिश करें।', // needs-native-review
+  'cap.badPhoto': 'यह फ़ोटो पढ़ी नहीं जा सकी। इसे फिर से लें।', // needs-native-review
   'cap.needConsent': '{farmer} ने अभी सहमति नहीं दी है। कोई भी फ़ोटो लेने से पहले उनकी सहमति लें।', // needs-native-review
   'cap.askConsent': 'सहमति लें', // needs-native-review
   'db.memory': 'यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें।', // needs-native-review
