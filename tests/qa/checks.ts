@@ -146,7 +146,7 @@ export function runChecks(opts: CheckOpts): string[] {
     if (used > opts.stickyMax * H) out.push(`sticky chrome uses ${Math.round(used)}px of ${H}px (> ${Math.round(opts.stickyMax * 100)}%)`);
   }
 
-  // 5. touch targets: >= 48px in the farmer app (with >= 8px between them), >= 44px elsewhere; inline text links exempt
+  // 5. touch targets: >= 48px in the farmer app (with >= 12px between them), >= 44px elsewhere; inline text links exempt
   if (want('targets')) {
     const farmer: typeof items = [];
     for (const { e, r: vr } of items) {
@@ -167,7 +167,7 @@ export function runChecks(opts: CheckOpts): string[] {
         if (a.e.contains(b.e) || b.e.contains(a.e)) continue;
         const gx = Math.max(b.r.left - a.r.right, a.r.left - b.r.right);
         const gy = Math.max(b.r.top - a.r.bottom, a.r.top - b.r.bottom);
-        if (gx < 7.5 && gy < 7.5) out.push(`farmer targets closer than 8px (${Math.round(Math.max(gx, gy))}px): ${desc(a.e)} ⟷ ${desc(b.e)}`);
+        if (gx < 11.5 && gy < 11.5) out.push(`farmer targets closer than 12px (${Math.round(Math.max(gx, gy))}px): ${desc(a.e)} ⟷ ${desc(b.e)}`);
       }
     }
   }

@@ -1,9 +1,13 @@
-/* Farmer app. Body >= 18px, labels >= 16px, primary buttons 56px, targets >= 48px with >= 8px gaps. */
+/* Farmer app. Reading text in the system sans (numbers, hashes and labels stay mono); body >= 18px, labels >= 16px, primary
+   buttons 56px, targets >= 48px with >= 12px between them; spacing on the 4/8/12/16/24/32 scale (--sp1 to --sp6). */
 .farmer {
-  --f-pad: 20px;
+  --f-pad: var(--sp4);
   display: flex; flex-direction: column; min-width: 0; font-size: 1.125rem; background: var(--parchment);
+  font-family: var(--font-read); letter-spacing: 0;
   container: farmer / inline-size;
 }
+@container farmer (min-width: 26em) { .farmer { --f-pad: var(--sp5); } }
+.farmer .num, .farmer .hash, .farmer .input, .farmer kbd { font-family: var(--font-num); }
 .farmer.framed { width: 100%; height: 100%; }
 .farmer .pill { font-size: 1rem; min-height: 48px; }
 .farmer .pill-lg { min-height: 56px; font-size: 1.125rem; }
@@ -14,8 +18,8 @@
 
 /* connection strip (feature I) */
 .f-strip {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 8px var(--f-pad); min-height: 40px;
-  border-bottom: var(--bd); font-size: 1rem; line-height: 1.25;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp1) var(--sp3); padding: var(--sp2) var(--f-pad); min-height: 40px;
+  border-bottom: var(--bd); font-size: 1rem; line-height: var(--lh-chrome, 1.25);
 }
 .f-strip .f-clock { font-weight: 500; }
 .f-strip .f-sim { text-transform: var(--caps); letter-spacing: var(--track-caps); color: var(--graphite); }
@@ -26,24 +30,26 @@
 .f-strip.net-offline .f-sim, .f-strip.net-offline .f-queue { color: var(--white); }
 .f-strip.net-weak .f-net { padding: 0 8px; border: 1px solid var(--off-black); border-radius: var(--r-pill); }
 
-.f-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); padding: 12px var(--f-pad); }
+.f-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp4); padding: var(--sp3) var(--f-pad); }
 .f-who { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
 .f-who strong { font-family: var(--font-head); font-weight: 400; font-size: 1.375rem; letter-spacing: var(--track-head); }
 .f-who span { font-size: 1rem; color: var(--graphite); }
-.f-rewound { margin: 0 var(--f-pad) 12px; }
-.f-body { min-width: 0; padding: 4px var(--f-pad) 32px; }
+.f-rewound { margin: 0 var(--f-pad) var(--sp3); }
+/* the screen title sits a clear step under the tab bar, not 4 px */
+.f-body { min-width: 0; padding: var(--sp4) var(--f-pad) var(--sp6); }
 .farmer.framed .f-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; position: relative; }
-.f-stack { gap: 20px; }
+.f-stack { gap: var(--sp5); }
+.f-stack h3 + ul, .f-stack h3 + ol, .f-stack h3 + dl { margin-top: var(--sp2); }
 .f-title { font-size: 1.875rem; }
 .f-help { font-size: 1.125rem; color: var(--graphite); }
 .f-lead { display: flex; gap: 12px; align-items: flex-start; }
 .f-lead .ic { margin-top: 4px; margin-top: calc((1lh - 20px) / 2); }
-.f-row2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.f-row2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp3); }
 .f-row2 .pill { padding-inline: 16px; }
 
 /* farmer nav: bottom bar in the frame, a plain row above the screen when full-bleed */
-.f-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; padding: 6px 8px; border-bottom: var(--bd); }
-.farmer.framed .f-nav { border-bottom: 0; border-top: 1px solid var(--off-black); padding-bottom: 10px; }
+.f-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--sp3); padding: var(--sp2); border-bottom: var(--bd); }
+.farmer.framed .f-nav { border-bottom: 0; border-top: 1px solid var(--off-black); padding-top: var(--sp3); padding-bottom: 10px; }
 .farmer .f-nav button span { letter-spacing: -0.03em; }
 /* narrow phones and large text: the five tabs go 3 + 2 instead of squeezing their labels */
 @container farmer (max-width: 19.5em) {
@@ -53,36 +59,39 @@
 }
 .f-nav button {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; min-width: 0;
-  padding: 4px 2px; border: 0; border-radius: 16px; background: transparent; font-size: 0.8125rem; line-height: 1.2; text-align: center;
+  padding: var(--sp1) 2px; border: 0; border-radius: 16px; background: transparent; font-size: 0.8125rem; line-height: var(--lh-chrome, 1.2); text-align: center;
 }
 .f-nav button span { max-width: 100%; overflow-wrap: normal; }
 .f-nav button[aria-current='page'] { background: var(--off-black); color: var(--white); }
 .farmer .f-nav button { font-size: 1rem; }
 
 /* alert hero card: the screen's single periwinkle card */
-.alert-card { display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 28px; }
+.alert-card { display: flex; flex-direction: column; gap: var(--sp3); padding: var(--sp5); border-radius: 28px; }
 .alert-kicker { display: flex; align-items: center; gap: 8px; text-transform: var(--caps); letter-spacing: var(--track-caps); font-size: 1rem; }
 .alert-clock { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
 .clock-label { font-size: 1rem; }
-.countdown { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; container-type: inline-size; }
+.countdown { display: flex; flex-direction: column; gap: var(--sp3); align-items: flex-start; container-type: inline-size; }
 /* eight mono glyphs at -0.03em: never wider than the card, whatever the text size */
 .countdown .count { font-size: min(clamp(2.75rem, 2rem + 4vw, 3.25rem), 100cqi / 4.7); line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--ink); }
+/* the relief rail's advice window reads as words ("about 1 day 20 h"): the heading face, no ticking seconds */
+.countdown .count.words { font-family: var(--font-head); font-size: clamp(2rem, 1.5rem + 2.5vw, 2.75rem); letter-spacing: var(--track-head); line-height: 1.1; }
 .countdown .bar { width: 100%; height: 4px; background: rgba(36, 36, 36, 0.15); border-radius: 2px; overflow: hidden; }
 .countdown .bar i { display: block; height: 100%; background: var(--off-black); transform-origin: left; }
 .countdown.amber .count, .countdown.last .count { color: var(--warn); }
 .countdown.amber .bar i, .countdown.last .bar i { background: var(--warn); }
 .countdown.over .count { color: var(--bad); }
 .countdown.passed .count { color: var(--graphite); }
-.advice-tag { max-width: 100%; }
+.advice-tag { max-width: 100%; flex-wrap: nowrap; align-items: flex-start; border-radius: 20px; }
+.advice-tag > .ic { flex: none; margin-top: calc((1lh - 16px) / 2); }
 .countdown.over .bar i { background: var(--bad); }
 .alert-started { font-size: 1.125rem; }
 
 /* registered screen */
 .mini { width: 100%; height: auto; aspect-ratio: 140 / 96; border-radius: 20px; border: var(--bd); }
 .facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; border-top: var(--bd); }
-.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: var(--bd); }
+.facts > div { display: grid; grid-template-columns: minmax(7em, 1fr) minmax(0, 2fr); gap: var(--sp3); align-items: baseline; padding: var(--sp3) 0; border-bottom: var(--bd); }
 @container farmer (max-width: 18em) { .facts > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
-.facts dt { font-size: 1rem; color: var(--graphite); }
+.facts dt { font-size: 1rem; color: var(--graphite); overflow-wrap: normal; }
 .facts dd { min-width: 0; overflow-wrap: anywhere; }
 .facts dd.id { font-size: 1rem; overflow-wrap: normal; }
 .facts .full { grid-template-columns: minmax(0, 1fr); gap: 4px; }
@@ -110,7 +119,7 @@
 .shotcard h3 { font-size: 1.5rem; }
 .picto { width: 100%; height: auto; aspect-ratio: 3 / 2; }
 .working { display: flex; align-items: center; gap: 12px; min-height: 56px; }
-.shots { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.shots { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--sp3); }
 .shots li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px; border: var(--bd); border-radius: 20px; }
 .shots li > .pill { grid-column: 1 / -1; justify-self: start; }
 .shot-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; font-size: 1rem; }
@@ -127,7 +136,12 @@
 .pk-photos { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .pk-photos li { display: flex; flex-direction: column; gap: 4px; font-size: 1rem; min-width: 0; }
 .pk-photos .thumb { width: 100%; height: auto; aspect-ratio: 4 / 3; }
-.chain { display: flex; flex-direction: column; gap: 8px; }
+.pk-tech { border: var(--bd); border-radius: 20px; padding: 0 var(--sp4); }
+.pk-tech > summary { display: flex; align-items: center; gap: var(--sp2); min-height: 56px; cursor: pointer; font-size: 1.125rem; }
+.pk-tech > summary .ic { flex: none; }
+.pk-tech[open] > summary { border-bottom: var(--bd); }
+.pk-tech > .stack { padding: var(--sp4) 0; gap: var(--sp5); }
+.chain { display: flex; flex-direction: column; gap: var(--sp2); }
 .chain h3, .synclog h3 { display: flex; align-items: center; gap: 8px; font-size: 1.5rem; }
 .chain ol { list-style: none; padding: 0; display: flex; flex-direction: column; border-top: var(--bd); }
 .chain li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 10px; padding: 10px 0; border-bottom: var(--bd); font-size: 1rem; align-items: baseline; }
@@ -138,7 +152,7 @@
 /* sync log (feature I) */
 .synclog { display: flex; flex-direction: column; gap: 8px; }
 .sl { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.sl li { display: flex; flex-direction: column; gap: 8px; padding: 12px 16px; border: var(--bd); border-radius: 20px; }
+.sl li { display: flex; flex-direction: column; gap: var(--sp2); padding: var(--sp3) var(--sp4); border: var(--bd); border-radius: 20px; }
 .sl-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; }
 .sl-times { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto; grid-auto-flow: column; gap: 2px 8px; }
 .sl-times div { display: contents; }

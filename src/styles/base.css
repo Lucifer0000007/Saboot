@@ -26,6 +26,7 @@ h1, h2, h3, h4 {
 p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
 ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 a { color: inherit; }
+strong, b { font-weight: var(--weight-strong, 600); }
 img, svg, video { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
 button { cursor: pointer; }
@@ -79,7 +80,7 @@ button:disabled { cursor: not-allowed; }
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   min-height: 48px; padding: 12px 32px; border-radius: var(--r-pill);
   border: 1px solid transparent; background: transparent; color: var(--off-black);
-  font-family: var(--font-body); font-size: var(--fs-ui); line-height: 1.25; font-weight: 400;
+  font-family: var(--font-body); font-size: var(--fs-ui); line-height: var(--lh-chrome, 1.25); font-weight: 400;
   letter-spacing: var(--track-caps); text-transform: var(--caps); text-decoration: none; text-align: center;
   transition: background-color 0.15s, color 0.15s; text-wrap: balance;
 }
@@ -122,7 +123,7 @@ button:disabled { cursor: not-allowed; }
 .tag {
   display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 28px; padding: 4px 12px;
   border-radius: var(--r-pill); border: var(--bd-ctl); background: transparent;
-  font-family: var(--font-body); font-size: var(--fs-sm); line-height: 1.2; letter-spacing: var(--track-caps);
+  font-family: var(--font-body); font-size: var(--fs-sm); line-height: var(--lh-chrome, 1.2); letter-spacing: var(--track-caps);
   text-transform: var(--caps); color: var(--off-black); white-space: normal;
 }
 .tag-ok { background: var(--ok-tint); border-color: var(--ok); color: var(--ok); }
@@ -152,9 +153,9 @@ button:disabled { cursor: not-allowed; }
 
 /* segmented control */
 /* one row is a pill (28px is more than half its height); wrapped rows become a rounded block instead of a tall stadium */
-.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: var(--bd-ctl); border-radius: 28px; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 8px; padding: 4px; border: var(--bd-ctl); border-radius: 30px; }
 .seg > button {
-  min-height: 44px; min-width: 44px; padding: 8px 16px; border: 0; border-radius: var(--r-pill); background: transparent;
+  min-height: 48px; min-width: 48px; padding: 8px 16px; border: 0; border-radius: var(--r-pill); background: transparent;
   font-size: var(--fs-ui); text-transform: var(--caps); letter-spacing: var(--track-caps);
 }
 .seg > button[aria-pressed='true'], .seg > button[aria-checked='true'] { background: var(--off-black); color: var(--white); }
