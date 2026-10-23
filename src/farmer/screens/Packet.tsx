@@ -38,7 +38,18 @@ function groups(h: string) {
 
 export function Packet() {
   const v = view.value;
-  if (!v.shotCount) return <div class="stack f-stack"><h2 class="f-title">{tr('pk.title')}</h2><p>{tr('pk.empty')}</p><SyncLog /></div>;
+  if (!v.shotCount) {
+    return (
+      <div class="stack f-stack">
+        <h2 class="f-title">{tr('pk.title')}</h2>
+        <p>{tr('pk.empty')}</p>
+        <button type="button" class="pill pill-primary pill-lg pill-block" data-take-photos onClick={() => (screen.value = 'capture')}>
+          <Icon name="camera" /> {tr('cap.title')} <span class="arrow" aria-hidden="true">→</span>
+        </button>
+        <SyncLog />
+      </div>
+    );
+  }
   const gaps = SHOTS.map((k) => v.shots[k]).filter((s) => s && s.recvT !== null && s.recvT - s.simT > GAP_FLAG_H);
   const maxGap = gaps.reduce((a, s) => Math.max(a, s!.recvT! - s!.simT), 0);
   const first = v.shots.wide ?? Object.values(v.shots)[0]!;

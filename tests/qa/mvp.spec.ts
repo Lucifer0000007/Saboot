@@ -255,3 +255,12 @@ test('Reset, by the key or the button, asks before it clears what the phone capt
   await expect(ask).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test('the empty Proof screen offers a way to take photos instead of a dead end', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('packet');`);
+  await page.locator('[data-take-photos]').click();
+  await expect(page.locator('.farmer .f-title')).toContainText('Take 3 photos');
+  expect(errors).toEqual([]);
+});
