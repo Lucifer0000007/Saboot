@@ -65,7 +65,23 @@ keeps every interface on purpose, see `docs/DECISIONS.md` D-35), L2-04 (local vo
 says what export and delete do), L2-08 (provenance bits), L2-09 (a photo that cannot be re-encoded is refused), L2-10
 (`onabort`, storage banner), L2-13 (reset asks first), L2-14 (clips precached, range answers). L2-15 is fixed too (a loop
 replaces the spread; a command-line number is checked). Accepted or deferred as before: S-01, S-03, L2-06, L2-07, L2-16,
-L2-17, L2-18. The rerun and `/security-review` happen in the final loop.
+L2-17, L2-18.
+
+**Rerun after Phase 5** (same version, same packs plus `p/xss` and `p/nodejs`, metrics off, over `src`, `scripts`, `tests`,
+`public`, `index.html` and the two config files): one finding, S-01, the same false positive; the same two partial parses,
+S-02, reviewed by hand. The new code (`scripts/replay/`, the service worker's range answers, the file server's path check,
+the provenance labels) raised nothing. The branch security review is recorded below the by-hand table.
+
+## Branch security review (final loop)
+A focused review of every change on `overflow/final-prep` against `main` (129 files), by a reviewer agent reading the code,
+with the brief: report only vulnerabilities newly introduced by the branch at 80% confidence or more, excluding denial of
+service, hardening and documentation. **Result: no finding at the bar.** Two notes below it, both excluded by the brief:
+the replay fetch script follows a layer address taken from the public activation record (the local file name is fixed, the
+script is run by hand, the dataset is public); the console renders the credit address from the build's own status file as a
+link (the file is written only by `scripts/replay/publish.ts` from string constants). Two improvements were confirmed on the
+way: the file server's path check (L2-03) and the strict decoding of evidence codes in both verifiers (L2-12). The review
+also walked the service worker's range answers, the deep-link parser, every DOM sink, the inline first-paint script, the
+chunk retry, the log and consent code, the replay and validation scripts and the URL allowlist, and found them clean.
 
 ## Reviewed, no issue
 - **HTML sinks:** no `innerHTML`, `dangerouslySetInnerHTML`, `eval`, `document.write` or `srcdoc` in `src`, `index.html` or
