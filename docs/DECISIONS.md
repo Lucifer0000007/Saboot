@@ -70,6 +70,10 @@ point-level skill and not "alerted X hours earlier".
 | G-4 | The Impact validation block prints precision and recall as percentages, and says the numbers "come from real inputs". | For REPLAY, show raw counts first (caught, missed, false alarms, correct rejections, points), the source ID, the scale mismatch and "not independently validated" for Rule B. Show a ratio only when the counts support it. | **This one.** It needs a small change to what `--publish` writes (the counts are not in the status file today). |
 | G-5 | `verify.sh` does not exist. | Recreate it from the README list, labelled a reconstruction. | **This one**, as the first Phase 4 task. |
 
+**Approved at Checkpoint 1 (the owner said "go" with these defaults):** G-1 option (b), two named allowlist entries; G-2, G-3,
+G-4, G-5 as recommended; replay candidate R-1; the HAND trust cap as the default rule; packet provenance flags in the kind
+byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` remain proposals: no setting was changed.
+
 ## 4. Loop log
 
 | Task | Success check | Attempts | Result |
@@ -80,6 +84,17 @@ point-level skill and not "alerted X hours earlier".
 | Semgrep coverage | No parse errors | 1 | Two build scripts partly parsed. Reviewed by hand (S-02). |
 | Performance audit on a throttled phone profile | Cold-load, deep-link, MVP-flow and play-cost numbers for three profiles | 2 | Attempt 1 (a delegated agent) stalled with no progress for ten minutes after saving a cold-load matrix. Attempt 2 ran the missing measurements directly in smaller steps. Pass. |
 
+## 4b. Phase 3 decisions
+
+| ID | Item | Decision | Reason |
+|---|---|---|---|
+| D-22 | The USP sentence | **GO** | "Saboot tells a farmer the moment a flood starts, and seals their photos so any change shows." It says "any change shows", never "can't be faked". |
+| D-23 | The MVP | **GO** | Five steps: alert, three real photos, seal and QR, check on the laptop with a new officer row, one changed character fails. Success checks are in `docs/USP-MVP.md` section 3. |
+| D-24 | The X factor | **GO** | The breaking seal. A judge changes one character and the check flips. |
+| D-25 | Strict decoding in both verifiers | **GO** | Today the last character of a code can change without breaking it (16 valid strings for a 3-photo code). A judge could hit that during the X factor. |
+| D-26 | New tests as new files | **GO** | `claims.test.ts` is not edited. Checks such as "no raw token", "no capability claims" and the MVP flow go in new test files. |
+| D-27 | Backup recording | **GO (you record)** | Three clips with a "RECORDED" caption, played from a media player. A scripted video of the phone flow is optional and last. |
+
 ## 5. Blocked log
 None so far.
 
@@ -89,9 +104,9 @@ each checkpoint and at the end.
 
 | Instruction | Status | Evidence | Gap |
 |---|---|---|---|
-| Features first, then the evaluator, mentor and judge review | Partly | `docs/FEATURE-MAP.md` (Phase 2) exists | Phase 3 starts only after your go |
-| USP and MVP | Not yet | The MVP hypothesis is in the approved plan. `docs/USP-MVP.md` does not exist | Phase 3 |
-| Two checkpoints only, autonomy between | Met so far | No question was put to you after the plan was approved. Work stopped at Checkpoint 1 | Checkpoint 2 is ahead |
+| Features first, then the evaluator, mentor and judge review | Met | `docs/FEATURE-MAP.md` (Phase 2) was written and approved before `docs/USP-MVP.md` (Phase 3), which holds the three seats | None |
+| USP and MVP | Partly | Defined in `docs/USP-MVP.md`: one USP sentence, a five-step MVP with a success check for each step, the X factor and a demo order | The MVP is not yet proven live. `tests/qa/mvp.spec.ts` and the real-phone rehearsal come in Phase 4 |
+| Two checkpoints only, autonomy between | Met so far | One "go" at Checkpoint 1. Phase 3 ran without a question. Work stops at Checkpoint 2 | Phase 4 to 6 follow Checkpoint 2 |
 | Viability gate before building | Met so far | Section 1 of this file. Nothing was built beyond the trivial placeholder fixes | Applies to every Phase 4 task |
 | Looping engineer, three attempts at most | Partly | Section 4: four tasks, one needed two attempts, none blocked | Phase 4 loops have not started |
 | Karpathy rules | Partly | `CLAUDE.md`. `git log` shows three commits, one concern each, no refactors. `docs/TOOLS.md` pins the plugin | Judged on the Phase 4 diffs |
