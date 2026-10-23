@@ -442,6 +442,8 @@ const en: Record<string, string | string[]> = {
   'k.fail': 'Could not make the code. Check that your photos are sealed, then try again.',
   'cap.camDenied': 'The camera is blocked or not available. Allow the camera in your browser settings and try again. You can also use a simulated photo, which is labelled Simulated.',
   'cap.saveFail': 'The photo could not be saved on this phone. Free some space and try again.',
+  'cap.needConsent': '{farmer} has not agreed yet. Ask for their consent before you take any photo.',
+  'cap.askConsent': 'Ask for consent',
   'db.memory': 'This phone is not saving your photos. Keep this page open until they are sent.',
   'prov.live': 'Live',
   'prov.replay': 'Replay',

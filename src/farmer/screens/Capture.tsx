@@ -5,7 +5,8 @@ import { fmtClock } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { announce } from '../../lib/announce';
 import { lowData } from '../../lib/prefs';
-import { view, addShot, addSyntheticShot, getGeo, seal, busy, photoUrl, photoTick } from '../focus';
+import { view, addShot, addSyntheticShot, getGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
+import { activePlotId, focusPlot } from '../../sim/engine';
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
 import { ShotPicto } from '../parts';
@@ -74,6 +75,8 @@ export function Capture() {
   useEffect(() => { void getGeo(); }, []);
   const kind = sel ?? SHOTS.find((k) => !v.shots[k]) ?? null;
   const helper = v.consent?.helper;
+  /** A helper is capturing for a farmer who has not agreed yet: no photo until they do. */
+  const needConsent = activePlotId.value !== null && !v.consent;
   const n = kind ? SHOTS.indexOf(kind) + 1 : 3;
 
   async function take(blob: Blob, w: number, h: number) {
@@ -87,8 +90,8 @@ export function Capture() {
       await addShot(kind, blob, w, h, geo, false, helper);
       setSel(null);
       announce(tr('cap.taken') + ': ' + tr('shot.' + kind));
-    } catch {
-      setMsg(tr('cap.saveFail'));
+    } catch (e) {
+      setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: focusPlot.value!.name }) : tr('cap.saveFail'));
     } finally {
       setPhase('idle');
     }
@@ -150,7 +153,14 @@ export function Capture() {
         ))}
       </ol>
 
-      {kind && !all ? (
+      {needConsent ? (
+        <div class="shotcard" data-need-consent>
+          <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: focusPlot.value!.name })}</span></p>
+          <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'assist')}>
+            {tr('cap.askConsent')} <span class="arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      ) : kind && !all ? (
         <div class="shotcard" data-tour="shot">
           <p class="eyebrow">{tr('cap.step', { n })}</p>
           <ShotPicto kind={kind} />

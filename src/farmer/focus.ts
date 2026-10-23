@@ -294,7 +294,21 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 /** 2G: one small message every ~1.2 s of real time. */
 export const WEAK_DELAY_MS = 1200;
 
+/** A helper acts for a farmer only once that farmer has agreed. */
+export class ConsentMissing extends Error {
+  override name = 'ConsentMissing';
+  constructor() { super('The farmer has not agreed yet.'); }
+}
+
+/** In helper mode, real photos and a seal need the consent recorded in that farmer's own log. The demo farmer acts for themself. */
+async function requireConsent(key: string) {
+  if (key !== DEMO && !reduce(await currentLog(key), Infinity).consent) throw new ConsentMissing();
+}
+
 export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, geo: Geo, synthetic: boolean, helper?: string) {
+  // the farmer this photo is for is fixed now: moving on to another farmer while it is saved must not move the photo
+  const key = activeKey.value;
+  if (!synthetic) await requireConsent(key);
   busy.value = true;
   // ask the browser to keep what is captured when storage runs low (no prompt; the answer is not needed)
   void navigator.storage?.persist?.().catch(() => undefined);
@@ -303,8 +317,8 @@ export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, 
     const photoId = 'ph-' + sha.slice(0, 16);
     await dbSet('photos', photoId, blob);
     const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', photoId, { kind: 'photo', id: photoId, simT: t.value, plot: activeKey.value });
-    await append({ type: 'shot', simT: t.value, data: { kind, photoId, sha, bytes: blob.size, w, h, geo, synthetic, helper, queued } });
+    if (queued) await dbSet('outbox', photoId, { kind: 'photo', id: photoId, simT: t.value, plot: key });
+    await append({ type: 'shot', simT: t.value, data: { kind, photoId, sha, bytes: blob.size, w, h, geo, synthetic, helper, queued } }, key);
     photoTick.value++;
   } finally {
     busy.value = false;
@@ -347,15 +361,17 @@ export function packetBody(v: FocusView) {
 }
 
 export async function seal() {
+  const key = activeKey.value;
   const v = view.value;
   if (!v.shotCount || full.value.seal) return;
+  if (Object.values(v.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
   busy.value = true;
   try {
     const body = packetBody(v);
     const packetHash = await sha256(canonical(body));
     const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: activeKey.value });
-    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } });
+    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
+    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } }, key);
   } finally {
     busy.value = false;
   }

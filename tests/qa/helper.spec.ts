@@ -231,3 +231,17 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   expect(verified(row.file).status).toBe(0);
   expect(errors).toEqual([]);
 });
+
+test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.active('P-06'); s.tab('farmer'); s.screen('capture');`);
+  const need = page.locator('[data-need-consent]');
+  await expect(need).toBeVisible();
+  await expect(need).toContainText('has not agreed yet');
+  await expect(page.getByRole('button', { name: /Open camera/ })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Use simulated photo/ })).toHaveCount(0);
+  await need.getByRole('button', { name: /Ask for consent/ }).click();
+  await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
+  expect(errors).toEqual([]);
+});
