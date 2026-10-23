@@ -101,6 +101,13 @@ function exclusive<T>(fn: () => Promise<T>): Promise<T> {
   return run as Promise<T>;
 }
 
+/** The log as it stands now. Another tab, or this page before it has loaded, may have stored more than memory holds. */
+async function currentLog(key: string): Promise<Link[]> {
+  const stored = await dbGet<Link[]>('kv', kvKey(key));
+  const c = logs.value[key] ?? [];
+  return stored && stored.length > c.length ? stored : c;
+}
+
 /**
  * Append an event. A log only moves forward: an event that would land before the last one is stamped just after it, so
  * scrubbing the replay back, reloading or reconnecting can never remove sealed evidence. When a person acts while the
@@ -110,10 +117,7 @@ function exclusive<T>(fn: () => Promise<T>): Promise<T> {
 async function append(ev: FocusEvent, key: string = activeKey.value, passive = false) {
   return exclusive(async () => {
     if (!loaded) await loadFocus();
-    // Another tab may have written since this one read the log: start from the longer one.
-    const stored = await dbGet<Link[]>('kv', kvKey(key));
-    let c = logs.value[key] ?? [];
-    if (stored && stored.length > c.length) c = stored;
+    const c = await currentLog(key);
     const last = c.length ? c[c.length - 1].body.simT : -Infinity;
     const simT = Math.max(ev.simT, last);
     if (simT > ev.simT && !passive) {
@@ -384,7 +388,7 @@ export async function syncOutbox() {
         const [k, e] = left[0];
         const owner = e?.plot ?? DEMO;
         if (k.startsWith('packet-')) {
-          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(logs.value[owner] ?? [], Infinity).seal?.packetHash, stage: 'hash' } }, owner, true);
+          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(await currentLog(owner), Infinity).seal?.packetHash, stage: 'hash' } }, owner, true);
           await dbDel('outbox', k);
         } else {
           await append({ type: 'sync', simT: t.value, data: { photoIds: [k], stage: 'hash' } }, owner, true);
@@ -398,7 +402,8 @@ export async function syncOutbox() {
       for (const owner of owners) {
         const mine = entries.filter(([, e]) => (e?.plot ?? DEMO) === owner).map(([k]) => k);
         const ids = mine.filter((k) => k.startsWith('ph-'));
-        const seal = reduce(logs.value[owner] ?? [], Infinity).seal;
+        // not from memory alone: a sync can start at page load, or in a second tab, before this page holds the sealed log
+        const seal = reduce(await currentLog(owner), Infinity).seal;
         const packet = mine.some((k) => k.startsWith('packet-')) && seal ? seal.packetHash : undefined;
         await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner, true);
       }

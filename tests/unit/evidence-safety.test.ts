@@ -87,3 +87,16 @@ test('after a reload the replay clock returns to the last thing the person did',
   restoreClock();
   assert.equal(t.value, 40, 'a clock already ahead is left alone');
 });
+
+test('a sync that starts before this page holds the stored log (a reload, or a second tab) still records the sealed packet as received', async () => {
+  network.value = 'offline';
+  await capturedAndSealed(17.35);
+  assert.ok(full.value.queued > 0);
+  // the log is stored, but this page does not have it in memory yet, and the connection is back
+  logs.value = {};
+  network.value = 'online';
+  await syncOutbox();
+  assert.ok(full.value.seal, 'the seal is back from storage');
+  assert.equal(full.value.queued, 0, 'the photos and the packet are all recorded as received');
+  assert.notEqual(full.value.seal!.recvT, null);
+});
