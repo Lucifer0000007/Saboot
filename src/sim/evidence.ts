@@ -2,6 +2,7 @@
 // This is an EVIDENCE TIER for prioritising human review — never a claim decision, never an eligibility decision.
 import { sarExcess, TALL_CROPS, type Model } from './model';
 import { SAR_LATENCY_H } from './rules';
+import { PMFBY } from '../config';
 import type { PlotState } from './cohort';
 
 export type Tier = 'supported' | 'partial' | 'insufficient' | 'none';
@@ -126,7 +127,10 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   };
 
   const n = s.shotsNow;
-  const inWindow = s.times.captureT !== null && s.times.deadlineT !== null && s.times.captureT <= s.times.deadlineT;
+  // Photos count in full when taken within the insurance window of 72 h after the event, on either rail: how strong a photo
+  // is as evidence does not depend on which process reads it, and the relief rail's capture-soon advice is not a deadline.
+  const freshUntil = s.times.eventT === null ? null : s.times.eventT + PMFBY.windowHours;
+  const inWindow = s.times.captureT !== null && freshUntil !== null && s.times.captureT <= freshUntil;
   // a real capture cannot be compared with a fictional plot, so it is neither passed nor penalised, and the text says so
   const geoOk = s.times.live || s.times.geoOffM <= 100;
   const where = s.times.live ? 'location not checked against the plot' : geoOk ? 'location on plot' : `${s.times.geoOffM} m from plot`;
@@ -135,7 +139,7 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
     value: n ? clamp((n / 3) * (inWindow ? 1 : 0.5) * (geoOk ? 1 : 0.4)) : 0,
     unc: (n ? 0.08 : 0.02) + (p.baselineWet && n ? PADDY_PHOTO_UNC : 0),
     detail: n
-      ? `${n}/3 shots · ${inWindow ? (s.rail === 'pmfby' ? 'within window' : 'within the capture-soon advice') : (s.rail === 'pmfby' ? 'after deadline' : 'after the capture-soon advice')} · ${where}${p.baselineWet ? ' · expected on paddy anyway' : ''}`
+      ? `${n}/3 shots · ${inWindow ? `within ${PMFBY.windowHours} h of the event` : `more than ${PMFBY.windowHours} h after the event`} · ${where}${p.baselineWet ? ' · expected on paddy anyway' : ''}`
       : 'No photos yet',
   };
   const gap = s.times.syncT !== null && s.times.captureT !== null ? s.times.syncT - s.times.captureT : 0;
