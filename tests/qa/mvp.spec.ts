@@ -220,3 +220,38 @@ for (const lang of ['en', 'hi', 'pa']) {
     expect(errors).toEqual([]);
   });
 }
+
+test('Reset, by the key or the button, asks before it clears what the phone captured', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  const ask = page.getByRole('dialog', { name: /Clear what this phone captured/ });
+  const idle = () => page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+
+  // nothing captured yet: there is nothing to lose, so R resets at once
+  await idle();
+  await page.keyboard.press('r');
+  await expect(ask).toHaveCount(0);
+  await expect(page.locator('.toast')).toContainText('Replay reset');
+
+  // one real photo is on the phone: R asks first, and keeping it changes nothing
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  await page.locator('[data-tour=cta]').click();
+  await takePhoto(page, 1);
+  await idle();
+  await page.keyboard.press('r');
+  await expect(ask).toBeVisible();
+  expect((await state(page)).shots).toBe(1);
+  await ask.getByRole('button', { name: /Keep what was captured/ }).click();
+  await expect(ask).toHaveCount(0);
+  expect((await state(page)).shots).toBe(1);
+
+  // the same question from the Reset button in the "More controls" sheet; saying yes clears it
+  await page.getByRole('button', { name: 'More controls' }).click();
+  await page.locator('.ctrl-sheet').getByRole('button', { name: 'Reset' }).click();
+  await expect(ask).toBeVisible();
+  await ask.getByRole('button', { name: /Clear it and start over/ }).click();
+  await expect.poll(async () => (await state(page)).shots).toBe(0);
+  await expect(ask).toHaveCount(0);
+  expect(errors).toEqual([]);
+});

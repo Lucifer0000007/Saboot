@@ -410,6 +410,8 @@ test('state survives a reload mid-flow; reset and cleared site data return to fi
   await expect.poll(async () => (await state(page)).shots, { timeout: 20_000 }).toBe(3);
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.keyboard.press('r');
+  // three real shots are on the phone, so Reset asks first
+  await page.getByRole('dialog', { name: /Clear what this phone captured/ }).getByRole('button', { name: /Clear it and start over/ }).click();
   await expect.poll(async () => (await state(page)).shots, { timeout: 10_000 }).toBe(0);
   expect((await state(page)).t).toBe(0);
   await sab(page, `await s.jump('capture'); await s.ensure('captured');`);

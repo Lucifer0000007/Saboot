@@ -8,6 +8,7 @@ import { loadScenario, model } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
 import { Settings } from '../ui/Settings';
+import { ResetAsk } from '../ui/ControlBar';
 import { Presenter } from '../tour/Presenter';
 import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
@@ -114,6 +115,7 @@ export function Page({ ssr }: { ssr?: boolean }) {
       {!ssr && (
         <>
           <Settings />
+          <ResetAsk />
           <Presenter />
           {tourStep.value !== null && <Tour />}
           {toast.value && (

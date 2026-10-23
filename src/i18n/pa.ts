@@ -85,6 +85,10 @@ const pa: Record<string, string | string[]> = {
   'ctl.jump': 'ਕਿਸੇ ਪਲ ਉੱਤੇ ਜਾਓ', // needs-native-review
   'ctl.reset': 'ਰੀਸੈੱਟ', // needs-native-review
   'ctl.resetDone': 'ਰੀਪਲੇ T+0 ਉੱਤੇ ਰੀਸੈੱਟ ਹੋਇਆ। ਤੁਹਾਡੀਆਂ ਕਾਰਵਾਈਆਂ ਹਟਾ ਦਿੱਤੀਆਂ ਗਈਆਂ।', // needs-native-review
+  'ctl.ask.t': 'ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਜੋ ਲਿਆ ਗਿਆ, ਉਸ ਨੂੰ ਮਿਟਾਉਣਾ ਹੈ?', // needs-native-review
+  'ctl.ask.b': 'ਮੁੜ ਸ਼ੁਰੂ ਕਰਨ ਨਾਲ ਇਸ ਫ਼ੋਨ ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਸੀਲ ਕੀਤਾ ਕੋਡ ਮਿਟ ਜਾਣਗੇ, ਉਨ੍ਹਾਂ ਕਿਸਾਨਾਂ ਦੇ ਵੀ ਜਿਨ੍ਹਾਂ ਲਈ ਮਦਦਗਾਰ ਨੇ ਲਿਆ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।', // needs-native-review
+  'ctl.ask.keep': 'ਜੋ ਲਿਆ ਗਿਆ ਹੈ ਉਸ ਨੂੰ ਰੱਖੋ', // needs-native-review
+  'ctl.ask.go': 'ਮਿਟਾ ਕੇ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
   'ctl.more': 'ਹੋਰ ਕੰਟਰੋਲ', // needs-native-review
   'ctl.moreTitle': 'ਰੀਪਲੇ ਕੰਟਰੋਲ', // needs-native-review
   'ctl.net': 'ਫ਼ੋਨ ਨੈੱਟਵਰਕ', // needs-native-review

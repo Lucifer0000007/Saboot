@@ -85,6 +85,10 @@ const hi: Record<string, string | string[]> = {
   'ctl.jump': 'किसी पल पर जाएँ', // needs-native-review
   'ctl.reset': 'रीसेट', // needs-native-review
   'ctl.resetDone': 'रीप्ले T+0 पर रीसेट हुआ। आपकी गतिविधियाँ हटा दी गईं।', // needs-native-review
+  'ctl.ask.t': 'इस फ़ोन पर जो लिया गया, उसे मिटाएँ?', // needs-native-review
+  'ctl.ask.b': 'फिर से शुरू करने पर इस फ़ोन की फ़ोटो, सहमति के रिकॉर्ड और सील किया हुआ कोड मिट जाएँगे, उन किसानों के भी जिनके लिए मददगार ने लिया। इसे वापस नहीं किया जा सकता।', // needs-native-review
+  'ctl.ask.keep': 'जो लिया गया है उसे रखें', // needs-native-review
+  'ctl.ask.go': 'मिटाकर फिर से शुरू करें', // needs-native-review
   'ctl.more': 'और नियंत्रण', // needs-native-review
   'ctl.moreTitle': 'रीप्ले नियंत्रण', // needs-native-review
   'ctl.net': 'फ़ोन नेटवर्क', // needs-native-review

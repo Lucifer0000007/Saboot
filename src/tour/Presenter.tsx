@@ -11,7 +11,7 @@ import { SCENARIO } from '../generated/scenario-summary';
 import { simTab, scrollToId, type SimTab } from '../site/layout';
 import { t, toggle, seek, pause, playing, speed, HOURS } from '../sim/engine';
 import { moments, jumpTo, type MomentId } from '../sim/moments';
-import { resetAll } from '../ui/ControlBar';
+import { requestReset } from '../ui/ControlBar';
 import { startTour, tourStep } from './state';
 
 export const hud = signal(false);
@@ -73,7 +73,7 @@ function onKey(e: KeyboardEvent) {
     case 'g': textScale.value = textScale.value === 100 ? 125 : textScale.value === 125 ? 150 : 100; showToast(`Text size ${textScale.value}%`); break;
     case 'z': lowData.value = !lowData.value; showToast(lowData.value ? 'Low-data mode on' : 'Low-data mode off'); break;
     case 't': startTour(); break;
-    case 'r': resetAll(); break;
+    case 'r': requestReset(); break;
     case 'p': hud.value = !hud.value; break;
     case '?': help.value = !help.value; break;
     default: return;
