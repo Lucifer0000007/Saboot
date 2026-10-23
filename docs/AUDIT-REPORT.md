@@ -9,7 +9,7 @@ reproductions in Node and in headless Chrome against the built `dist/`, plus the
 output, data loss off the main path, or an accessibility failure. *Minor*: polish, edge cases and hygiene.
 **Status.** CONFIRMED means reproduced or traced in code. SUSPECTED means not reproduced. IDs: `A-nn` are first-pass findings,
 `L1` logic, `L2` security and privacy, `L3` offline and sync, `L4` UX, accessibility and i18n, `L5` performance
-(section 5, to be added when that lane reports). "(= x)" means the same root cause as another row.
+(section 5). "(= x)" means the same root cause as another row.
 
 Effort: S under an hour, M under half a day, L longer.
 
@@ -59,6 +59,8 @@ FIXED in this pass: **A-03** (canonical, `og:url`, `og:image` and the judge QR n
 | L4-06 | `site/Simulation.tsx:107`, `i18n/en.ts:74` | CONFIRMED. A blocked scenario fetch shows "Could not load the scenario data (TypeError: Failed to fetch). Reload the page." with the raw Latin error inside Hindi and Punjabi text, and no button. Also L3-09: one dropped fetch is permanent. | A dead end with raw script text. | Plain copy, a Reload button, retry with backoff. | S |
 | L4-07 | `Capture.tsx:183`, `focus.ts:246`, `ShareToLaptop.tsx:69`, `lib/announce.ts:20` | CONFIRMED. A refused camera shows a toast that is gone by 4.2 s, adds a simulated shot, and never says how to allow the camera. A signing failure shows "Could not copy…" (wrong key). Toasts are 14 px, last 3.6 s and cover the tapped button. | Failure copy is not warm or actionable, and it disappears. | Inline message with a next step. Toasts at least 5 s. | M |
 | L4-08 | `Packet.tsx:66,80-95`, `Capture.tsx:167`, `File.tsx:20`, `en.ts:452,618` | CONFIRMED. The default Proof screen shows "Fingerprint (SHA-256)" with 64 hex characters, a 4-card sync log and a hash chain. File says "read out your evidence fingerprint". `(SHA-256)` is hard-coded Latin in Hindi and Punjabi. | Jargon the brief says to hide. It pushes the button to y 2,439. | One closed "Technical details" section. | M |
+| L5-01 | `src/lib/i18n.ts` (language chunk), `src/styles/fonts.css`, the `lang-pending` hold in `index.html` | CONFIRMED (measured, median of 3, mobile emulation, service worker off). A saved Hindi choice holds first paint until the Noto fonts and dictionary arrive: LCP 2.31 s on the spec profile (2 Mbps, 300 ms, 4× CPU) against 0.70 s in English. On Fast 3G it is 2.97 to 3.02 s, over the 2.5 s limit, and on a 2G-class link 3.5 s. Bytes at first paint: 222 KB (fonts 104 KB, JS 91 KB) against 93 KB in English. Lighthouse only measures English. | Hindi and Punjabi first users, the target users, have the slowest and heaviest first paint, and the budget is not measured for them. | Preload only the saved language's font subset, paint the page in the fallback face (metric-matched) instead of holding it, and add a Hindi run to the budget check. | M |
+| L5-02 | first paint in Hindi on a weak link (shifts on `MAIN#main`, `section#problem`, `.nav-actions`) | CONFIRMED (measured). On the 2G-class profile (250 kbps, 800 ms, 4× CPU) a Hindi cold load has CLS 0.145 (limit 0.05): shifts at 5.3 s, 7.9 s, 8.9 s and 9.2 s (0.128 for the last). English: 0.0015. | The page jumps under the farmer's thumb on the connection the product is built for. | Find the shifting nodes, reserve their space, and add a throttled Hindi load to the QA matrix. | M |
 
 ## 3. Minor
 
@@ -104,6 +106,10 @@ FIXED in this pass: **A-03** (canonical, `og:url`, `og:image` and the judge QR n
 | L4-17 | `Packet.tsx:40` | CONFIRMED. The empty Proof screen has no button to Photos. | A dead end. | Add "Take photos". | S |
 | L4-18 | `Assist.tsx:151`, `site/Shell.tsx:29` | A quick tap on "Press and hold to agree" gives no feedback (confirmed). Reduced motion still autoplays "Run the simulation" (confirmed). axe best-practice: redundant alt on packet thumbnails, empty table header in Impact (confirmed). Hold with a screen reader (suspected). | Small friction. | A hint, start paused, `alt=""`. | S |
 
+| L5-03 (= A-19) | Lighthouse gate, `scripts/lighthouse.mjs` | RISK (measured, one run each, simulated 2 Mbps, 300 ms, 4× CPU). `/`: performance 98, LCP 2201 ms, interactive 2948 ms (limit 3000, 52 ms of room), TBT 39 ms. `/?at=alert`: 97, LCP 2202, interactive 2698, TBT 112. `/?tab=insurer`: 97, LCP 2416 (limit 2500, 84 ms of room), TBT 71. CLS about 0 on all three. | Any new script or style above the fold (badges, a footer link and QR, new strings) can fail the gate. | Measure after every UI change. Keep new code in lazy chunks. | — |
+| L5-04 | `dashboard/state.ts` `rows` recompute, a `requestAnimationFrame` callback in the shared `imported` chunk | CONFIRMED (measured, officer tab, 4× CPU, 10 s). At 10× the replay runs at 76 to 80 frames a second with one 60 ms long task. At 100× it drops to 26 to 29 frames a second with 44 to 47 long tasks (4.9 to 5.5 s in total, worst 319 to 333 ms), and 20 to 30 frames over 100 ms. | Only a throttled phone is affected, not the presenter's laptop, and it is not on the demo path. | Update the heavy views at most twice a second at 100×. | M |
+| L5-05 | entry module, `main.tsx` | CONFIRMED (measured). On the 2G-class profile the first tap on "Run the simulation" responds at 4.5 s (English) and 5.2 s (Hindi). The page paints at 1.8 s in English, because the entry module is evaluated after first paint by design. | On a very weak link the button looks ready before it is. | A "loading" state on the button until the handler is attached. | S |
+| L5-06 | MVP flow (info) | MEASURED, median of 2, 4× CPU, 2 Mbps, 300 ms, 12 MP JPEG through the file input, no console errors. Alert button visible 1.5 to 1.8 s (below the fold at 412×915). Capture opens in 0.2 s. Three photos 0.89, 0.68 and 0.66 s. Seal 0.15 s. Code built in 0.39 s (338 characters). QR shown in 0.35 s at 81×81 modules, 320 px wide. Laptop verification 0.4 to 0.8 s. Machine time on the phone is about 6 s, so the human steps dominate. | The flow is fast enough. The QR density is the open risk (A-05). | None. | — |
 ## 4. What the tests do not cover (all lanes)
 - `focus.ts`: truncation on rewind, sync after rewind, concurrent appends, seal with 0, 1 or 2 shots or twice, consent order,
   no-damage undo, `syncOutbox`, `ensureFocus`. `helper.ts` queue and counts.
@@ -120,8 +126,22 @@ FIXED in this pass: **A-03** (canonical, `og:url`, `og:image` and the judge QR n
   scenario fetch, language chunk).
 
 ## 5. Performance on a throttled mid-range Android (L5)
-To be added when the performance lane reports. Until then, the README's own measurements apply (initial load 87.3 KB gzip,
-LCP 2.41 s against a 2.5 s limit) and have not been re-measured here.
+The first attempt at this lane stalled after ten minutes (no progress). It left a cold-load matrix, which is used below. The
+remaining measurements were then made directly in smaller steps (second attempt). Profiles: **P1** 2 Mbps down, 1 Mbps up,
+300 ms round trip, 4× CPU slowdown (the project's budget profile). **P2** Fast 3G, 1.6 Mbps, 562 ms. **P3** a 2G-class link,
+250 kbps, 800 ms. Chrome 155, mobile emulation (412×915, scale 2.625), service worker off, median of 3 unless noted.
+
+| Cold load of `/` | P1 English | P1 Hindi | P2 English | P2 Hindi | P3 English | P3 Hindi |
+|---|---|---|---|---|---|---|
+| First and largest paint | 704 ms | 2,308 ms | 1,160 ms | 2,992 ms | 1,780 ms | 3,476 ms |
+| Page load event | 904 ms | 2,282 ms | 1,504 ms | 3,150 ms | 3,470 ms | 8,846 ms |
+| First tap on the main button works | about 1.05 s | about 1.3 s | about 1.7 s | about 1.7 s | about 4.5 s | about 5.2 s |
+| Layout shift (limit 0.05) | 0.000 | 0.000 | 0.000 | 0.000 | 0.002 | **0.145** |
+| Bytes at first paint | 93 KB | 222 KB | 93 KB | 222 KB | 94 KB | 224 KB |
+
+The repository's own Lighthouse gate, run once per page: all assertions pass (see L5-03). The MVP flow, the play cost and the
+other findings are L5-01 to L5-06 above. Not measured: a repeat visit with the service worker active, a Safari or Firefox run,
+and a real phone.
 
 ## 6. What was checked and looked fine
 - Offline after one online visit: `/`, `/?at=alert`, `?tab=insurer|ledger|explainer`, `#k=<valid vector>` (verifies offline),

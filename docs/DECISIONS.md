@@ -78,6 +78,7 @@ point-level skill and not "alerted X hours earlier".
 | Install Semgrep in isolation | `semgrep --version` runs | 1 | Pass (1.182.1) |
 | Prove the Semgrep packs actually detect something | A planted `eval` and `innerHTML` file is flagged | 2 | Attempt 1: nothing flagged, because `p/javascript` has no DOM-sink rules. Attempt 2: the same rules run by name were flagged. The engine works. Extra packs and named rules were then run on the repository. |
 | Semgrep coverage | No parse errors | 1 | Two build scripts partly parsed. Reviewed by hand (S-02). |
+| Performance audit on a throttled phone profile | Cold-load, deep-link, MVP-flow and play-cost numbers for three profiles | 2 | Attempt 1 (a delegated agent) stalled with no progress for ten minutes after saving a cold-load matrix. Attempt 2 ran the missing measurements directly in smaller steps. Pass. |
 
 ## 5. Blocked log
 None so far.
@@ -102,7 +103,7 @@ each checkpoint and at the end.
 | No calendar dates | Met in the new files | A date search over `CLAUDE.md` and the new docs finds none (version strings such as 2026.10.4 aside). The plan file has no schedule | The earlier Word guide (`docs/Saboot-Complete-Guide.docx`, untracked) has dates on its cover and in its source notes |
 | Non-negotiables | Partly | 127 unit tests pass, including the claims tests. Budgets pass. No amount is shown anywhere | The audit finds the demo path breaking three: honest labels (A-02), no claims of capabilities that do not exist (L1-01), and per-farmer consent in helper mode (L1-05) |
 | Nothing non-viable is mapped | Met | `docs/FEATURE-MAP.md` has no NO-GO items. They are in section 1 (D-01 to D-05, D-12, D-16) | None |
-| Mistakes found and explained | Partly | `docs/AUDIT-REPORT.md`: 6 blocker rows, 29 major, 39 minor, each with repro, why it matters, fix and effort. Three were fixed | The performance lane (L5) is not in yet. The plain-language explanation comes in the final report |
+| Mistakes found and explained | Partly | `docs/AUDIT-REPORT.md`: 6 blocker rows, 31 major, 43 minor, each with repro, why it matters, fix and effort. Three were fixed | The plain-language explanation comes in the final report |
 | Text, font and spacing fixes | Not yet | Measurements and a monospace judgement are in the audit (L4-10 to L4-15) | Phase 5 |
 | Honesty about real versus simulated | Partly | Meta, manifest and noscript reworded. The placeholder host is gone from `dist/` | A-02, A-04 and L1-01 are open and the labels are unbuilt |
 | Stop list respected | Met so far | No account, key, payment, user-wide install, `semgrep login`, upload or deploy. Semgrep lives outside the repository. `tests/unit/claims.test.ts` is untouched | I deleted two `{{VERIFY}}` markers in `src/config.ts`. They were placeholders for the team name and public URL, which you supplied, not real-world claims. The other 19 markers are untouched |
