@@ -264,15 +264,18 @@ export function simGeo(seed = 0): Geo {
   return { lat: +lat.toFixed(6), lon: +lon.toFixed(6), acc: 8, src: 'sim' };
 }
 
+/** How long a photo waits for a location before it says "simulated location" and goes on. */
+const GEO_WAIT_MS = 3500;
+
 export function getGeo(): Promise<Geo> {
   return new Promise((res) => {
     if (!('geolocation' in navigator)) return res(simGeo(1));
     const done = (g: Geo) => res(g);
-    const timer = setTimeout(() => done(simGeo(2)), 9000);
+    const timer = setTimeout(() => done(simGeo(2)), GEO_WAIT_MS);
     navigator.geolocation.getCurrentPosition(
       (p) => { clearTimeout(timer); done({ lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' }); },
       () => { clearTimeout(timer); done(simGeo(3)); },
-      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 500, maximumAge: 60000 }
     );
   });
 }
@@ -289,6 +292,8 @@ export const WEAK_DELAY_MS = 1200;
 
 export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, geo: Geo, synthetic: boolean, helper?: string) {
   busy.value = true;
+  // ask the browser to keep what is captured when storage runs low (no prompt; the answer is not needed)
+  void navigator.storage?.persist?.().catch(() => undefined);
   try {
     const sha = await sha256(blob);
     const photoId = 'ph-' + sha.slice(0, 16);

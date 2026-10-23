@@ -387,7 +387,6 @@ const pa: Record<string, string | string[]> = {
   'cap.old': 'ਇਹ ਫ਼ੋਟੋ ਇਸ ਸੈਸ਼ਨ ਤੋਂ ਪੁਰਾਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਮਰੇ ਨਾਲ ਨਵੀਂ ਫ਼ੋਟੋ ਖਿੱਚੋ।', // needs-native-review
   'cap.queued': 'ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਨੈੱਟਵਰਕ ਆਉਣ ਉੱਤੇ ਭੇਜੀ ਜਾਵੇਗੀ।', // needs-native-review
   'cap.sent': 'ਭੇਜੀ ਗਈ', // needs-native-review
-  'cap.camFail': 'ਕੈਮਰਾ ਉਪਲਬਧ ਨਹੀਂ। ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵਰਤੀ ਜਾ ਰਹੀ ਹੈ।', // needs-native-review
   'cap.helper': 'ਸਹਾਇਕ ਨੇ ਖਿੱਚੀ: {name}', // needs-native-review
   'cap.taken': 'ਖਿੱਚੀ ਗਈ', // needs-native-review
   'sec.http': 'ਇਹ ਪੰਨਾ ਸਾਦੇ HTTP ਉੱਤੇ ਖੁੱਲ੍ਹਾ ਹੈ। ਇੱਥੇ ਕੈਮਰਾ, ਲੋਕੇਸ਼ਨ ਅਤੇ ਸਾਈਨਿੰਗ ਬੰਦ ਹਨ। QR ਕੋਡ ਵਾਲਾ HTTPS ਲਿੰਕ ਖੋਲ੍ਹੋ। ਨਕਲੀ ਫ਼ੋਟੋ ਨੂੰ ਫਿਰ ਵੀ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਮਿਲਦਾ ਹੈ।', // needs-native-review
@@ -426,6 +425,9 @@ const pa: Record<string, string | string[]> = {
   'k.making': 'ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ…', // needs-native-review
   'k.stay': 'ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ।', // needs-native-review
   'k.fail': 'ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
+  'cap.camDenied': 'ਕੈਮਰਾ ਬੰਦ ਹੈ ਜਾਂ ਉਪਲਬਧ ਨਹੀਂ। ਆਪਣੀ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਸੀਂ ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵੀ ਲੈ ਸਕਦੇ ਹੋ; ਉਸ ਉੱਤੇ "ਸਿਮੂਲੇਟਡ" ਲਿਖਿਆ ਹੋਵੇਗਾ।', // needs-native-review
+  'cap.saveFail': 'ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
+  'db.memory': 'ਇਹ ਫ਼ੋਨ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਰਿਹਾ। ਭੇਜੇ ਜਾਣ ਤੱਕ ਇਹ ਪੇਜ ਖੁੱਲ੍ਹਾ ਰੱਖੋ।', // needs-native-review
   'prov.live': 'ਲਾਈਵ', // needs-native-review
   'prov.replay': 'ਰੀਪਲੇ', // needs-native-review
   'prov.sim': 'ਸਿਮੂਲੇਟਡ', // needs-native-review

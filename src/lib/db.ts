@@ -1,6 +1,11 @@
 // Tiny IndexedDB wrapper. Stores: kv (JSON state), photos (Blobs), outbox (queued uploads).
 // Falls back to memory when IndexedDB is unavailable (private mode, old browsers).
 
+import { signal } from '@preact/signals';
+
+/** False once something had to be kept only in memory because the browser would not store it: the person must be told. */
+export const storageOk = signal(true);
+
 type Store = 'kv' | 'photos' | 'outbox';
 const mem: Record<Store, Map<string, unknown>> = { kv: new Map(), photos: new Map(), outbox: new Map() };
 let dbp: Promise<IDBDatabase | null> | null = null;
@@ -32,6 +37,8 @@ function tx<T>(store: Store, mode: IDBTransactionMode, fn: (s: IDBObjectStore) =
         const req = fn(t.objectStore(store));
         t.oncomplete = () => res(req.result as T);
         t.onerror = () => rej(t.error);
+        // a transaction the browser abandons (the storage is full) must settle, or the caller waits for ever
+        t.onabort = () => rej(t.error ?? new Error('aborted'));
       })
   );
 }
@@ -42,7 +49,7 @@ export async function dbGet<T>(store: Store, key: string): Promise<T | undefined
 }
 export async function dbSet(store: Store, key: string, val: unknown): Promise<void> {
   try { await tx(store, 'readwrite', (s) => s.put(val, key)); }
-  catch { mem[store].set(key, val); }
+  catch { mem[store].set(key, val); storageOk.value = false; }
 }
 export async function dbDel(store: Store, key: string): Promise<void> {
   try { await tx(store, 'readwrite', (s) => s.delete(key)); }

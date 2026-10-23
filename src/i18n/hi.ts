@@ -387,7 +387,6 @@ const hi: Record<string, string | string[]> = {
   'cap.old': 'यह फ़ोटो इस सत्र से पुरानी है। कृपया कैमरे से नई फ़ोटो लें।', // needs-native-review
   'cap.queued': 'फ़ोन में सहेजी गई। नेटवर्क आने पर भेजी जाएगी।', // needs-native-review
   'cap.sent': 'भेजी गई', // needs-native-review
-  'cap.camFail': 'कैमरा उपलब्ध नहीं। सिमुलेटेड फ़ोटो ली जा रही है।', // needs-native-review
   'cap.helper': 'सहायक ने ली: {name}', // needs-native-review
   'cap.taken': 'ली गई', // needs-native-review
   'sec.http': 'यह पेज सादे HTTP पर खुला है। यहाँ कैमरा, लोकेशन और साइनिंग बंद हैं। QR कोड वाला HTTPS लिंक खोलें। नकली फ़ोटो को फिर भी फ़िंगरप्रिंट मिलता है।', // needs-native-review
@@ -426,6 +425,9 @@ const hi: Record<string, string | string[]> = {
   'k.making': 'आपके पैकेट पर हस्ताक्षर हो रहे हैं…', // needs-native-review
   'k.stay': 'फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं।', // needs-native-review
   'k.fail': 'कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें।', // needs-native-review
+  'cap.camDenied': 'कैमरा बंद है या उपलब्ध नहीं है। अपनी ब्राउज़र सेटिंग में कैमरे की अनुमति दें और फिर कोशिश करें। आप सिमुलेटेड फ़ोटो भी ले सकते हैं; उस पर "सिमुलेटेड" लिखा होगा।', // needs-native-review
+  'cap.saveFail': 'फ़ोटो इस फ़ोन में सहेजी नहीं जा सकी। थोड़ी जगह खाली करें और फिर कोशिश करें।', // needs-native-review
+  'db.memory': 'यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें।', // needs-native-review
   'prov.live': 'लाइव', // needs-native-review
   'prov.replay': 'रीप्ले', // needs-native-review
   'prov.sim': 'सिमुलेटेड', // needs-native-review

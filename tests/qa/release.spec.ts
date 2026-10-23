@@ -189,16 +189,23 @@ test('presenter shortcuts: jump, network, language, help, HUD, tour, play, reset
   expect(errors).toEqual([]);
 });
 
-test('camera denied: the capture flow falls back to a simulated photo and location, and says so', async ({ page }) => {
+test('camera denied: the person is told why and chooses a labelled simulated photo, and nothing is swapped in silently', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('capture');`);
   await page.getByRole('button', { name: /Open camera/ }).click();
-  // the fallback is announced in a toast (and to screen readers), then the simulated shot is taken
-  await expect(page.getByText('Camera not available. Using a simulated photo.').first()).toBeVisible({ timeout: 10_000 });
+  // the camera is refused: a message with the way forward, and no photo taken on the person's behalf
+  await expect(page.locator('[data-cam-blocked]')).toContainText('The camera is blocked or not available', { timeout: 10_000 });
+  await page.waitForTimeout(600);
+  expect((await state(page)).shots).toBe(0);
+  await expect(page.locator('.shots li')).toHaveCount(0);
+  // the person chooses the simulated photo, and it says so on the photo and on its location
+  await page.getByRole('button', { name: /Use simulated photo/ }).click();
   const shot = page.locator('.shots li').first();
   await expect(shot).toBeVisible({ timeout: 20_000 });
   await expect(shot).toContainText('Simulated location', { timeout: 20_000 });
+  await expect(shot.locator('[data-v="photo"][data-prov="sim"]')).toBeVisible();
+  await expect(shot.locator('[data-v="loc"][data-prov="sim"]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 

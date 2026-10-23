@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'preact/hooks';
 import { Icon, type IconName } from '../ui/Icon';
 import { tr, trr } from '../lib/i18n';
 import { voiceMode, lang, network, browserOnline, rail } from '../lib/prefs';
+import { storageOk } from '../lib/db';
 import { say, stopVoice } from '../lib/voice';
 import { announce } from '../lib/announce';
 import { t, focusPlot, focusDet, activePlotId } from '../sim/engine';
@@ -107,6 +108,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
   return (
     <section class={'farmer' + (framed ? ' framed' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
       <ConnStrip />
+      {!storageOk.value && <p class="note note-warn" role="status" data-storage-warning><Icon name="info" /><span>{tr('db.memory')}</span></p>}
       <header class="f-top">
         <div class="f-who">
           <strong>{s === 'helper' ? tr('hm.title') : p.name}</strong>
