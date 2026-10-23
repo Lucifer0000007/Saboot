@@ -178,6 +178,8 @@ test.describe('offline', () => {
     trail.push(`${at()} sw ready (${await page.evaluate(async () => (await navigator.serviceWorker.ready).active?.state)})`);
     await page.reload();
     await page.waitForFunction(() => !!navigator.serviceWorker.controller, null, { timeout: 20_000 });
+    // the app boots after the first paint, so a warm service worker can finish the reload before it is ready
+    await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
     await page.evaluate('window.__sab.ready()');
     await page.evaluate('window.__sab.tab("insurer")');
     await panel('.dash');
