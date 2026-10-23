@@ -192,9 +192,9 @@ const hi: Record<string, string | string[]> = {
   'arch.clk.pmfby': '72 घंटे की घड़ी', // needs-native-review
   'arch.clk.s': 'घटना के समय से शुरू', // needs-native-review
   'arch.al': 'किसान को चेतावनी', // needs-native-review
-  'arch.al.s': 'उसकी भाषा में आवाज़ कॉल · AI: केवल भाषा', // needs-native-review
+  'arch.al.s': 'उसकी भाषा में आवाज़ संदेश · इस प्रोटोटाइप में कोई AI नहीं', // needs-native-review
   'arch.cap': 'निर्देशित फ़ोटो', // needs-native-review
-  'arch.cap.s': 'समय और जगह की मुहर, ऑफ़लाइन भी · AI: फ़ोटो में पानी', // needs-native-review
+  'arch.cap.s': 'समय और जगह की मुहर, ऑफ़लाइन भी · फ़ोटो की जाँच योजना में है, बनी नहीं', // needs-native-review
   'arch.pk': 'प्रमाण पैकेट', // needs-native-review
   'arch.pk.s': 'SHA-256 हैश चेन, फ़ोन पर सील', // needs-native-review
   'arch.ins': 'अधिकारी कंसोल', // needs-native-review
@@ -425,6 +425,13 @@ const hi: Record<string, string | string[]> = {
   'k.code': 'कोड', // needs-native-review
   'k.making': 'आपके पैकेट पर हस्ताक्षर हो रहे हैं…', // needs-native-review
   'k.stay': 'फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं।', // needs-native-review
+  'k.fail': 'कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें।', // needs-native-review
+  'prov.live': 'लाइव', // needs-native-review
+  'prov.replay': 'रीप्ले', // needs-native-review
+  'prov.sim': 'सिमुलेटेड', // needs-native-review
+  'prov.hand': 'हाथ से दर्ज', // needs-native-review
+  'prov.by': '{who} द्वारा', // needs-native-review
+  'prov.none': 'स्रोत दर्ज नहीं', // needs-native-review
   'fl.title': 'अपना प्रमाण साझा करें', // needs-native-review
   'fl.title.pmfby': 'नुकसान की रिपोर्ट करें', // needs-native-review
   'fl.intro': 'सबूत कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को अपना सील किया हुआ प्रमाण दिखाएँ। आपका ब्योरा तैयार है।', // needs-native-review

@@ -192,9 +192,9 @@ const pa: Record<string, string | string[]> = {
   'arch.clk.pmfby': '72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ', // needs-native-review
   'arch.clk.s': 'ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਸ਼ੁਰੂ', // needs-native-review
   'arch.al': 'ਕਿਸਾਨ ਨੂੰ ਚੇਤਾਵਨੀ', // needs-native-review
-  'arch.al.s': 'ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਕਾਲ · AI: ਸਿਰਫ਼ ਭਾਸ਼ਾ', // needs-native-review
+  'arch.al.s': 'ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਸੁਨੇਹਾ · ਇਸ ਪ੍ਰੋਟੋਟਾਈਪ ਵਿੱਚ ਕੋਈ AI ਨਹੀਂ', // needs-native-review
   'arch.cap': 'ਨਿਰਦੇਸ਼ਿਤ ਫ਼ੋਟੋਆਂ', // needs-native-review
-  'arch.cap.s': 'ਸਮੇਂ ਅਤੇ ਥਾਂ ਦੀ ਮੋਹਰ, ਆਫ਼ਲਾਈਨ ਵੀ · AI: ਫ਼ੋਟੋ ਵਿੱਚ ਪਾਣੀ', // needs-native-review
+  'arch.cap.s': 'ਸਮੇਂ ਅਤੇ ਥਾਂ ਦੀ ਮੋਹਰ, ਆਫ਼ਲਾਈਨ ਵੀ · ਫ਼ੋਟੋ ਦੀ ਜਾਂਚ ਯੋਜਨਾ ਵਿੱਚ ਹੈ, ਬਣੀ ਨਹੀਂ', // needs-native-review
   'arch.pk': 'ਪ੍ਰਮਾਣ ਪੈਕੇਟ', // needs-native-review
   'arch.pk.s': 'SHA-256 ਹੈਸ਼ ਚੇਨ, ਫ਼ੋਨ ਉੱਤੇ ਸੀਲ', // needs-native-review
   'arch.ins': 'ਅਧਿਕਾਰੀ ਕੰਸੋਲ', // needs-native-review
@@ -425,6 +425,13 @@ const pa: Record<string, string | string[]> = {
   'k.code': 'ਕੋਡ', // needs-native-review
   'k.making': 'ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ…', // needs-native-review
   'k.stay': 'ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ।', // needs-native-review
+  'k.fail': 'ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
+  'prov.live': 'ਲਾਈਵ', // needs-native-review
+  'prov.replay': 'ਰੀਪਲੇ', // needs-native-review
+  'prov.sim': 'ਸਿਮੂਲੇਟਡ', // needs-native-review
+  'prov.hand': 'ਹੱਥ ਨਾਲ ਦਰਜ', // needs-native-review
+  'prov.by': '{who} ਵੱਲੋਂ', // needs-native-review
+  'prov.none': 'ਸਰੋਤ ਦਰਜ ਨਹੀਂ', // needs-native-review
   'fl.title': 'ਆਪਣਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ', // needs-native-review
   'fl.title.pmfby': 'ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'fl.intro': 'ਸਬੂਤ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦਾ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ।', // needs-native-review
