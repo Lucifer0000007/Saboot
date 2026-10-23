@@ -68,6 +68,9 @@ export interface Draft {
 
 const r2 = (x: number) => Math.round(x * 100) / 100;
 
+/** A hail prompt with no reply yet, or none by the end of its window, is not a confirmed flood: it never carries a village's review load or rank. */
+const unconfirmedStage = (r: Row) => r.s.stage === 'unconfirmed' || r.s.stage === 'hail-prompt';
+
 export function listState(m: Pick<Model, 'opts'>, t: number): ListState {
   const { publishAtHour: a, objectionWindowHours: w } = m.opts;
   return t < a ? 'working draft' : t < a + w ? 'published' : 'objections closed';
@@ -84,7 +87,7 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
     crop: r.s.plot.crop,
     areaHa: r2(r.s.plot.areaHa),
     stage: stageLabel(r.s),
-    unconfirmed: r.s.stage === 'unconfirmed',
+    unconfirmed: unconfirmedStage(r),
     tier: r.e.tier,
     tierLabel: TIER_LABEL[r.e.tier],
     scoreLo: r2(r.e.lo),
@@ -103,7 +106,7 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
   const byVillage = m.raw.map.villages
     .map((v, i) => {
       const vs = listed.filter((r) => r.s.plot.v === i);
-      const confirmed = vs.filter((r) => r.s.stage !== 'unconfirmed');
+      const confirmed = vs.filter((r) => !unconfirmedStage(r));
       return {
         i,
         n: vs.length,
