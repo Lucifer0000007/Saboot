@@ -264,3 +264,23 @@ test('the empty Proof screen offers a way to take photos instead of a dead end',
   await expect(page.locator('.farmer .f-title')).toContainText('Take 3 photos');
   expect(errors).toEqual([]);
 });
+
+test('tabbing to a button is never left under the bottom dock (360 px phone)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  await page.evaluate(() => { window.scrollTo(0, 0); (document.activeElement as HTMLElement | null)?.blur(); });
+  // walk the page with the keyboard, as a keyboard or switch user does, until the last button of the alert screen
+  let reached = false;
+  for (let i = 0; i < 120 && !reached; i++) {
+    await page.keyboard.press('Tab');
+    reached = await page.evaluate(() => /No damage at my field/.test(document.activeElement?.textContent ?? ''));
+  }
+  expect(reached, 'Tab reaches "No damage at my field"').toBe(true);
+  const gap = await page.evaluate(() => {
+    const el = document.activeElement as HTMLElement;
+    return document.querySelector('.ctrl-dock')!.getBoundingClientRect().top - el.getBoundingClientRect().bottom;
+  });
+  expect(gap, 'the focused button ends above the dock').toBeGreaterThanOrEqual(0);
+  expect(errors).toEqual([]);
+});

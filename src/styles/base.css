@@ -1,5 +1,5 @@
 /* Base: reset, typography roles, shared components (pills, cards, tags, sheets). Mobile-first. */
-html { font-size: 100%; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-real, var(--nav-h)) + 16px); }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-real, var(--nav-h)) + 16px); scroll-padding-bottom: calc(var(--dock-real, 0px) + 16px); }
 html.t125 { font-size: 125%; }
 html.t150 { font-size: 150%; }
 *, *::before, *::after { box-sizing: border-box; }
