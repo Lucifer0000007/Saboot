@@ -191,7 +191,7 @@ test.describe('offline', () => {
     await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
     await page.evaluate('window.__sab.ready()');
     await page.evaluate(`(async () => { const s = window.__sab; await s.jump('capture'); s.screen('packet'); })()`);
-    await page.waitForSelector('[data-tour=synclog]');
+    await page.waitForSelector('[data-pk-tech]');
     const strip = await page.textContent('.f-strip');
     await page.evaluate('window.__sab.tab("insurer")');
     await page.waitForSelector('.dash', { timeout: 10_000 });

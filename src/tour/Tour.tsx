@@ -130,6 +130,8 @@ export default function Tour() {
       const el = sel ? document.querySelector(sel) : null;
       if (el) {
         if (!scrolled) {
+          // a target inside a closed <details> (the Proof screen's technical details) is opened first
+          for (let d = el.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true;
           el.scrollIntoView({ block: desk() ? 'center' : 'start', behavior: reducedMotion.value ? 'auto' : 'smooth' });
           scrolled = true;
         }

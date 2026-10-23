@@ -79,9 +79,6 @@ export function Packet() {
         {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
         <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
         <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>
-        {v.seal && (
-          <div class="full" data-tour="hash"><dt>{tr('pk.hash')} (SHA-256)</dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>
-        )}
       </dl>
 
       {v.queued > 0 ? (
@@ -94,10 +91,16 @@ export function Packet() {
       )}
       {gaps.length > 0 && <p class="note note-warn"><Icon name="flag" /><span>{tr('pk.gap', { gap: fmtDur(maxGap) })}</span></p>}
 
-      <SyncLog />
       {v.seal && <ShareCard />}
 
-      <section class="chain" aria-labelledby="chain-h">
+      <details class="pk-tech" data-pk-tech>
+        <summary><Icon name="link" /> <span>{tr('pk.tech')}</span></summary>
+        <div class="stack">
+        {v.seal && (
+          <dl class="facts"><div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div></dl>
+        )}
+        <SyncLog />
+        <section class="chain" aria-labelledby="chain-h">
         <h3 id="chain-h"><Icon name="link" /> {tr('pk.chain')}</h3>
         <p class="f-help">{tr('pk.chainHelp')}</p>
         <ol role="list">
@@ -111,7 +114,9 @@ export function Packet() {
             </li>
           ))}
         </ol>
-      </section>
+        </section>
+        </div>
+      </details>
 
       {v.seal && activePlotId.value !== null ? (
         <button type="button" class="pill pill-primary pill-lg pill-block" onClick={backToQueue}>
