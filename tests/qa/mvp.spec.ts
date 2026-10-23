@@ -353,3 +353,33 @@ test('if the Hindi dictionary cannot be fetched at all, the page stays in Englis
   await page.keyboard.press('l');
   await expect(page.locator('html')).toHaveAttribute('lang', 'hi', { timeout: 20_000 });
 });
+
+test.describe('the voice alert offline', () => {
+  test.use({ serviceWorkers: 'allow' });
+  test('the English voice clip is cached by the worker and plays with the network off', async ({ page, context }) => {
+    const errors: string[] = [];
+    await open(page, V('390x844'), 'en', errors);
+    await page.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration())?.active && !!navigator.serviceWorker.controller, null, { timeout: 30_000 });
+    // the cache becomes visible a moment after the worker reports itself active
+    await expect.poll(() => page.evaluate(async () => !!(await caches.match('audio/alert-relief-en.webm', { ignoreSearch: true }))), { message: 'the clip is in the cache', timeout: 15_000 }).toBe(true);
+    await context.setOffline(true);
+    const seconds = await page.evaluate(
+      () => new Promise<number>((res, rej) => {
+        const a = new Audio('audio/alert-relief-en.webm');
+        a.onloadedmetadata = () => res(a.duration);
+        a.onerror = () => rej(new Error('the clip did not load offline'));
+        a.load();
+      }),
+    );
+    expect(seconds).toBeGreaterThan(1);
+    // a byte range is answered from the cached file as a 206, the way a server would
+    const part = await page.evaluate(async () => {
+      const r = await fetch('audio/alert-relief-en.webm', { headers: { Range: 'bytes=0-9' } });
+      return { status: r.status, range: r.headers.get('content-range'), bytes: (await r.arrayBuffer()).byteLength };
+    });
+    expect(part.status).toBe(206);
+    expect(part.range).toMatch(/^bytes 0-9\//);
+    expect(part.bytes).toBe(10);
+    expect(errors.filter((e) => !/Failed to load resource|net::ERR/.test(e))).toEqual([]);
+  });
+});
