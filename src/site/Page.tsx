@@ -85,6 +85,16 @@ export function Page({ ssr }: { ssr?: boolean }) {
   useEffect(() => {
     loadScenario();
     void loadFocus().then(restoreClock);
+    // a link with #k= pasted into a tab that is already open (the page does not reload for a hash change)
+    const onHash = () => {
+      const d = readDeepLink();
+      if (d.k) {
+        simTab.value = 'insurer';
+        importCode.value = d.k;
+      }
+    };
+    addEventListener('hashchange', onHash);
+    return () => removeEventListener('hashchange', onHash);
   }, []);
   useEffect(() => { void applyDeepLink(); }, [model.value]);
   return (

@@ -3,6 +3,7 @@ import { TierBadge } from '../ui/TierBadge';
 import { fmtDur } from '../lib/time';
 const fmtDurEn = (h: number) => fmtDur(h, true);
 import { openPlot } from '../site/layout';
+import { importedLabel } from '../k/imported';
 import { stageLabel, flagLabel } from '../sim/cohort';
 import { rows, importedRows, sorted, sortKey, tierFilter, type Row, type SortKey } from './state';
 import { rail } from '../lib/prefs';
@@ -68,7 +69,7 @@ export function PlotList() {
               <tr key={'imp-' + r.k.head} class="imported" data-tour="imported">
                 <td data-l="Plot">
                   <button type="button" class="plink" onClick={() => (openPlot.value = r.s.plot.id)} aria-label={`Open ${r.s.plot.id} details`}>{r.s.plot.id} <Icon name="arrow" size={16} /></button>
-                  <span class="tag imported-tag"><Icon name="scan" size={16} />Imported (live)</span>
+                  <span class="tag imported-tag"><Icon name="scan" size={16} />{importedLabel(r.k)}</span>
                 </td>
                 <td data-l="Farmer">{r.s.plot.name}<span class="sub">signed on the judge’s phone</span></td>
                 <td data-l="Stage">Evidence received · integrity verified<span class="sub num">{r.k.shots.length} photo fingerprints · chain {r.k.head.slice(0, 10)}…</span>

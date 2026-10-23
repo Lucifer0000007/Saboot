@@ -10,6 +10,7 @@ import { lastPassBefore, type Tier } from '../sim/evidence';
 import { stageLabel } from '../sim/cohort';
 import { fmtT } from '../lib/time';
 import { openPlot } from '../site/layout';
+import { importedLabel } from '../k/imported';
 import { rows, importedRows, tierFilter, layers, type Row } from './state';
 
 /** Fill = status tint, hatch = status ink: colour is never the only signal. Rendered once per panel. */
@@ -129,7 +130,7 @@ export function DistrictMap() {
             <g key={r.k.head} class="imp-badge" aria-hidden="true">
               <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(14)} fill="none" stroke="#000" stroke-width={fs(2)} />
               <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(9)} fill="none" stroke="#000" stroke-width={fs(1.2)} stroke-dasharray={`${fs(3)} ${fs(2)}`} />
-              {!small && <text x={r.s.plot.cx + fs(18)} y={r.s.plot.cy + fs(4)} style={{ fontSize: fs(12) + 'px', strokeWidth: fs(3) + 'px' }} class="vlabel">Imported (live)</text>}
+              {!small && <text x={r.s.plot.cx + fs(18)} y={r.s.plot.cy + fs(4)} style={{ fontSize: fs(12) + 'px', strokeWidth: fs(3) + 'px' }} class="vlabel">{importedLabel(r.k)}</text>}
             </g>
           ))}
           {t >= hz.t && (
@@ -180,7 +181,7 @@ export function Legend() {
         ))}
       </fieldset>
       {importedRows.value.length > 0 && (
-        <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="#000" stroke-width="2" /></svg><span>Imported (live) from a judge’s phone</span></p>
+        <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="#000" stroke-width="2" /></svg><span>Imported from a judge’s phone</span></p>
       )}
       <fieldset>
         <legend>Layers</legend>

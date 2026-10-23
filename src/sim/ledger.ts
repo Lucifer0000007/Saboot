@@ -64,8 +64,8 @@ export async function collect(list: Row[], t: number, liveShots: LiveShots, impo
   }
   // Feature K: packets signed on a judge's phone and verified here (photo fingerprints + the signed seal).
   for (const k of imports) {
-    for (const s of k.shots) add(s.simT, 'IMPORTED_PHOTO', k.plot, { kind: s.kind, sha: s.sha, deviceT: s.simT, via: 'phone-to-laptop' });
-    add(k.sealT, 'IMPORTED_PACKET', k.plot, { head: k.head, pubkey: k.pub.slice(0, 16), signature: 'verified', deviceT: k.sealT });
+    for (const s of k.shots) add(s.simT, 'IMPORTED_PHOTO', k.plot, { kind: s.kind, sha: s.sha, deviceT: s.simT, via: 'phone-to-laptop', photo: s.photo ?? 'not recorded', location: s.loc ?? 'not recorded' });
+    add(k.sealT, 'IMPORTED_PACKET', k.plot, { head: k.head, pubkey: k.pub.slice(0, 16), signature: 'verified', deviceT: k.sealT, receivedAt: k.importedAt });
   }
   return out.sort((a, b) => a.simT - b.simT || a.plot.localeCompare(b.plot) || a.type.localeCompare(b.type));
 }

@@ -339,7 +339,7 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   expect(errors).toEqual([]);
 });
 
-test('imported packet: a good code verifies and is tagged Imported (live); a tampered code fails', async ({ page }) => {
+test('imported packet: a good code verifies and says where it came from (here simulated photos); a tampered code fails', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3);`);
@@ -353,7 +353,9 @@ test('imported packet: a good code verifies and is tagged Imported (live); a tam
   await expect(result.locator('.note-ok')).toContainText('Integrity verified: not altered since sealing.', { timeout: 20_000 });
   await expect(result.locator('.note-ok')).toContainText('This does not prove who sealed it.');
   await page.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
-  await expect(page.locator('.import-sheet')).toContainText('Imported (live)');
+  // the scripted photos are simulated, and the packet says so: the laptop must not call them live
+  await expect(page.locator('.import-sheet')).toContainText('Imported (simulated)');
+  await expect(page.locator('.import-sheet [data-k-shot] [data-prov="sim"]').first()).toBeVisible();
   // flip one character in the middle (a photo fingerprint byte): chain or signature must fail
   const mid = Math.floor(code.length / 2);
   const bad = code.slice(0, mid) + (code[mid] === 'A' ? 'B' : 'A') + code.slice(mid + 1);
