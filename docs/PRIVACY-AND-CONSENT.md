@@ -16,7 +16,7 @@ is, where it lives, and what a real pilot would have to settle with the buyer an
 |---|---|---|---|
 | Photos the farmer or helper takes | The phone's IndexedDB. | Evidence of the field's condition. | **No.** The share code holds only fingerprints. A photo leaves only if the person sends the file themselves. |
 | Photo fingerprints (SHA-256) | The phone's log; the shareable code. | Proof the photo was not changed after sealing. | Only if the person shares the code, the link or a bundle. |
-| Exact GPS position at capture | The phone's log, to six decimals, **on the phone only**. | Checking that the photo was taken on the plot. | **No.** |
+| Exact GPS position at capture | The phone's log, to six decimals, on the phone. | Recording where the photo was taken (a real fix is not compared with the fictional plot). | **Only inside the person's own export file** (*Export my data*), which they make and hold themselves. Not in the share code, the link or a bundle. |
 | Rounded position | The shareable code and the bundle: **0.001 degrees, about 100 m.** | Showing roughly where, without the exact field. | Only if the person shares it. |
 | Times (replay hour and the phone clock) | The phone's log; the shareable code. | The evidence clock. | Only if shared. |
 | Consent record: the sentence agreed to, the helper's name and role, the method, the time | The farmer's **own** log on the phone, and in the packet body. For a voice consent, also a recording and its fingerprint, on the phone. | To show the farmer agreed before anyone took photos for them. | **No.** An evidence bundle names the helper and the consent in an unsigned context block, if the person exports one. |
@@ -81,10 +81,14 @@ coordinates at all, and no farmer name. This is checked by tests (`tests/unit/ev
 
 In Settings, under *Your data on this phone*:
 
-- **Export my data (JSON)** gives the farmer, or the helper on their behalf, a copy of every log on the phone: the consent, the
-  fingerprints and the seal. Photos are not in the file; they stay on the phone.
-- **Delete my data from this phone** (with a confirmation step) removes the logs, photos, queued items, helper session, the
+- **Export my data (JSON)** gives a copy of **every log on the phone**: the consent, the fingerprints, the exact positions and
+  the seal of each farmer the phone captured for. Photos are not in the file; they stay on the phone.
+- **Delete my data from this phone** (with a confirmation step) removes **every** log, photo, queued item, helper session, the
   phone's signing key and any imported packets. It cannot be undone.
+
+Both act on the whole phone, not on one farmer. On a helper's phone that means one farmer's request exports or erases every
+farmer's log. Per-farmer export and delete are not built in this prototype; a pilot needs them before a helper's phone holds
+more than one farmer's evidence.
 
 In the simulation nothing exists anywhere else, so deleting on the phone deletes everything. In a pilot, withdrawing consent
 would also have to reach the officer's office: how a withdrawal changes a draft list that already names the plot is a process
