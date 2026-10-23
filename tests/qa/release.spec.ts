@@ -28,6 +28,11 @@ const dur = (h: number) => {
  * The countdown the farmer sees at the alert moment, as a pattern: the clock already reads the window minus the event-to-call
  * time, less the 0.02 h the alert moment lands after the call. The minute may be off by one while the page loads.
  */
+const wordsLeft = (window: number, callH: number) => {
+  const left = Math.round((window - callH) * 6) / 6;
+  const d = Math.floor(left / 24), h = Math.round(left - d * 24);
+  return `about ${d} ${d === 1 ? 'day' : 'days'}${h ? ` ${h} h` : ''}`;
+};
 const clockLeft = (window: number, callH: number) => {
   const left = window - callH - 0.02;
   const hh = Math.floor(left);
@@ -78,7 +83,8 @@ test('deep links open from a cold start, survive a reload, and the alert countdo
     // the default rail is the relief assessment: a capture-soon advice window that already runs when the call comes,
     // so the clock reads the window minus the event-to-call time (never the full window)
     const c = facts.combos['relief-demo'];
-    await expect(card.locator('.count'), pass).toHaveText(clockLeft(c.windowHours, c.focus.eventToCallH));
+    // advice, so the window reads in words, without ticking seconds: 48 h minus the event-to-call time is about 1 day 20 h
+    await expect(card.locator('.count.words'), pass).toHaveText(wordsLeft(c.windowHours, c.focus.eventToCallH));
     await expect(card.locator('.alert-started'), pass).toContainText('The clock started at about');
     await expect(card.locator('.alert-started'), pass).toContainText('This is advice, not a legal deadline.');
   }

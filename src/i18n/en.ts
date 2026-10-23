@@ -8,6 +8,9 @@ const en: Record<string, string | string[]> = {
   'u.d': 'd',
   'u.h': 'h',
   'u.m': 'm',
+  'u.day': 'day',
+  'u.days': 'days',
+  'u.min': 'min',
 
   // ---- page shell ----
   'skip.main': 'Skip to content',
@@ -376,6 +379,8 @@ const en: Record<string, string | string[]> = {
   'al.reminder': 'Reminder: about {left} left in the suggested time. Photos take 2 minutes.',
   'al.reminder.pmfby': 'Reminder: {left} left. Photos take 2 minutes.',
   'al.lastHours': 'Capture soon',
+  'al.about': 'about {t}',
+  'al.passedWords': 'the advice window has passed',
   'al.advice': 'Advice, not a deadline',
   'al.lastHours.pmfby': 'Last hours',
   'al.noDamageDone': 'Thank you. We recorded: no damage. Nothing more is needed from you.',
@@ -414,6 +419,7 @@ const en: Record<string, string | string[]> = {
   'pk.unsealed': 'Not sealed yet',
   'pk.location': 'Location',
   'pk.hash': 'Fingerprint',
+  'pk.tech': 'Technical details: fingerprint, sync log and tamper-evident log',
   'pk.chain': 'Tamper-evident log',
   'pk.chainHelp': 'Each entry is locked to the one before. Any change breaks the chain.',
   'pk.queued': 'Waiting for network: {n} queued',

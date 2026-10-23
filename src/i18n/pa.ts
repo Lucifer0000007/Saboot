@@ -8,6 +8,9 @@ const pa: Record<string, string | string[]> = {
   months: ['ਜਨ', 'ਫ਼ਰ', 'ਮਾਰਚ', 'ਅਪ੍ਰੈ', 'ਮਈ', 'ਜੂਨ', 'ਜੁਲਾ', 'ਅਗ', 'ਸਤੰ', 'ਅਕਤੂ', 'ਨਵੰ', 'ਦਸੰ'], // needs-native-review
   'u.d': 'ਦਿ', // needs-native-review
   'u.h': 'ਘੰ', // needs-native-review
+  'u.day': 'ਦਿਨ', // needs-native-review
+  'u.days': 'ਦਿਨ', // needs-native-review
+  'u.min': 'ਮਿੰਟ', // needs-native-review
   'u.m': 'ਮਿ', // needs-native-review
 
   'skip.main': 'ਮੁੱਖ ਸਮੱਗਰੀ ਉੱਤੇ ਜਾਓ', // needs-native-review
@@ -365,6 +368,8 @@ const pa: Record<string, string | string[]> = {
   'al.expiredMsg.pmfby': '72 ਘੰਟਿਆਂ ਦਾ ਸਮਾਂ {time} ਵਜੇ ਖ਼ਤਮ ਹੋਇਆ। ਤੁਸੀਂ ਅਜੇ ਵੀ ਫ਼ੋਟੋਆਂ ਸੰਭਾਲ ਸਕਦੇ ਹੋ ਅਤੇ ਖੇਤੀਬਾੜੀ ਅਫ਼ਸਰ ਨਾਲ ਗੱਲ ਕਰ ਸਕਦੇ ਹੋ।', // needs-native-review
   'al.reminder': 'ਯਾਦ ਦਿਵਾਉਣਾ: ਸੁਝਾਏ ਸਮੇਂ ਵਿੱਚ ਲਗਭਗ {left} ਬਾਕੀ ਹੈ। ਫ਼ੋਟੋਆਂ ਵਿੱਚ 2 ਮਿੰਟ ਲੱਗਦੇ ਹਨ।', // needs-native-review
   'al.reminder.pmfby': 'ਯਾਦ ਰੱਖੋ: {left} ਬਾਕੀ ਹਨ। ਫ਼ੋਟੋਆਂ ਵਿੱਚ 2 ਮਿੰਟ ਲੱਗਦੇ ਹਨ।', // needs-native-review
+  'al.about': 'ਲਗਭਗ {t}', // needs-native-review
+  'al.passedWords': 'ਸਲਾਹ ਦੀ ਮਿਆਦ ਲੰਘ ਗਈ', // needs-native-review
   'al.lastHours': 'ਜਲਦੀ ਫ਼ੋਟੋ ਲਓ', // needs-native-review
   'al.advice': 'ਸਲਾਹ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ', // needs-native-review
   'al.lastHours.pmfby': 'ਆਖ਼ਰੀ ਘੰਟੇ', // needs-native-review
@@ -404,6 +409,7 @@ const pa: Record<string, string | string[]> = {
   'pk.unsealed': 'ਅਜੇ ਸੀਲ ਨਹੀਂ', // needs-native-review
   'pk.location': 'ਥਾਂ', // needs-native-review
   'pk.hash': 'ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ', // needs-native-review
+  'pk.tech': 'ਤਕਨੀਕੀ ਵੇਰਵੇ: ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਿੰਕ ਲੌਗ ਅਤੇ ਛੇੜਛਾੜ-ਸੂਚਕ ਲੌਗ', // needs-native-review
   'pk.chain': 'ਛੇੜਛਾੜ-ਰੋਧੀ ਰਿਕਾਰਡ', // needs-native-review
   'pk.chainHelp': 'ਹਰ ਐਂਟਰੀ ਪਿਛਲੀ ਨਾਲ ਜੁੜੀ ਹੈ। ਕੋਈ ਵੀ ਬਦਲਾਅ ਕੜੀ ਤੋੜ ਦਿੰਦਾ ਹੈ।', // needs-native-review
   'pk.queued': 'ਨੈੱਟਵਰਕ ਦੀ ਉਡੀਕ: {n} ਕਤਾਰ ਵਿੱਚ', // needs-native-review

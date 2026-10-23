@@ -8,6 +8,9 @@ const hi: Record<string, string | string[]> = {
   months: ['जन', 'फ़र', 'मार्च', 'अप्रै', 'मई', 'जून', 'जुला', 'अग', 'सित', 'अक्टू', 'नव', 'दिस'], // needs-native-review
   'u.d': 'दि', // needs-native-review
   'u.h': 'घं', // needs-native-review
+  'u.day': 'दिन', // needs-native-review
+  'u.days': 'दिन', // needs-native-review
+  'u.min': 'मिनट', // needs-native-review
   'u.m': 'मि', // needs-native-review
 
   'skip.main': 'मुख्य सामग्री पर जाएँ', // needs-native-review
@@ -365,6 +368,8 @@ const hi: Record<string, string | string[]> = {
   'al.expiredMsg.pmfby': '72 घंटे का समय {time} पर ख़त्म हुआ। आप अब भी फ़ोटो सहेज सकते हैं और कृषि अधिकारी से बात कर सकते हैं।', // needs-native-review
   'al.reminder': 'याद दिलाना: सुझाए गए समय में लगभग {left} बचा है। फ़ोटो में 2 मिनट लगते हैं।', // needs-native-review
   'al.reminder.pmfby': 'याद दिलाना: {left} बचे हैं। फ़ोटो में 2 मिनट लगते हैं।', // needs-native-review
+  'al.about': 'लगभग {t}', // needs-native-review
+  'al.passedWords': 'सलाह की अवधि बीत गई', // needs-native-review
   'al.lastHours': 'जल्दी फ़ोटो लें', // needs-native-review
   'al.advice': 'सलाह, समय-सीमा नहीं', // needs-native-review
   'al.lastHours.pmfby': 'आख़िरी घंटे', // needs-native-review
@@ -404,6 +409,7 @@ const hi: Record<string, string | string[]> = {
   'pk.unsealed': 'अभी सील नहीं', // needs-native-review
   'pk.location': 'जगह', // needs-native-review
   'pk.hash': 'फ़िंगरप्रिंट', // needs-native-review
+  'pk.tech': 'तकनीकी विवरण: फ़िंगरप्रिंट, सिंक लॉग और छेड़छाड़-सूचक लॉग', // needs-native-review
   'pk.chain': 'छेड़छाड़-रोधी रिकॉर्ड', // needs-native-review
   'pk.chainHelp': 'हर प्रविष्टि पिछली से जुड़ी है। कोई भी बदलाव कड़ी तोड़ देता है।', // needs-native-review
   'pk.queued': 'नेटवर्क का इंतज़ार: {n} कतार में', // needs-native-review

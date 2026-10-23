@@ -3,7 +3,7 @@ import { Icon } from '../ui/Icon';
 import { tr, trr } from '../lib/i18n';
 import { lang, lowData } from '../lib/prefs';
 import { say, stopVoice, speakingId, progress, voiceNA } from '../lib/voice';
-import { fmtCountdown } from '../lib/time';
+import { fmtCountdown, fmtCountdownWords } from '../lib/time';
 import { model, focusPlot } from '../sim/engine';
 import type { ShotKind } from './photo';
 
@@ -50,7 +50,11 @@ export function Countdown({ left, total, hard = true }: { left: number; total: n
   const tone = countdownTone(left, hard);
   return (
     <div class={'countdown ' + tone}>
-      <div class="count num" role="timer" aria-label={trr('al.clock')}>{fmtCountdown(left)}</div>
+      {hard ? (
+        <div class="count num" role="timer" aria-label={trr('al.clock')}>{fmtCountdown(left)}</div>
+      ) : (
+        <div class="count words" role="timer" aria-label={trr('al.clock')}>{fmtCountdownWords(left)}</div>
+      )}
       {tone === 'last' && <span class="tag tag-warn last-tag"><Icon name="clock" size={16} />{trr('al.lastHours')}</span>}
       {!hard && <span class="tag advice-tag"><Icon name="info" size={16} />{tr('al.advice')}</span>}
       <div class="bar" aria-hidden="true"><i style={{ transform: `scaleX(${pct})` }} /></div>

@@ -59,7 +59,7 @@ const code = walk('src').filter((f) => /\.tsx?$/.test(f) && !f.split(/[\\/]/).in
 const dynamic = ['shot.', 'crop.', 'm.', 'net.', 'conn.', 'sync.st.', 'set.t', 'faq.', 'pb.', 'tour.s', 'arch.', 'wf.', 'rs.', 'sim.tab.', 'conn.live.', 'f.nav.', 'as.', 'st.', 'fl.s', 'rail.', 'cad.', 'lang.name.'];
 // a rail variant (key.pmfby or key.relief) is used when its base key is: the app reads them with trr()
 const baseOf = (k) => k.replace(/\.(pmfby|relief)$/, '');
-const unused = en.filter((e) => { const k = baseOf(e.key); return !code.includes(`'${k}'`) && !code.includes(`"${k}"`) && !dynamic.some((p) => k.startsWith(p)) && !['days', 'months', 'u.d', 'u.h', 'u.m'].includes(k); });
+const unused = en.filter((e) => { const k = baseOf(e.key); return !code.includes(`'${k}'`) && !code.includes(`"${k}"`) && !dynamic.some((p) => k.startsWith(p)) && !['days', 'months', 'u.d', 'u.h', 'u.m', 'u.day', 'u.days', 'u.min'].includes(k); });
 if (unused.length) console.log(`  ⚠ ${unused.length} key(s) look unused: ${unused.map((e) => e.key).join(', ')}`);
 
 if (write) {
