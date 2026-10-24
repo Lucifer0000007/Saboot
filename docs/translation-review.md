@@ -15,6 +15,9 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `u.d` | d | दि | ਦਿ | needs review / needs review |
 | `u.h` | h | घं | ਘੰ | needs review / needs review |
 | `u.m` | m | मि | ਮਿ | needs review / needs review |
+| `u.day` | day | दिन | ਦਿਨ | needs review / needs review |
+| `u.days` | days | दिन | ਦਿਨ | needs review / needs review |
+| `u.min` | min | मिनट | ਮਿੰਟ | needs review / needs review |
 | `skip.main` | Skip to content | मुख्य सामग्री पर जाएँ | ਮੁੱਖ ਸਮੱਗਰੀ ਉੱਤੇ ਜਾਓ | needs review / needs review |
 | `ann.label` | Simulation notice | सिमुलेशन सूचना | ਸਿਮੂਲੇਸ਼ਨ ਸੂਚਨਾ | needs review / needs review |
 | `ann.text` | SIMULATION: synthetic data, fictional district | सिमुलेशन: कृत्रिम डेटा, काल्पनिक ज़िला | ਸਿਮੂਲੇਸ਼ਨ: ਨਕਲੀ ਡਾਟਾ, ਕਾਲਪਨਿਕ ਜ਼ਿਲ੍ਹਾ | needs review / needs review |
@@ -71,7 +74,10 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `sim.tab.explainer` | Explainer | व्याख्या | ਵਿਆਖਿਆ | needs review / needs review |
 | `sim.phoneCap` | The farmer’s phone, running for real in your browser | किसान का फ़ोन, आपके ब्राउज़र में सचमुच चल रहा है | ਕਿਸਾਨ ਦਾ ਫ਼ੋਨ, ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਸੱਚਮੁੱਚ ਚੱਲ ਰਿਹਾ ਹੈ | needs review / needs review |
 | `sim.loading` | Loading the flood replay… | बाढ़ का रीप्ले लोड हो रहा है… | ਹੜ੍ਹ ਦਾ ਰੀਪਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… | needs review / needs review |
-| `sim.loadError` | Could not load the scenario data ({err}). Reload the page. | परिदृश्य डेटा लोड नहीं हो सका ({err})। पेज दोबारा लोड करें। | ਦ੍ਰਿਸ਼ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ ({err})। ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। | needs review / needs review |
+| `sim.loadError` | The simulation data did not load. Check your connection and try again. | सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें। | ਸਿਮੂਲੇਸ਼ਨ ਦਾ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋਇਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
+| `sim.retry` | Try again | फिर कोशिश करें | ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ | needs review / needs review |
+| `lang.fail` | Could not load {lang}. Check your connection and try again. | {lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें। | {lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
+| `app.offlineReady` | Ready to work offline. | ऑफ़लाइन चलने के लिए तैयार। | ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ। | needs review / needs review |
 | `lazy.failed` | This part of the page did not load. Check the connection, then reload the page. | पेज का यह हिस्सा लोड नहीं हो सका। कनेक्शन जाँचें, फिर पेज दोबारा लोड करें। | ਪੰਨੇ ਦਾ ਇਹ ਹਿੱਸਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। | needs review / needs review |
 | `lazy.reload` | Reload the page | पेज दोबारा लोड करें | ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ | needs review / needs review |
 | `sim.consoleNote` | The insurer and district console is shown in English. | बीमा कंपनी और ज़िले का कंसोल अंग्रेज़ी में दिखाया गया है। | ਬੀਮਾ ਕੰਪਨੀ ਅਤੇ ਜ਼ਿਲ੍ਹੇ ਦਾ ਕੰਸੋਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ। | needs review / needs review |
@@ -87,6 +93,10 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `ctl.jump` | Jump to a moment | किसी पल पर जाएँ | ਕਿਸੇ ਪਲ ਉੱਤੇ ਜਾਓ | needs review / needs review |
 | `ctl.reset` | Reset | रीसेट | ਰੀਸੈੱਟ | needs review / needs review |
 | `ctl.resetDone` | Replay reset to T+0. Your actions were cleared. | रीप्ले T+0 पर रीसेट हुआ। आपकी गतिविधियाँ हटा दी गईं। | ਰੀਪਲੇ T+0 ਉੱਤੇ ਰੀਸੈੱਟ ਹੋਇਆ। ਤੁਹਾਡੀਆਂ ਕਾਰਵਾਈਆਂ ਹਟਾ ਦਿੱਤੀਆਂ ਗਈਆਂ। | needs review / needs review |
+| `ctl.ask.t` | Clear what this phone captured? | इस फ़ोन पर जो लिया गया, उसे मिटाएँ? | ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਜੋ ਲਿਆ ਗਿਆ, ਉਸ ਨੂੰ ਮਿਟਾਉਣਾ ਹੈ? | needs review / needs review |
+| `ctl.ask.b` | Starting over deletes the photos, the consent records and the sealed code on this phone, for every farmer a helper captured for as well. This cannot be undone. | फिर से शुरू करने पर इस फ़ोन की फ़ोटो, सहमति के रिकॉर्ड और सील किया हुआ कोड मिट जाएँगे, उन किसानों के भी जिनके लिए मददगार ने लिया। इसे वापस नहीं किया जा सकता। | ਮੁੜ ਸ਼ੁਰੂ ਕਰਨ ਨਾਲ ਇਸ ਫ਼ੋਨ ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਸੀਲ ਕੀਤਾ ਕੋਡ ਮਿਟ ਜਾਣਗੇ, ਉਨ੍ਹਾਂ ਕਿਸਾਨਾਂ ਦੇ ਵੀ ਜਿਨ੍ਹਾਂ ਲਈ ਮਦਦਗਾਰ ਨੇ ਲਿਆ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ। | needs review / needs review |
+| `ctl.ask.keep` | Keep what was captured | जो लिया गया है उसे रखें | ਜੋ ਲਿਆ ਗਿਆ ਹੈ ਉਸ ਨੂੰ ਰੱਖੋ | needs review / needs review |
+| `ctl.ask.go` | Clear it and start over | मिटाकर फिर से शुरू करें | ਮਿਟਾ ਕੇ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
 | `ctl.more` | More controls | और नियंत्रण | ਹੋਰ ਕੰਟਰੋਲ | needs review / needs review |
 | `ctl.moreTitle` | Replay controls | रीप्ले नियंत्रण | ਰੀਪਲੇ ਕੰਟਰੋਲ | needs review / needs review |
 | `ctl.net` | Phone network | फ़ोन नेटवर्क | ਫ਼ੋਨ ਨੈੱਟਵਰਕ | needs review / needs review |
@@ -123,6 +133,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `foot.project` | Project | प्रोजेक्ट | ਪ੍ਰੋਜੈਕਟ | needs review / needs review |
 | `foot.track` | Track | ट्रैक | ਟ੍ਰੈਕ | needs review / needs review |
 | `foot.event` | Event | आयोजन | ਸਮਾਗਮ | needs review / needs review |
+| `foot.code` | Source code on GitHub | GitHub पर सोर्स कोड | GitHub ਉੱਤੇ ਸੋਰਸ ਕੋਡ | needs review / needs review |
 | `tour.step` | Judge tour · {n} / {total} | जज टूर · {n} / {total} | ਜੱਜ ਟੂਰ · {n} / {total} | needs review / needs review |
 | `tour.skip` | Skip tour | टूर छोड़ें | ਟੂਰ ਛੱਡੋ | needs review / needs review |
 | `tour.prev` | Previous step | पिछला कदम | ਪਿਛਲਾ ਕਦਮ | needs review / needs review |
@@ -167,9 +178,9 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `arch.clk.pmfby` | 72‑hour clock | 72 घंटे की घड़ी | 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ | needs review / needs review |
 | `arch.clk.s` | Starts at the event time | घटना के समय से शुरू | ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਸ਼ੁਰੂ | needs review / needs review |
 | `arch.al` | Farmer alert | किसान को चेतावनी | ਕਿਸਾਨ ਨੂੰ ਚੇਤਾਵਨੀ | needs review / needs review |
-| `arch.al.s` | Voice call in their language · AI: language only | उसकी भाषा में आवाज़ कॉल · AI: केवल भाषा | ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਕਾਲ · AI: ਸਿਰਫ਼ ਭਾਸ਼ਾ | needs review / needs review |
+| `arch.al.s` | Voice message in their language · no AI in this prototype | उसकी भाषा में आवाज़ संदेश · इस प्रोटोटाइप में कोई AI नहीं | ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਸੁਨੇਹਾ · ਇਸ ਪ੍ਰੋਟੋਟਾਈਪ ਵਿੱਚ ਕੋਈ AI ਨਹੀਂ | needs review / needs review |
 | `arch.cap` | Guided capture | निर्देशित फ़ोटो | ਨਿਰਦੇਸ਼ਿਤ ਫ਼ੋਟੋਆਂ | needs review / needs review |
-| `arch.cap.s` | Time- and place-stamped, works offline · AI: water in photo | समय और जगह की मुहर, ऑफ़लाइन भी · AI: फ़ोटो में पानी | ਸਮੇਂ ਅਤੇ ਥਾਂ ਦੀ ਮੋਹਰ, ਆਫ਼ਲਾਈਨ ਵੀ · AI: ਫ਼ੋਟੋ ਵਿੱਚ ਪਾਣੀ | needs review / needs review |
+| `arch.cap.s` | Time- and place-stamped, works offline · a photo check is planned, not built | समय और जगह की मुहर, ऑफ़लाइन भी · फ़ोटो की जाँच योजना में है, बनी नहीं | ਸਮੇਂ ਅਤੇ ਥਾਂ ਦੀ ਮੋਹਰ, ਆਫ਼ਲਾਈਨ ਵੀ · ਫ਼ੋਟੋ ਦੀ ਜਾਂਚ ਯੋਜਨਾ ਵਿੱਚ ਹੈ, ਬਣੀ ਨਹੀਂ | needs review / needs review |
 | `arch.pk` | Evidence packet | प्रमाण पैकेट | ਪ੍ਰਮਾਣ ਪੈਕੇਟ | needs review / needs review |
 | `arch.pk.s` | SHA-256 hash chain, sealed on the phone | SHA-256 हैश चेन, फ़ोन पर सील | SHA-256 ਹੈਸ਼ ਚੇਨ, ਫ਼ੋਨ ਉੱਤੇ ਸੀਲ | needs review / needs review |
 | `arch.ins` | Officer console | अधिकारी कंसोल | ਅਧਿਕਾਰੀ ਕੰਸੋਲ | needs review / needs review |
@@ -330,6 +341,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `al.reminder` | Reminder: about {left} left in the suggested time. Photos take 2 minutes. | याद दिलाना: सुझाए गए समय में लगभग {left} बचा है। फ़ोटो में 2 मिनट लगते हैं। | ਯਾਦ ਦਿਵਾਉਣਾ: ਸੁਝਾਏ ਸਮੇਂ ਵਿੱਚ ਲਗਭਗ {left} ਬਾਕੀ ਹੈ। ਫ਼ੋਟੋਆਂ ਵਿੱਚ 2 ਮਿੰਟ ਲੱਗਦੇ ਹਨ। | needs review / needs review |
 | `al.reminder.pmfby` | Reminder: {left} left. Photos take 2 minutes. | याद दिलाना: {left} बचे हैं। फ़ोटो में 2 मिनट लगते हैं। | ਯਾਦ ਰੱਖੋ: {left} ਬਾਕੀ ਹਨ। ਫ਼ੋਟੋਆਂ ਵਿੱਚ 2 ਮਿੰਟ ਲੱਗਦੇ ਹਨ। | needs review / needs review |
 | `al.lastHours` | Capture soon | जल्दी फ़ोटो लें | ਜਲਦੀ ਫ਼ੋਟੋ ਲਓ | needs review / needs review |
+| `al.about` | about {t} | लगभग {t} | ਲਗਭਗ {t} | needs review / needs review |
+| `al.passedWords` | the advice window has passed | सलाह की अवधि बीत गई | ਸਲਾਹ ਦੀ ਮਿਆਦ ਲੰਘ ਗਈ | needs review / needs review |
 | `al.advice` | Advice, not a deadline | सलाह, समय-सीमा नहीं | ਸਲਾਹ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ | needs review / needs review |
 | `al.lastHours.pmfby` | Last hours | आख़िरी घंटे | ਆਖ਼ਰੀ ਘੰਟੇ | needs review / needs review |
 | `al.noDamageDone` | Thank you. We recorded: no damage. Nothing more is needed from you. | धन्यवाद। हमने दर्ज किया: कोई नुकसान नहीं। आपसे और कुछ नहीं चाहिए। | ਧੰਨਵਾਦ। ਅਸੀਂ ਦਰਜ ਕੀਤਾ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਤੁਹਾਡੇ ਤੋਂ ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। | needs review / needs review |
@@ -358,7 +371,6 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `cap.old` | This photo is older than this session. Please take a new photo with the camera. | यह फ़ोटो इस सत्र से पुरानी है। कृपया कैमरे से नई फ़ोटो लें। | ਇਹ ਫ਼ੋਟੋ ਇਸ ਸੈਸ਼ਨ ਤੋਂ ਪੁਰਾਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਮਰੇ ਨਾਲ ਨਵੀਂ ਫ਼ੋਟੋ ਖਿੱਚੋ। | needs review / needs review |
 | `cap.queued` | Saved on phone. Will send when network returns. | फ़ोन में सहेजी गई। नेटवर्क आने पर भेजी जाएगी। | ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਨੈੱਟਵਰਕ ਆਉਣ ਉੱਤੇ ਭੇਜੀ ਜਾਵੇਗੀ। | needs review / needs review |
 | `cap.sent` | Sent | भेजी गई | ਭੇਜੀ ਗਈ | needs review / needs review |
-| `cap.camFail` | Camera not available. Using a simulated photo. | कैमरा उपलब्ध नहीं। सिमुलेटेड फ़ोटो ली जा रही है। | ਕੈਮਰਾ ਉਪਲਬਧ ਨਹੀਂ। ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵਰਤੀ ਜਾ ਰਹੀ ਹੈ। | needs review / needs review |
 | `cap.helper` | Taken by helper: {name} | सहायक ने ली: {name} | ਸਹਾਇਕ ਨੇ ਖਿੱਚੀ: {name} | needs review / needs review |
 | `cap.taken` | Taken | ली गई | ਖਿੱਚੀ ਗਈ | needs review / needs review |
 | `sec.http` | Opened over plain HTTP. The camera, location and signing are off here. Open the HTTPS link from the QR code. Simulated photos still get a fingerprint. | यह पेज सादे HTTP पर खुला है। यहाँ कैमरा, लोकेशन और साइनिंग बंद हैं। QR कोड वाला HTTPS लिंक खोलें। नकली फ़ोटो को फिर भी फ़िंगरप्रिंट मिलता है। | ਇਹ ਪੰਨਾ ਸਾਦੇ HTTP ਉੱਤੇ ਖੁੱਲ੍ਹਾ ਹੈ। ਇੱਥੇ ਕੈਮਰਾ, ਲੋਕੇਸ਼ਨ ਅਤੇ ਸਾਈਨਿੰਗ ਬੰਦ ਹਨ। QR ਕੋਡ ਵਾਲਾ HTTPS ਲਿੰਕ ਖੋਲ੍ਹੋ। ਨਕਲੀ ਫ਼ੋਟੋ ਨੂੰ ਫਿਰ ਵੀ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਮਿਲਦਾ ਹੈ। | needs review / needs review |
@@ -367,6 +379,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `pk.unsealed` | Not sealed yet | अभी सील नहीं | ਅਜੇ ਸੀਲ ਨਹੀਂ | needs review / needs review |
 | `pk.location` | Location | जगह | ਥਾਂ | needs review / needs review |
 | `pk.hash` | Fingerprint | फ़िंगरप्रिंट | ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ | needs review / needs review |
+| `pk.tech` | Technical details: fingerprint, sync log and tamper-evident log | तकनीकी विवरण: फ़िंगरप्रिंट, सिंक लॉग और छेड़छाड़-सूचक लॉग | ਤਕਨੀਕੀ ਵੇਰਵੇ: ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਿੰਕ ਲੌਗ ਅਤੇ ਛੇੜਛਾੜ-ਸੂਚਕ ਲੌਗ | needs review / needs review |
 | `pk.chain` | Tamper-evident log | छेड़छाड़-रोधी रिकॉर्ड | ਛੇੜਛਾੜ-ਰੋਧੀ ਰਿਕਾਰਡ | needs review / needs review |
 | `pk.chainHelp` | Each entry is locked to the one before. Any change breaks the chain. | हर प्रविष्टि पिछली से जुड़ी है। कोई भी बदलाव कड़ी तोड़ देता है। | ਹਰ ਐਂਟਰੀ ਪਿਛਲੀ ਨਾਲ ਜੁੜੀ ਹੈ। ਕੋਈ ਵੀ ਬਦਲਾਅ ਕੜੀ ਤੋੜ ਦਿੰਦਾ ਹੈ। | needs review / needs review |
 | `pk.queued` | Waiting for network: {n} queued | नेटवर्क का इंतज़ार: {n} कतार में | ਨੈੱਟਵਰਕ ਦੀ ਉਡੀਕ: {n} ਕਤਾਰ ਵਿੱਚ | needs review / needs review |
@@ -394,6 +407,19 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `k.code` | The code | कोड | ਕੋਡ | needs review / needs review |
 | `k.making` | Signing your packet… | आपके पैकेट पर हस्ताक्षर हो रहे हैं… | ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ… | needs review / needs review |
 | `k.stay` | Photos stay on this phone. The code holds only their fingerprints. | फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं। | ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ। | needs review / needs review |
+| `k.fail` | Could not make the code. Check that your photos are sealed, then try again. | कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें। | ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
+| `cap.camDenied` | The camera is blocked or not available. Allow the camera in your browser settings and try again. You can also use a simulated photo, which is labelled Simulated. | कैमरा बंद है या उपलब्ध नहीं है। अपनी ब्राउज़र सेटिंग में कैमरे की अनुमति दें और फिर कोशिश करें। आप सिमुलेटेड फ़ोटो भी ले सकते हैं; उस पर "सिमुलेटेड" लिखा होगा। | ਕੈਮਰਾ ਬੰਦ ਹੈ ਜਾਂ ਉਪਲਬਧ ਨਹੀਂ। ਆਪਣੀ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਸੀਂ ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵੀ ਲੈ ਸਕਦੇ ਹੋ; ਉਸ ਉੱਤੇ "ਸਿਮੂਲੇਟਡ" ਲਿਖਿਆ ਹੋਵੇਗਾ। | needs review / needs review |
+| `cap.saveFail` | The photo could not be saved on this phone. Free some space and try again. | फ़ोटो इस फ़ोन में सहेजी नहीं जा सकी। थोड़ी जगह खाली करें और फिर कोशिश करें। | ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
+| `cap.badPhoto` | This photo could not be read. Take it again. | यह फ़ोटो पढ़ी नहीं जा सकी। इसे फिर से लें। | ਇਹ ਫ਼ੋਟੋ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਇਸ ਨੂੰ ਦੁਬਾਰਾ ਲਓ। | needs review / needs review |
+| `cap.needConsent` | {farmer} has not agreed yet. Ask for their consent before you take any photo. | {farmer} ने अभी सहमति नहीं दी है। कोई भी फ़ोटो लेने से पहले उनकी सहमति लें। | {farmer} ਨੇ ਹਾਲੇ ਸਹਿਮਤੀ ਨਹੀਂ ਦਿੱਤੀ। ਕੋਈ ਵੀ ਫ਼ੋਟੋ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ ਲਓ। | needs review / needs review |
+| `cap.askConsent` | Ask for consent | सहमति लें | ਸਹਿਮਤੀ ਲਓ | needs review / needs review |
+| `db.memory` | This phone is not saving your photos. Keep this page open until they are sent. | यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें। | ਇਹ ਫ਼ੋਨ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਰਿਹਾ। ਭੇਜੇ ਜਾਣ ਤੱਕ ਇਹ ਪੇਜ ਖੁੱਲ੍ਹਾ ਰੱਖੋ। | needs review / needs review |
+| `prov.live` | Live | लाइव | ਲਾਈਵ | needs review / needs review |
+| `prov.replay` | Replay | रीप्ले | ਰੀਪਲੇ | needs review / needs review |
+| `prov.sim` | Simulated | सिमुलेटेड | ਸਿਮੂਲੇਟਡ | needs review / needs review |
+| `prov.hand` | Entered by hand | हाथ से दर्ज | ਹੱਥ ਨਾਲ ਦਰਜ | needs review / needs review |
+| `prov.by` | by {who} | {who} द्वारा | {who} ਵੱਲੋਂ | needs review / needs review |
+| `prov.none` | Origin not recorded | स्रोत दर्ज नहीं | ਸਰੋਤ ਦਰਜ ਨਹੀਂ | needs review / needs review |
 | `fl.title` | Share your evidence | अपना प्रमाण साझा करें | ਆਪਣਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ | needs review / needs review |
 | `fl.title.pmfby` | Report your loss | नुकसान की रिपोर्ट करें | ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ | needs review / needs review |
 | `fl.intro` | Saboot does not submit anything. Show your sealed evidence to the officer who assesses your village. Your details are ready. | सबूत कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को अपना सील किया हुआ प्रमाण दिखाएँ। आपका ब्योरा तैयार है। | ਸਬੂਤ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦਾ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ। | needs review / needs review |
@@ -476,6 +502,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `as.record` | Record spoken consent | बोलकर सहमति रिकॉर्ड करें | ਬੋਲ ਕੇ ਸਹਿਮਤੀ ਰਿਕਾਰਡ ਕਰੋ | needs review / needs review |
 | `as.recording` | Recording… tap to stop | रिकॉर्डिंग… रोकने के लिए दबाएँ | ਰਿਕਾਰਡਿੰਗ… ਰੋਕਣ ਲਈ ਦਬਾਓ | needs review / needs review |
 | `as.done` | Consent recorded at {time} | सहमति {time} पर दर्ज हुई | ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ | needs review / needs review |
+| `as.doneToast` | Consent recorded. | सहमति दर्ज हुई। | ਸਹਿਮਤੀ ਦਰਜ ਹੋਈ। | needs review / needs review |
 | `as.start` | Start photos | फ़ोटो शुरू करें | ਫ਼ੋਟੋਆਂ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
 | `as.needName` | Enter the helper’s name first. | पहले सहायक का नाम लिखें। | ਪਹਿਲਾਂ ਸਹਾਇਕ ਦਾ ਨਾਂ ਲਿਖੋ। | needs review / needs review |
 | `as.voiceSha` | Voice consent · fingerprint {h} | आवाज़ से सहमति · फ़िंगरप्रिंट {h} | ਆਵਾਜ਼ ਨਾਲ ਸਹਿਮਤੀ · ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ {h} | needs review / needs review |
@@ -552,7 +579,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `fp.helper` | The helper visits with a smartphone, reads the consent aloud with the farmer, takes the three photos and seals the packet. The packet names the helper and carries the farmer’s consent. | सहायक स्मार्टफ़ोन लेकर आता है, किसान के साथ सहमति बोलकर पढ़ता है, तीन फ़ोटो लेता है और पैकेट सील करता है। पैकेट में सहायक का नाम और किसान की सहमति दर्ज रहती है। | ਸਹਾਇਕ ਸਮਾਰਟਫ਼ੋਨ ਲੈ ਕੇ ਆਉਂਦਾ ਹੈ, ਕਿਸਾਨ ਨਾਲ ਸਹਿਮਤੀ ਬੋਲ ਕੇ ਪੜ੍ਹਦਾ ਹੈ, ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਪੈਕੇਟ ਸੀਲ ਕਰਦਾ ਹੈ। ਪੈਕੇਟ ਵਿੱਚ ਸਹਾਇਕ ਦਾ ਨਾਂ ਅਤੇ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਦਰਜ ਰਹਿੰਦੀ ਹੈ। | needs review / needs review |
 | `fp.open` | Open helper mode | सहायक मोड खोलें | ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ | needs review / needs review |
 | `fp.again` | Start again | फिर से शुरू करें | ਫਿਰ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
-| `f.rewound` | Replay rewound — your later actions were replaced. | रीप्ले पीछे किया गया — आपकी बाद की गतिविधियाँ बदल दी गईं। | ਰੀਪਲੇ ਪਿੱਛੇ ਕੀਤਾ — ਤੁਹਾਡੀਆਂ ਬਾਅਦ ਦੀਆਂ ਕਾਰਵਾਈਆਂ ਬਦਲ ਦਿੱਤੀਆਂ ਗਈਆਂ। | needs review / needs review |
+| `f.rewound` | The replay moved forward to your latest action, so nothing you did is lost. | रीप्ले आपकी आख़िरी कार्रवाई तक आगे बढ़ गया, इसलिए आपका किया हुआ कुछ भी नहीं खोया। | ਰੀਪਲੇ ਤੁਹਾਡੀ ਆਖ਼ਰੀ ਕਾਰਵਾਈ ਤੱਕ ਅੱਗੇ ਵਧ ਗਿਆ, ਇਸ ਲਈ ਤੁਹਾਡਾ ਕੀਤਾ ਹੋਇਆ ਕੁਝ ਵੀ ਨਹੀਂ ਗੁਆਚਿਆ। | needs review / needs review |
 | `f.ok` | OK | ठीक है | ਠੀਕ ਹੈ | needs review / needs review |
 | `set.title` | Settings | सेटिंग्स | ਸੈਟਿੰਗਾਂ | needs review / needs review |
 | `set.lang` | Language | भाषा | ਭਾਸ਼ਾ | needs review / needs review |
