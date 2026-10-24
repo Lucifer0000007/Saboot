@@ -15,7 +15,7 @@ import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
 import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
-import { rail, cadence } from '../lib/prefs';
+import { rail, cadence, receiver } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0);
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
@@ -65,6 +65,7 @@ async function applyDeepLink() {
     const d = readDeepLink();
     if (d.rail) rail.value = d.rail;
     if (d.cadence) cadence.value = d.cadence;
+    if (d.receiver !== undefined) receiver.value = d.receiver;
     if (d.tab) simTab.value = d.tab;
     if (d.k) {
       simTab.value = 'insurer';

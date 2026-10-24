@@ -44,6 +44,12 @@ export const tourSeen = signal<boolean>(load('tourSeen', false));
 export const rail = signal<Rail>((RAILS as readonly string[]).includes(load<string>('rail', DEFAULT_RAIL)) ? load<Rail>('rail', DEFAULT_RAIL) : DEFAULT_RAIL);
 /** Radar cadence of the replay: 'demo' (simulated 12 h) or 'slow' (a few days, closer to real revisit times, still simulated). */
 export const cadence = signal<Cadence>('demo');
+/**
+ * True on a phone or laptop that opened the app from the demo receiver's own address with ?receiver=1 (scripts/receipt-server.mjs).
+ * Off by default, and then no request beyond the site's own files is ever made. The receiver is this page's origin, so no address
+ * is stored; ?receiver=0 forgets it.
+ */
+export const receiver = signal<boolean>(load('receiver', false));
 
 persist('lang', lang);
 persist('textScale', textScale);
@@ -52,6 +58,7 @@ persist('lowData', lowData);
 persist('hc', highContrast);
 persist('tourSeen', tourSeen);
 persist('rail', rail);
+persist('receiver', receiver);
 
 const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const reducedMotion = signal<boolean>(reduce);
