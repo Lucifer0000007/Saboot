@@ -50,6 +50,7 @@ interface ReplayStatus {
   id: string;
   source: string;
   sample: Record<string, number>;
+  farmland?: { ha: number; source: string };
   assumptions: string[];
   ruleB: string;
   scale: string;
@@ -223,9 +224,14 @@ function ReplayBlock({ r }: { r: ReplayStatus }) {
           }))}
         </tbody>
       </table>
+      {r.farmland && (
+        <p data-replay-farmland>
+          In this one activation the first flood maps covered about <strong class="num">{Math.round(r.farmland.ha / 1000)},000 ha</strong> of farmland. The scale of the problem, from the map maker's own statistics; not a result of this app.
+        </p>
+      )}
       {flood('A') && dry('A') && (
-        <p class="muted">
-          Read with the counts: rain alone caught <span class="num">{flood('A')!.caught} of {flood('A')!.caught + flood('A')!.missed}</span> mapped-flooded points ({ratio(flood('A')!.caught, flood('A')!.caught + flood('A')!.missed)}) and alarmed on <span class="num">{flood('A')!.falseAlarms} of {flood('A')!.falseAlarms + flood('A')!.correctRejections}</span> mapped-dry points ({ratio(flood('A')!.falseAlarms, flood('A')!.falseAlarms + flood('A')!.correctRejections)}); in the quiet window it alarmed on <span class="num">{dry('A')!.falseAlarms} of {dry('A')!.points}</span>.
+        <p class="muted" data-replay-sentence>
+          In one sentence: on one real flood, rain alone would have flagged <span class="num">{flood('A')!.caught} of the {flood('A')!.caught + flood('A')!.missed}</span> mapped-flooded points ({ratio(flood('A')!.caught, flood('A')!.caught + flood('A')!.missed)}) and <span class="num">{flood('A')!.falseAlarms} of the {flood('A')!.falseAlarms + flood('A')!.correctRejections}</span> mapped-dry ones ({ratio(flood('A')!.falseAlarms, flood('A')!.falseAlarms + flood('A')!.correctRejections)}); in a quiet fortnight it flagged <span class="num">{dry('A')!.falseAlarms} of {dry('A')!.points}</span>.
           {flood('C') && <> The river rule fires for every point within its nominal reach, flooded or not ({flood('C')!.caught} caught, {flood('C')!.falseAlarms} false alarms, {flood('C')!.notEvaluable} out of reach), which is what the method said to expect.</>}
         </p>
       )}

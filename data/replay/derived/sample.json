@@ -47,7 +47,8 @@
       "droppedNearAnEdge": 596,
       "affectedAvailable": 329,
       "notAffectedAvailable": 906,
-      "floodPolygons": 1291
+      "floodPolygons": 1291,
+      "farmlandHa": 75294
     },
     {
       "area": 2,
@@ -57,7 +58,8 @@
       "droppedNearAnEdge": 279,
       "affectedAvailable": 99,
       "notAffectedAvailable": 187,
-      "floodPolygons": 382
+      "floodPolygons": 382,
+      "farmlandHa": 8956
     },
     {
       "area": 3,
@@ -67,7 +69,8 @@
       "droppedNearAnEdge": 417,
       "affectedAvailable": 293,
       "notAffectedAvailable": 608,
-      "floodPolygons": 860
+      "floodPolygons": 860,
+      "farmlandHa": 58028
     },
     {
       "area": 4,
@@ -77,7 +80,8 @@
       "droppedNearAnEdge": 120,
       "affectedAvailable": 72,
       "notAffectedAvailable": 151,
-      "floodPolygons": 150
+      "floodPolygons": 150,
+      "farmlandHa": 5127
     },
     {
       "area": 5,
@@ -87,7 +91,8 @@
       "droppedNearAnEdge": 228,
       "affectedAvailable": 18,
       "notAffectedAvailable": 708,
-      "floodPolygons": 443
+      "floodPolygons": 443,
+      "farmlandHa": 896
     },
     {
       "area": 7,
@@ -97,7 +102,8 @@
       "droppedNearAnEdge": 0,
       "affectedAvailable": 0,
       "notAffectedAvailable": 0,
-      "floodPolygons": 140
+      "floodPolygons": 140,
+      "farmlandHa": 21078
     },
     {
       "area": 8,
@@ -107,13 +113,18 @@
       "droppedNearAnEdge": 0,
       "affectedAvailable": 0,
       "notAffectedAvailable": 1,
-      "floodPolygons": 2174
+      "floodPolygons": 2174,
+      "farmlandHa": 10673
     }
   ],
   "taken": {
     "affected": 138,
     "not_affected": 151,
     "points": 289
+  },
+  "farmland": {
+    "ha": 180052,
+    "source": "Copernicus EMS EMSR838 land-use statistics of the first delivered product of each area used, agricultural classes, hectares mapped as affected"
   },
   "pointsWithRiverReach": 155,
   "rainCells": [

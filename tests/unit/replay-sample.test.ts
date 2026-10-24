@@ -2,7 +2,7 @@
 // points, the three-way labelling, a reproducible sample, river reach and the windows taken from day D.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { gridInside, classify, pickSample, reachOf, windows, METHOD, RIVERS, type GridPoint } from '../../scripts/replay/sample.ts';
+import { gridInside, classify, pickSample, reachOf, windows, farmlandHa, METHOD, RIVERS, type GridPoint } from '../../scripts/replay/sample.ts';
 import { PolygonIndex, type Polygon } from '../../scripts/replay/geo.ts';
 
 const outline: Polygon = [[[73.005, 31.005], [73.055, 31.005], [73.055, 31.055], [73.005, 31.055], [73.005, 31.005]]];
@@ -52,4 +52,12 @@ test('the windows follow from the activation’s event time and do not depend on
   assert.deepEqual(w.event, ['2025-08-20T00:00:00Z', '2025-09-04T00:00:00Z']);
   assert.deepEqual(w.quiet, ['2025-05-01T00:00:00Z', '2025-05-15T00:00:00Z']);
   assert.deepEqual(w.baseline, ['2025-05-02', '2025-07-30']);
+});
+
+test('farmland is the sum of the agricultural land-use classes of the first delivered product, rounded', () => {
+  const first = { type: 'DEL', monitoring: false, feasible: true, stats: { 'Land use': { 'Heterogeneous agricultural areas ': { affected: 1000.4 }, 'Arable land': { affected: 200.3 }, 'Forests ': { affected: 999 }, 'Inland wetlands ': { affected: 5 } } } };
+  const later = { type: 'DEL', monitoring: true, feasible: true, stats: { 'Land use': { 'Arable land': { affected: 50000 } } } };
+  assert.equal(farmlandHa({ products: [later, first] }), 1201);
+  assert.equal(farmlandHa({ products: [later] }), 0, 'a monitoring product is not the first delivery');
+  assert.equal(farmlandHa({ products: [{ type: 'DEL', monitoring: false, feasible: true }] }), 0, 'no statistics, no number');
 });

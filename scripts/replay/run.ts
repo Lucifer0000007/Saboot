@@ -54,6 +54,8 @@ export interface ReplaySummary {
   source: string;
   method: string;
   sample: Record<string, number>;
+  /** the activation's own published statistic of farmland mapped as affected: the problem's scale, not the product's result */
+  farmland?: { ha: number; source: string };
   assumptions: string[];
   ruleB: string;
   runs: Record<string, { rules: string[]; reportSha256: string; events: Record<string, Counts> }>;
@@ -62,7 +64,7 @@ export interface ReplaySummary {
 /** Run the three variants over `derived`, write the reports under `out`, and return the summary (also written there). */
 export function runReplay(derived: string, runs: string, out: string): ReplaySummary {
   const read = (f: string) => readFileSync(`${derived}/${f}`, 'utf8');
-  const sample = JSON.parse(read('sample.json')) as { rainCells: unknown[]; areas: { area: number }[]; pointsWithRiverReach: number; taken: Record<string, number> };
+  const sample = JSON.parse(read('sample.json')) as { rainCells: unknown[]; areas: { area: number }[]; pointsWithRiverReach: number; taken: Record<string, number>; farmland?: { ha: number; source: string } };
   const prov = JSON.parse(read('PROVENANCE.json')) as { _fixture?: boolean };
   mkdirSync(out, { recursive: true });
   mkdirSync(runs, { recursive: true });
@@ -75,6 +77,7 @@ export function runReplay(derived: string, runs: string, out: string): ReplaySum
     source: 'Copernicus EMS EMSR838 (flood extent), ERA5 rain and GloFAS discharge through Open-Meteo',
     method: 'docs/REPLAY-METHOD.md',
     sample: { ...sample.taken, areas: sample.areas.length, rainCells: sample.rainCells.length, pointsWithRiverReach: sample.pointsWithRiverReach },
+    farmland: sample.farmland,
     assumptions: [
       'every point treated as low-lying for Rule A (an upper bound)',
       `river reach: within ${METHOD.reachKm} km of a river point, lag at ${METHOD.waveKmh} km/h`,

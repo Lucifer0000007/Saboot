@@ -280,6 +280,10 @@ test('the published replay shows raw counts under a REPLAY label, names its sour
   await expect(row.locator('td').nth(1)).toHaveText(String(a.caught));
   await expect(row.locator('td').nth(3)).toHaveText(String(a.falseAlarms));
   await expect(block).toContainText('not independently validated');
+  // the problem's scale, from the status file, and the counts sentence; no percentage stands without its counts
+  await expect(block.locator('[data-replay-farmland]')).toContainText(`${Math.round(status.replay.farmland.ha / 1000)},000 ha`);
+  await expect(block.locator('[data-replay-sentence]')).toContainText(`${a.caught} of the ${a.caught + a.missed}`);
+  for (const m of (await block.textContent())!.matchAll(/(\d+)%/g)) expect((await block.textContent())!.includes(' of '), m[0]).toBe(true);
   await expect(block).toContainText('nothing here is a lead time');
   await expect(block).not.toContainText(/hours earlier|Punjab|Pakistan/);
   await expect(block.locator('a[href="https://open-meteo.com/"]')).toBeVisible();

@@ -154,6 +154,24 @@ has mobile data. (3) The link route: share the link through any messenger and op
 | Someone presses `R` | It asks first after C-10. Until then, never press it |
 | The projector or laptop sleeps | Disable sleep. Keep a second laptop with the same cached site |
 
+## 6b. The Impact slide: three sentences a judge can repeat
+
+Every number below comes from the console's replay block (`public/data/validation-status.json`, written by
+`scripts/replay/publish.ts`), never typed by hand. Read them in this order:
+
+1. **The scale of the problem.** "In one monsoon flood activation, the first flood maps covered about 180,000 hectares of
+   farmland." (Copernicus EMS land-use statistics of the activation the replay uses; a fact about the flood, not about Saboot.)
+2. **What the replay showed.** "On that flood, Saboot's rain rule alone would have flagged 47 of the 138 mapped-flooded sample
+   points and 39 of the 151 mapped-dry ones; in a quiet fortnight it flagged none. The river rule fires for every point near
+   a swollen river, flooded or not, which is why the app weighs it lower." Say "coarse check", never "validated"; say
+   nothing about hours earlier.
+3. **What a pilot measures.** "A pilot would count three things: how many flooded fields have sealed evidence on file within
+   the advice window, how long from the event to that evidence, and how many officer visits end in a dispute about a photo."
+   (`docs/PILOT-PLAN.md`; these are the pilot-metrics definitions on the console.)
+
+If a judge asks for accuracy: "We do not have an accuracy figure and will not invent one. The counts are on screen, with
+their limits."
+
 ## 7. Decisions for you at Checkpoint 2
 1. The USP sentence in section 2, and the "unchanged, never genuine" rule for the pitch.
 2. The MVP in section 3 and the cut line in section 5.

@@ -101,11 +101,23 @@ export function windows(eventTime: string) {
   };
 }
 
+/** Hectares of the agricultural land-use classes mapped as affected in an area's first delivered product (Copernicus EMS statistics). */
+export function farmlandHa(aoi: { products: { type: string; monitoring: boolean; feasible: boolean; stats?: Record<string, Record<string, { affected: number }>> }[] }): number {
+  const p = aoi.products.find((x) => x.type === 'DEL' && !x.monitoring && x.feasible);
+  const landUse = p?.stats?.['Land use'] ?? {};
+  let ha = 0;
+  for (const [cls, v] of Object.entries(landUse)) if (/agricultur|crop|arable|pasture|orchard|rice|vineyard/i.test(cls)) ha += v.affected || 0;
+  return Math.round(ha);
+}
+
 const csvCell = (s: string | number) => (/[",\n]/.test(String(s)) ? `"${String(s).replace(/"/g, '""')}"` : String(s));
 const csvLine = (xs: (string | number)[]) => xs.map(csvCell).join(',');
 
 function main() {
-  const record = JSON.parse(readFileSync(`${RAW}/emsr838.json`, 'utf8')).results[0] as { eventTime: string; aois: { number: number; name: string; extent: string }[] };
+  const record = JSON.parse(readFileSync(`${RAW}/emsr838.json`, 'utf8')).results[0] as {
+    eventTime: string;
+    aois: { number: number; name: string; extent: string; products: { type: string; monitoring: boolean; feasible: boolean; stats?: Record<string, Record<string, { unit: string; total: number; affected: number }>> }[] }[];
+  };
   const win = windows(record.eventTime);
   console.log(`day D ${win.D}; event window ${win.event.join(' to ')}; quiet window ${win.quiet.join(' to ')}; river baseline ${win.baseline.join(' to ')}`);
 
@@ -139,9 +151,9 @@ function main() {
       else near++;
     }
     candidates.set(n, { affected, notAffected });
-    const name = record.aois.find((x) => x.number === n)!.name;
-    stats.push({ area: n, name, gridPointsInOutline: grids.get(n)!.length, droppedInTwoOutlines: overlap, droppedNearAnEdge: near, affectedAvailable: affected.length, notAffectedAvailable: notAffected.length, floodPolygons: fc.features.length });
-    console.log(`  area ${n} ${name}: ${grids.get(n)!.length} grid points, ${affected.length} affected, ${notAffected.length} not affected, ${near} near an edge, ${overlap} in two outlines`);
+    const aoi = record.aois.find((x) => x.number === n)!;
+    stats.push({ area: n, name: aoi.name, gridPointsInOutline: grids.get(n)!.length, droppedInTwoOutlines: overlap, droppedNearAnEdge: near, affectedAvailable: affected.length, notAffectedAvailable: notAffected.length, floodPolygons: fc.features.length, farmlandHa: farmlandHa(aoi) });
+    console.log(`  area ${n} ${aoi.name}: ${grids.get(n)!.length} grid points, ${affected.length} affected, ${notAffected.length} not affected, ${near} near an edge, ${overlap} in two outlines`);
   }
 
   const picks = pickSample(candidates, METHOD.areas, METHOD.perClass, METHOD.seed)
@@ -180,6 +192,8 @@ function main() {
         windows: win,
         areas: stats,
         taken: { affected: picks.filter((p) => p.class === 'affected').length, not_affected: picks.filter((p) => p.class === 'not_affected').length, points: picks.length },
+        // a fact about the problem's scale, not about the product: the published statistics of the same activation
+        farmland: { ha: stats.reduce((a, s) => a + (s.farmlandHa as number), 0), source: 'Copernicus EMS EMSR838 land-use statistics of the first delivered product of each area used, agricultural classes, hectares mapped as affected' },
         pointsWithRiverReach: picks.filter((p) => reachOf(p.lat, p.lon).length > 0).length,
         rainCells: [...cells].map(([k, points]) => ({ lat: Number(k.split(',')[0]), lon: Number(k.split(',')[1]), points })),
       },

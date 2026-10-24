@@ -33,7 +33,7 @@ function fixture(): string {
   const river: string[] = [note, 'gauge_id,lat,lon,kind,unit,danger_level,time_utc,value'];
   for (let t = Date.parse(quiet[0]); t <= Date.parse(event[1]) + 86400e3; t += 86400e3) river.push(`FIXTURE-RIVER,31.0,73.0,release,m3/s,100,${iso(t)},${t >= D - 86400e3 && t <= D + 86400e3 ? 150 : 50}`);
   writeFileSync(join(d, 'river.csv'), river.join('\n') + '\n');
-  writeFileSync(join(d, 'sample.json'), JSON.stringify({ windows: { event, quiet }, rainCells: [{ lat: 31, lon: 73 }], areas: [{ area: 1 }], pointsWithRiverReach: 1, taken: { affected: 1, not_affected: 1, points: 2 } }));
+  writeFileSync(join(d, 'sample.json'), JSON.stringify({ windows: { event, quiet }, rainCells: [{ lat: 31, lon: 73 }], areas: [{ area: 1 }], pointsWithRiverReach: 1, taken: { affected: 1, not_affected: 1, points: 2 }, farmland: { ha: 1234, source: 'made-up land-use statistics of the test set' } }));
   const prov = { source: 'FIXTURE', licence: 'none: synthetic', retrieved: 'not applicable' };
   writeFileSync(join(d, 'PROVENANCE.json'), JSON.stringify({ _fixture: true, _dataset: 'FIXTURE', 'rainfall.csv': prov, 'river.csv': prov, 'confirmed.csv': prov, 'plots.csv': prov }));
   return d;
@@ -75,6 +75,7 @@ test('a fixture summary can never become the product status; a real one carries 
   assert.equal(st.run, true);
   assert.equal(st.replay.id, 'R-1');
   assert.equal(st.replay.runs.A.events['R1-FLOOD'].caught, 1);
+  assert.equal(st.replay.farmland?.ha, 1234, 'the problem-scale number travels with the counts');
   assert.ok(!JSON.stringify(st).includes('FIXTURE'));
   assert.ok(st.replay.ruleB.includes('not independently validated'));
 });

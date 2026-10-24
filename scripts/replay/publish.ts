@@ -14,6 +14,7 @@ export interface ReplayStatus {
     source: string;
     method: string;
     sample: Record<string, number>;
+    farmland?: { ha: number; source: string };
     assumptions: string[];
     ruleB: string;
     scale: string;
@@ -33,6 +34,7 @@ export function statusFromReplay(s: ReplaySummary): ReplayStatus {
       source: s.source,
       method: s.method,
       sample: s.sample,
+      farmland: s.farmland,
       assumptions: s.assumptions,
       ruleB: s.ruleB,
       scale: 'Rain is a 25 km grid cell and river discharge a daily value on a 5 km grid; the flood extent was mapped at tens of metres. Every point in one rain cell gets the same rain.',
