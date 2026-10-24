@@ -112,7 +112,13 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `k.body` | Turn your sealed packet into a signed code. Only fingerprints, times and a rough location are shared; the photos stay on this phone. | अपने सील किए पैकेट को हस्ताक्षरित कोड में बदलें। केवल फ़िंगरप्रिंट, समय और अनुमानित जगह साझा होती है; फ़ोटो इसी फ़ोन में रहती हैं। |  |
 | `k.btn` | Share as a QR code | QR कोड से साझा करें |  |
 | `k.sheet` | Signed evidence code | हस्ताक्षरित प्रमाण कोड |  |
-| `k.lead` | Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent to any server. | यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। कुछ भी किसी सर्वर पर नहीं भेजा जाता। |  |
+| `k.lead` | Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent unless you choose to send it. | यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है। |  |
+| `k.send` | Send to the laptop | लैपटॉप को भेजें |  |
+| `k.sendHelp` | Sends only this signed code to the laptop this page was opened from. Photos stay on the phone. | केवल यह हस्ताक्षरित कोड उस लैपटॉप को भेजा जाता है जहाँ से यह पेज खोला गया। फ़ोटो फ़ोन में ही रहती हैं। |  |
+| `k.sending` | Sending… | भेजा जा रहा है… |  |
+| `k.sendWait` | No connection. It will be sent when the phone is back online. | कनेक्शन नहीं है। फ़ोन के ऑनलाइन होते ही भेज दिया जाएगा। |  |
+| `k.sent` | Received by the laptop at {time}. | लैपटॉप ने {time} पर प्राप्त किया। |  |
+| `k.sendFail` | The laptop did not answer. It will be tried again. | लैपटॉप ने जवाब नहीं दिया। फिर कोशिश की जाएगी। |  |
 | `k.qr` | QR code holding your signed evidence code | आपके हस्ताक्षरित प्रमाण कोड वाला QR कोड |  |
 | `k.copyCode` | Copy code | कोड कॉपी करें |  |
 | `k.copyLink` | Copy link | लिंक कॉपी करें |  |
@@ -137,7 +143,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `set.contrast` | High contrast | हाई कंट्रास्ट |  |
 | `set.close` | Close | बंद करें |  |
 | `set.data` | Your data on this phone | इस फ़ोन पर आपका डेटा |  |
-| `set.dataHelp` | Photos, consent and sealed packets are kept only on this phone. Nothing is uploaded. You can take a copy or delete it all. | फ़ोटो, सहमति और सील किए गए पैकेट सिर्फ़ इसी फ़ोन में रहते हैं। कुछ भी अपलोड नहीं होता। आप इनकी कॉपी ले सकते हैं या सब मिटा सकते हैं। |  |
+| `set.dataHelp` | Photos, consent and sealed packets are kept only on this phone. Nothing is uploaded by itself: only a signed code can leave, and only when you send it. You can take a copy or delete it all. | फ़ोटो, सहमति और सील किए गए पैकेट केवल इसी फ़ोन में रहते हैं। अपने आप कुछ अपलोड नहीं होता: केवल हस्ताक्षरित कोड जा सकता है, और वह भी तभी जब आप उसे भेजें। आप कॉपी ले सकते हैं या सब मिटा सकते हैं। |  |
 | `set.export` | Export my data (JSON) | मेरा डेटा निकालें (JSON) |  |
 | `set.delete` | Delete my data from this phone | इस फ़ोन से मेरा डेटा मिटाएँ |  |
 | `set.deleteAsk` | Delete the photos, consent records and sealed packets on this phone? This cannot be undone. | इस फ़ोन की फ़ोटो, सहमति और सील किए गए पैकेट मिटाएँ? इसे वापस नहीं किया जा सकता। |  |

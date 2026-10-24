@@ -15,7 +15,7 @@ is, where it lives, and what a real pilot would have to settle with the buyer an
 | Data | Where it lives | Purpose | Leaves the device? |
 |---|---|---|---|
 | Photos the farmer or helper takes | The phone's IndexedDB. | Evidence of the field's condition. | **No.** The share code holds only fingerprints. A photo leaves only if the person sends the file themselves. |
-| Photo fingerprints (SHA-256) | The phone's log; the shareable code. | Proof the photo was not changed after sealing. | Only if the person shares the code, the link or a bundle. |
+| Photo fingerprints (SHA-256) | The phone's log; the shareable code. | Proof the photo was not changed after sealing. | Only if the person shares the code, the link or a bundle, or sends the code to the demo laptop (below). |
 | Exact GPS position at capture | The phone's log, to six decimals, on the phone. | Recording where the photo was taken (a real fix is not compared with the fictional plot). | **Only inside the person's own export file** (*Export my data*), which they make and hold themselves. Not in the share code, the link or a bundle. |
 | Rounded position | The shareable code and the bundle: **0.001 degrees, about 100 m.** | Showing roughly where, without the exact field. | Only if the person shares it. |
 | Times (replay hour and the phone clock) | The phone's log; the shareable code. | The evidence clock. | Only if shared. |
@@ -28,6 +28,13 @@ is, where it lives, and what a real pilot would have to settle with the buyer an
 There is **no analytics, no tracking, no cookie and no third-party request** at run time: fonts, maps and icons are bundled, and
 a build gate checks it. A real pilot would add a server. Everything in the table that says "on the phone" would then need a
 stated upload path, with its own consent, retention and access rules. None of that exists yet.
+
+**Optional demo receiver.** When the owner runs `scripts/receipt-server.mjs` on the demo laptop and a phone opened the app from
+that laptop's address with `?receiver=1`, the share sheet shows "Send to the laptop". A tap posts the signed code (fingerprints,
+times, rounded position; no photo, no name) to that laptop over HTTPS. The laptop keeps the codes and its own receipt times in a
+file under `.cache/`, and nothing else: no address, no browser string. Nothing is sent without the tap, the hosted site never
+shows the button, and the laptop verifies nothing: the console checks each code in the browser, as it checks a scanned one.
+It is a demo receiver, not a product backend.
 
 ## Consent
 

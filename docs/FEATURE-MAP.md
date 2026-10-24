@@ -34,7 +34,7 @@ Decisions: **KEEP**, **MERGE INTO x**, **MAKE REAL** (the simulated part becomes
 | F20 | Import evidence: scan, paste or link, then verify | 2 | 5 | 5 | 4 | 3 | 5 | KEEP, MAKE REAL | Pause and seek on import (A-01), a wall-clock receipt time, a one-click tamper copy (A-11), a `hashchange` listener (A-10). |
 | F19 | Audit ledger and the tamper test | 1 | 5 | 5 | 5 | 3 | 5 | MERGE INTO F20 as one "Tamper check" view | The ledger tab is a second place to look for the same idea. Keep the chain and verify. Drop the separate tab from the demo path. |
 | F28 | Standalone verifier, evidence format, test vectors | 1 | 5 | 5 | 5 | 5 | 5 | KEEP, extend | Independent proof. Gains the provenance flags with new vectors. |
-| N2 | Receipt time stamped by the officer console | 2 | 5 | 5 | 5 | 5 | 4 | MAKE REAL (new, small) | The laptop is the receiver. It records a wall-clock "received" time and reuses the 2 h gap flag. There is no server. |
+| N2 | Receipt time stamped by the officer console | 2 | 5 | 5 | 5 | 5 | 4 | MAKE REAL (new, small) | The laptop is the receiver. It records a wall-clock "received" time and reuses the 2 h gap flag. There is no server in the product; the optional demo receiver on the laptop (`scripts/receipt-server.mjs`) only stamps its clock. |
 
 ## Officer console
 
@@ -73,7 +73,7 @@ Decisions: **KEEP**, **MERGE INTO x**, **MAKE REAL** (the simulated part becomes
 | Part | Today | In the final | Label |
 |---|---|---|---|
 | Photo, location, time, signature | Real in the browser, but substitutes silently | Real. A substitute is a visible choice and is flagged in the signed packet | LIVE, or SIMULATED when chosen |
-| Receipt time ("server") | A scripted sim hour | The officer console's wall clock when it verifies an import. There is no server | LIVE |
+| Receipt time ("server") | A scripted sim hour | The officer console's wall clock when it verifies an import, or the demo laptop's clock when a phone sent the code to it. There is no server in the product | LIVE |
 | Officer view updates | Replay clock | An import adds a row at once and pauses the clock at the packet time | LIVE (row), SIMULATED (cohort) |
 | Alert | A call is described | A real clip or speech plays on the phone. No call is placed | SIMULATED call, LIVE audio |
 | Plot registration | Fixed synthetic plot P-04 | The packet's rounded GPS position is the real location. No separate registration screen | LIVE (location), SIMULATED (plot id) |

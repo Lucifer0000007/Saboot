@@ -94,6 +94,24 @@ the hero text.
   Confirmation / Draft list, `M` rail, `C` radar cadence, `A` airplane, `W` weak 2G, `L` language, `T` tour,
   `P` heads-up display, `R` reset.
 
+### The optional demo receiver (phone sends the code to the laptop over the Wi-Fi)
+
+The QR scan, the pasted code and the link need no server and stay the fallback. For a second route, the laptop can also
+receive the code over the venue Wi-Fi. The phone must be in a secure context to sign, so the laptop serves the build over
+HTTPS with a certificate the phone trusts, made by you with mkcert (`docs/SETUP.md`, "The demo receiver"):
+
+1. `npm run build`, then `node scripts/receipt-server.mjs --cert .cache/demo.pem --key .cache/demo-key.pem`. Allow
+   `node` on private networks if Windows Firewall asks. The script prints the addresses.
+2. Phone, on the same Wi-Fi (or the laptop's hotspot): open `https://<laptop-ip>:4443/?receiver=1&at=alert`. The padlock
+   must be clean. The share sheet then has "Send to the laptop"; a tap sends only the signed code, and only then.
+3. Laptop: open `https://<laptop-ip>:4443/?receiver=1&tab=insurer` by IP, not `localhost` (the site sends HSTS, which would
+   pin `localhost` to HTTPS and break the plain-HTTP QA servers in that profile). The header counts what was received;
+   Import → "Received over the network" checks each code in the browser and adds it with the laptop's receipt time.
+4. Afterwards delete `.cache/receipts.json`; on the phone open `…/?receiver=0` to forget the receiver.
+
+If the venue Wi-Fi isolates clients or has a captive portal, use the laptop's mobile hotspot and issue the certificate for
+that address too. If the certificate is not trusted on the phone, the QR path is unchanged.
+
 ## 2-minute demo script
 
 Say the **median**, not only the demo farmer's number: the demo farmer is one plot among many and is not the typical case.
@@ -368,7 +386,9 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
   are computed in plain JavaScript instead of WebCrypto (same SHA-256), and the packet cannot be signed for the laptop.
 - The gallery check is a heuristic (file recency); production would add EXIF and server-side checks.
 - The "server" (receipt times, acknowledgements, the officer's responses) runs in your browser; all state is per browser
-  (IndexedDB / localStorage). `R` resets it. Nothing syncs between the laptop and phones except through feature K's codes.
+  (IndexedDB / localStorage). `R` resets it. Nothing syncs between the laptop and phones except through feature K's codes:
+  by QR, paste or link, or, when you run the optional demo receiver on the laptop (`scripts/receipt-server.mjs`), by a
+  POST of the same signed code to that laptop, which stamps its own clock and verifies nothing. There is no other backend.
 - Feature K proves a packet was not altered after sealing; it cannot prove who sealed it or that the phone clock was right.
 - **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: in this session Playwright's WebKit and Firefox builds passed 43 smoke checks and skipped 3 (Playwright's Firefox build has no working crypto.subtle, so it cannot sign a packet). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
   real Firefox are on the manual test list.

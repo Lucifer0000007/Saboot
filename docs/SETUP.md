@@ -21,6 +21,19 @@ On Windows PowerShell 5.1 there is no `&&`: run commands one by one, or use Git 
 - **Safety.** The extension works inside your logged-in browser session. Use a **separate Chrome profile with no signed-in
   accounts**, and limit its site access to the local preview (`http://localhost:4173`) and the live site.
 
+## The demo receiver (HTTPS on the laptop, certificate by you)
+`scripts/receipt-server.mjs` serves the build over HTTPS and takes the signed code a phone sends (README, "The optional demo
+receiver"). The phone must trust the certificate, so you make it; nothing here is installed by an agent.
+
+1. `winget install FiloSottile.mkcert`, then `mkcert -install` once (it adds a local root to your trust store).
+2. Find the laptop's Wi-Fi IPv4 (`ipconfig`). `mkcert -cert-file .cache/demo.pem -key-file .cache/demo-key.pem <ip> localhost 127.0.0.1`.
+   `.cache/` is git-ignored; never commit the key. Add the hotspot address too if you may use it (Windows hotspots are usually 192.168.137.1).
+3. Put the root on the phone: `mkcert -CAROOT` shows the folder; copy `rootCA.pem` to the phone. Android: Settings → Security →
+   Encryption & credentials → Install a certificate → CA certificate. iPhone: open the file, Settings → Profile Downloaded →
+   Install, then Settings → General → About → Certificate Trust Settings → enable full trust.
+4. `npm run build`, then `node scripts/receipt-server.mjs --cert .cache/demo.pem --key .cache/demo-key.pem`.
+5. Rehearse once, QR path and receiver path both. Afterwards delete `.cache/receipts.json`.
+
 ## Semgrep (security scan)
 - **Not in `package.json`.** Install it in a virtual environment outside the repository so nothing user-wide changes:
   ```bash
