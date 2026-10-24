@@ -4,10 +4,13 @@ import { Icon, type IconName } from '../ui/Icon';
 import { fmtClock, fmtT } from '../lib/time';
 const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 import { lazy } from '../lib/lazy';
-import { insurerView, importCode, type InsurerView } from '../site/layout';
+import { insurerView, importCode, importReceived, type InsurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
 import { rail } from '../lib/prefs';
 import { kpis } from './state';
+import { effect } from '@preact/signals';
+import { receiver } from '../lib/prefs';
+import { receipts } from '../k/receipt';
 import { useEffect } from 'preact/hooks';
 import { loadImported } from '../k/imported';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
@@ -54,6 +57,15 @@ export default function Dashboard() {
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
   const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
   useEffect(() => { void loadImported(); }, []);
+  // the demo receiver's list, polled only when this laptop is the receiver (the preference is off by default). An effect,
+  // not a mount-time check: on a laptop the console can mount before the deep link has set the preference.
+  useEffect(() => {
+    let stop: (() => void) | undefined;
+    const dispose = effect(() => {
+      if (receiver.value && !stop) void import('../k/receipt').then((m) => { if (!stop) stop = m.startReceiptPoll(); });
+    });
+    return () => { dispose(); stop?.(); };
+  }, []);
   return (
     <section class="dash" aria-labelledby="dash-h" data-tour="dash" data-sim-numbers>
       <MapDefs />
@@ -66,6 +78,11 @@ export default function Dashboard() {
         <div class="row">
           <span class="tag tag-sim" data-sim-label><span class="dot" aria-hidden="true" />Simulated data</span>
           <button type="button" class="pill pill-ghost pill-sm" onClick={() => (importCode.value = '')}><Icon name="scan" size={16} /> Import evidence</button>
+          {receiver.value && (
+            <button type="button" class="pill pill-ghost pill-sm" data-received-count onClick={() => { importReceived.value = true; importCode.value = ''; }}>
+              <Icon name="inbox" size={16} /> <span class="num">{receipts.value.length}</span> received over the network
+            </button>
+          )}
         </div>
       </header>
       <Kpis />

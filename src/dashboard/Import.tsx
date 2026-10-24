@@ -13,9 +13,11 @@ import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult, type KPayl
 import { scanQr } from '../k/scan';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { download } from '../lib/download';
-import { addImported, importedLabel } from '../k/imported';
+import { addImported, importedLabel, imported } from '../k/imported';
+import { receiver } from '../lib/prefs';
+import { receipts, type Receipt as ReceiptEntry } from '../k/receipt';
 import { GAP_FLAG_H } from '../farmer/focus';
-import { openPlot } from '../site/layout';
+import { openPlot, importReceived } from '../site/layout';
 import { ConsoleNote } from './ConsoleNote';
 
 const NO_CRYPTO = 'This page cannot check signatures here. Open it over https, or on localhost.';
@@ -54,6 +56,58 @@ function Receipt({ p, receivedAt }: { p: KPayload; receivedAt: number }) {
   );
 }
 
+/**
+ * What the demo receiver on this laptop holds (scripts/receipt-server.mjs). Each code is checked here, in this browser, exactly
+ * as a scanned one is; the laptop only stamped when it arrived. Adding uses that stamp as the receipt time.
+ */
+function Received({ onClose }: { onClose: () => void }) {
+  const list = receipts.value;
+  const [checked, setChecked] = useState<Record<string, KResult>>({});
+  useEffect(() => {
+    let alive = true;
+    for (const r of list) {
+      if (checked[r.code]) continue;
+      verifyCode(codeFromQrText(r.code)).then((res) => alive && setChecked((c) => ({ ...c, [r.code]: res })), () => alive && setChecked((c) => ({ ...c, [r.code]: { ok: false, failed: 'decode', reason: NO_CRYPTO } })));
+    }
+    return () => { alive = false; };
+  }, [list.map((r) => r.code).join(',')]);
+  const addOne = async (r: ReceiptEntry, res: KResult) => {
+    if (!res.ok || !res.payload) return;
+    await addImported(res.payload, codeFromQrText(r.code), r.receivedAt);
+    pause();
+    seek(Math.max(t.value, res.payload.sealT + 0.05));
+    announce(`${res.payload.plot} added to the dashboard as ${importedLabel(res.payload)}.`);
+  };
+  const isIn = (res: KResult) => !!res.payload && imported.value.some((x) => x.head === res.payload!.head);
+  return (
+    <div class="stack" data-received-list>
+      <p class="muted">Codes a phone sent to this laptop over the Wi-Fi. The laptop only stamped when each one arrived; what a code says was checked here, in this browser, exactly as a scanned code is.</p>
+      {list.length === 0 && <p class="note note-plain"><Icon name="inbox" /><span>Nothing received yet. On the phone, Share, then “Send to the laptop”.</span></p>}
+      <ul class="k-received" role="list">
+        {[...list].reverse().map((r) => {
+          const res = checked[r.code];
+          return (
+            <li key={r.code} class="card stack" data-received-code>
+              <p>
+                <strong>{res?.payload?.plot ?? 'Checking…'}</strong>
+                {res?.payload && <> · <ProvTag prov={fromOrigin(res.payload.shots[0]?.photo)} english /></>}
+              </p>
+              <p class="muted">Received over the network at <Val kind="time" prov="live" english>{new Date(r.receivedAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'medium' })}</Val> (this laptop’s clock)</p>
+              {res && <Checks res={res} />}
+              {res && !res.ok && <p class="note note-bad"><Icon name="barShape" /><span><strong>Changed after sealing. Do not trust this copy. </strong>{res.reason}</span></p>}
+              {res?.ok && res.payload && (isIn(res) ? (
+                <p class="note note-plain"><Icon name="check" /><span>Added as <strong>{importedLabel(res.payload)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload.plot}</button></span></p>
+              ) : (
+                <button type="button" class="pill pill-dark" data-add-received onClick={() => addOne(r, res)}><Icon name="inbox" /> Add to dashboard</button>
+              ))}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function Details({ res, receivedAt }: { res: KResult; receivedAt: number }) {
   const p = res.payload!;
   const plot = model.value?.plots.find((x) => x.id === p.plot);
@@ -88,7 +142,7 @@ function Details({ res, receivedAt }: { res: KResult; receivedAt: number }) {
 }
 
 export default function ImportSheet({ initial, onClose }: { initial?: string; onClose: () => void }) {
-  const [mode, setMode] = useState<'scan' | 'paste'>(initial ? 'paste' : 'scan');
+  const [mode, setMode] = useState<'scan' | 'paste' | 'received'>(initial ? 'paste' : importReceived.value && receiver.value ? 'received' : 'scan');
   const [text, setText] = useState(initial ?? '');
   const [res, setRes] = useState<KResult | null>(null);
   /** The exact code that produced `res`: what is exported and added, never what is in the box now. */
@@ -152,12 +206,15 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
     <Sheet title="Import evidence" onClose={onClose} closeLabel="Close import" class="import-sheet" lang="en">
       <ConsoleNote />
       <p class="muted">Real signatures and hashes over a synthetic plot.</p>
-      <p class="muted">Bring a sealed packet from the farmer’s phone, with no server: scan its QR code, paste its code, or open its link (the code travels in the link’s #fragment, which is never sent to any server).</p>
+      <p class="muted">Bring a sealed packet from the farmer’s phone: scan its QR code, paste its code, or open its link (the code travels in the link’s #fragment, which is never sent to any server).{receiver.value && ' When the demo receiver is running on this laptop, codes a phone sent to it are listed under “Received over the network”.'}</p>
       <div class="seg" role="radiogroup" aria-label="Import method">
         <button type="button" role="radio" aria-checked={mode === 'scan'} onClick={() => setMode('scan')}><Icon name="scan" size={16} /> Scan QR</button>
         <button type="button" role="radio" aria-checked={mode === 'paste'} onClick={() => setMode('paste')}><Icon name="paste" size={16} /> Paste code</button>
+        {receiver.value && <button type="button" role="radio" aria-checked={mode === 'received'} onClick={() => setMode('received')}><Icon name="inbox" size={16} /> Received over the network</button>}
       </div>
-      {mode === 'scan' ? (
+      {mode === 'received' ? (
+        <Received onClose={onClose} />
+      ) : mode === 'scan' ? (
         <div class="k-scan">
           <video ref={video} muted playsInline aria-label="Webcam preview for QR scanning" />
           {camErr ? <p class="note note-warn"><Icon name="info" /><span>{camErr}</span></p> : <p class="muted">Hold the farmer’s phone up to the webcam.</p>}

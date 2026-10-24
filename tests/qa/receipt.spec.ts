@@ -109,3 +109,35 @@ test('a code queued while offline is sent on reconnect, even after a reload', as
   await expect.poll(() => stored().receipts.filter((r) => r.code === code).length, { timeout: 15_000 }).toBe(before + 1);
   expect(errors).toEqual([]);
 });
+
+test('the laptop lists what it received, checks it in the browser, and imports it with the laptop\'s time', async ({ page, browser }) => {
+  const errors: string[] = [];
+  await phoneOnReceiver(page, errors);
+  await page.locator('[data-send-laptop]').click();
+  await expect(page.locator('[data-send-state]')).toContainText('Received by the laptop at', { timeout: 15_000 });
+  const code = (await page.locator('.share-sheet details.k-code p.hash').textContent())!.trim();
+  const receipt = stored().receipts.find((r) => r.code === code)!;
+
+  const ctx = await browser.newContext({ serviceWorkers: 'block', viewport: { width: 1280, height: 800 } });
+  const lap = await ctx.newPage();
+  lap.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  lap.on('pageerror', (e) => errors.push(e.message));
+  await lap.goto(`http://localhost:${PORT}/?receiver=1&tab=insurer`);
+  await lap.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await lap.evaluate('window.__sab.ready()');
+  const count = lap.locator('[data-received-count]');
+  await expect(count).toContainText(/[1-9]\d* received over the network/, { timeout: 15_000 });
+  await count.click();
+  const row = lap.locator('[data-received-code]').first();
+  await expect(row).toContainText('P-04', { timeout: 15_000 });
+  await expect(row).toContainText('Received over the network at');
+  await expect(row.locator('.k-steps li.ok')).toHaveCount(3);
+  await row.locator('[data-add-received]').click();
+  await expect(row).toContainText('Added as Imported (simulated)');
+  await lap.locator('.import-sheet button[aria-label="Close import"]').click();
+  await expect(lap.locator('tr.imported')).toContainText('Imported (simulated)');
+  const rows = (await lap.evaluate('window.__sab.imported()')) as { plot: string; importedAt: number }[];
+  expect(rows.find((r) => r.plot === 'P-04')?.importedAt, 'the row carries the laptop server\'s receipt time').toBe(receipt.receivedAt);
+  expect(errors).toEqual([]);
+  await ctx.close();
+});
