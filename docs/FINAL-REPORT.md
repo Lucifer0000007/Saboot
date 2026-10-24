@@ -59,6 +59,19 @@ rule fired for every point within its nominal reach, flooded or not, as the meth
 counts under REPLAY with the source by ID, the scale mismatch, the assumptions and "Rule B: not independently validated". It
 is a consistency check at coarse scale on the Pakistan side of one monsoon, not a validation and not a lead time.
 
+## 5b. After the evaluation: the four things that moved Impact and Feasibility
+
+- **A number a judge can repeat.** The console's replay block now opens with the scale of the problem, from the map maker's
+  own statistics: about 180,000 ha of farmland inside the first flood maps of one activation. It is labelled as the scale of
+  the problem, not a result of this app, and it is never typed by hand. The counts follow in one sentence.
+- **The two reviewers' files** (`translation/hi.md`, `translation/pa.md`): every string in the order a judge sees it, to
+  correct in place. Only rows they mark lose their flag; the product still never says "verified".
+- **The interview record** (`docs/INTERVIEWS.md`): consent answers first, role only, every fact marked to check.
+- **A receipt server for the demo.** The phone can send the sealed code to the laptop over the venue Wi-Fi; the laptop
+  stamps its own clock and the console checks the code in the browser before importing it with that time. It needs the
+  laptop to serve HTTPS with a certificate you make (a phone on plain HTTP cannot sign; the public site cannot post to a
+  LAN address), it is off by default, the hosted site never shows it, and the QR path is untouched as the fallback.
+
 ## 6. The UI changes, with before and after
 
 `docs/screenshots/phase5/` holds the 360 px captures from before and after. What changed and why: `docs/DESIGN-TOKENS.md`.
@@ -80,7 +93,11 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 
 ## 8. Remaining risks
 
-- LCP is 2.41 s against a 2.5 s limit (Lighthouse median of 3). Any new above-the-fold weight can fail the gate.
+- LCP is 2.41 s against a 2.5 s limit (Lighthouse median of 3) on the build that closed Phase 6. In the last session of
+  work the same gate measured 2.70 s on every page, and also 2.70 s on the earlier passing source built again, so the
+  shift is on the machine (a browser update or background load), not in the branch. `npm run deploy` runs this gate and
+  refuses on a failure: rerun `node scripts/lighthouse.mjs --runs=5` on a quiet machine first; if it still fails there,
+  the entry bundle (89.5 KB, unchanged in composition) is the place to look.
 - A Hindi or Punjabi first visit paints at 2.3 s on the budget profile and about 3 s on fast 3G; the Lighthouse gate measures
   English only (audit L5-01, L5-02, open).
 - The 100× replay drops to about 27 frames a second on a 4× throttled phone (L5-04, not on the demo path).
@@ -99,4 +116,8 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 4. Install the Chrome extension and run `/chrome` if you want exploratory checks (`docs/SETUP.md`).
 5. Record three backup clips with a "RECORDED" caption (`docs/USP-MVP.md`).
 6. Deploy from this branch when you are ready: `npm run deploy` (it runs the full gate first). Not before the demo starts.
+8. For the receiver: install mkcert, make the certificate for the laptop's address, put the root on the demo phone, start
+   `scripts/receipt-server.mjs`, rehearse both paths (`docs/SETUP.md`, "The demo receiver"). Have the two reviewers work
+   through `translation/hi.md` and `translation/pa.md`; make the one phone call with `docs/STAKEHOLDER-INTERVIEW-GUIDE.md`
+   and record it in `docs/INTERVIEWS.md`.
 7. Optional: a Copernicus Global Flood Monitoring login if you ever want an Indian-side replay (R-2).

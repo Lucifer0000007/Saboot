@@ -92,6 +92,8 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 | Validation harness correctness (L1-09, L1-10, L1-11) | Nine new unit tests; the fixture's counts unchanged | 1 | Pass |
 | Console parity (L1-08), rail parity (L1-04), hail prompt (L1-02), helper flag (L1-07), band rounding (L1-12), median (L1-13) | One unit test file each, red on the old code | 1 | Pass |
 | High contrast (L4-04), scroll padding (L4-05), device language (L4-03), scenario and language chunk retry (L4-06, L3-05), offline-ready cue (L3-09), audio offline (L2-14) | A QA test each, red before the change | 1 | Pass |
+| The farmland number and the counts sentence (plan item A) | The number recomputed from the raw record in a unit test; the sample byte-identical; the replay QA test | 1 | Pass |
+| The demo receiver (plan item D) | Unit test over `node:http`; `tests/qa/receipt.spec.ts` off by default, send, offline queue, console import with the laptop's time; the privacy spec untouched | 3 | Attempt 1: the watcher's effect subscribed to a signal the flush flips and starved the main thread after a reload. Attempt 2: the console's poll was a mount-time check that lost to the deep link on a desktop page. Attempt 3: an effect that follows the preference. Pass. |
 
 ## 4b. Phase 3 decisions
 
@@ -118,6 +120,12 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 | D-35 | The QA file server's bind address | **Keep every interface, fix the path check** | A phone on the same Wi-Fi opens the laptop's address to rehearse the demo. After the fix it can serve only the public build. |
 | D-36 | The voice clips | **Precached with the app** | "Cached on first play" never worked: a media element asks for a byte range and the cache refuses a 206. Four clips, 62 KB. |
 | D-37 | Toast duration | **5 s** | 3.6 s was gone before a warning could be read, in Hindi and Punjabi least of all. |
+| D-38 | A receipt server for the demo | **GO, on the laptop over HTTPS** | A phone on the laptop's plain-HTTP address has no WebCrypto and nothing to sign; a phone on the public HTTPS site cannot post to a LAN address (mixed content, `connect-src 'self'`, the private-network block). So the laptop serves the build over HTTPS with a mkcert certificate the owner makes, and the POST is relative and same-origin. A Netlify function was the alternative: a real backend on the owner's account, needing internet at the venue. |
+| D-39 | How the console reads the receiver's list | **POST, not GET** | The service worker caches any same-origin 200 GET and ignores the query string; a GET poll would go stale. A POST passes through, and the one-cache assertions of the offline proof stay untouched. |
+| D-40 | The send queue on the phone | **Its own kv entry, not the simulated outbox** | The simulated sync counts and clears every outbox key; a real network item inside it would show on the sim strip. |
+| D-41 | What the receiver keeps | **The code and its receipt time, nothing else** | No address, no browser string. The laptop never verifies: the console checks each code in the browser, as it checks a scanned one. |
+| D-43 | The Lighthouse gate at 2.70 s in the last session | **Recorded, not worked around** | The earlier passing source measures the same on this machine now, so the cause is environmental. The threshold is untouched; the owner reruns on a quiet machine before deploying. |
+| D-42 | The farmland number on the console | **From the activation's own statistics, labelled as the problem's scale** | The number flows from the saved record through the sample, the summary and the status file; it is never typed by hand, and the sentence says it is not a result of this app. |
 
 ## 5. Blocked log
 None. Three tasks needed a second attempt (section 4).

@@ -175,3 +175,12 @@ Every row names the test that keeps it fixed on `overflow/final-prep`. Rows not 
 | A-12 | Mitigated | the sync and log fixes above; do not deploy during the event |
 | L2-06, L2-07, L2-16, L2-17, L2-18, A-19, A-20, L5-03 | Accepted or deferred | reasons in `docs/SECURITY-SCAN.md` and `docs/DECISIONS.md` |
 | A-16, A-17, A-18, L1-16, L1-17, L1-18, L3-08, L3-11, L4-08 to L4-16, L4-18, L5-01, L5-02, L5-04, L5-05 | Open | the typography and layout rows are Phase 5; the rest are listed in the final report as remaining risks |
+
+## 8. After the final plan (items A to D)
+
+- The console's replay block says how much farmland the first flood maps covered (about 180,000 ha, from the activation's
+  own statistics) and gives its counts in one sentence; `tests/qa/relief.spec.ts`, `tests/unit/replay-sample.test.ts`.
+- `translation/hi.md` and `translation/pa.md` are the two reviewers' files; `docs/INTERVIEWS.md` is the record to fill.
+- The optional demo receiver: `scripts/receipt-server.mjs`, `src/k/receipt.ts`, the share sheet's "Send to the laptop", the
+  console's "Received over the network"; `tests/unit/receipt-server.test.ts`, `tests/qa/receipt.spec.ts`. Off by default; the
+  hosted site never shows it. The hand steps (mkcert, the root on the phone) are in `docs/SETUP.md`.
