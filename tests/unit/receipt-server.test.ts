@@ -26,7 +26,8 @@ async function start() {
   await new Promise<void>((r) => srv.listen(PORT, r));
   return { srv, store };
 }
-const at = (path: string, init?: RequestInit) => fetch(`http://127.0.0.1:${PORT}${path}`, init);
+// each test starts its own server on the same port: a pooled keep-alive connection to the previous one would be reset
+const at = (path: string, init: RequestInit = {}) => fetch(`http://127.0.0.1:${PORT}${path}`, { ...init, headers: { ...(init.headers as Record<string, string>), connection: 'close' } });
 const post = (path: string, body: string) => at(path, { method: 'POST', headers: { 'content-type': 'application/json' }, body });
 
 test('a posted code is kept with the laptop time, once, whatever it says', async () => {
