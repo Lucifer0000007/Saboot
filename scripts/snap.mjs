@@ -36,14 +36,15 @@ function headerRules(dir) {
  * Serve a built folder like a static host: brotli/gzip, the headers from its `_headers` file, and optionally
  * mounted under a sub-path (`prefix: '/demo/'`) to prove relative URLs, the manifest and the worker scope hold there.
  */
-export function serve(dir = 'dist', port = 4321, { prefix = '/', onRequest } = {}) {
+/** The request handler of serve(): a static host for one built folder. Exported so another server (the demo receiver) can mount it. */
+export function staticHandler(dir = 'dist', { prefix = '/', onRequest } = {}) {
   // It listens on every interface on purpose: a phone on the same Wi-Fi opens the laptop's address to rehearse the demo.
   // What it can serve is the built public site and nothing else (the path check below).
   // Compressed bodies are cached per file version (path + size + mtime), so parallel QA runs stay cheap.
   const cache = new Map();
   const rules = headerRules(dir);
   const mount = prefix.replace(/\/$/, '');
-  const srv = http.createServer(async (req, res) => {
+  return async (req, res) => {
     // QA can listen to exactly what reaches a server: the request line and its headers
     onRequest?.({ method: req.method, url: req.url, headers: req.headers });
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
@@ -79,7 +80,11 @@ export function serve(dir = 'dist', port = 4321, { prefix = '/', onRequest } = {
       res.writeHead(404);
       res.end('not found');
     }
-  });
+  };
+}
+
+export function serve(dir = 'dist', port = 4321, opts = {}) {
+  const srv = http.createServer(staticHandler(dir, opts));
   return new Promise((r) => srv.listen(port, () => r(srv)));
 }
 
