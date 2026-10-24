@@ -427,7 +427,13 @@ const hi: Record<string, string | string[]> = {
   'k.body': 'अपने सील किए पैकेट को हस्ताक्षरित कोड में बदलें। केवल फ़िंगरप्रिंट, समय और अनुमानित जगह साझा होती है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
   'k.btn': 'QR कोड से साझा करें', // needs-native-review
   'k.sheet': 'हस्ताक्षरित प्रमाण कोड', // needs-native-review
-  'k.lead': 'यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। कुछ भी किसी सर्वर पर नहीं भेजा जाता।', // needs-native-review
+  'k.lead': 'यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है।', // needs-native-review
+  'k.send': 'लैपटॉप को भेजें', // needs-native-review
+  'k.sendHelp': 'केवल यह हस्ताक्षरित कोड उस लैपटॉप को भेजा जाता है जहाँ से यह पेज खोला गया। फ़ोटो फ़ोन में ही रहती हैं।', // needs-native-review
+  'k.sending': 'भेजा जा रहा है…', // needs-native-review
+  'k.sendWait': 'कनेक्शन नहीं है। फ़ोन के ऑनलाइन होते ही भेज दिया जाएगा।', // needs-native-review
+  'k.sent': 'लैपटॉप ने {time} पर प्राप्त किया।', // needs-native-review
+  'k.sendFail': 'लैपटॉप ने जवाब नहीं दिया। फिर कोशिश की जाएगी।', // needs-native-review
   'k.qr': 'आपके हस्ताक्षरित प्रमाण कोड वाला QR कोड', // needs-native-review
   'k.copyCode': 'कोड कॉपी करें', // needs-native-review
   'k.copyLink': 'लिंक कॉपी करें', // needs-native-review
@@ -627,7 +633,7 @@ const hi: Record<string, string | string[]> = {
   'set.contrast': 'हाई कंट्रास्ट', // needs-native-review
   'set.close': 'बंद करें', // needs-native-review
   'set.data': 'इस फ़ोन पर आपका डेटा', // needs-native-review
-  'set.dataHelp': 'फ़ोटो, सहमति और सील किए गए पैकेट सिर्फ़ इसी फ़ोन में रहते हैं। कुछ भी अपलोड नहीं होता। आप इनकी कॉपी ले सकते हैं या सब मिटा सकते हैं।', // needs-native-review
+  'set.dataHelp': 'फ़ोटो, सहमति और सील किए गए पैकेट केवल इसी फ़ोन में रहते हैं। अपने आप कुछ अपलोड नहीं होता: केवल हस्ताक्षरित कोड जा सकता है, और वह भी तभी जब आप उसे भेजें। आप कॉपी ले सकते हैं या सब मिटा सकते हैं।', // needs-native-review
   'set.export': 'मेरा डेटा निकालें (JSON)', // needs-native-review
   'set.delete': 'इस फ़ोन से मेरा डेटा मिटाएँ', // needs-native-review
   'set.deleteAsk': 'इस फ़ोन की फ़ोटो, सहमति और सील किए गए पैकेट मिटाएँ? इसे वापस नहीं किया जा सकता।', // needs-native-review

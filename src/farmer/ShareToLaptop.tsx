@@ -1,5 +1,6 @@
 // Feature K, phone side (lazy chunk): turn the sealed packet into a signed code shown as a QR code, a
-// copyable code and a #k= link. Nothing is uploaded; photos stay on the phone.
+// copyable code and a #k= link. Nothing is uploaded by itself; photos stay on the phone. A phone that opened the app from
+// the demo laptop's address can send the code to that laptop, and only when the person taps.
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
 import { Sheet } from '../ui/Sheet';
@@ -8,7 +9,9 @@ import { showToast } from '../lib/announce';
 import { dbGet, dbSet } from '../lib/db';
 import { focusDet, focusPlot, model } from '../sim/engine';
 import { download } from '../lib/download';
-import { full } from './focus';
+import { full, isOffline } from './focus';
+import { receiver } from '../lib/prefs';
+import { queueSend, sendOf, sends, sending, failed, loadSends } from '../k/receipt';
 import { SHOTS } from './photo';
 import { makeCode, newDeviceKey, qrTextOf, verifyCode } from '../k/payload';
 import { makeBundle, bundleJson } from '../k/bundle';
@@ -64,6 +67,15 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
   const copy = async (text: string) => {
     try { await navigator.clipboard.writeText(text); showToast(tr('k.copied')); } catch { showToast(tr('fl.copyFail'), 'warn'); }
   };
+  // the optional send to the demo laptop: the button exists only on a phone that opened the app from the laptop's address
+  useEffect(() => { if (receiver.value) void loadSends(); }, []);
+  void sends.value;
+  const sent = code ? sendOf(code) : null;
+  const sendState = !sent ? tr('k.sendHelp')
+    : sent.receivedAt !== null ? tr('k.sent', { time: new Date(sent.receivedAt).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) })
+    : isOffline() ? tr('k.sendWait')
+    : failed.value && !sending.value ? tr('k.sendFail')
+    : tr('k.sending');
   return (
     <Sheet title={tr('k.sheet')} onClose={onClose} closeLabel={tr('set.close')} class="share-sheet">
       <p>{tr('k.lead')}</p>
@@ -84,6 +96,12 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
               <Icon name="link" /> {canShare ? tr('k.share') : tr('k.copyLink')}
             </button>
           </div>
+          {receiver.value && (
+            <>
+              <button type="button" class="pill pill-dark" data-send-laptop onClick={() => queueSend(code, focusPlot.value!.id)}><Icon name="inbox" /> {tr('k.send')}</button>
+              <p class="f-help" data-send-state role="status">{sendState}</p>
+            </>
+          )}
           <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
           <p class="f-help">{tr('k.bundleNote')}</p>
           <details class="k-code">

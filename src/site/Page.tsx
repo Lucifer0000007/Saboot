@@ -88,6 +88,8 @@ export function Page({ ssr }: { ssr?: boolean }) {
   useEffect(() => {
     loadScenario();
     void loadFocus().then(restoreClock);
+    // the optional send to the demo laptop: with the preference off there is not even a request for the chunk
+    if (receiver.value) void import('../k/receipt').then((m) => m.watchSends());
     // a link with #k= pasted into a tab that is already open (the page does not reload for a hash change)
     const onHash = () => {
       const d = readDeepLink();

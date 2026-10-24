@@ -427,7 +427,13 @@ const pa: Record<string, string | string[]> = {
   'k.body': 'ਆਪਣੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਨੂੰ ਦਸਤਖ਼ਤੀ ਕੋਡ ਵਿੱਚ ਬਦਲੋ। ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਸਾਂਝੀ ਹੁੰਦੀ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ।', // needs-native-review
   'k.btn': 'QR ਕੋਡ ਨਾਲ ਸਾਂਝਾ ਕਰੋ', // needs-native-review
   'k.sheet': 'ਦਸਤਖ਼ਤੀ ਪ੍ਰਮਾਣ ਕੋਡ', // needs-native-review
-  'k.lead': 'ਇਹ QR ਕੋਡ ਲੈਪਟਾਪ ਦੇ ਕੈਮਰੇ ਨੂੰ ਵਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਕੁਝ ਵੀ ਕਿਸੇ ਸਰਵਰ ਉੱਤੇ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ।', // needs-native-review
+  'k.lead': 'ਇਹ QR ਕੋਡ ਲੈਪਟਾਪ ਦੇ ਕੈਮਰੇ ਨੂੰ ਵਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਤੁਸੀਂ ਆਪ ਭੇਜੋ, ਤਾਂ ਹੀ ਕੁਝ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ।', // needs-native-review
+  'k.send': 'ਲੈਪਟਾਪ ਨੂੰ ਭੇਜੋ', // needs-native-review
+  'k.sendHelp': 'ਸਿਰਫ਼ ਇਹ ਦਸਤਖ਼ਤੀ ਕੋਡ ਉਸ ਲੈਪਟਾਪ ਨੂੰ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ ਜਿੱਥੋਂ ਇਹ ਪੰਨਾ ਖੋਲ੍ਹਿਆ ਗਿਆ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ।', // needs-native-review
+  'k.sending': 'ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ…', // needs-native-review
+  'k.sendWait': 'ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ। ਫ਼ੋਨ ਦੇ ਆਨਲਾਈਨ ਹੁੰਦਿਆਂ ਹੀ ਭੇਜ ਦਿੱਤਾ ਜਾਵੇਗਾ।', // needs-native-review
+  'k.sent': 'ਲੈਪਟਾਪ ਨੇ {time} ਵਜੇ ਪ੍ਰਾਪਤ ਕੀਤਾ।', // needs-native-review
+  'k.sendFail': 'ਲੈਪਟਾਪ ਨੇ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾਵੇਗੀ।', // needs-native-review
   'k.qr': 'ਤੁਹਾਡੇ ਦਸਤਖ਼ਤੀ ਪ੍ਰਮਾਣ ਕੋਡ ਵਾਲਾ QR ਕੋਡ', // needs-native-review
   'k.copyCode': 'ਕੋਡ ਕਾਪੀ ਕਰੋ', // needs-native-review
   'k.copyLink': 'ਲਿੰਕ ਕਾਪੀ ਕਰੋ', // needs-native-review
@@ -627,7 +633,7 @@ const pa: Record<string, string | string[]> = {
   'set.contrast': 'ਹਾਈ ਕੰਟ੍ਰਾਸਟ', // needs-native-review
   'set.close': 'ਬੰਦ ਕਰੋ', // needs-native-review
   'set.data': 'ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਤੁਹਾਡਾ ਡਾਟਾ', // needs-native-review
-  'set.dataHelp': 'ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਸਿਰਫ਼ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ। ਕੁਝ ਵੀ ਅੱਪਲੋਡ ਨਹੀਂ ਹੁੰਦਾ। ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਦੀ ਕਾਪੀ ਲੈ ਸਕਦੇ ਹੋ ਜਾਂ ਸਭ ਮਿਟਾ ਸਕਦੇ ਹੋ।', // needs-native-review
+  'set.dataHelp': 'ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਸਿਰਫ਼ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ। ਆਪਣੇ ਆਪ ਕੁਝ ਅੱਪਲੋਡ ਨਹੀਂ ਹੁੰਦਾ: ਸਿਰਫ਼ ਦਸਤਖ਼ਤੀ ਕੋਡ ਜਾ ਸਕਦਾ ਹੈ, ਅਤੇ ਉਹ ਵੀ ਤਾਂ ਹੀ ਜਦੋਂ ਤੁਸੀਂ ਉਸ ਨੂੰ ਭੇਜੋ। ਤੁਸੀਂ ਕਾਪੀ ਲੈ ਸਕਦੇ ਹੋ ਜਾਂ ਸਭ ਮਿਟਾ ਸਕਦੇ ਹੋ।', // needs-native-review
   'set.export': 'ਮੇਰਾ ਡਾਟਾ ਕੱਢੋ (JSON)', // needs-native-review
   'set.delete': 'ਇਸ ਫ਼ੋਨ ਤੋਂ ਮੇਰਾ ਡਾਟਾ ਮਿਟਾਓ', // needs-native-review
   'set.deleteAsk': 'ਇਸ ਫ਼ੋਨ ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਮਿਟਾਉਣੇ ਹਨ? ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।', // needs-native-review

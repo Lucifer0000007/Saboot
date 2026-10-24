@@ -169,7 +169,7 @@ export function exportMyData() {
 export async function deleteMyData() {
   await resetFocus();
   imported.value = [];
-  await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported')]);
+  await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported'), dbDel('kv', 'k-send-queue')]);
 }
 
 /** What each log shows at sim time t: the demo farmer's view, and the view of every farmer a helper has captured for. */
