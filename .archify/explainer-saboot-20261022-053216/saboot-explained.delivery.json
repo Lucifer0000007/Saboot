@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "fed4b840-d6d0-4386-b672-4010b8ff40f0",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+  "output": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+  "specification": {
+    "sha256": "d51f20c3bcb142a9b6afd19476581b08fd78c894275db6ab7815330bb34cec2d",
+    "bytes": 14854
+  },
+  "artifact": {
+    "sha256": "2798d30f90f412eb715b0d2f84530ba3bd90114bfbe0e3a350f9278a4d7b5f18",
+    "bytes": 2095388
+  },
+  "explainer": {
+    "preparedSha256": "cbb1169bb564ed2a67c5641a911ce270bf99ecfda0b428f643f8a8c71a4b45d1",
+    "dependencies": [
+      {
+        "kind": "repository",
+        "id": "readme",
+        "path": "README.md",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "78118aac5fe278461b055a53ea19760d6d1fc3673f7624772f63107e88cc804b",
+        "bytes": 35483
+      },
+      {
+        "kind": "repository",
+        "id": "spec",
+        "path": "docs/SABOOT-SPEC.md",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "32c23cac94dbe1cbf415a6f421aa5ac445d69d383349174dc6c7261e06fc4836",
+        "bytes": 33140
+      },
+      {
+        "kind": "repository",
+        "id": "gen",
+        "path": "scripts/gen-scenario.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "890e42c4de7f0c8b13a4ed5ff45398dd46f02315b2e803f66d643894295776af",
+        "bytes": 17598
+      },
+      {
+        "kind": "repository",
+        "id": "engine",
+        "path": "src/sim/engine.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "dc0d2415a4730977ffe35f39d4560ae183b99199087e1416ce3d8c28a9a8a757",
+        "bytes": 4289
+      },
+      {
+        "kind": "repository",
+        "id": "rules",
+        "path": "src/sim/rules.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "f8986f6f1f7ea4656218a4fc8151bd9ea33dab937381dae024c14a51d09ffcb3",
+        "bytes": 8483
+      },
+      {
+        "kind": "repository",
+        "id": "model",
+        "path": "src/sim/model.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "9d041eefbeb870e299eb1bb36adc9639483e2504c66edfc5f08f64d9bec3cd23",
+        "bytes": 14215
+      },
+      {
+        "kind": "repository",
+        "id": "evidence",
+        "path": "src/sim/evidence.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "1f554b5aeb66da6f8256db2dc0f5c2560ae423ca10d7b12883d2101ae0792f91",
+        "bytes": 10172
+      },
+      {
+        "kind": "repository",
+        "id": "priority",
+        "path": "src/sim/evidence.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "1f554b5aeb66da6f8256db2dc0f5c2560ae423ca10d7b12883d2101ae0792f91",
+        "bytes": 10172
+      },
+      {
+        "kind": "repository",
+        "id": "hash",
+        "path": "src/lib/hash.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "9310989cce8f5b41e92688c20e1547f9f747069cf37d96c425cab82b3bd3afde",
+        "bytes": 5062
+      },
+      {
+        "kind": "repository",
+        "id": "focus",
+        "path": "src/farmer/focus.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "d659018ec3c6fc9f83947dbc73db435f8c029fb43f7951e7bb1352781fd72298",
+        "bytes": 19536
+      },
+      {
+        "kind": "repository",
+        "id": "db",
+        "path": "src/lib/db.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "ad85b492898d0ab91e428eb7ece591e3432092ae28c7a3e765fd768bcf73a9d8",
+        "bytes": 2240
+      },
+      {
+        "kind": "repository",
+        "id": "payload",
+        "path": "src/k/payload.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "fb193af471fdb1129e84034745dfeaeb8f60f3c5561b086db578fb60b7c0309a",
+        "bytes": 7441
+      },
+      {
+        "kind": "repository",
+        "id": "ledger",
+        "path": "src/sim/ledger.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "f208ad733c2a64655481e40cf3135ee3ecb5db6e3b047f025a1f111ed925666b",
+        "bytes": 6303
+      },
+      {
+        "kind": "repository",
+        "id": "config",
+        "path": "src/config.ts",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "74b1af189790b9bbb379167e5d5dac93769074dd472091c00370157db106d3fc",
+        "bytes": 3933
+      },
+      {
+        "kind": "repository",
+        "id": "sw",
+        "path": "scripts/sw.mjs",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "bd08f387cbd6c0740d0b31dc666d34169b9bd71f4781e50c428bf94f5ead9244",
+        "bytes": 2482
+      },
+      {
+        "kind": "repository",
+        "id": "post",
+        "path": "scripts/postbuild.mjs",
+        "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+        "sha256": "bf28fb53f1211c1e99910352873e2961bdc6a7b2634b8f9ed9a743df74d1acfb",
+        "bytes": 5971
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "system-map",
+        "inline": true,
+        "sha256": "93e5a4b1fe01f9cce03a19408d651116571781ab327ca8c0e11bca3e8c8f5405",
+        "bytes": 1704
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "detection-flow",
+        "inline": true,
+        "sha256": "3f26209cc0547d901b73bcb94fc9670c9a0d4883dae334ab00e8c766be6b0865",
+        "bytes": 1560
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "capture-flow",
+        "inline": true,
+        "sha256": "b3b8e5bf48ff2438858fa1aac85c903d85c0136cc180f1f6a30723aa312a430b",
+        "bytes": 1363
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "repo-layout",
+        "inline": true,
+        "sha256": "42d7fbcd853a4a5b667b080b4d8f856e12e6618ea29e1fcb14d3d4f6e4324d39",
+        "bytes": 940
+      }
+    ]
+  }
+}

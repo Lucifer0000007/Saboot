@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+    "sha256": "d51f20c3bcb142a9b6afd19476581b08fd78c894275db6ab7815330bb34cec2d",
+    "bytes": 14854
+  },
+  "artifact": {
+    "path": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+    "sha256": "2798d30f90f412eb715b0d2f84530ba3bd90114bfbe0e3a350f9278a4d7b5f18",
+    "bytes": 2095388
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.finalize.json",
+    "summaryReceipt": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2625,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}
