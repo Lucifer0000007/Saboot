@@ -339,7 +339,7 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
 - Paddy in the standing-water season: radar cannot tell flood from irrigation, so only water above the expected level counts and
   the radar weight is lowered. This is an unvalidated design decision.
 - Weak (2G) networking is simulated as one small message about every 1.2 s, hash-first.
-- The licence holder is a placeholder.
+- MIT licence, held by Ayush Kumar Sharma (`LICENSE`).
 - The officer and district console stays English; the farmer-facing and public parts are trilingual.
 - The nav's "Run the simulation" pill is off-black while another primary action is on screen and turns blue otherwise, so each
   screen has exactly one blue primary.
