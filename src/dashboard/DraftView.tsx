@@ -14,7 +14,7 @@ import { download } from '../lib/download';
 type StepState = 'Running' | 'Done' | 'Open' | 'Closed' | 'Not yet' | 'Outside Saboot';
 interface Step { who: string; text: string; note: string; state: StepState; icon: IconName; outside?: boolean }
 
-// {{VERIFY: that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; the same claim sits in src/i18n/en.ts (ob.*)}}
+// Design: the relief rail's proposed workflow (docs/SABOOT-SPEC.md §14), shown as simulated; no state's order is described.
 function Steps({ d, t }: { d: DraftData; t: number }) {
   const { publishAtHour: pub, objectionWindowHours: win } = d.provenance.publication;
   const end = pub + win;

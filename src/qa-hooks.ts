@@ -7,12 +7,13 @@ import { ensureFocus, syncOutbox, full, view, chain, fileObjection, logs, type L
 import { screen, settingsOpen, type Screen } from './farmer/nav';
 import { network, rail, cadence, type Net } from './lib/prefs';
 import { setLang } from './lib/i18n';
-import { simTab, insurerView, openPlot, type SimTab, type InsurerView } from './site/layout';
+import { simTab, insurerView, openPlot, deepLinkDone, type SimTab, type InsurerView } from './site/layout';
+import { imported } from './k/imported';
 import { startTour, tourStep } from './tour/state';
 import type { Lang } from './sim/types';
 
 const ready = () => new Promise<void>((res) => {
-  const tick = () => (model.value ? res() : setTimeout(tick, 30));
+  const tick = () => (model.value && deepLinkDone.value ? res() : setTimeout(tick, 30));
   tick();
 });
 
@@ -54,6 +55,7 @@ export function installQaHooks() {
     logs: () => Object.fromEntries(Object.entries(logs.value).map(([k, c]) => [k, logInfo(c)])),
     active: (id: string | null) => (activePlotId.value = id),
     kcode: () => import('./farmer/ShareToLaptop').then((m) => m.buildCode()),
+    imported: () => imported.value.map(({ plot, head, importedAt }) => ({ plot, head, importedAt })),
     state: () => ({ t: t.value, shots: full.value.shotCount, queued: view.value.queued, sealed: !!full.value.seal, events: chain.value.length }),
   };
 }

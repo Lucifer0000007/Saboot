@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Icon } from '../../ui/Icon';
+import { Val } from '../../ui/ProvTag';
 import { lazy } from '../../lib/lazy';
 import { tr, trr } from '../../lib/i18n';
 import { fmtClock, fmtDur } from '../../lib/time';
@@ -12,6 +13,7 @@ import { activePlotId } from '../../sim/engine';
 import { backToQueue } from '../helper';
 import { SyncLog } from '../SyncLog';
 import { Thumb } from './Capture';
+import { Seal } from '../../ui/Seal';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
 
@@ -37,15 +39,33 @@ function groups(h: string) {
 
 export function Packet() {
   const v = view.value;
-  if (!v.shotCount) return <div class="stack f-stack"><h2 class="f-title">{tr('pk.title')}</h2><p>{tr('pk.empty')}</p><SyncLog /></div>;
+  if (!v.shotCount) {
+    return (
+      <div class="stack f-stack">
+        <h2 class="f-title">{tr('pk.title')}</h2>
+        <p>{tr('pk.empty')}</p>
+        <button type="button" class="pill pill-primary pill-lg pill-block" data-take-photos onClick={() => (screen.value = 'capture')}>
+          <Icon name="camera" /> {tr('cap.title')} <span class="arrow" aria-hidden="true">→</span>
+        </button>
+        <SyncLog />
+      </div>
+    );
+  }
   const gaps = SHOTS.map((k) => v.shots[k]).filter((s) => s && s.recvT !== null && s.recvT - s.simT > GAP_FLAG_H);
   const maxGap = gaps.reduce((a, s) => Math.max(a, s!.recvT! - s!.simT), 0);
   const first = v.shots.wide ?? Object.values(v.shots)[0]!;
+  // where the photos came from: one label for each origin that is present, with how many
+  const photoOrigins = (['live', 'sim'] as const)
+    .map((o) => [o, SHOTS.filter((k) => v.shots[k] && (v.shots[k]!.synthetic ? 'sim' : 'live') === o).length] as const)
+    .filter(([, n]) => n > 0);
   return (
     <div class="stack f-stack">
-      <div class="row-between">
-        <h2 class="f-title">{tr('pk.title')}</h2>
-        <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
+      <div class="pk-head">
+        <Seal state={v.seal ? 'sealed' : 'open'} size={76} />
+        <div>
+          <h2 class="f-title">{tr('pk.title')}</h2>
+          <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
+        </div>
       </div>
 
       <ul class="pk-photos" role="list">
@@ -58,13 +78,11 @@ export function Packet() {
       </ul>
 
       <dl class="facts">
-        <div><dt>{tr('pk.location')}</dt><dd><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</dd></div>
+        <div><dt>{tr('f.nav.photos')}</dt><dd>{photoOrigins.map(([o, n]) => <Val key={o} kind="photo" prov={o}><span class="num">{n}</span></Val>)}</dd></div>
+        <div><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</Val></dd></div>
         {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
         <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
         <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>
-        {v.seal && (
-          <div class="full" data-tour="hash"><dt>{tr('pk.hash')} (SHA-256)</dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>
-        )}
       </dl>
 
       {v.queued > 0 ? (
@@ -77,10 +95,16 @@ export function Packet() {
       )}
       {gaps.length > 0 && <p class="note note-warn"><Icon name="flag" /><span>{tr('pk.gap', { gap: fmtDur(maxGap) })}</span></p>}
 
-      <SyncLog />
       {v.seal && <ShareCard />}
 
-      <section class="chain" aria-labelledby="chain-h">
+      <details class="pk-tech" data-pk-tech>
+        <summary><Icon name="link" /> <span>{tr('pk.tech')}</span></summary>
+        <div class="stack">
+        {v.seal && (
+          <dl class="facts"><div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div></dl>
+        )}
+        <SyncLog />
+        <section class="chain" aria-labelledby="chain-h">
         <h3 id="chain-h"><Icon name="link" /> {tr('pk.chain')}</h3>
         <p class="f-help">{tr('pk.chainHelp')}</p>
         <ol role="list">
@@ -94,7 +118,9 @@ export function Packet() {
             </li>
           ))}
         </ol>
-      </section>
+        </section>
+        </div>
+      </details>
 
       {v.seal && activePlotId.value !== null ? (
         <button type="button" class="pill pill-primary pill-lg pill-block" onClick={backToQueue}>

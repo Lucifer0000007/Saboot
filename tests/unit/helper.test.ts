@@ -145,3 +145,14 @@ test('the helper goes to the right screen next', () => {
 test('scripted reply times of the objection window are unchanged by helper mode', () => {
   assert.equal(SCRIPT.objectionResponse, 20);
 });
+
+test('a farmer a helper sealed for is not flagged "no receipt" for a step the helper flow does not have', async () => {
+  const p = plot('P-05');
+  const alertT = m.det[p.idx].alertT!;
+  const view = reduce(await sealed(p.name, alertT, 'a'), 200);
+  // well past 12 h after the capture, with no receipt number ever recorded
+  const s = plotState(m, p, alertT + 3.04 + 40, null, { 'P-05': view });
+  assert.equal(s.times.live, true);
+  assert.equal(s.times.fileT, null);
+  assert.ok(!s.flags.includes('no-ref'), 'no no-ref flag for a log the helper made');
+});

@@ -11,7 +11,7 @@ import { network, type Net } from '../lib/prefs';
 import { showToast } from '../lib/announce';
 import { t, playing, speed, toggle, seek, pause, HOURS, type Speed } from '../sim/engine';
 import { moments, jumpTo, type MomentId } from '../sim/moments';
-import { resetFocus } from '../farmer/focus';
+import { resetFocus, logs } from '../farmer/focus';
 import { screen } from '../farmer/nav';
 import { layout, measureInto } from '../site/layout';
 
@@ -26,6 +26,29 @@ export async function resetAll() {
   screen.value = null;
   network.value = 'online';
   showToast(tr('ctl.resetDone'));
+}
+
+/** Set while the person is being asked whether to clear everything this phone captured. */
+const resetAsk = signal(false);
+
+/** Reset the replay. If the phone holds anything a person captured, ask first: photos and a sealed code cannot be got back. */
+export function requestReset() {
+  if (Object.values(logs.value).some((c) => c.length > 0)) { resetAsk.value = true; return; }
+  void resetAll();
+}
+
+export function ResetAsk() {
+  if (!resetAsk.value) return null;
+  const close = () => (resetAsk.value = false);
+  return (
+    <Sheet title={tr('ctl.ask.t')} onClose={close} closeLabel={tr('set.close')} class="center reset-ask" modal>
+      <p>{tr('ctl.ask.b')}</p>
+      <div class="stack">
+        <button type="button" class="pill pill-primary pill-block" onClick={close}>{tr('ctl.ask.keep')}</button>
+        <button type="button" class="pill pill-ghost pill-block" data-reset-yes onClick={() => { close(); void resetAll(); }}>{tr('ctl.ask.go')}</button>
+      </div>
+    </Sheet>
+  );
 }
 
 function Speeds() {
@@ -69,7 +92,7 @@ export function NetSwitch() {
 
 function Reset() {
   return (
-    <button type="button" class="pill pill-ghost pill-sm" onClick={() => { more.value = false; resetAll(); }}>
+    <button type="button" class="pill pill-ghost pill-sm" onClick={() => { more.value = false; requestReset(); }}>
       <Icon name="reset" size={18} /> {tr('ctl.reset')}
     </button>
   );

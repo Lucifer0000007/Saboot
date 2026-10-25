@@ -1,15 +1,14 @@
-// Project facts shown in the footer. Same in every language.
-// {{VERIFY: replace TEAM_NAME with your registered Code Yudh team name, then delete this marker}}
-export const TEAM_NAME = 'Team Saboot';
+// Project facts shown in the footer. Same in every language. The footer label already says "Team".
+export const TEAM_NAME = 'Overflow';
 export const PROJECT = 'Saboot';
 export const TRACK = 'AgriTech & Rural Transformation · Agri-FinTech';
 export const EVENT = 'Code Yudh Hackathon, Chandigarh University';
+/** Where the code lives: a link a person can follow, never fetched by the page. scripts/budgets.mjs names it as the one outside address allowed. */
+export const REPO_URL = 'https://github.com/Lucifer0000007/Saboot';
 
 // The one place the public address lives. The build writes it into the canonical link and the Open Graph /
-// Twitter tags (scripts/postbuild.mjs); `npm run qr` encodes it. The `.invalid` placeholder never resolves,
-// so nothing can be mistaken for a live link, and the marker below keeps `npm run deploy` refusing until it is set.
-// {{VERIFY: set PUBLIC_URL to the final public address of the deployed site (for example https://<site-name>.netlify.app), then delete this marker}}
-export const PUBLIC_URL = 'https://saboot-placeholder.invalid';
+// Twitter tags (scripts/postbuild.mjs); `npm run qr` encodes it. Change it here when the site moves.
+export const PUBLIC_URL = 'https://moonlit-pixie-248afc.netlify.app';
 /** Appended to PUBLIC_URL for the judges' QR code: opens the simulation at the farmer's alert. */
 export const QR_PATH = '?at=alert';
 
@@ -34,7 +33,8 @@ export const RELIEF = {
    * standing water are most useful before the water recedes. This is Saboot's design assumption.
    */
   captureSoonHours: 48,
-  // {{VERIFY: damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA)}}
+  // Source: MHA norms for SDRF/NDRF assistance: input subsidy for crop loss of 33% and above (earlier 50%), Lok Sabha
+  // unstarred question 2488 (eparlib.nic.in). 0.33 here is a scenario parameter for ranking review work, not an amount rule.
   damageShareThreshold: 0.33,
   /** Not set on purpose: the product shows no per-acre amount. */
   perAcreAmount: null as number | null,
@@ -49,7 +49,8 @@ export const RELIEF = {
 export const PMFBY = {
   /** Hours from the event to the end of the localized-calamity intimation window. The claim itself is marked in src/i18n/en.ts. */
   windowHours: 72,
-  // {{VERIFY: that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department}}
+  // Source: Haryana notifies PMFBY each season (Kharif 2025 district notifications, Tribune, and Lok Sabha unstarred
+  // question 2719, eparlib.sansad.in); not every state runs it.
   state: 'Haryana',
 };
 

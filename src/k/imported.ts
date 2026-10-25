@@ -14,10 +14,21 @@ export async function loadImported() {
   imported.value = (await dbGet<Imported[]>('kv', 'k-imported')) ?? [];
 }
 
-export async function addImported(p: KPayload, code: string) {
+/** What a packet says about itself: every part live, any part simulated, any part entered by hand, or nothing recorded. */
+export function importedOrigin(k: KPayload): 'live' | 'sim' | 'hand' | 'unrecorded' {
+  const all = k.shots.flatMap((s) => [s.photo, s.loc]);
+  if (all.includes('sim')) return 'sim';
+  if (all.includes('hand')) return 'hand';
+  return all.every((o) => o === 'live') ? 'live' : 'unrecorded';
+}
+const WORDS = { live: 'live', sim: 'simulated', hand: 'entered by hand', unrecorded: 'origin not recorded' };
+export const importedLabel = (k: KPayload) => `Imported (${WORDS[importedOrigin(k)]})`;
+
+/** `importedAt` is when this laptop received the packet (a real wall clock). The same seal imports once. */
+export async function addImported(p: KPayload, code: string, importedAt: number = Date.now()) {
   await loadImported();
   if (imported.value.some((x) => x.head === p.head)) return false;
-  imported.value = [...imported.value, { ...p, code, importedAt: Date.now() }];
+  imported.value = [...imported.value, { ...p, code, importedAt }];
   await dbSet('kv', 'k-imported', imported.value);
   return true;
 }

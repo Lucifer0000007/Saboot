@@ -2,7 +2,9 @@
 // This is an EVIDENCE TIER for prioritising human review — never a claim decision, never an eligibility decision.
 import { sarExcess, TALL_CROPS, type Model } from './model';
 import { SAR_LATENCY_H } from './rules';
+import { PMFBY } from '../config';
 import type { PlotState } from './cohort';
+import type { Prov } from '../lib/prov';
 
 export type Tier = 'supported' | 'partial' | 'insufficient' | 'none';
 export type FactorId = 'rain' | 'river' | 'terrain' | 'flood' | 'photos' | 'integrity';
@@ -14,6 +16,19 @@ export interface Factor {
   value: number; // 0..1
   unc: number; // ± on value
   detail: string;
+  /** where the factor's input came from; a factor without one is an observation of the replay (live or simulated) */
+  prov?: Prov;
+}
+
+/**
+ * The HAND trust rule (docs/FEATURE-MAP.md): a value a person typed or chose can never, on its own, make a plot "supported".
+ * If every factor that adds to the score was entered by hand, "supported" becomes "partial". No factor is hand-entered in
+ * this prototype (the hand-entered water depth was cut), so the rule has no input yet; it is unit-tested and waits.
+ */
+export function capHand(tier: Tier, factors: readonly Pick<Factor, 'weight' | 'value' | 'prov'>[]): Tier {
+  if (tier !== 'supported') return tier;
+  const adding = factors.filter((f) => f.weight > 0 && f.value > 0);
+  return adding.length && adding.every((f) => f.prov === 'hand') ? 'partial' : tier;
 }
 
 export interface Evidence {
@@ -30,6 +45,12 @@ export interface Evidence {
 }
 
 export const TIER_RULE = { supportedLo: 0.6, insufficientHi: 0.45 };
+
+/**
+ * A band end shown as a whole percent, rounded DOWN: a printed end must never reach a tier line the exact value has not
+ * (0.5964 is not "60" beside Partial). The tiny term stops 0.57 from reading 56 (57 / 100 is 56.99999999999999).
+ */
+export const bandPct = (x: number) => Math.floor(x * 100 + 1e-9);
 
 /**
  * UNCALIBRATED scenario parameters (docs/SABOOT-SPEC.md, section 15). Not fitted to any claims data.
@@ -126,14 +147,19 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   };
 
   const n = s.shotsNow;
-  const inWindow = s.times.captureT !== null && s.times.deadlineT !== null && s.times.captureT <= s.times.deadlineT;
-  const geoOk = s.times.geoOffM <= 100;
+  // Photos count in full when taken within the insurance window of 72 h after the event, on either rail: how strong a photo
+  // is as evidence does not depend on which process reads it, and the relief rail's capture-soon advice is not a deadline.
+  const freshUntil = s.times.eventT === null ? null : s.times.eventT + PMFBY.windowHours;
+  const inWindow = s.times.captureT !== null && freshUntil !== null && s.times.captureT <= freshUntil;
+  // a real capture cannot be compared with a fictional plot, so it is neither passed nor penalised, and the text says so
+  const geoOk = s.times.live || s.times.geoOffM <= 100;
+  const where = s.times.live ? 'location not checked against the plot' : geoOk ? 'location on plot' : `${s.times.geoOffM} m from plot`;
   const photos: Factor = {
     id: 'photos', label: 'Geo-tagged photos', weight: 0,
     value: n ? clamp((n / 3) * (inWindow ? 1 : 0.5) * (geoOk ? 1 : 0.4)) : 0,
     unc: (n ? 0.08 : 0.02) + (p.baselineWet && n ? PADDY_PHOTO_UNC : 0),
     detail: n
-      ? `${n}/3 shots · ${inWindow ? (s.rail === 'pmfby' ? 'within window' : 'within the capture-soon advice') : (s.rail === 'pmfby' ? 'after deadline' : 'after the capture-soon advice')} · ${geoOk ? 'location on plot' : `${s.times.geoOffM} m from plot`} · water visible (AI perception, ±)${p.baselineWet ? ' · expected on paddy anyway' : ''}`
+      ? `${n}/3 shots · ${inWindow ? `within ${PMFBY.windowHours} h of the event` : `more than ${PMFBY.windowHours} h after the event`} · ${where}${p.baselineWet ? ' · expected on paddy anyway' : ''}`
       : 'No photos yet',
   };
   const gap = s.times.syncT !== null && s.times.captureT !== null ? s.times.syncT - s.times.captureT : 0;
@@ -141,7 +167,7 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   const integrity: Factor = {
     id: 'integrity', label: 'Integrity (hash chain, clocks)', weight: 0,
     value: received ? (gap > 2 ? 0.6 : 1) : 0, unc: 0.03,
-    detail: received ? `Hashes verify · device→server gap ${gap.toFixed(1)} h${gap > 2 ? ' (flagged)' : ''}` : 'Nothing received yet',
+    detail: received ? `Evidence received · phone-to-server gap ${gap.toFixed(1)} h${gap > 2 ? ' (flagged)' : ''}` : 'Nothing received yet',
   };
 
   const w = weightsFor({ river: river !== null, baselineWet: p.baselineWet });
@@ -153,6 +179,7 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
   if (s.stage !== 'monitoring' && s.stage !== 'no-damage') {
     tier = lo >= TIER_RULE.supportedLo ? 'supported' : hi < TIER_RULE.insufficientHi ? 'insufficient' : 'partial';
     if (s.times.hail && tier === 'supported') tier = 'partial'; // honest limit: hail never auto-"supported"
+    tier = capHand(tier, factors);
   }
   return { factors, score, lo, hi, tier, notes: p.baselineWet ? [PADDY_NOTE] : [], floodShare: s.times.hail ? 0 : obs, floodShareUnc: flood.unc * 0.5 };
 }

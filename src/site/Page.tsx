@@ -2,19 +2,20 @@
 // sections that need the browser are replaced by placeholders of the same size.
 import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
-import { liveMsg, toast } from '../lib/announce';
+import { liveMsg, toast, updateReady } from '../lib/announce';
 import { tr } from '../lib/i18n';
 import { loadScenario, model } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
-import { loadFocus } from '../farmer/focus';
+import { loadFocus, restoreClock } from '../farmer/focus';
 import { Settings } from '../ui/Settings';
+import { ResetAsk } from '../ui/ControlBar';
 import { Presenter } from '../tour/Presenter';
 import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, simTab, importCode } from './layout';
-import { rail, cadence } from '../lib/prefs';
+import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
+import { rail, cadence, receiver } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0);
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
@@ -55,31 +56,52 @@ function useNear(id: string) {
 }
 
 let deepLinked = false;
-function applyDeepLink() {
+async function applyDeepLink() {
   if (deepLinked || !model.value) return;
   deepLinked = true;
-  const d = readDeepLink();
-  if (d.rail) rail.value = d.rail;
-  if (d.cadence) cadence.value = d.cadence;
-  if (d.tab) simTab.value = d.tab;
-  if (d.k) {
-    simTab.value = 'insurer';
-    importCode.value = d.k;
+  try {
+    // the stored log must be in memory before a moment jump decides what the farmer is still missing
+    await loadFocus();
+    const d = readDeepLink();
+    if (d.rail) rail.value = d.rail;
+    if (d.cadence) cadence.value = d.cadence;
+    if (d.receiver !== undefined) receiver.value = d.receiver;
+    if (d.tab) simTab.value = d.tab;
+    if (d.k) {
+      simTab.value = 'insurer';
+      importCode.value = d.k;
+    }
+    if (d.at) {
+      simTab.value = 'farmer';
+      await jumpTo(d.at as MomentId);
+    }
+    if (d.at) requestAnimationFrame(() => scrollToPhone());
+    else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
+    else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
+    restoreClock();
+  } finally {
+    deepLinkDone.value = true;
   }
-  if (d.at) {
-    simTab.value = 'farmer';
-    void jumpTo(d.at as MomentId);
-  }
-  if (d.at || d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
-  else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
 }
 
 export function Page({ ssr }: { ssr?: boolean }) {
   useEffect(() => {
     loadScenario();
-    loadFocus();
+    void loadFocus().then(restoreClock);
+    // the optional send to the demo laptop: with the preference off there is not even a request for the chunk
+    if (receiver.value) void import('../k/receipt').then((m) => m.watchSends());
+    // a link with #k= pasted into a tab that is already open (the page does not reload for a hash change)
+    const onHash = () => {
+      const d = readDeepLink();
+      if (d.k) {
+        simTab.value = 'insurer';
+        importCode.value = d.k;
+      }
+    };
+    addEventListener('hashchange', onHash);
+    return () => removeEventListener('hashchange', onHash);
   }, []);
-  useEffect(applyDeepLink, [model.value]);
+  useEffect(() => { void applyDeepLink(); }, [model.value]);
   return (
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{tr('skip.main')}</a>
@@ -96,8 +118,15 @@ export function Page({ ssr }: { ssr?: boolean }) {
       {!ssr && (
         <>
           <Settings />
+          <ResetAsk />
           <Presenter />
           {tourStep.value !== null && <Tour />}
+          {updateReady.value && (
+            <div class="update-bar" role="status">
+              <span>{tr('app.updated')}</span>
+              <button type="button" class="pill pill-sm pill-dark" onClick={() => location.reload()}>{tr('app.reload')}</button>
+            </div>
+          )}
           {toast.value && (
             <div class={'toast' + (toast.value.tone === 'warn' ? ' warn' : '')} key={toast.value.id} aria-hidden="true">
               {toast.value.text}

@@ -1,0 +1,580 @@
+# Replay R-1 labels. R1-FLOOD: from the first delivered Copernicus EMS flood extent. R1-DRY: assumed quiet, not independently confirmed.
+event_id,window_start_utc,window_end_utc,village,status,source
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-002,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-003,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-004,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-005,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-006,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-007,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-008,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-009,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-010,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-011,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-012,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-013,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-014,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-015,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-016,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-017,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-018,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-019,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-020,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-021,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-022,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-023,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-024,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-025,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-026,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-027,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-028,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-029,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-030,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-031,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-032,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-033,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-034,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-035,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-036,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-037,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-038,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-039,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-040,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-041,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-042,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-043,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-044,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-045,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-046,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-047,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-048,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-049,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-050,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-051,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-052,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-053,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-054,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-055,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-056,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-057,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-058,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-059,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A01-060,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 1 (Rasoo Nagar)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-002,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-003,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-004,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-005,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-006,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-007,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-008,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-009,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-010,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-011,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-012,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-013,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-014,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-015,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-016,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-017,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-018,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-019,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-020,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-021,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-022,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-023,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-024,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-025,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-026,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-027,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-028,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-029,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-030,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-031,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-032,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-033,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-034,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-035,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-036,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-037,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-038,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-039,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-040,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-041,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-042,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-043,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-044,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-045,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-046,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-047,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-048,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-049,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-050,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-051,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-052,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-053,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-054,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-055,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-056,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-057,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-058,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-059,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A02-060,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 2 (Sharaqpur)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-002,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-003,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-004,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-005,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-006,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-007,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-008,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-009,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-010,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-011,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-012,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-013,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-014,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-015,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-016,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-017,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-018,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-019,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-020,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-021,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-022,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-023,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-024,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-025,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-026,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-027,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-028,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-029,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-030,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-031,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-032,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-033,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-034,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-035,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-036,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-037,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-038,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-039,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-040,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-041,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-042,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-043,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-044,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-045,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-046,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-047,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-048,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-049,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-050,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-051,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-052,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-053,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-054,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-055,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-056,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-057,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-058,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-059,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A03-060,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 3 (Pir Khalis)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-002,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-003,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-004,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-005,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-006,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-007,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-008,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-009,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-010,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-011,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-012,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-013,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-014,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-015,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-016,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-017,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-018,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-019,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-020,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-021,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-022,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-023,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-024,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-025,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-026,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-027,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-028,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-029,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-030,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-031,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-032,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-033,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-034,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-035,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-036,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-037,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-038,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-039,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-040,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-041,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-042,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-043,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-044,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-045,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-046,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-047,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-048,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-049,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-050,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-051,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-052,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-053,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-054,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-055,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-056,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-057,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-058,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-059,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A04-060,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 4 (Najabat)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-002,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-003,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-004,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-005,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-006,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-007,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-008,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-009,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-010,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-011,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-012,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-013,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-014,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-015,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-016,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-017,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-018,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-019,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-020,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-021,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-022,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-023,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-024,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-025,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-026,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-027,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-028,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-029,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-030,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-031,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-032,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-033,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-034,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-035,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-036,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-037,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-038,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-039,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-040,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-041,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-042,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-043,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-044,affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-045,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-046,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-047,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A05-048,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 5 (Trimmu)"
+R1-FLOOD,2025-08-20T00:00:00Z,2025-09-04T00:00:00Z,R1-A08-001,not_affected,"Copernicus EMS EMSR838, first delivered flood extent, area 8 (Vanike)"
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-002,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-003,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-004,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-005,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-006,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-007,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-008,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-009,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-010,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-011,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-012,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-013,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-014,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-015,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-016,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-017,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-018,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-019,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-020,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-021,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-022,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-023,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-024,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-025,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-026,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-027,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-028,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-029,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-030,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-031,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-032,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-033,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-034,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-035,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-036,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-037,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-038,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-039,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-040,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-041,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-042,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-043,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-044,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-045,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-046,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-047,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-048,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-049,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-050,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-051,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-052,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-053,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-054,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-055,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-056,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-057,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-058,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-059,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A01-060,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-002,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-003,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-004,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-005,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-006,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-007,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-008,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-009,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-010,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-011,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-012,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-013,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-014,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-015,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-016,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-017,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-018,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-019,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-020,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-021,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-022,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-023,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-024,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-025,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-026,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-027,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-028,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-029,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-030,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-031,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-032,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-033,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-034,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-035,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-036,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-037,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-038,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-039,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-040,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-041,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-042,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-043,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-044,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-045,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-046,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-047,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-048,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-049,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-050,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-051,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-052,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-053,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-054,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-055,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-056,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-057,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-058,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-059,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A02-060,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-002,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-003,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-004,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-005,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-006,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-007,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-008,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-009,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-010,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-011,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-012,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-013,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-014,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-015,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-016,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-017,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-018,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-019,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-020,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-021,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-022,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-023,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-024,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-025,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-026,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-027,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-028,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-029,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-030,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-031,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-032,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-033,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-034,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-035,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-036,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-037,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-038,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-039,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-040,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-041,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-042,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-043,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-044,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-045,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-046,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-047,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-048,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-049,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-050,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-051,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-052,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-053,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-054,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-055,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-056,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-057,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-058,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-059,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A03-060,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-002,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-003,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-004,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-005,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-006,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-007,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-008,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-009,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-010,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-011,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-012,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-013,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-014,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-015,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-016,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-017,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-018,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-019,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-020,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-021,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-022,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-023,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-024,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-025,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-026,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-027,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-028,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-029,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-030,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-031,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-032,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-033,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-034,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-035,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-036,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-037,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-038,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-039,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-040,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-041,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-042,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-043,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-044,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-045,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-046,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-047,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-048,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-049,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-050,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-051,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-052,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-053,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-054,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-055,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-056,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-057,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-058,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-059,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A04-060,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-002,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-003,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-004,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-005,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-006,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-007,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-008,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-009,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-010,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-011,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-012,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-013,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-014,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-015,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-016,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-017,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-018,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-019,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-020,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-021,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-022,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-023,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-024,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-025,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-026,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-027,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-028,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-029,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-030,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-031,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-032,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-033,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-034,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-035,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-036,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-037,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-038,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-039,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-040,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-041,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-042,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-043,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-044,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-045,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-046,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-047,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A05-048,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)
+R1-DRY,2025-05-01T00:00:00Z,2025-05-15T00:00:00Z,R1-A08-001,not_affected,assumed quiet: no Copernicus EMS flood activation covers this area in this window (not independently confirmed)

@@ -8,6 +8,9 @@ const en: Record<string, string | string[]> = {
   'u.d': 'd',
   'u.h': 'h',
   'u.m': 'm',
+  'u.day': 'day',
+  'u.days': 'days',
+  'u.min': 'min',
 
   // ---- page shell ----
   'skip.main': 'Skip to content',
@@ -37,15 +40,16 @@ const en: Record<string, string | string[]> = {
   'hero.how': 'How it works',
   'hero.clockLabel': 'Illustration: a clock that starts counting at the storm',
   'hero.clockCap': 'Counted from the event, not from the phone call',
+  'hero.labels': 'Every value on screen says where it came from:',
 
   'pb.eyebrow': 'The problem',
   'pb.h': 'Evidence fades faster than assessments happen.',
   'pb.1.t': 'Assessed after the water is gone',
-  // {{VERIFY: that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority}}
-  'pb.1.b': 'A loss assessment is usually a walk through the fields once the flood has gone down, when the evidence has already faded.',
+  // Softened to "often": practice differs by state (girdawari-style field visits after the water recedes).
+  'pb.1.b': 'A loss assessment is often a walk through the fields once the flood has gone down, when the evidence has already faded.',
   'pb.2.t': 'Nobody tells the farmer what to capture',
-  // {{VERIFY: that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App}}
-  'pb.2.b': 'The water arrives before any message does. A farmer rarely hears that a loss clock has started, or which proof will help.',
+  // Softened to "often": no source states how often; the farmer conversations are in docs/INTERVIEWS.md.
+  'pb.2.b': 'The water often arrives before any message does. A farmer often does not hear that a loss clock has started, or which proof will help.',
   'pb.3.t': 'Proof that can be questioned',
   'pb.3.b': 'A photo without a trusted time and place is easy to doubt. Late or doubtful evidence makes a fair assessment harder.',
 
@@ -57,7 +61,8 @@ const en: Record<string, string | string[]> = {
   'rail.relief': 'Relief assessment',
   'rail.pmfby': 'PMFBY intimation',
   'rail.d.relief': 'A state or district assessment of flood losses. The officer ranks and verifies; the farmer supplies sealed evidence. The capture-soon advice is not a deadline. No state is named.',
-  // {{VERIFY: 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in}}
+  // Source: PMFBY operational guidelines, localized calamities: intimation within 72 hours (48 hours until 2018), Lok
+  // Sabha unstarred question 3866 (eparlib.nic.in). Shown on the PMFBY rail only.
   'rail.d.pmfby': 'The 72‑hour intimation of a localized calamity, for a state that runs PMFBY. A fictional district in {state}.',
   'cad.label': 'Radar passes',
   'cad.demo': 'Every {n} h (demo)',
@@ -71,7 +76,12 @@ const en: Record<string, string | string[]> = {
   'sim.tab.explainer': 'Explainer',
   'sim.phoneCap': 'The farmer’s phone, running for real in your browser',
   'sim.loading': 'Loading the flood replay…',
-  'sim.loadError': 'Could not load the scenario data ({err}). Reload the page.',
+  'sim.loadError': 'The simulation data did not load. Check your connection and try again.',
+  'sim.retry': 'Try again',
+  'lang.fail': 'Could not load {lang}. Check your connection and try again.',
+  'app.offlineReady': 'Ready to work offline.',
+  'app.updated': 'A new version of Saboot is ready.',
+  'app.reload': 'Reload',
   'lazy.failed': 'This part of the page did not load. Check the connection, then reload the page.',
   'lazy.reload': 'Reload the page',
   'sim.consoleNote': 'The insurer and district console is shown in English.',
@@ -88,6 +98,10 @@ const en: Record<string, string | string[]> = {
   'ctl.jump': 'Jump to a moment',
   'ctl.reset': 'Reset',
   'ctl.resetDone': 'Replay reset to T+0. Your actions were cleared.',
+  'ctl.ask.t': 'Clear what this phone captured?',
+  'ctl.ask.b': 'Starting over deletes the photos, the consent records and the sealed code on this phone, for every farmer a helper captured for as well. This cannot be undone.',
+  'ctl.ask.keep': 'Keep what was captured',
+  'ctl.ask.go': 'Clear it and start over',
   'ctl.more': 'More controls',
   'ctl.moreTitle': 'Replay controls',
   'ctl.net': 'Phone network',
@@ -133,8 +147,8 @@ const en: Record<string, string | string[]> = {
   'faq.a6': [
     'Real in your browser: camera and location, SHA-256 fingerprints and the hash chain, the offline queue, voice playback and the offline app itself.',
     'Simulated: the rain, the river gauges, the satellite flood maps, the server, the voice call, the officer or insurer, the filing channel, and all {plots} plots and their farmers. Every number on screen comes from the simulation.',
-    // {{VERIFY: Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu}}
-    'Real satellite radar passes the same field only every few days. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated.',
+    // Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner).
+    'Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated.',
   ],
   'faq.q7': 'Has any of this been validated on real floods?',
   'faq.a7': [
@@ -150,6 +164,8 @@ const en: Record<string, string | string[]> = {
   'foot.project': 'Project',
   'foot.track': 'Track',
   'foot.event': 'Event',
+  'foot.code': 'Source code on GitHub',
+  'foot.build': 'Build {b}',
 
   // ---- judge tour ----
   'tour.step': 'Judge tour · {n} / {total}',
@@ -198,9 +214,9 @@ const en: Record<string, string | string[]> = {
   'arch.clk.pmfby': '72‑hour clock',
   'arch.clk.s': 'Starts at the event time',
   'arch.al': 'Farmer alert',
-  'arch.al.s': 'Voice call in their language · AI: language only',
+  'arch.al.s': 'Voice message in their language · no AI in this prototype',
   'arch.cap': 'Guided capture',
-  'arch.cap.s': 'Time- and place-stamped, works offline · AI: water in photo',
+  'arch.cap.s': 'Time- and place-stamped, works offline · a photo check is planned, not built',
   'arch.pk': 'Evidence packet',
   'arch.pk.s': 'SHA-256 hash chain, sealed on the phone',
   'arch.ins': 'Officer console',
@@ -230,8 +246,8 @@ const en: Record<string, string | string[]> = {
   'wf.4.b': 'Every photo and action is fingerprinted with SHA-256 and chained, so any later edit shows.',
   'wf.5.t': 'Hand off and track',
   'wf.5.b': 'The farmer shows the sealed evidence to the officer. Saboot keeps the audit trail and tracks the officer’s acknowledgement; the officer decides, outside Saboot.',
-  // {{VERIFY: official intimation channels — the Crop Insurance App and the Krishi Rakshak Portal and Helpline 14447 — pmfby.gov.in and agriwelfare.gov.in}}
-  'wf.5.b.pmfby': 'Details are ready for the official channel (in India, for example, the Crop Insurance App or the 14447 helpline). Saboot tracks the acknowledgement and escalates if it slips.',
+  // Official names confirmed by the owner: the Crop Insurance App, and the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel.
+  'wf.5.b.pmfby': 'Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips.',
   'rs.h': 'What is real and what is simulated',
   'rs.c': 'Part',
   'rs.demo': 'In this demo',
@@ -246,8 +262,8 @@ const en: Record<string, string | string[]> = {
   'rs.1.p': 'Weather agency and state automatic weather stations',
   'rs.2.c': 'Flood mapping',
   'rs.2.d': 'Synthetic radar flood maps, a pass every {n} hours in the demo or every {slow} hours in the slower option (simulated cadence)',
-  // {{VERIFY: satellite radar revisit over a given field is several days — ESA Sentinel-1 mission overview}}
-  'rs.2.p': 'Satellite radar flood mapping, which revisits a field only every few days',
+  // Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner).
+  'rs.2.p': 'Satellite radar flood mapping. Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one.',
   'rs.3.c': 'Terrain',
   'rs.3.d': 'Synthetic elevation grid',
   'rs.3.p': 'Digital elevation model',
@@ -289,7 +305,8 @@ const en: Record<string, string | string[]> = {
   'rs.13.p': 'Field pilots',
   'rs.14.c': 'River gauges',
   'rs.14.d': 'Synthetic hourly river-stage series for {n} gauges, made from the same simulated flood',
-  // {{VERIFY: river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in)}}
+  // Source: the Central Water Commission is the nodal flood-forecasting agency (river-level and dam-inflow forecasts,
+  // cwc.gov.in/en/mco/flood-forecast); states run flood works with their water resources departments (Lok Sabha AU2047).
   'rs.14.p': 'State water resources department and national flood-forecasting gauges',
   'rs.15.c': 'Real-data validation',
   'rs.15.d': 'Not run yet. The precision and recall shown are a simulated consistency check',
@@ -368,6 +385,8 @@ const en: Record<string, string | string[]> = {
   'al.reminder': 'Reminder: about {left} left in the suggested time. Photos take 2 minutes.',
   'al.reminder.pmfby': 'Reminder: {left} left. Photos take 2 minutes.',
   'al.lastHours': 'Capture soon',
+  'al.about': 'about {t}',
+  'al.passedWords': 'the advice window has passed',
   'al.advice': 'Advice, not a deadline',
   'al.lastHours.pmfby': 'Last hours',
   'al.noDamageDone': 'Thank you. We recorded: no damage. Nothing more is needed from you.',
@@ -397,7 +416,6 @@ const en: Record<string, string | string[]> = {
   'cap.old': 'This photo is older than this session. Please take a new photo with the camera.',
   'cap.queued': 'Saved on phone. Will send when network returns.',
   'cap.sent': 'Sent',
-  'cap.camFail': 'Camera not available. Using a simulated photo.',
   'cap.helper': 'Taken by helper: {name}',
   'cap.taken': 'Taken',
   'sec.http': 'Opened over plain HTTP. The camera, location and signing are off here. Open the HTTPS link from the QR code. Simulated photos still get a fingerprint.',
@@ -407,6 +425,7 @@ const en: Record<string, string | string[]> = {
   'pk.unsealed': 'Not sealed yet',
   'pk.location': 'Location',
   'pk.hash': 'Fingerprint',
+  'pk.tech': 'Technical details: fingerprint, sync log and tamper-evident log',
   'pk.chain': 'Tamper-evident log',
   'pk.chainHelp': 'Each entry is locked to the one before. Any change breaks the chain.',
   'pk.queued': 'Waiting for network: {n} queued',
@@ -424,7 +443,13 @@ const en: Record<string, string | string[]> = {
   'k.body': 'Turn your sealed packet into a signed code. Only fingerprints, times and a rough location are shared; the photos stay on this phone.',
   'k.btn': 'Share as a QR code',
   'k.sheet': 'Signed evidence code',
-  'k.lead': 'Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent to any server.',
+  'k.lead': 'Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent unless you choose to send it.',
+  'k.send': 'Send to the laptop',
+  'k.sendHelp': 'Sends only this signed code to the laptop this page was opened from. Photos stay on the phone.',
+  'k.sending': 'Sending…',
+  'k.sendWait': 'No connection. It will be sent when the phone is back online.',
+  'k.sent': 'Received by the laptop at {time}.',
+  'k.sendFail': 'The laptop did not answer. It will be tried again.',
   'k.qr': 'QR code holding your signed evidence code',
   'k.copyCode': 'Copy code',
   'k.copyLink': 'Copy link',
@@ -435,6 +460,35 @@ const en: Record<string, string | string[]> = {
   'k.code': 'The code',
   'k.making': 'Signing your packet…',
   'k.stay': 'Photos stay on this phone. The code holds only their fingerprints.',
+  'k.fail': 'Could not make the code. Check that your photos are sealed, then try again.',
+  'cap.camDenied': 'The camera is blocked or not available. Allow the camera in your browser settings and try again. You can also use a simulated photo, which is labelled Simulated.',
+  'cap.saveFail': 'The photo could not be saved on this phone. Free some space and try again.',
+  'cap.badPhoto': 'This photo could not be read. Take it again.',
+  'cap.needConsent': '{farmer} has not agreed yet. Ask for their consent before you take any photo.',
+  'cap.askConsent': 'Ask for consent',
+  'db.memory': 'This phone is not saving your photos. Keep this page open until they are sent.',
+  'prov.live': 'Live',
+  'prov.replay': 'Replay',
+  'prov.sim': 'Simulated',
+  'prov.hand': 'Entered by hand',
+  'prov.by': 'by {who}',
+  'prov.none': 'Origin not recorded',
+  'prov.field': 'Field record',
+  'fe.h': 'Field evidence',
+  'fe.note': 'Not simulated: anonymous conversations with verbal consent, listed in docs/INTERVIEWS.md. What people said is their own account, not a finding.',
+  'fe.strip': '{n} interviews · {states} states · {roles} roles',
+  'fe.target': '{state} interviews: {n} so far.',
+  'fe.letters': 'Letters of interest: {n}',
+  'fe.users': 'People using it: {n}',
+  'fe.raised': 'What interviewees raised',
+  'fe.theme': 'Reported in {state}: {theme}',
+  'fe.quote': '“{quote}” ({role}, {state})',
+  'fe.landing.h': 'We asked the people who do this work',
+  'fe.landing.note': 'Anonymous phone conversations with verbal consent; recording was not part of it. The list is in docs/INTERVIEWS.md. What they told us is their own account.',
+  'fe.role.patwari': 'Patwari',
+  'fe.role.assessor': 'Insurer loss assessor',
+  'fe.role.farmer': 'Farmer',
+  'fe.role.csc': 'CSC operator',
   'fl.title': 'Share your evidence',
   'fl.title.pmfby': 'Report your loss',
   'fl.intro': 'Saboot does not submit anything. Show your sealed evidence to the officer who assesses your village. Your details are ready.',
@@ -445,8 +499,9 @@ const en: Record<string, string | string[]> = {
   'fl.copyFail': 'Could not copy. Please read the details aloud instead.',
   'fl.steps': 'How to report',
   'fl.s1': 'Tell the officer who assesses your village that you have sealed photos of the flood.',
-  // {{VERIFY: that farmers can intimate loss through an official crop-insurance helpline or app (named in the How it works section) — pmfby.gov.in}}
-  'fl.s1.pmfby': 'Call the crop insurance helpline, or open the official crop insurance app.',
+  // Source: the Krishi Rakshak Portal & Helpline, toll-free 14447, and the Crop Insurance App take crop-loss intimation,
+  // Lok Sabha unstarred question 2508 (eparlib.sansad.in).
+  'fl.s1.pmfby': 'Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App.',
   'fl.s2': 'Give your plot number and show the details on this screen.',
   'fl.s2.pmfby': 'Say: crop loss from flood. Give your policy number and plot number.',
   'fl.s3': 'If asked, read out your evidence fingerprint.',
@@ -497,7 +552,8 @@ const en: Record<string, string | string[]> = {
   'st.decisionNote': 'Saboot never decides. The officer does.',
   'st.decisionNote.pmfby': 'Saboot never decides claims.',
   'st.surveyAt': 'Scheduled {time}',
-  // {{VERIFY: that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx}}
+  // Design: the draft list, the objection window and the department's final decision are the relief rail's proposed
+  // workflow (docs/SABOOT-SPEC.md §14), shown on screen as simulated; no state's order is described.
   'ob.title': 'Officer’s draft list',
   'ob.soon': 'Later, the officer publishes a draft list. This is simulated: about {time}. If your entry looks wrong, you can attach your sealed evidence until {until}.',
   'ob.open': 'The officer’s draft list is out (simulated). If your entry looks wrong, attach your sealed evidence. This is open until {until}.',
@@ -521,6 +577,7 @@ const en: Record<string, string | string[]> = {
   'as.record': 'Record spoken consent',
   'as.recording': 'Recording… tap to stop',
   'as.done': 'Consent recorded at {time}',
+  'as.doneToast': 'Consent recorded.',
   'as.start': 'Start photos',
   'as.needName': 'Enter the helper’s name first.',
   'as.voiceSha': 'Voice consent · fingerprint {h}',
@@ -535,7 +592,8 @@ const en: Record<string, string | string[]> = {
   'hm.consentIntro': 'Read this out to {farmer}. {farmer} agrees by pressing and holding the button, or by speaking. Nothing is captured without it.',
   'hm.title': 'Helper mode',
   'hm.sub': 'Capture for several farmers',
-  // {{VERIFY: that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines}}
+  // Design: the helper roles are Saboot's choice (docs/SABOOT-SPEC.md §14), offered as people who can help, not a claim
+  // about who farmers turn to; a CSC operator is among the conversations in docs/INTERVIEWS.md.
   'hm.intro': 'For a sarpanch, CSC operator, cooperative or extension worker. Capture for several farmers on this phone. Each farmer gives their own consent, and each farmer’s evidence is sealed on its own.',
   'hm.name': 'Your name',
   'hm.role': 'You are',
@@ -580,8 +638,8 @@ const en: Record<string, string | string[]> = {
   'fp.s2': 'Saboot calls back',
   'fp.s3': 'Keypad answer',
   'fp.s4': 'A helper records the photos',
-  // {{VERIFY: that a missed call to a number shown on a village noticeboard is a workable way to reach farmers without a smartphone — a design assumption to confirm with the district office and a telephony partner, not an existing service; key fp.s1.b and its hi/pa lines}}
-  'fp.s1.b': 'The farmer gives a missed call to the number shown on the village noticeboard. In the design, Saboot calls back and reads the alert aloud.',
+  // Design note, not an existing service: a missed call to a number shown on a village noticeboard is an idea to confirm with the district office and a telephony partner. It is deliberately not stated as fact in the visible text of fp.s1.b.
+  'fp.s1.b': 'In the design, the farmer gives a missed call and Saboot calls back and reads the alert aloud.',
   'fp.call': 'Give a missed call',
   'fp.incoming': 'Call from Saboot',
   'fp.press': 'Listen, then press 1 or 2.',
@@ -599,7 +657,7 @@ const en: Record<string, string | string[]> = {
   'fp.helper': 'The helper visits with a smartphone, reads the consent aloud with the farmer, takes the three photos and seals the packet. The packet names the helper and carries the farmer’s consent.',
   'fp.open': 'Open helper mode',
   'fp.again': 'Start again',
-  'f.rewound': 'Replay rewound — your later actions were replaced.',
+  'f.rewound': 'The replay moved forward to your latest action, so nothing you did is lost.',
   'f.ok': 'OK',
   'set.title': 'Settings',
   'set.lang': 'Language',
@@ -612,9 +670,13 @@ const en: Record<string, string | string[]> = {
   'set.lowData': 'Low-data mode',
   'set.lowDataHelp': 'Hides maps and pictures that are not needed.',
   'set.contrast': 'High contrast',
+  'set.theme': 'Light or dark',
+  'set.theme.system': 'Device',
+  'set.theme.light': 'Light',
+  'set.theme.dark': 'Dark',
   'set.close': 'Close',
   'set.data': 'Your data on this phone',
-  'set.dataHelp': 'Photos, consent and sealed packets are kept only on this phone. Nothing is uploaded. You can take a copy or delete it all.',
+  'set.dataHelp': 'Photos, consent and sealed packets are kept only on this phone. Nothing is uploaded by itself: only a signed code can leave, and only when you send it. You can take a copy or delete it all.',
   'set.export': 'Export my data (JSON)',
   'set.delete': 'Delete my data from this phone',
   'set.deleteAsk': 'Delete the photos, consent records and sealed packets on this phone? This cannot be undone.',

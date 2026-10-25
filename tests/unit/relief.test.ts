@@ -144,6 +144,16 @@ test('hail non-responders appear as unconfirmed, apart from the flooded counts',
   assert.equal(d.villages.reduce((a, v) => a + v.plots, 0), d.entries.length - unconfirmed.length);
 });
 
+test('a hail prompt still waiting for a reply is unconfirmed in the draft, so the published list does not rewrite itself when its window ends', () => {
+  const before = 108, after = 110; // the list was published at 96
+  const waiting = rowsAt(relief, before).filter((r) => r.s.stage === 'hail-prompt');
+  assert.ok(waiting.length > 0, 'the scenario has hail prompts still waiting at 108 h');
+  const d = buildDraft(relief, rowsAt(relief, before), before, SHA);
+  for (const r of waiting) assert.equal(d.entries.find((e) => e.plot === r.s.plot.id)?.unconfirmed, true, `${r.s.plot.id} is unconfirmed`);
+  const order = (t: number) => buildDraft(relief, rowsAt(relief, t), t, SHA).villages.map((v) => `${v.name}:${v.reviewLoad}`);
+  assert.deepEqual(order(before), order(after), 'the village order and review load do not change when the prompts close');
+});
+
 test('the CSV has the same number of fields on every row, quoted values included', () => {
   const d = buildDraft(relief, rowsAt(relief, H), H, SHA);
   const lines = draftCsv(d).trimEnd().split('\n').filter((l) => !l.startsWith('#'));

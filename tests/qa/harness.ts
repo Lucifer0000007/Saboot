@@ -107,6 +107,9 @@ export async function settle(page: Page, focus?: string) {
   await page.waitForTimeout(250);
   await page.waitForFunction(() => !document.querySelector('.loading'), null, { timeout: 20_000 }).catch(() => {});
   if (focus) {
+    // a subject inside a closed <details> (the Proof screen's technical details) is opened first, as a person would
+    await page.waitForSelector(focus, { state: 'attached', timeout: 20_000 });
+    await page.evaluate((sel) => { for (let d = document.querySelector(sel)?.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true; }, focus);
     await page.waitForSelector(focus, { state: 'visible', timeout: 20_000 });
     await page.evaluate((sel) => document.querySelector(sel)?.scrollIntoView({ block: 'start' }), focus);
   }

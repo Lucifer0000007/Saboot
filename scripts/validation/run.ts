@@ -27,7 +27,13 @@ if (!present.length) {
 const overrides: Partial<Params> = {};
 for (const [flagName, key] of [['--rain24', 'rain24'], ['--rain-heavy', 'rainHeavy'], ['--low-elev-m', 'lowElevM'], ['--max-lag-h', 'maxLagH'], ['--latency-h', 'latencyH'], ['--max-station-km', 'maxStationKm'], ['--stale-h', 'staleH']] as const) {
   const v = numArg(flagName);
-  if (v !== undefined) overrides[key] = v;
+  if (v === undefined) continue;
+  // a number that is not one would turn a rule off without a word: stop here instead
+  if (!Number.isFinite(v) || v < 0) {
+    console.error(`${flagName} must be a number of zero or more (got "${val(flagName)}").`);
+    process.exit(2);
+  }
+  overrides[key] = v;
 }
 const report = runValidation({ dir, fixture, overrides });
 mkdirSync(out, { recursive: true });

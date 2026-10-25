@@ -1,0 +1,31 @@
+{
+  "_dataset": "Replay R-1: Copernicus EMS activation EMSR838 flood extent, with ERA5 rain and GloFAS discharge from Open-Meteo",
+  "_method": "docs/REPLAY-METHOD.md, committed before this run",
+  "rainfall.csv": {
+    "source": "Open-Meteo historical weather API, model era5 (ECMWF ERA5 reanalysis, 0.25 degree, hourly precipitation)",
+    "licence": "CC BY 4.0 (Open-Meteo, non-commercial use). Generated using Copernicus Climate Change Service information.",
+    "retrieved": "2026-10-23",
+    "url": "https://open-meteo.com/en/docs/historical-weather-api",
+    "notes": "31 grid cells, 2 windows, 24552 hourly rows; saved responses in data/replay/raw/weather/ (manifest has each address and SHA-256)"
+  },
+  "river.csv": {
+    "source": "Open-Meteo flood API (GloFAS v4 river discharge, about 5 km, daily). For this period the values come from the archived forecast runs, not the consolidated reanalysis.",
+    "licence": "CC BY 4.0 (Open-Meteo, non-commercial use). GloFAS is a Copernicus Emergency Management Service product.",
+    "retrieved": "2026-10-23",
+    "url": "https://open-meteo.com/en/docs/flood-api",
+    "notes": "Three fixed points. danger_level is a labelled scenario parameter (a percentile of the baseline days), not an official level: {\"GLOFAS-CHENAB\":{\"danger\":981.66,\"baselineDays\":90,\"baselineMin\":80.47,\"baselineMax\":1591.21},\"GLOFAS-RAVI\":{\"danger\":305.23,\"baselineDays\":90,\"baselineMin\":1.47,\"baselineMax\":520.19},\"GLOFAS-SUTLEJ\":{\"danger\":393.46,\"baselineDays\":90,\"baselineMin\":0.03,\"baselineMax\":579.76}}"
+  },
+  "confirmed.csv": {
+    "source": "Copernicus Emergency Management Service rapid mapping, activation EMSR838, flood-extent layer (observedEventA) of the first delivered product of areas 1, 2, 3, 4, 5, 7 and 8; the quiet window is assumed, not confirmed",
+    "licence": "Copernicus EMS products are free, open and free of charge. Credit: Copernicus Emergency Management Service (© European Union), EMSR838.",
+    "retrieved": "2026-10-23",
+    "url": "https://rapidmapping.emergency.copernicus.eu/EMSR838/",
+    "notes": "Layers used: extent/AOI01.geojson (7108078 bytes, sha256 5892efbd95b5); extent/AOI02.geojson (2156456 bytes, sha256 6d18fbf8ab85); extent/AOI03.geojson (13765741 bytes, sha256 0402667d23f2); extent/AOI04.geojson (806916 bytes, sha256 d1f77b36668e); extent/AOI05.geojson (1441565 bytes, sha256 e2f1ef180dff); extent/AOI07.geojson (21168925 bytes, sha256 fdcb90d63800); extent/AOI08.geojson (23965507 bytes, sha256 6959976f5355)"
+  },
+  "plots.csv": {
+    "source": "Grid points sampled inside the published outlines of the same activation (scripts/replay/sample.ts, docs/REPLAY-METHOD.md): low_lying is assumed 1 for every point, river_reach is a nominal 48 km at 4 km/h",
+    "licence": "Derived from the Copernicus EMS outlines above, same terms",
+    "retrieved": "2026-10-23",
+    "notes": "Not fields and not farmers: sample points of a flood map."
+  }
+}

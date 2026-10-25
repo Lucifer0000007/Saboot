@@ -1,6 +1,7 @@
 // Page layout state: breakpoint, simulation tabs, the open plot, deep links and section scrolling.
 // SSR-safe (the prerender imports this module in Node).
 import { signal, computed } from '@preact/signals';
+import { PUBLIC_URL } from '../config';
 
 export type Layout = 'mobile' | 'tablet' | 'desktop';
 export type SimTab = 'farmer' | 'insurer' | 'ledger' | 'explainer';
@@ -59,6 +60,10 @@ export const insurerView = signal<InsurerView>('claims');
 export const openPlot = signal<string | null>(null);
 /** Feature K: a code to import (from a #k= link), or '' to open the import sheet empty. */
 export const importCode = signal<string | null>(null);
+/** Open the import sheet on what the demo receiver holds (only meaningful when prefs.receiver is on). */
+export const importReceived = signal(false);
+/** True once the link's tab, moment and code have been applied (the stored log is loaded first). The QA hook waits for it. */
+export const deepLinkDone = signal(false);
 
 /** Is the given simulation view on screen right now? */
 export const showing = (v: SimTab) => (layout.value === 'desktop' ? v === 'farmer' || panelTab.value === v : simTab.value === v);
@@ -74,7 +79,14 @@ export function scrollToId(id: string, focus = true) {
   }
 }
 
-export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow' }
+/** Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin). */
+export function scrollToPhone() {
+  const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
+  if (!el) return scrollToId('simulation', false);
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}
+
+export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
 
 /** ?at=alert (QR target), ?tab=insurer, ?rail=pmfby, ?cadence=slow, #how, #k=<payload>; old #/dashboard style links still work. */
 export function readDeepLink(): DeepLink {
@@ -89,6 +101,10 @@ export function readDeepLink(): DeepLink {
   if (cad === 'demo' || cad === 'slow') out.cadence = cad;
   const tab = q.get('tab');
   if (tab && /^(farmer|insurer|ledger|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  // the public site is never a receiver (nothing listens there), so the flag is honoured only on another host: the demo laptop
+  const rc = q.get('receiver');
+  if (rc === '1' && location.host !== new URL(PUBLIC_URL).host) out.receiver = true;
+  else if (rc === '0') out.receiver = false;
   const h = location.hash;
   if (h.startsWith('#k=')) out.k = h.slice(3);
   else if (/^#\/dashboard/.test(h)) out.tab = 'insurer';

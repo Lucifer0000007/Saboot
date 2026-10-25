@@ -1,7 +1,7 @@
 {
-  "name": "Saboot (simulation)",
+  "name": "Saboot",
   "short_name": "Saboot",
-  "description": "Saboot: the evidence clock starts at the storm. Static simulation with synthetic data and a fictional district.",
+  "description": "Saboot: the evidence clock starts at the storm. A prototype that runs on synthetic data in a fictional district.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

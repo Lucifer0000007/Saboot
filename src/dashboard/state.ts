@@ -4,6 +4,8 @@ import { liveViews, type FocusView } from '../farmer/focus';
 import { imported, type Imported } from '../k/imported';
 import { plotState, type PlotState } from '../sim/cohort';
 import { evidenceFor, priority, type Evidence, type Tier } from '../sim/evidence';
+import { metrics } from '../sim/metrics';
+import type { Model } from '../sim/model';
 
 export interface Row { s: PlotState; e: Evidence; pri: number }
 
@@ -53,13 +55,19 @@ export function sorted(list: Row[], key: SortKey): Row[] {
   return r;
 }
 
-export const kpis = computed(() => {
-  const r = rows.value;
+/**
+ * The figures at the top of the console. "In window" and "missed" come from the same function as the pilot-metrics tab
+ * (`metrics`), over detected floods only, so the two tabs of one console cannot disagree. Hail prompts are alerts and are
+ * counted in `events`, `received` and `reported`, never in those two.
+ */
+export function kpisOf(m: Model, r: Row[], t: number) {
   const ev = r.filter((x) => x.s.times.alertT !== null && x.s.stage !== 'monitoring');
-  const received = ev.filter((x) => x.s.times.syncT !== null && x.s.times.syncT <= tSlow.value);
-  const inWindow = ev.filter((x) => x.s.times.fileT !== null && x.s.times.fileT <= tSlow.value && x.s.times.fileT <= (x.s.times.deadlineT ?? 0));
-  const reported = ev.filter((x) => x.s.times.fileT !== null && x.s.times.fileT <= tSlow.value);
+  const received = ev.filter((x) => x.s.times.syncT !== null && x.s.times.syncT <= t);
+  const reported = ev.filter((x) => x.s.times.fileT !== null && x.s.times.fileT <= t);
   const atRisk = ev.filter((x) => x.s.stage === 'alerted' && (x.s.timeLeft ?? 99) < 24);
   const flagged = ev.filter((x) => x.s.flags.some((f) => f !== 'tall-crop' && f !== 'assisted'));
-  return { events: ev.length, received: received.length, inWindow: inWindow.length, reported: reported.length, atRisk: atRisk.length, flagged: flagged.length, missed: ev.filter((x) => x.s.stage === 'missed').length };
-});
+  const k = metrics(m, r.map((x) => x.s), t);
+  return { events: ev.length, received: received.length, inWindow: k.filedInWindow, reported: reported.length, atRisk: atRisk.length, flagged: flagged.length, missed: k.missed };
+}
+
+export const kpis = computed(() => (model.value ? kpisOf(model.value, rows.value, tSlow.value) : { events: 0, received: 0, inWindow: 0, reported: 0, atRisk: 0, flagged: 0, missed: 0 }));

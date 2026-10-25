@@ -10,7 +10,7 @@ import { openPlot } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
 import { floodPath } from '../sim/model';
 import { stageLabel, flagLabel, type PlotState } from '../sim/cohort';
-import { lastPassBefore, TIER_RULE, type Evidence } from '../sim/evidence';
+import { lastPassBefore, bandPct, TIER_RULE, type Evidence } from '../sim/evidence';
 import { liveViews, policyNo, SCRIPT } from '../farmer/focus';
 import { RELIEF } from '../config';
 import { SHOTS } from '../farmer/photo';
@@ -86,10 +86,10 @@ function Breakdown({ e }: { e: Evidence }) {
           ))}
         </tbody>
         <tfoot>
-          <tr><th scope="row">Plausibility score</th><td colSpan={4} data-l="Score"><strong class="num">{pct(e.score)}</strong> (90% band <span class="num">{pct(e.lo)}–{pct(e.hi)}</span>)</td></tr>
+          <tr><th scope="row">Plausibility score</th><td colSpan={4} data-l="Score"><strong class="num">{pct(e.score)}</strong> (90% band <span class="num">{bandPct(e.lo)}–{bandPct(e.hi)}</span>)</td></tr>
         </tfoot>
       </table>
-      <div class="band" role="img" aria-label={`Score band ${pct(e.lo)} to ${pct(e.hi)}. Supported if the whole band is at or above ${pct(TIER_RULE.supportedLo)}; insufficient if it is all below ${pct(TIER_RULE.insufficientHi)}.`}>
+      <div class="band" role="img" aria-label={`Score band ${bandPct(e.lo)} to ${bandPct(e.hi)}. Supported if the whole band is at or above ${pct(TIER_RULE.supportedLo)}; insufficient if it is all below ${pct(TIER_RULE.insufficientHi)}.`}>
         <i class="band-ins" style={{ width: `${TIER_RULE.insufficientHi * 100}%` }} />
         <i class="band-sup" style={{ left: `${TIER_RULE.supportedLo * 100}%` }} />
         <b style={{ left: `${e.lo * 100}%`, width: `${Math.max(1, (e.hi - e.lo) * 100)}%` }} />
@@ -151,11 +151,11 @@ function FloodInset({ s }: { s: PlotState }) {
   const vb = `${p.cx - 60} ${p.cy - 40} 120 80`;
   return (
     <svg class="inset" viewBox={vb} role="img" aria-label={`Flood overlay around ${p.id} from ${pass === null ? 'no radar pass yet' : 'the simulated radar pass at ' + fmtT(pass)}`}>
-      <rect x={p.cx - 60} y={p.cy - 40} width="120" height="80" fill="#ffffff" />
-      <path d={m.raw.map.river} fill="none" stroke="#a0b5eb" stroke-width="9" />
-      <path d={d} fill="#a0b5eb" opacity=".7" />
-      {m.plots.filter((q) => q.v === p.v).map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="none" stroke="#797776" stroke-width=".6" />)}
-      <polygon points={p.pts.join(' ')} fill="none" stroke="#000" stroke-width="1.8" />
+      <rect x={p.cx - 60} y={p.cy - 40} width="120" height="80" fill="var(--paper)" />
+      <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="9" />
+      <path d={d} fill="var(--water)" opacity=".7" />
+      {m.plots.filter((q) => q.v === p.v).map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="none" stroke="var(--rule-strong)" stroke-width=".6" />)}
+      <polygon points={p.pts.join(' ')} fill="none" stroke="var(--kali)" stroke-width="1.8" />
     </svg>
   );
 }

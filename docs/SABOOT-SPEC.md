@@ -38,6 +38,10 @@ Principles to show everywhere:
 
 ## 3. Design system (editorial technical journal on warm parchment)
 
+> Superseded by `docs/DESIGN.md`: the visual system was rebuilt (soil-and-field palette, Anek and Noto Sans, a dark theme,
+> the lac seal as the one bold element). This section is kept as the record of the first design; the adaptations in
+> section 4 (Indic line heights, the 16 px floor, 48 px targets, reduced motion) still hold.
+
 Mood: calm, trustworthy, spacious. No stock photos, no emoji, no icon library (hand-drawn inline SVG icons, 20px, 1.5px stroke).
 
 **Colors (CSS custom properties)**
@@ -160,7 +164,7 @@ Mood: calm, trustworthy, spacious. No stock photos, no emoji, no icon library (h
 **K. STRETCH: phone-to-laptop evidence transfer (build only after M4, see go/no-go).**
 - Purpose: a judge can capture and seal evidence on their own phone and see it appear on the projected dashboard, with no server.
 - On the phone, sealing produces a compact payload: version, synthetic plot id, event time, capture times, device time, coarse location (rounded to roughly 100 m), the SHA-256 hash of each photo, the hash-chain head, a per-device ECDSA P-256 public key (compact), and a signature over the payload. Target under about 1.5 KB. Photos never leave the phone.
-- The payload is shown as a QR code (error correction M) and also as a copyable code and a link with the payload in the URL fragment (`#...`), which is never sent to any server.
+- The payload is shown as a QR code (error correction M) and also as a copyable code and a link with the payload in the URL fragment (`#...`), which is never sent to any server. An optional demo receiver on the laptop may carry the same code over the venue Wi-Fi; it stamps the laptop's clock and verifies nothing.
 - On the laptop, "Import evidence" offers three paths: scan with the webcam (use `BarcodeDetector` if present, otherwise a lazy-loaded decoder), paste the code, or open the link.
 - Verification: recompute the chain and verify the signature. Show "Integrity verified: not altered since sealing. This does not prove who sealed it." Photos are shown as placeholders with a note that the real product would upload them. The Tamper test works on imported records too.
 - The imported plot appears on the dashboard map and list, tagged "Imported (live)".

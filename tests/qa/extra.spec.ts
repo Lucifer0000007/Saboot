@@ -1,7 +1,7 @@
 // Spec §10.3–10.4 and §9: pseudo-localisation, 200% text, reduced motion, anchors under sticky chrome,
 // offline after first load (service worker), and INP under 4x CPU throttling.
 import { test, expect } from '@playwright/test';
-import { STATES, ALL_VIEWPORTS, open, settle, check, record, subjectOnScreen } from './harness';
+import { STATES, ALL_VIEWPORTS, open, settle, check, axe, record, subjectOnScreen } from './harness';
 import { pseudoLocalize } from './checks';
 
 const pick = (...ids: string[]) => STATES.filter((s) => ids.includes(s.id));
@@ -178,6 +178,8 @@ test.describe('offline', () => {
     trail.push(`${at()} sw ready (${await page.evaluate(async () => (await navigator.serviceWorker.ready).active?.state)})`);
     await page.reload();
     await page.waitForFunction(() => !!navigator.serviceWorker.controller, null, { timeout: 20_000 });
+    // the app boots after the first paint, so a warm service worker can finish the reload before it is ready
+    await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
     await page.evaluate('window.__sab.ready()');
     await page.evaluate('window.__sab.tab("insurer")');
     await panel('.dash');
@@ -189,7 +191,7 @@ test.describe('offline', () => {
     await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
     await page.evaluate('window.__sab.ready()');
     await page.evaluate(`(async () => { const s = window.__sab; await s.jump('capture'); s.screen('packet'); })()`);
-    await page.waitForSelector('[data-tour=synclog]');
+    await page.waitForSelector('[data-pk-tech]');
     const strip = await page.textContent('.f-strip');
     await page.evaluate('window.__sab.tab("insurer")');
     await page.waitForSelector('.dash', { timeout: 10_000 });
@@ -197,4 +199,45 @@ test.describe('offline', () => {
     expect(strip).toMatch(/Offline/);
     expect(errors.filter((e) => !/net::ERR_INTERNET_DISCONNECTED|Failed to fetch/.test(e))).toEqual([]);
   });
+});
+
+// Dark theme (docs/DESIGN.md): the device asks for dark, so every token flips; layout checks and axe (contrast
+// included) must still pass on the screens that carry the most colour, and the QR keeps its white quiet zone.
+test.describe('dark theme', () => {
+  test.use({ colorScheme: 'dark' });
+  for (const st of pick('landing', 'alert', 'evidence-packet', 'filing', 'dashboard', 'worklist', 'draft-list', 'pilot-metrics', 'import', 'ledger-tamper', 'helper-queue', 'feature-phone')) {
+    for (const v of [V('360x640'), V('1440x900')]) {
+      test(`dark · ${st.id} · ${v.name}`, async ({ page }) => {
+        const errors: string[] = [];
+        await open(page, v, 'en', errors);
+        expect(await page.evaluate(() => document.documentElement.classList.contains('theme-dark'))).toBe(true);
+        await st.setup(page, v);
+        await settle(page, st.focus);
+        const layout = [...(await subjectOnScreen(page, st.focus)), ...(await check(page, v))];
+        const a11y = await axe(page);
+        await record(page, 'dark', `${st.id}-${v.name}`, { state: st.id, viewport: v.name, lang: 'en dark', layout, axe: a11y, console: errors });
+        expect.soft(errors, 'console errors').toEqual([]);
+        expect.soft(layout, 'layout checks').toEqual([]);
+        expect(a11y, 'axe serious/critical').toEqual([]);
+      });
+    }
+  }
+});
+
+// FIELD evidence on the impact view: the strip's numbers are fieldCounts(), letters, users and quotes absent while empty.
+test('field evidence strip · pilot-metrics · 1440x900', async ({ page }) => {
+  const { fieldCounts, TARGET_STATE } = await import('../../src/data/fieldEvidence');
+  const c = fieldCounts();
+  const errors: string[] = [];
+  const v = V('1440x900');
+  await open(page, v, 'en', errors);
+  await pick('pilot-metrics')[0].setup(page, v);
+  await settle(page, '[data-field-evidence]');
+  await expect(page.locator('[data-field-strip]')).toHaveText(`${c.interviews} interviews · ${c.states} states · ${c.roles} roles`);
+  await expect(page.locator('[data-field-target]')).toHaveText(`${TARGET_STATE} interviews: ${c.inTargetState} so far.`);
+  await expect(page.locator('[data-field-evidence] [data-source="field"]').first()).toBeVisible();
+  await expect(page.locator('[data-field-letters]')).toHaveCount(c.letters > 0 ? 1 : 0);
+  await expect(page.locator('[data-field-users]')).toHaveCount(c.users > 0 ? 1 : 0);
+  await expect(page.locator('[data-field-quote]')).toHaveCount(0);
+  expect(errors).toEqual([]);
 });

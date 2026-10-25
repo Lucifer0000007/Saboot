@@ -13,8 +13,11 @@ export interface BundleContext {
 
 export const BUNDLE_KIND = 'saboot.evidence-bundle';
 
+/** The origin names the standalone verifier prints. */
+const ORIGIN_NAME: Record<string, string> = { live: 'live', sim: 'simulated', hand: 'hand' };
+
 /** The code alone, from whatever was pasted: a bare code or a link with #k=. */
-export const codeOf = (text: string) => text.trim().replace(/^.*#k=/, '');
+export const codeOf = (text: string) => text.trim().replace(/^[\s\S]*#k=/, '').replace(/\s+/g, '');
 
 export function makeBundle(code: string, p: KPayload, context?: BundleContext) {
   return {
@@ -31,7 +34,7 @@ export function makeBundle(code: string, p: KPayload, context?: BundleContext) {
       sealHour: p.sealT,
       phoneClockUtc: new Date(p.deviceMs).toISOString().replace('.000Z', 'Z'),
       location: { lat: p.lat, lon: p.lon, roundedTo: '0.001 degrees, about 100 m' },
-      photos: p.shots.map((s) => ({ kind: s.kind, captureHour: s.simT, sha256: s.sha })),
+      photos: p.shots.map((s) => ({ kind: s.kind, captureHour: s.simT, sha256: s.sha, photoOrigin: ORIGIN_NAME[s.photo ?? ''] ?? 'not recorded', locationOrigin: ORIGIN_NAME[s.loc ?? ''] ?? 'not recorded' })),
       chainHead: p.head,
       publicKey: p.pub,
     },

@@ -2,13 +2,15 @@ import { signal } from '@preact/signals';
 import en from '../i18n/en';
 import { lang, rail } from './prefs';
 import type { Lang } from '../sim/types';
+import { importWithRetry } from './chunk';
+import { showToast } from './announce';
 
 export type Dict = Record<string, string | string[]>;
 const dicts: Partial<Record<Lang, Dict>> = { en };
 const loaders: Record<Lang, () => Promise<{ default: Dict }>> = {
   en: async () => ({ default: en }),
-  hi: () => import('../i18n/hi'),
-  pa: () => import('../i18n/pa'),
+  hi: () => importWithRetry(() => import('../i18n/hi')),
+  pa: () => importWithRetry(() => import('../i18n/pa')),
 };
 /** Bumps when a dictionary arrives so readers re-render. */
 const ver = signal(0);
@@ -17,8 +19,8 @@ export const langLoading = signal<Lang | null>(null);
 
 const FONTS: Record<Lang, [string, string][]> = {
   en: [],
-  hi: [['400 16px "Saboot Deva Sans"', 'अआ'], ['500 16px "Saboot Deva Sans"', 'अआ'], ['400 16px "Saboot Deva Serif"', 'अआ']],
-  pa: [['400 16px "Saboot Guru Sans"', 'ਅਆ'], ['500 16px "Saboot Guru Sans"', 'ਅਆ'], ['400 16px "Saboot Guru Serif"', 'ਅਆ']],
+  hi: [['400 16px "Saboot Deva Sans"', 'अआ'], ['500 16px "Saboot Deva Sans"', 'अआ'], ['600 16px "Saboot Deva Display"', 'अआ']],
+  pa: [['400 16px "Saboot Guru Sans"', 'ਅਆ'], ['500 16px "Saboot Guru Sans"', 'ਅਆ'], ['600 16px "Saboot Guru Display"', 'ਅਆ']],
 };
 const pending: Partial<Record<Lang, Promise<unknown>>> = {};
 
@@ -32,14 +34,23 @@ export function prefetchLang(l: Lang): Promise<unknown> {
   }
   const p = Promise.race([Promise.all(tasks), new Promise((r) => setTimeout(r, 4000))]);
   pending[l] = p;
+  // a failed load is not remembered: the next tap tries again
+  p.catch(() => { if (pending[l] === p) delete pending[l]; });
   return p;
 }
 
 /** Load dictionary + fonts BEFORE switching so text reflows exactly once (no visible font swap). */
 export async function setLang(l: Lang) {
   langLoading.value = l;
-  await prefetchLang(l);
-  if (!dicts[l]) { const m = await loaders[l](); dicts[l] = m.default; }
+  try {
+    await prefetchLang(l);
+    if (!dicts[l]) { const m = await loaders[l](); dicts[l] = m.default; }
+  } catch {
+    // stay in the language the person is reading, say so, and let them try again
+    langLoading.value = null;
+    showToast(tr('lang.fail', { lang: LANGS.find((x) => x.id === l)!.label }), 'warn');
+    return;
+  }
   lang.value = l;
   langReady.value = l;
   ver.value++;
@@ -57,16 +68,22 @@ function lookup(key: string): string | string[] {
   return dicts[l]?.[key] ?? en[key] ?? key;
 }
 
-export function tr(key: string, vars?: Record<string, string | number>): string {
-  let s = lookup(key);
-  if (Array.isArray(s)) s = s.join(' ');
+type Vars = Record<string, string | number>;
+
+/** Put each value where its {name} stands. */
+export function fill(s: string, vars?: Vars): string {
   if (vars) for (const k in vars) s = s.split('{' + k + '}').join(String(vars[k]));
   return s;
 }
 
-export const tList = (key: string): string[] => {
+export function tr(key: string, vars?: Vars): string {
+  const s = lookup(key);
+  return fill(Array.isArray(s) ? s.join(' ') : s, vars);
+}
+
+export const tList = (key: string, vars?: Vars): string[] => {
   const v = lookup(key);
-  return Array.isArray(v) ? v : [v];
+  return (Array.isArray(v) ? v : [v]).map((s) => fill(s, vars));
 };
 
 /** Does the current dictionary (or English) have this key? */

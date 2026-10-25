@@ -56,3 +56,41 @@ test('P-256 point compression round-trips', async () => {
 test('garbage is rejected as undecodable', async () => {
   assert.equal((await verifyCode('not-a-code')).failed, 'decode');
 });
+
+test('where each photo and location came from is sealed into the packet and read back', async () => {
+  const code = await makeCode({ ...input, shots: input.shots.map((s, i) => ({ ...s, photo: i === 0 ? 'sim' : 'live', loc: i === 2 ? 'hand' : 'sim' })) }, await newDeviceKey());
+  const r = await verifyCode(code);
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.payload!.shots.map((s) => s.photo), ['sim', 'live', 'live']);
+  assert.deepEqual(r.payload!.shots.map((s) => s.loc), ['sim', 'sim', 'hand']);
+});
+
+test('a code made without origins still verifies and reads "not recorded"', async () => {
+  const r = await verifyCode(await makeCode(input, await newDeviceKey()));
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.payload!.shots.map((s) => s.photo), [undefined, undefined, undefined]);
+});
+
+test('a value the format cannot hold is refused instead of squeezed into range', async () => {
+  const key = await newDeviceKey();
+  const bad: [string, Partial<KInput>][] = [
+    ['a missing event time', { eventT: Number.NaN }],
+    ['a time past 655.35 hours', { sealT: 700 }],
+    ['a plot number past 255', { plot: 'P-300' }],
+    ['a latitude past 90 degrees', { lat: 100 }],
+    ['a phone clock before 1970', { deviceMs: -1 }],
+    ['no photos', { shots: [] }],
+    ['two photos of the same kind', { shots: [input.shots[0], { ...input.shots[1], kind: 'wide' }] }],
+    ['a fingerprint of the wrong length', { shots: [{ ...input.shots[0], sha: 'ab' }] }],
+  ];
+  for (const [what, patch] of bad) await assert.rejects(() => makeCode({ ...input, ...patch }, key), /Cannot make the code/, what);
+});
+
+test('a code is read from a link and from wrapped lines, and nothing else is accepted', async () => {
+  const code = await makeCode(input, await newDeviceKey());
+  assert.equal((await verifyCode(code.replace(/(.{50})/g, '$1\n  '))).ok, true, 'a wrapped paste');
+  assert.equal((await verifyCode('  https://example.test/a#k=' + code + '  ')).ok, true);
+  assert.equal((await verifyCode(code + '=')).failed, 'decode', 'padding is not part of the format');
+  assert.equal((await verifyCode(code.replace(/-/g, '+').replace(/_/g, '/') + 'x')).failed, 'decode');
+  assert.equal((await verifyCode('A'.repeat(2000))).failed, 'decode', 'too long');
+});

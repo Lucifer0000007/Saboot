@@ -21,7 +21,7 @@ export default defineConfig({
     serviceWorkers: 'block',
   },
   projects: [
-    { name: 'qa', testMatch: /(matrix|extra|release|camera|helper|privacy|relief)\.spec\.ts$/ },
+    { name: 'qa', testMatch: /(matrix|extra|release|camera|helper|privacy|relief|mvp|devices|receipt)\.spec\.ts$/ },
     { name: 'perf', testMatch: /perf\.spec\.ts$/, dependencies: ['qa'] },
   ],
   webServer: {

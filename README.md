@@ -18,8 +18,8 @@ claim, places a real call, or connects to any government system. The decision ha
 Built for the Code Yudh Hackathon, Chandigarh University · Track: AgriTech & Rural Transformation · Agri-FinTech.
 Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · rules for contributors:
 
-**Live site:** _not deployed yet — the link goes here after `npm run deploy` (it is the `PUBLIC_URL` in
-[`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code)._
+**Live site:** https://moonlit-pixie-248afc.netlify.app (this is the `PUBLIC_URL` in
+[`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code).
 
 ![The Saboot landing page: the hero clock, the three problem cards and the simulation below](docs/screenshot.jpg)
 
@@ -93,6 +93,24 @@ the hero text.
 - Presenter keys: press `?` for the list. `Space` play/pause, `1–6` jump to Trigger / Alert / Capture / Advice ends /
   Confirmation / Draft list, `M` rail, `C` radar cadence, `A` airplane, `W` weak 2G, `L` language, `T` tour,
   `P` heads-up display, `R` reset.
+
+### The optional demo receiver (phone sends the code to the laptop over the Wi-Fi)
+
+The QR scan, the pasted code and the link need no server and stay the fallback. For a second route, the laptop can also
+receive the code over the venue Wi-Fi. The phone must be in a secure context to sign, so the laptop serves the build over
+HTTPS with a certificate the phone trusts, made by you with mkcert (`docs/SETUP.md`, "The demo receiver"):
+
+1. `npm run build`, then `node scripts/receipt-server.mjs --cert .cache/demo.pem --key .cache/demo-key.pem`. Allow
+   `node` on private networks if Windows Firewall asks. The script prints the addresses.
+2. Phone, on the same Wi-Fi (or the laptop's hotspot): open `https://<laptop-ip>:4443/?receiver=1&at=alert`. The padlock
+   must be clean. The share sheet then has "Send to the laptop"; a tap sends only the signed code, and only then.
+3. Laptop: open `https://<laptop-ip>:4443/?receiver=1&tab=insurer` by IP, not `localhost` (the site sends HSTS, which would
+   pin `localhost` to HTTPS and break the plain-HTTP QA servers in that profile). The header counts what was received;
+   Import → "Received over the network" checks each code in the browser and adds it with the laptop's receipt time.
+4. Afterwards delete `.cache/receipts.json`; on the phone open `…/?receiver=0` to forget the receiver.
+
+If the venue Wi-Fi isolates clients or has a captive portal, use the laptop's mobile hotspot and issue the certificate for
+that address too. If the certificate is not trusted on the phone, the QR path is unchanged.
 
 ## 2-minute demo script
 
@@ -244,29 +262,7 @@ are not marked; they are labelled "Simulated" wherever they appear. Regenerate t
 Claims in `docs/` carry the same marker text so they can be found with a search, but the deploy gate does not scan them.
 
 <!-- markers:start -->
-| # | Where | What to check, and where |
-|---|---|---|
-| 1 | `src/config.ts:2` | replace TEAM_NAME with your registered Code Yudh team name, then delete this marker |
-| 2 | `src/config.ts:11` | set PUBLIC_URL to the final public address of the deployed site (for example https://<site-name>.netlify.app), then delete this marker |
-| 3 | `src/config.ts:37` | damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA) |
-| 4 | `src/config.ts:52` | that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department |
-| 5 | `src/dashboard/DraftView.tsx:17` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; the same claim sits in src/i18n/en.ts (ob.*) |
-| 6 | `src/dashboard/Impact.tsx:124` | that a real radar satellite revisits a given field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
-| 7 | `src/explainer/Explainer.tsx:281` | paddy fields are normally flooded on purpose in the kharif transplanting season, so radar change detection cannot separate irrigation water from flood water — UN-SPIDER recommended practice for SAR flood mapping, and the state agriculture department crop calendar |
-| 8 | `src/explainer/Explainer.tsx:287` | IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in) |
-| 9 | `src/explainer/Explainer.tsx:302` | C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping |
-| 10 | `src/explainer/Explainer.tsx:304` | real satellite radar revisits a field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview |
-| 11 | `src/i18n/en.ts:45` | that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority |
-| 12 | `src/i18n/en.ts:48` | that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App |
-| 13 | `src/i18n/en.ts:61` | 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in |
-| 14 | `src/i18n/en.ts:137` | Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu |
-| 15 | `src/i18n/en.ts:234` | official intimation channels — the Crop Insurance App and the Krishi Rakshak Portal and Helpline 14447 — pmfby.gov.in and agriwelfare.gov.in |
-| 16 | `src/i18n/en.ts:250` | satellite radar revisit over a given field is several days — ESA Sentinel-1 mission overview |
-| 17 | `src/i18n/en.ts:293` | river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in) |
-| 18 | `src/i18n/en.ts:449` | that farmers can intimate loss through an official crop-insurance helpline or app (named in the How it works section) — pmfby.gov.in |
-| 19 | `src/i18n/en.ts:501` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx |
-| 20 | `src/i18n/en.ts:539` | that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines |
-| 21 | `src/i18n/en.ts:584` | that a missed call to a number shown on a village noticeboard is a workable way to reach farmers without a smartphone — a design assumption to confirm with the district office and a telephony partner, not an existing service; key fp.s1.b and its hi/pa lines |
+No markers remain.
 <!-- markers:end -->
 
 ## Translations (machine-drafted)
@@ -299,14 +295,14 @@ Playwright + axe QA matrix, and Lighthouse.
 
 | Budget | Limit | Measured |
 |---|---|---|
-| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 87.3 KB (the HTML itself: 12.6 KB brotli, inside one TCP round trip) |
-| Whole site excluding audio, gzip | ≤ 700 KB | 389.6 KB |
+| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 99.7 KB |
+| Whole site excluding audio, gzip | ≤ 700 KB | 476.4 KB |
 | Largest lazy chunk, gzip | ≤ 60 KB | 45.3 KB (jsQR, only on laptops without `BarcodeDetector`) |
 | Scenario data | ≤ 40 KB | 25.3 KB raw |
-| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 3: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 / 100 / 100 on all three pages |
-| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.41 s / 0.000 to 0.001 / 2.48 to 2.53 s |
-| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 ms at 4× CPU |
-| QA captures (states × viewports × languages + extra runs) | 0 problems | 540 captures, 0 problems (556 tests pass; every state, 7 viewports, English, Hindi and Punjabi) |
+| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 to 98 / 100 / 100 on all three pages |
+| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 / 2.1 to 2.5 s on the landing and alert pages; 2.4 to 3.2 s on `?tab=insurer`, depending on machine load (the same reading with and without the newest landing section) |
+| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 to 200 ms run to run on this machine (the previous build reads the same spread) |
+| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (609 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 229 unit tests |
 
 QA matrix: 20 states × 7 viewports (360×640 to 1440×900) × English/Hindi/Punjabi, plus pseudo-localisation (+40%), 200% text,
 the in-app 150% text on a 360 px phone, reflow at 320 px, reduced motion, anchors under sticky chrome, offline after first
@@ -343,7 +339,7 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
 - Paddy in the standing-water season: radar cannot tell flood from irrigation, so only water above the expected level counts and
   the radar weight is lowered. This is an unvalidated design decision.
 - Weak (2G) networking is simulated as one small message about every 1.2 s, hash-first.
-- The team name in the footer is a placeholder (`src/config.ts`, marked) until you set it. The licence holder is a placeholder too.
+- MIT licence, held by Ayush Kumar Sharma (`LICENSE`).
 - The officer and district console stays English; the farmer-facing and public parts are trilingual.
 - The nav's "Run the simulation" pill is off-black while another primary action is on screen and turns blue otherwise, so each
   screen has exactly one blue primary.
@@ -370,7 +366,9 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
   are computed in plain JavaScript instead of WebCrypto (same SHA-256), and the packet cannot be signed for the laptop.
 - The gallery check is a heuristic (file recency); production would add EXIF and server-side checks.
 - The "server" (receipt times, acknowledgements, the officer's responses) runs in your browser; all state is per browser
-  (IndexedDB / localStorage). `R` resets it. Nothing syncs between the laptop and phones except through feature K's codes.
+  (IndexedDB / localStorage). `R` resets it. Nothing syncs between the laptop and phones except through feature K's codes:
+  by QR, paste or link, or, when you run the optional demo receiver on the laptop (`scripts/receipt-server.mjs`), by a
+  POST of the same signed code to that laptop, which stamps its own clock and verifies nothing. There is no other backend.
 - Feature K proves a packet was not altered after sealing; it cannot prove who sealed it or that the phone clock was right.
 - **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: in this session Playwright's WebKit and Firefox builds passed 43 smoke checks and skipped 3 (Playwright's Firefox build has no working crypto.subtle, so it cannot sign a packet). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
   real Firefox are on the manual test list.

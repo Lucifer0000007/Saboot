@@ -261,3 +261,32 @@ test('worklist cells: the advice countdown has a clock under 24 h and words unde
   await expect(page.locator('.queue')).not.toContainText('Shown in time');
   expect(errors).toEqual([]);
 });
+
+test('the published replay shows raw counts under a REPLAY label, names its source by ID, says Rule B is not independently validated, and claims no lead time', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('1280x800'), 'en', errors);
+  await sab(page, `s.seek(168); s.tab('insurer'); s.insurer('impact');`);
+  const val = page.locator('[data-metric="validation"]');
+  const block = val.locator('[data-replay="R-1"]');
+  await expect(block).toBeVisible({ timeout: 20_000 });
+  await expect(block.locator('[data-prov="replay"]')).toContainText('Replay');
+  await expect(block).toContainText('Replay R-1.');
+  await expect(block.locator('tbody tr')).toHaveCount(6);
+  // the counts on screen are the counts in the status file, nothing recomputed or rounded
+  const status = JSON.parse(readFileSync('public/data/validation-status.json', 'utf8'));
+  const a = status.replay.runs.A.events['R1-FLOOD'];
+  const row = block.locator('tbody tr').first();
+  await expect(row).toContainText(`${a.caught}`);
+  await expect(row.locator('td').nth(1)).toHaveText(String(a.caught));
+  await expect(row.locator('td').nth(3)).toHaveText(String(a.falseAlarms));
+  await expect(block).toContainText('not independently validated');
+  // the problem's scale, from the status file, and the counts sentence; no percentage stands without its counts
+  await expect(block.locator('[data-replay-farmland]')).toContainText(`${Math.round(status.replay.farmland.ha / 1000)},000 ha`);
+  await expect(block.locator('[data-replay-sentence]')).toContainText(`${a.caught} of the ${a.caught + a.missed}`);
+  for (const m of (await block.textContent())!.matchAll(/(\d+)%/g)) expect((await block.textContent())!.includes(' of '), m[0]).toBe(true);
+  await expect(block).toContainText('nothing here is a lead time');
+  await expect(block).not.toContainText(/hours earlier|Punjab|Pakistan/);
+  await expect(block.locator('a[href="https://open-meteo.com/"]')).toBeVisible();
+  await expect(val).not.toContainText('Not run.');
+  expect(errors).toEqual([]);
+});

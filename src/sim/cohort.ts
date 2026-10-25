@@ -37,6 +37,8 @@ export interface PlotTimes {
   helper: { name: string; role: string; method: 'hold' | 'voice' } | null;
   shots: number;
   geoOffM: number;
+  /** Driven by a real log on a phone, not by the script: nothing is known about where its photos were taken relative to the plot. */
+  live: boolean;
   hail: boolean;
 }
 
@@ -67,11 +69,12 @@ export function plotTimes(m: Model, p: Plot, focus: FocusView | null, live?: Rec
   const [persona, cap, shots, geoOff, sync, file, ack] = p.b;
   const base: PlotTimes = {
     eventT: d.eventT, alertT: d.alertT, deadlineT: d.deadlineT, consentT: null, captureT: null, syncT: null,
-    fileT: null, ackT: null, noDamageT: null, objectionT: null, objectionRespT: null, helper: null, shots: 0, geoOffM: geoOff, hail: false,
+    fileT: null, ackT: null, noDamageT: null, objectionT: null, objectionRespT: null, helper: null, shots: 0, geoOffM: geoOff, hail: false, live: false,
   };
   const lv = live?.[p.id] ?? (persona === 'focus' ? focus : null);
   if (lv) {
-    const all = lv.shotCount >= 3;
+    base.live = true;
+    const all = lv.shotCount >= 3 || !!lv.seal;
     base.shots = lv.shotCount;
     base.captureT = lv.shotCount ? lv.lastShotT : null;
     base.syncT = all && lv.queued === 0 ? lv.syncedT : null;
@@ -137,7 +140,8 @@ export function plotState(m: Model, p: Plot, t: number, focus: FocusView | null,
   if (shotsNow && tm.geoOffM > 100) flags.push('geo-mismatch');
   if (at(tm.syncT) && tm.syncT! - tm.captureT! > 2) flags.push('sync-gap');
   if (at(tm.captureT) && tm.deadlineT !== null && tm.captureT! > tm.deadlineT) flags.push('late');
-  if (at(tm.captureT) && tm.fileT === null && t > tm.captureT! + 12 && persona !== 'focus') flags.push('no-ref');
+  // a log made on a phone has no filing step for a helper to take, so only the scripted cohort can be missing a receipt
+  if (at(tm.captureT) && tm.fileT === null && t > tm.captureT! + 12 && persona !== 'focus' && !tm.live) flags.push('no-ref');
   if (at(tm.fileT) && t > tm.fileT! + SCRIPT.ackDue && !at(tm.ackT)) flags.push('ack-overdue');
   if (at(tm.fileT) && t > tm.fileT! + SCRIPT.escalate && !at(tm.ackT)) flags.push('escalated');
   if (at(tm.consentT)) flags.push('assisted');

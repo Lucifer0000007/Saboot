@@ -20,7 +20,7 @@ import { rows } from '../dashboard/state';
 const W = 360, H = 180, PL = 36, PR = 36, PT = 12, PB = 26;
 /** Gauges differ by dash pattern as well as tone, so colour is never the only cue. */
 const DASH = ['', '6 4', '2 3'];
-const TONE = ['#000000', '#4e4d4d', '#242424'];
+const TONE = ['var(--kali)', 'var(--kali-2)', 'var(--kali)'];
 
 const cadenceOf = (m: Model) => (m.sar.length > 1 ? m.sar[1] - m.sar[0] : null);
 
@@ -34,19 +34,19 @@ function RainPanel({ m }: { m: Model }) {
       <h4 id="x-rain"><Icon name="rain" /> Rainfall accumulation vs threshold</h4>
       <svg viewBox={`0 0 ${W} ${H}`} class="xchart" role="img" aria-label={`Trailing 24-hour rainfall at ${m.stations.length} gauges up to ${fmtT(t.value)}. Heavy-rain line ${th.rain24} mm, rain-plus-terrain rule ${th.rainHeavy} mm. Simulated data.`}>
         {[0, 1, 2, 3, 4, 5, 6, 7].map((d) => (
-          <g key={d}><path d={`M${x(d * 24)} ${PT}V${H - PB}`} stroke="#cecac8" /><text x={x(d * 24)} y={H - 8} class="ax" text-anchor="middle">{d}d</text></g>
+          <g key={d}><path d={`M${x(d * 24)} ${PT}V${H - PB}`} stroke="var(--rule)" /><text x={x(d * 24)} y={H - 8} class="ax" text-anchor="middle">{d}d</text></g>
         ))}
         {[0, 100, 200].map((v) => <text key={v} x={PL - 6} y={y(v) + 4} class="ax" text-anchor="end">{v}</text>)}
-        <path d={`M${PL} ${y(th.rain24)}H${W - PR}`} stroke="#8a5a00" stroke-dasharray="5 3" stroke-width="1.5" />
+        <path d={`M${PL} ${y(th.rain24)}H${W - PR}`} stroke="var(--warn)" stroke-dasharray="5 3" stroke-width="1.5" />
         <text x={W - PR + 3} y={y(th.rain24) + 4} class="ax">{th.rain24}</text>
-        <path d={`M${PL} ${y(th.rainHeavy)}H${W - PR}`} stroke="#b3402a" stroke-dasharray="2 3" stroke-width="1.5" />
+        <path d={`M${PL} ${y(th.rainHeavy)}H${W - PR}`} stroke="var(--bad)" stroke-dasharray="2 3" stroke-width="1.5" />
         <text x={W - PR + 3} y={y(th.rainHeavy) + 4} class="ax">{th.rainHeavy}</text>
         {m.stations.map((s, i) => {
           let d = '';
           for (let h = 0; h <= now; h++) d += (h ? 'L' : 'M') + x(h).toFixed(1) + ' ' + y(s.r24[h]).toFixed(1);
           return <path key={s.id} d={d} fill="none" stroke={TONE[i]} stroke-width="1.6" stroke-dasharray={DASH[i]} />;
         })}
-        <path d={`M${x(t.value)} ${PT}V${H - PB}`} stroke="#000" />
+        <path d={`M${x(t.value)} ${PT}V${H - PB}`} stroke="var(--kali)" />
       </svg>
       <ul class="xstations" role="list">
         {m.stations.map((s, i) => {
@@ -82,17 +82,17 @@ function RiverPanel({ m }: { m: Model }) {
       <h4 id="x-river"><Icon name="water" /> River stage vs danger level</h4>
       <svg viewBox={`0 0 ${W} ${H}`} class="xchart" role="img" aria-label={`River stage at ${m.gauges.length} gauges up to ${fmtT(t.value)}. Danger level ${danger} ${unit}. Simulated data.`}>
         {[0, 1, 2, 3, 4, 5, 6, 7].map((d) => (
-          <g key={d}><path d={`M${x(d * 24)} ${PT}V${H - PB}`} stroke="#cecac8" /><text x={x(d * 24)} y={H - 8} class="ax" text-anchor="middle">{d}d</text></g>
+          <g key={d}><path d={`M${x(d * 24)} ${PT}V${H - PB}`} stroke="var(--rule)" /><text x={x(d * 24)} y={H - 8} class="ax" text-anchor="middle">{d}d</text></g>
         ))}
         {[0, maxV / 2, maxV].map((v) => <text key={v} x={PL - 6} y={y(v) + 4} class="ax" text-anchor="end">{v}</text>)}
-        <path d={`M${PL} ${y(danger)}H${W - PR}`} stroke="#b3402a" stroke-dasharray="2 3" stroke-width="1.5" />
+        <path d={`M${PL} ${y(danger)}H${W - PR}`} stroke="var(--bad)" stroke-dasharray="2 3" stroke-width="1.5" />
         <text x={W - PR + 3} y={y(danger) + 4} class="ax">{danger}</text>
         {m.gauges.map((g, i) => {
           let d = '';
           for (let h = 0; h <= now; h++) d += (h ? 'L' : 'M') + x(h).toFixed(1) + ' ' + y(g.series[h]).toFixed(1);
           return <path key={g.id} d={d} fill="none" stroke={TONE[i]} stroke-width="1.6" stroke-dasharray={DASH[i]} />;
         })}
-        <path d={`M${x(t.value)} ${PT}V${H - PB}`} stroke="#000" />
+        <path d={`M${x(t.value)} ${PT}V${H - PB}`} stroke="var(--kali)" />
       </svg>
       <ul class="xstations" role="list">
         {m.gauges.map((g, i) => {
@@ -117,9 +117,9 @@ function RiverPanel({ m }: { m: Model }) {
 function MiniMap({ m, children, label }: { m: Model; children: ComponentChildren; label: string }) {
   return (
     <svg class="xmap" viewBox={`0 0 ${m.raw.map.w} ${m.raw.map.h}`} role="img" aria-label={label}>
-      <path d={m.raw.map.boundary} fill="#ffffff" stroke="#797776" stroke-width="2" />
+      <path d={m.raw.map.boundary} fill="var(--paper)" stroke="var(--rule-strong)" stroke-width="2" />
       {children}
-      <path d={m.raw.map.river} fill="none" stroke="#a0b5eb" stroke-width="9" stroke-linecap="round" />
+      <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="9" stroke-linecap="round" />
     </svg>
   );
 }
@@ -130,17 +130,17 @@ function TerrainPanel({ m }: { m: Model }) {
   m.plots.forEach((p) => counts[p.terrain]++);
   const reach = m.plots.filter((p) => p.riverReach).length;
   const R = m.raw.river;
-  const fill = ['url(#xp-low-plot)', '#ece7e3', '#ffffff'];
+  const fill = ['url(#xp-low-plot)', 'var(--sunk)', 'var(--paper)'];
   return (
     <section class="xpanel" aria-labelledby="x-ter">
       <h4 id="x-ter"><Icon name="terrain" /> Terrain and river reach</h4>
       <MiniMap m={m} label={`Low-lying land (hatched) and plots by terrain class: ${counts[0]} low-lying, ${counts[1]} mid, ${counts[2]} upland. ${reach} plots are in reach of the river rule. Synthetic terrain.`}>
         <defs>
-          <pattern id="xp-low" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><path d="M0 0v6" stroke="#797776" stroke-width="1" /></pattern>
-          <pattern id="xp-low-plot" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#cfdaf5" /><path d="M0 0v5" stroke="#242424" stroke-width="1" /></pattern>
+          <pattern id="xp-low" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><path d="M0 0v6" stroke="var(--rule-strong)" stroke-width="1" /></pattern>
+          <pattern id="xp-low-plot" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--neel-tint)" /><path d="M0 0v5" stroke="var(--kali)" stroke-width="1" /></pattern>
         </defs>
         <path d={low} fill="url(#xp-low)" />
-        {m.plots.map((p) => <polygon key={p.id} points={p.pts.join(' ')} fill={fill[p.terrain]} stroke={p.riverReach ? '#000' : '#797776'} stroke-width={p.riverReach ? 1.6 : 0.8} />)}
+        {m.plots.map((p) => <polygon key={p.id} points={p.pts.join(' ')} fill={fill[p.terrain]} stroke={p.riverReach ? 'var(--kali)' : 'var(--rule-strong)'} stroke-width={p.riverReach ? 1.6 : 0.8} />)}
       </MiniMap>
       <p class="muted">
         Plot mean elevation from a synthetic terrain model. <strong>{counts[0]} low-lying</strong> plots (below {m.raw.thresholds.lowElev} m above the river, hatched) qualify for the rain + terrain rule; {counts[1]} mid, {counts[2]} upland.
@@ -165,14 +165,14 @@ function FloodPanel({ m }: { m: Model }) {
     <section class="xpanel" aria-labelledby="x-fl">
       <h4 id="x-fl"><Icon name="water" /> Flood extent</h4>
       <MiniMap m={m} label={`Simulated true flood ${area.toFixed(2)} square km at ${fmtT(h)}; last simulated radar map ${sarArea.toFixed(2)} square km.`}>
-        <path class="xflood" d={truth} fill="#a0b5eb" opacity=".55" />
-        <defs><pattern id="xp-sar" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v5" stroke="#000" stroke-width="1.4" /></pattern></defs>
+        <path class="xflood" d={truth} fill="var(--water)" opacity=".55" />
+        <defs><pattern id="xp-sar" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v5" stroke="var(--kali)" stroke-width="1.4" /></pattern></defs>
         <path d={sar} fill="url(#xp-sar)" opacity=".75" />
-        {m.plots.map((p) => <polygon key={p.id} points={p.pts.join(' ')} fill="none" stroke="#797776" stroke-width=".7" />)}
+        {m.plots.map((p) => <polygon key={p.id} points={p.pts.join(' ')} fill="none" stroke="var(--rule-strong)" stroke-width=".7" />)}
       </MiniMap>
       <svg viewBox="0 0 360 60" class="xspark" aria-hidden="true">
-        <path d={d} fill="none" stroke="#242424" stroke-width="1.6" />
-        {m.sar.map((s) => <path key={s} d={`M${4 + (s / m.raw.hours) * 352} 56v4`} stroke={s + 1 <= t.value ? '#000' : '#cecac8'} stroke-width="2" />)}
+        <path d={d} fill="none" stroke="var(--kali)" stroke-width="1.6" />
+        {m.sar.map((s) => <path key={s} d={`M${4 + (s / m.raw.hours) * 352} 56v4`} stroke={s + 1 <= t.value ? 'var(--kali)' : 'var(--rule)'} stroke-width="2" />)}
       </svg>
       <p class="muted">
         Light blue = simulated true extent (<strong class="num">{area.toFixed(2)} km²</strong>, grows hour by hour). Black hatching = what Saboot actually sees: the last processed radar pass {pass === null ? '(none yet)' : `at ${fmtT(pass)}, ${sarArea.toFixed(2)} km²`}. Ticks = simulated passes every {cadenceOf(m)} h{cadence.value === 'slow' ? ' (the slower option)' : ' (the demo cadence)'}.
@@ -211,7 +211,7 @@ function AlertPanel({ m }: { m: Model }) {
       <svg viewBox="0 0 360 96" class="xhist" role="img" aria-label={`Histogram of time to alert, in 4-hour bins: ${bins.join(', ')}. Simulated.`}>
         {bins.map((b, i) => (
           <g key={i}>
-            <rect x={10 + i * 58} y={66 - (b / bmax) * 54} width="48" height={(b / bmax) * 54} rx="3" fill="#242424" />
+            <rect x={10 + i * 58} y={66 - (b / bmax) * 54} width="48" height={(b / bmax) * 54} rx="3" fill="var(--kali)" />
             <text x={34 + i * 58} y={86} class="ax" text-anchor="middle">{i * 4}{i === 5 ? '+' : '–' + (i * 4 + 4)} h</text>
             {b > 0 && <text x={34 + i * 58} y={61 - (b / bmax) * 54} class="ax" text-anchor="middle">{b}</text>}
           </g>
@@ -277,17 +277,17 @@ export default function Explainer() {
           <li><strong>Rule A, rain + terrain:</strong> 24-hour rain at the nearest gauge ≥ <span class="num">{th.rainHeavy}</span> mm <em>and</em> the plot is low-lying. Limit: gauges are sparse, so rain at the gauge is only a proxy for rain on the plot.</li>
           <li>
             <strong>Rule B, radar change:</strong> the plot shows no water at the baseline radar pass, then the water <em>above what the crop shows anyway</em> reaches <span class="num">{Math.round(th.floodFrac * 100)}%</span> of the plot at a later pass.
-            {base && <> Dry crops are expected to show none. Paddy in the standing-water season is expected to show about <span class="num">{Math.round(base.frac * 100)}%</span>, so only water on top of that counts, the alert is marked low confidence, and the radar weight in the evidence tier is lowered and its uncertainty widened.</>}
-            {/* {{VERIFY: paddy fields are normally flooded on purpose in the kharif transplanting season, so radar change detection cannot separate irrigation water from flood water — UN-SPIDER recommended practice for SAR flood mapping, and the state agriculture department crop calendar}} */}
+            {base && <> Dry crops are expected to show none. Paddy is normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water. In this simulation paddy is expected to show about <span class="num">{Math.round(base.frac * 100)}%</span>, so only water on top of that counts, the alert is marked low confidence, and the radar weight in the evidence tier is lowered and its uncertainty widened.</>}
+            {/* Source: transplanted paddy shows low radar backscatter from standing water, so flood maps need a paddy mask (Singha et al., Scientific Data 2019; ISPRS 2020). */}
             {' '}This crop-aware treatment is an unvalidated design decision. Limit: radar passes are infrequent.
           </li>
           <li>
             <strong>Rule C, river or dam:</strong> a river gauge upstream of or beside the plot reaches its danger level{R && <> (<span class="num">{R.gauges[0].danger} {R.gauges[0].unit}</span> in this simulation, a scenario parameter)</>}, and the plot is riverside or low-lying within reach{R && <> (within <span class="num">{R.reachM / 1000}</span> km of the river, or low-lying within <span class="num">{R.lowReachM / 1000}</span> km, and no more than <span class="num">{R.maxLagH}</span> h of flood-wave travel from the gauge)</>}. Limit: it alerts every plot in reach, flooded or not, so it creates false alarms that the farmer’s “no damage” reply closes.
           </li>
-          {/* {{VERIFY: IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in)}} */}
+          {/* Source: IMD rainfall categories used in IMD bulletins. In 24 hours: heavy rain 64.5–115.5 mm, very heavy 115.6–204.4 mm, extremely heavy above 204.4 mm. */}
           <li><strong>Clock start:</strong> the <em>earliest</em> qualifying signal: when 24-hour rain crossed <span class="num">{th.rain24}</span> mm (the threshold IMD uses for “heavy rain”), or the river reached its danger level, or else the last clear radar pass. Never the alert time. If unsure, the farmer gets less time, not more.</li>
         </ol>
-        <p>AI is used only for perception (is water visible in a photo?) and language (voice prompts). It never sets a deadline and never decides anything.</p>
+        <p>By design, AI would be used only for perception (is water visible in a photo?) and language. It would never set a deadline and never decide anything. This prototype runs no AI model: the photo check is planned, not built, and the voice is a recorded clip or the phone’s speech synthesis.</p>
       </div>
       <div class="xgrid">
         <RainPanel m={m} />
@@ -299,10 +299,10 @@ export default function Explainer() {
         <section class="xpanel" aria-labelledby="x-lim">
           <h4 id="x-lim"><Icon name="info" /> Honest limits</h4>
           <ul class="limits">
-            {/* {{VERIFY: C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping}} */}
+            {/* Source: UN-SPIDER Recommended Practice, flood mapping: radar has difficulty detecting flooded vegetation, including agricultural areas. */}
             <li>Radar under-sees water beneath tall crops (sugarcane, maize): those plots can be missed by the radar rule, and farmers can still report with a helper.</li>
-            {/* {{VERIFY: real satellite radar revisits a field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview}} */}
-            <li>This replay assumes a radar pass every {cad} hours (simulated; the slower option is every {m.raw.sarSlow ? m.raw.sarSlow[1] - m.raw.sarSlow[0] : '—'} hours, also simulated). Real revisits are slower, which is why the rain and river rules exist.</li>
+            {/* Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner). */}
+            <li>This replay assumes a radar pass every {cad} hours (simulated; the slower option is every {m.raw.sarSlow ? m.raw.sarSlow[1] - m.raw.sarSlow[0] : '—'} hours, also simulated). Real revisits are slower: radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. That is why the rain and river rules exist.</li>
             <li>The river gauges and the paddy baseline are synthetic. Rule C works here because the gauge series come from the same simulated flood, so its results show the mechanism and not real-world accuracy.</li>
             <li>The precision and recall shown elsewhere are a consistency check against the simulator’s own truth. They are not a validation, and they must not be quoted as accuracy.</li>
             <li>Rules create false alarms (rain on low land that drained, a river that stayed in its banks). The farmer’s “no damage” reply closes them at no cost.</li>

@@ -40,7 +40,10 @@ against. Details: `docs/PILOT-PLAN.md`. **[TO FILL]**
 ## Where it stands
 
 A working simulation in English, Hindi and Punjabi; an open evidence format with an independent verifier; a validation harness
-that has **not yet been run on real data**; a privacy and consent design that is **not legally reviewed**.
+that has **not yet been run on real data**; a privacy and consent design that is **not legally reviewed**. Seven anonymous phone
+conversations in five states (a patwari, an insurer's loss assessor, four farmers, a CSC operator), listed in
+`docs/INTERVIEWS.md`; none yet in Haryana, no letter of interest and no user. A first step that needs no department data:
+`docs/PILOT-PLAN.md`, "Phase 0".
 
 ## Commercial model (a proposal, no figures)
 

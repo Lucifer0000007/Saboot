@@ -35,6 +35,25 @@ export function fmtDur(hours: number, english = false) {
   return (neg ? '−' : '') + s;
 }
 
+/**
+ * The advice window in words: "about 1 day 20 h", "about 20 h", "about 45 min". For the relief rail, where the window is
+ * advice and not a deadline: no ticking seconds, nothing that reads as a time of day. Rounded to the nearest 10 minutes
+ * under an hour and to the hour above it, which is as exact as advice should sound.
+ */
+export function fmtCountdownWords(hoursLeft: number, english = false) {
+  const t = (k: string) => (english ? (en[k] as string) : tr(k));
+  if (hoursLeft <= 0) return t('al.passedWords');
+  const total = Math.round(hoursLeft * 6) / 6; // tenths of an hour
+  const d = Math.floor(total / 24);
+  const h = Math.round(total - d * 24);
+  const body = d >= 1
+    ? `${d} ${t(d === 1 ? 'u.day' : 'u.days')}${h ? ` ${h} ${t('u.h')}` : ''}`
+    : total >= 1
+      ? `${Math.round(total)} ${t('u.h')}`
+      : `${Math.max(10, Math.round((total * 60) / 10) * 10)} ${t('u.min')}`;
+  return t('al.about').split('{t}').join(body);
+}
+
 /** Countdown "HH:MM:SS", hours may exceed 24. */
 export function fmtCountdown(hoursLeft: number) {
   const s = Math.max(0, Math.floor(hoursLeft * 3600));

@@ -2,9 +2,11 @@
 import type { Model } from './model';
 import type { PlotState } from './cohort';
 
+/** Nearest-rank percentile, except that the median of an even count is the mean of the two middle values. */
 export const q = (xs: number[], p: number) => {
   if (!xs.length) return null;
   const s = [...xs].sort((a, b) => a - b);
+  if (p === 0.5 && s.length % 2 === 0) return (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
   return s[Math.min(s.length - 1, Math.floor(p * (s.length - 1) + 0.5))];
 };
 
@@ -44,7 +46,8 @@ export function metrics(m: Model, states: PlotState[], t: number): Metrics {
   const ev = flood.filter((s) => s.times.noDamageT === null || s.times.noDamageT > t);
   const filedInWindow = ev.filter((s) => s.times.fileT !== null && s.times.fileT <= t && s.times.fileT <= s.times.deadlineT!).length;
   const filedLate = ev.filter((s) => s.times.fileT !== null && s.times.fileT <= t && s.times.fileT > s.times.deadlineT!).length;
-  const missed = ev.filter((s) => s.times.deadlineT! <= t && (s.times.captureT === null || s.times.captureT > s.times.deadlineT!)).length;
+  // no evidence captured yet and the window has passed, so with `filedInWindow` and `filedLate` the three never count a plot twice
+  const missed = ev.filter((s) => s.times.deadlineT! <= t && (s.times.captureT === null || s.times.captureT > t)).length;
   let tp = 0, fp = 0, fn = 0, tn = 0;
   for (const p of m.plots) {
     const d = m.det[p.idx];

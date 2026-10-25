@@ -4,7 +4,7 @@
 import { RELIEF } from '../config';
 import type { Model } from '../sim/model';
 import { flagLabel, stageLabel } from '../sim/cohort';
-import { PADDY_RADAR_SCALE, PRIORITY_WEIGHTS, RIVER_WEIGHT, TIER_LABEL, TIER_RULE, WEIGHTS, type Tier } from '../sim/evidence';
+import { PADDY_RADAR_SCALE, PRIORITY_WEIGHTS, RIVER_WEIGHT, TIER_LABEL, TIER_RULE, WEIGHTS, bandPct, type Tier } from '../sim/evidence';
 import { RULE_VERSIONS } from '../sim/rules';
 import type { Row } from './state';
 
@@ -68,6 +68,9 @@ export interface Draft {
 
 const r2 = (x: number) => Math.round(x * 100) / 100;
 
+/** A hail prompt with no reply yet, or none by the end of its window, is not a confirmed flood: it never carries a village's review load or rank. */
+const unconfirmedStage = (r: Row) => r.s.stage === 'unconfirmed' || r.s.stage === 'hail-prompt';
+
 export function listState(m: Pick<Model, 'opts'>, t: number): ListState {
   const { publishAtHour: a, objectionWindowHours: w } = m.opts;
   return t < a ? 'working draft' : t < a + w ? 'published' : 'objections closed';
@@ -84,11 +87,12 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
     crop: r.s.plot.crop,
     areaHa: r2(r.s.plot.areaHa),
     stage: stageLabel(r.s),
-    unconfirmed: r.s.stage === 'unconfirmed',
+    unconfirmed: unconfirmedStage(r),
     tier: r.e.tier,
     tierLabel: TIER_LABEL[r.e.tier],
-    scoreLo: r2(r.e.lo),
-    scoreHi: r2(r.e.hi),
+    // band ends are rounded down, like the screen, so an export never prints a line the exact value has not reached
+    scoreLo: bandPct(r.e.lo) / 100,
+    scoreHi: bandPct(r.e.hi) / 100,
     floodShare: r2(r.e.floodShare),
     floodShareUnc: r2(r.e.floodShareUnc),
     atOrAboveShareParameter: r.e.floodShare >= share,
@@ -103,7 +107,7 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
   const byVillage = m.raw.map.villages
     .map((v, i) => {
       const vs = listed.filter((r) => r.s.plot.v === i);
-      const confirmed = vs.filter((r) => r.s.stage !== 'unconfirmed');
+      const confirmed = vs.filter((r) => !unconfirmedStage(r));
       return {
         i,
         n: vs.length,

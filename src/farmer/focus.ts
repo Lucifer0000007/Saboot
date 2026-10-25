@@ -6,7 +6,7 @@ import { signal, computed } from '@preact/signals';
 import { appendLink, canonical, sha256, type ChainLink } from '../lib/hash';
 import { dbGet, dbSet, dbDel, dbClear, dbKeys } from '../lib/db';
 import { network, browserOnline } from '../lib/prefs';
-import { t, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
+import { t, seek, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
 import { imported } from '../k/imported';
 
@@ -31,7 +31,7 @@ export type SyncStage = 'hash' | 'full';
 export type FocusEvent =
   | { type: 'shot'; simT: number; data: ShotData }
   | { type: 'sync'; simT: number; data: { photoIds: string[]; packet?: string; stage?: SyncStage } }
-  | { type: 'seal'; simT: number; data: { packetHash: string; shots: string[]; queued: boolean } }
+  | { type: 'seal'; simT: number; data: { packetHash: string; shots: string[]; queued: boolean; /** the phone's own clock when it sealed (older logs have none) */ deviceMs?: number } }
   | { type: 'ref'; simT: number; data: { ref: string } }
   | { type: 'no_damage'; simT: number; data: { undo?: boolean } }
   | { type: 'consent'; simT: number; data: Consent }
@@ -93,18 +93,49 @@ export async function endHelperSession() {
   await dbDel('kv', SESSION);
 }
 
-/** Append an event at the current sim time. Discards "future" events first if the replay was rewound. */
-async function append(ev: FocusEvent, key: string = activeKey.value) {
-  if (!loaded) await loadFocus();
-  let c = logs.value[key] ?? [];
-  if (c.some((l) => l.body.simT > ev.simT)) {
-    c = c.filter((l) => l.body.simT <= ev.simT);
-    rewound.value = true;
-  }
-  const link = await appendLink(c, ev);
-  logs.value = { ...logs.value, [key]: [...c, link] };
-  await save(key);
-  return link;
+/** Writes one at a time (and across tabs where the browser has Web Locks), so two actions can never overwrite each other. */
+let writes: Promise<unknown> = Promise.resolve();
+function exclusive<T>(fn: () => Promise<T>): Promise<T> {
+  const run = writes.then(() => (typeof navigator !== 'undefined' && navigator.locks ? navigator.locks.request('saboot-log', fn) : fn()));
+  writes = run.catch(() => undefined);
+  return run as Promise<T>;
+}
+
+/** The log as it stands now. Another tab, or this page before it has loaded, may have stored more than memory holds. */
+async function currentLog(key: string): Promise<Link[]> {
+  const stored = await dbGet<Link[]>('kv', kvKey(key));
+  const c = logs.value[key] ?? [];
+  return stored && stored.length > c.length ? stored : c;
+}
+
+/**
+ * Append an event. A log only moves forward: an event that would land before the last one is stamped just after it, so
+ * scrubbing the replay back, reloading or reconnecting can never remove sealed evidence. When a person acts while the
+ * replay is behind their last action, the replay moves forward to it so they can see what they did. A `passive` event (a
+ * sync) never moves the replay.
+ */
+async function append(ev: FocusEvent, key: string = activeKey.value, passive = false) {
+  return exclusive(async () => {
+    if (!loaded) await loadFocus();
+    const c = await currentLog(key);
+    const last = c.length ? c[c.length - 1].body.simT : -Infinity;
+    const simT = Math.max(ev.simT, last);
+    if (simT > ev.simT && !passive) {
+      seek(simT);
+      rewound.value = true;
+    }
+    const link = await appendLink(c, simT === ev.simT ? ev : ({ ...ev, simT } as FocusEvent));
+    logs.value = { ...logs.value, [key]: [...c, link] };
+    await save(key);
+    return link;
+  });
+}
+
+/** After a reload the replay clock is back at the start: take it to the last thing the person did, so their evidence shows. */
+export function restoreClock() {
+  let last = 0;
+  for (const c of Object.values(logs.value)) if (c.length) last = Math.max(last, c[c.length - 1].body.simT);
+  if (t.value < last) seek(last);
 }
 
 export async function resetFocus() {
@@ -138,7 +169,7 @@ export function exportMyData() {
 export async function deleteMyData() {
   await resetFocus();
   imported.value = [];
-  await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported')]);
+  await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported'), dbDel('kv', 'k-send-queue')]);
 }
 
 /** What each log shows at sim time t: the demo farmer's view, and the view of every farmer a helper has captured for. */
@@ -160,7 +191,7 @@ export interface FocusView {
   /** received as a hash only; photo body still waiting for a better network */
   bodyPending: number;
   items: SyncItem[];
-  seal: { simT: number; packetHash: string; recvT: number | null } | null;
+  seal: { simT: number; packetHash: string; recvT: number | null; shots: string[]; deviceMs?: number } | null;
   ref: { ref: string; simT: number } | null;
   noDamage: number | null;
   consent: (Consent & { simT: number }) | null;
@@ -188,7 +219,7 @@ export function reduce(events: Link[], at: number): FocusView {
         if ((e.data.stage ?? 'full') === 'full' && !body.has(id)) body.set(id, e.simT);
       }
       if (e.data.packet && v.seal && v.seal.recvT === null) v.seal.recvT = e.simT;
-    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT };
+    } else if (e.type === 'seal') v.seal = { simT: e.simT, packetHash: e.data.packetHash, recvT: e.data.queued ? null : e.simT, shots: e.data.shots, deviceMs: e.data.deviceMs };
     else if (e.type === 'ref') v.ref = { ref: e.data.ref, simT: e.simT };
     else if (e.type === 'no_damage') v.noDamage = e.data.undo ? null : e.simT;
     else if (e.type === 'consent') v.consent = { ...e.data, simT: e.simT };
@@ -237,15 +268,18 @@ export function simGeo(seed = 0): Geo {
   return { lat: +lat.toFixed(6), lon: +lon.toFixed(6), acc: 8, src: 'sim' };
 }
 
+/** How long a photo waits for a location before it says "simulated location" and goes on. */
+const GEO_WAIT_MS = 3500;
+
 export function getGeo(): Promise<Geo> {
   return new Promise((res) => {
     if (!('geolocation' in navigator)) return res(simGeo(1));
     const done = (g: Geo) => res(g);
-    const timer = setTimeout(() => done(simGeo(2)), 9000);
+    const timer = setTimeout(() => done(simGeo(2)), GEO_WAIT_MS);
     navigator.geolocation.getCurrentPosition(
       (p) => { clearTimeout(timer); done({ lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' }); },
       () => { clearTimeout(timer); done(simGeo(3)); },
-      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 500, maximumAge: 60000 }
     );
   });
 }
@@ -260,15 +294,31 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 /** 2G: one small message every ~1.2 s of real time. */
 export const WEAK_DELAY_MS = 1200;
 
+/** A helper acts for a farmer only once that farmer has agreed. */
+export class ConsentMissing extends Error {
+  override name = 'ConsentMissing';
+  constructor() { super('The farmer has not agreed yet.'); }
+}
+
+/** In helper mode, real photos and a seal need the consent recorded in that farmer's own log. The demo farmer acts for themself. */
+async function requireConsent(key: string) {
+  if (key !== DEMO && !reduce(await currentLog(key), Infinity).consent) throw new ConsentMissing();
+}
+
 export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, geo: Geo, synthetic: boolean, helper?: string) {
+  // the farmer this photo is for is fixed now: moving on to another farmer while it is saved must not move the photo
+  const key = activeKey.value;
+  if (!synthetic) await requireConsent(key);
   busy.value = true;
+  // ask the browser to keep what is captured when storage runs low (no prompt; the answer is not needed)
+  void navigator.storage?.persist?.().catch(() => undefined);
   try {
     const sha = await sha256(blob);
     const photoId = 'ph-' + sha.slice(0, 16);
     await dbSet('photos', photoId, blob);
     const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', photoId, { kind: 'photo', id: photoId, simT: t.value, plot: activeKey.value });
-    await append({ type: 'shot', simT: t.value, data: { kind, photoId, sha, bytes: blob.size, w, h, geo, synthetic, helper, queued } });
+    if (queued) await dbSet('outbox', photoId, { kind: 'photo', id: photoId, simT: t.value, plot: key });
+    await append({ type: 'shot', simT: t.value, data: { kind, photoId, sha, bytes: blob.size, w, h, geo, synthetic, helper, queued } }, key);
     photoTick.value++;
   } finally {
     busy.value = false;
@@ -311,15 +361,17 @@ export function packetBody(v: FocusView) {
 }
 
 export async function seal() {
+  const key = activeKey.value;
   const v = view.value;
-  if (!v.shotCount) return;
+  if (!v.shotCount || full.value.seal) return;
+  if (Object.values(v.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
   busy.value = true;
   try {
     const body = packetBody(v);
     const packetHash = await sha256(canonical(body));
     const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: activeKey.value });
-    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued } });
+    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
+    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } }, key);
   } finally {
     busy.value = false;
   }
@@ -352,10 +404,10 @@ export async function syncOutbox() {
         const [k, e] = left[0];
         const owner = e?.plot ?? DEMO;
         if (k.startsWith('packet-')) {
-          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(logs.value[owner] ?? [], t.value).seal?.packetHash, stage: 'hash' } }, owner);
+          await append({ type: 'sync', simT: t.value, data: { photoIds: [], packet: reduce(await currentLog(owner), Infinity).seal?.packetHash, stage: 'hash' } }, owner, true);
           await dbDel('outbox', k);
         } else {
-          await append({ type: 'sync', simT: t.value, data: { photoIds: [k], stage: 'hash' } }, owner);
+          await append({ type: 'sync', simT: t.value, data: { photoIds: [k], stage: 'hash' } }, owner, true);
           await dbSet('outbox', k, { ...e, hashSent: true });
         }
         continue;
@@ -366,9 +418,10 @@ export async function syncOutbox() {
       for (const owner of owners) {
         const mine = entries.filter(([, e]) => (e?.plot ?? DEMO) === owner).map(([k]) => k);
         const ids = mine.filter((k) => k.startsWith('ph-'));
-        const seal = reduce(logs.value[owner] ?? [], t.value).seal;
+        // not from memory alone: a sync can start at page load, or in a second tab, before this page holds the sealed log
+        const seal = reduce(await currentLog(owner), Infinity).seal;
         const packet = mine.some((k) => k.startsWith('packet-')) && seal ? seal.packetHash : undefined;
-        await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner);
+        await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner, true);
       }
       await dbClear('outbox');
       return;
@@ -397,6 +450,7 @@ export const policyNo = (plotId: string) => `SIM-KSG-26-${plotId.replace('P-', '
 export const SCRIPT = { capture: 3, seal: 3.1, ref: 5.1, ackDue: 48, escalate: 72, ack: 70, survey: 30, objectionResponse: 20 };
 
 export async function ensureFocus(stage: 'captured' | 'sealed' | 'filed') {
+  if (!loaded) await loadFocus();
   const d = focusDet.value;
   if (!d || d.alertT === null) return;
   const back = t.value;

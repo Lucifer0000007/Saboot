@@ -1,8 +1,9 @@
-// QR code (error correction M) rendered as one SVG path. Encoder: uqr (MIT), bundled in a lazy chunk.
+// QR code rendered as one SVG path. Encoder: uqr (MIT), bundled in a lazy chunk. Fewer squares scan better from a phone screen
+// through a webcam, so the share sheet encodes the bare code (version 10) at the lowest error correction, not the longer link.
 import { encode } from 'uqr';
 
-export function qrPath(text: string): { size: number; d: string; version: number } {
-  const qr = encode(text, { ecc: 'M', border: 2 });
+export function qrPath(text: string, o: { ecc?: 'L' | 'M'; border?: number } = {}): { size: number; d: string; version: number } {
+  const qr = encode(text, { ecc: o.ecc ?? 'M', border: o.border ?? 2 });
   let d = '';
   qr.data.forEach((row, y) => {
     let run = -1;

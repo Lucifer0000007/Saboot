@@ -1,0 +1,955 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-10-22T00:03:19.023Z",
+  "specification": {
+    "path": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+    "sha256": "d51f20c3bcb142a9b6afd19476581b08fd78c894275db6ab7815330bb34cec2d",
+    "bytes": 14854
+  },
+  "artifact": {
+    "path": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+    "sha256": "2798d30f90f412eb715b0d2f84530ba3bd90114bfbe0e3a350f9278a4d7b5f18",
+    "bytes": 2095388
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    },
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\ADMIN\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "d51f20c3bcb142a9b6afd19476581b08fd78c894275db6ab7815330bb34cec2d",
+          "bytes": 14854
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 1434,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\ADMIN\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "fed4b840-d6d0-4386-b672-4010b8ff40f0",
+        "ok": true,
+        "command": "deliver",
+        "type": "explainer",
+        "input": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\candidate.archify.md",
+        "output": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+        "explainer": {
+          "preparedSha256": "cbb1169bb564ed2a67c5641a911ce270bf99ecfda0b428f643f8a8c71a4b45d1",
+          "dependencies": [
+            {
+              "kind": "repository",
+              "id": "readme",
+              "path": "README.md",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "78118aac5fe278461b055a53ea19760d6d1fc3673f7624772f63107e88cc804b",
+              "bytes": 35483
+            },
+            {
+              "kind": "repository",
+              "id": "spec",
+              "path": "docs/SABOOT-SPEC.md",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "32c23cac94dbe1cbf415a6f421aa5ac445d69d383349174dc6c7261e06fc4836",
+              "bytes": 33140
+            },
+            {
+              "kind": "repository",
+              "id": "gen",
+              "path": "scripts/gen-scenario.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "890e42c4de7f0c8b13a4ed5ff45398dd46f02315b2e803f66d643894295776af",
+              "bytes": 17598
+            },
+            {
+              "kind": "repository",
+              "id": "engine",
+              "path": "src/sim/engine.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "dc0d2415a4730977ffe35f39d4560ae183b99199087e1416ce3d8c28a9a8a757",
+              "bytes": 4289
+            },
+            {
+              "kind": "repository",
+              "id": "rules",
+              "path": "src/sim/rules.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "f8986f6f1f7ea4656218a4fc8151bd9ea33dab937381dae024c14a51d09ffcb3",
+              "bytes": 8483
+            },
+            {
+              "kind": "repository",
+              "id": "model",
+              "path": "src/sim/model.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "9d041eefbeb870e299eb1bb36adc9639483e2504c66edfc5f08f64d9bec3cd23",
+              "bytes": 14215
+            },
+            {
+              "kind": "repository",
+              "id": "evidence",
+              "path": "src/sim/evidence.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "1f554b5aeb66da6f8256db2dc0f5c2560ae423ca10d7b12883d2101ae0792f91",
+              "bytes": 10172
+            },
+            {
+              "kind": "repository",
+              "id": "priority",
+              "path": "src/sim/evidence.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "1f554b5aeb66da6f8256db2dc0f5c2560ae423ca10d7b12883d2101ae0792f91",
+              "bytes": 10172
+            },
+            {
+              "kind": "repository",
+              "id": "hash",
+              "path": "src/lib/hash.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "9310989cce8f5b41e92688c20e1547f9f747069cf37d96c425cab82b3bd3afde",
+              "bytes": 5062
+            },
+            {
+              "kind": "repository",
+              "id": "focus",
+              "path": "src/farmer/focus.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "d659018ec3c6fc9f83947dbc73db435f8c029fb43f7951e7bb1352781fd72298",
+              "bytes": 19536
+            },
+            {
+              "kind": "repository",
+              "id": "db",
+              "path": "src/lib/db.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "ad85b492898d0ab91e428eb7ece591e3432092ae28c7a3e765fd768bcf73a9d8",
+              "bytes": 2240
+            },
+            {
+              "kind": "repository",
+              "id": "payload",
+              "path": "src/k/payload.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "fb193af471fdb1129e84034745dfeaeb8f60f3c5561b086db578fb60b7c0309a",
+              "bytes": 7441
+            },
+            {
+              "kind": "repository",
+              "id": "ledger",
+              "path": "src/sim/ledger.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "f208ad733c2a64655481e40cf3135ee3ecb5db6e3b047f025a1f111ed925666b",
+              "bytes": 6303
+            },
+            {
+              "kind": "repository",
+              "id": "config",
+              "path": "src/config.ts",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "74b1af189790b9bbb379167e5d5dac93769074dd472091c00370157db106d3fc",
+              "bytes": 3933
+            },
+            {
+              "kind": "repository",
+              "id": "sw",
+              "path": "scripts/sw.mjs",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "bd08f387cbd6c0740d0b31dc666d34169b9bd71f4781e50c428bf94f5ead9244",
+              "bytes": 2482
+            },
+            {
+              "kind": "repository",
+              "id": "post",
+              "path": "scripts/postbuild.mjs",
+              "revision": "ff4d148fefb3cd9c14b901c29dfeb4aa64a2321d",
+              "sha256": "bf28fb53f1211c1e99910352873e2961bdc6a7b2634b8f9ed9a743df74d1acfb",
+              "bytes": 5971
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "system-map",
+              "inline": true,
+              "sha256": "93e5a4b1fe01f9cce03a19408d651116571781ab327ca8c0e11bca3e8c8f5405",
+              "bytes": 1704
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "detection-flow",
+              "inline": true,
+              "sha256": "3f26209cc0547d901b73bcb94fc9670c9a0d4883dae334ab00e8c766be6b0865",
+              "bytes": 1560
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "capture-flow",
+              "inline": true,
+              "sha256": "b3b8e5bf48ff2438858fa1aac85c903d85c0136cc180f1f6a30723aa312a430b",
+              "bytes": 1363
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "repo-layout",
+              "inline": true,
+              "sha256": "42d7fbcd853a4a5b667b080b4d8f856e12e6618ea29e1fcb14d3d4f6e4324d39",
+              "bytes": 940
+            }
+          ]
+        },
+        "specification": {
+          "sha256": "d51f20c3bcb142a9b6afd19476581b08fd78c894275db6ab7815330bb34cec2d",
+          "bytes": 14854
+        },
+        "artifact": {
+          "sha256": "2798d30f90f412eb715b0d2f84530ba3bd90114bfbe0e3a350f9278a4d7b5f18",
+          "bytes": 2095388
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 681,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\ADMIN\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "check",
+        "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.html",
+        "family": "explainer",
+        "artifact": {
+          "sha256": "2798d30f90f412eb715b0d2f84530ba3bd90114bfbe0e3a350f9278a4d7b5f18",
+          "bytes": 2095388
+        },
+        "checks": [
+          {
+            "name": "explainer_structure",
+            "ok": true,
+            "details": [
+              "160 unique DOM IDs"
+            ]
+          },
+          {
+            "name": "explainer_payload_identity",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "explainer_dependencies",
+            "ok": true,
+            "details": [
+              "20 frozen dependencies"
+            ]
+          },
+          {
+            "name": "explainer_native_diagrams",
+            "ok": true,
+            "details": [
+              "system-map: pass",
+              "detection-flow: pass",
+              "capture-flow: pass",
+              "repo-layout: pass"
+            ]
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "issues": [],
+          "nativeDiagrams": [
+            {
+              "id": "system-map",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\archify-explainer-check-llqbsw\\child.html",
+                "artifact": {
+                  "sha256": "3b2c59c08e034b0a0b6174d8e31fbb735e0ec2dd0f5c6489ca5e2d56a027cb11",
+                  "bytes": 822928
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": []
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 1,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": 8.5,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 7.5,
+                    "maxBends": 4,
+                    "routesOverSuggestedBends": 2,
+                    "maxStretch": 1.199,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": 16,
+                    "minInteriorSegmentPx": 16,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [
+                      {
+                        "left": {
+                          "id": "engine-to-officer-1",
+                          "from": "engine",
+                          "to": "officer",
+                          "label": "rows",
+                          "collectionIndex": 3,
+                          "artifactIndex": 4
+                        },
+                        "right": {
+                          "id": "farmer-to-idb-1",
+                          "from": "farmer",
+                          "to": "idb",
+                          "label": "chained log",
+                          "collectionIndex": 4,
+                          "artifactIndex": 5
+                        },
+                        "point": [
+                          790,
+                          263
+                        ]
+                      }
+                    ],
+                    "detours": [
+                      {
+                        "relationship": {
+                          "id": "engine-to-farmer-1",
+                          "from": "engine",
+                          "to": "farmer",
+                          "label": "alert",
+                          "collectionIndex": 2,
+                          "artifactIndex": 3
+                        },
+                        "bends": 4,
+                        "stretch": 1.199
+                      },
+                      {
+                        "relationship": {
+                          "id": "engine-to-officer-1",
+                          "from": "engine",
+                          "to": "officer",
+                          "label": "rows",
+                          "collectionIndex": 3,
+                          "artifactIndex": 4
+                        },
+                        "bends": 4,
+                        "stretch": 1.115,
+                        "directCorridorBlockers": [
+                          {
+                            "id": "farmer",
+                            "label": "Farmer app",
+                            "box": [
+                              592,
+                              266,
+                              120,
+                              60
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "leadingSpace": {
+                    "measured": true,
+                    "emptyTopPx": 80,
+                    "emptyTopRatio": 0.138,
+                    "occupiedTop": 80,
+                    "viewBoxTop": 0,
+                    "canvasHeight": 580,
+                    "typicalNodeHeight": 60,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "recognized-declared-wide",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 1222.5,
+                    "actualBudgetPx": 1222.5,
+                    "actualReaderWidth": 1252.5,
+                    "desiredReaderWidth": 1252.5,
+                    "viewportCap": 1376,
+                    "limit": "source-size",
+                    "requestedTargetPx": 7.5,
+                    "requestedTargetMet": true,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "edge",
+                      "id": "scenario-to-engine-1",
+                      "from": "scenario",
+                      "to": "engine"
+                    },
+                    "minimumSourceTextPx": 8,
+                    "minimumProjectedTextPx": 7.5,
+                    "semanticTextCount": 18
+                  },
+                  "issues": []
+                }
+              }
+            },
+            {
+              "id": "detection-flow",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\archify-explainer-check-P8MUMj\\child.html",
+                "artifact": {
+                  "sha256": "549a8122d57c3c2dda898c68aa0a3a6cccaf7de15a055d53f16e77377ad04693",
+                  "bytes": 814999
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": []
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": 61,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 7.005649717514125,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": 1,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": 8,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 1,
+                    "shortEndpointSegmentCount": 1,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "legacy-930",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "limit": "legacy",
+                    "requestedTargetPx": null,
+                    "requestedTargetMet": null,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "edge",
+                      "id": "clock-to-call-1",
+                      "from": "clock",
+                      "to": "call"
+                    },
+                    "minimumSourceTextPx": 8,
+                    "minimumProjectedTextPx": 7.005649717514125,
+                    "semanticTextCount": 12
+                  },
+                  "issues": []
+                }
+              }
+            },
+            {
+              "id": "capture-flow",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\archify-explainer-check-u8fWNO\\child.html",
+                "artifact": {
+                  "sha256": "14788542645b56777eb3bc9417167b36d7128c89d09c7ad0a08cf11346b57b97",
+                  "bytes": 811195
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": []
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": 28,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 11,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": 1,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": 200.3,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "sequenceColumnSpace": {
+                    "measured": true,
+                    "columnFit": "spread",
+                    "participantCount": 4,
+                    "occupiedRight": 880,
+                    "viewBoxLeft": 0,
+                    "canvasWidth": 920,
+                    "emptyRightPx": 40,
+                    "emptyRightRatio": 0.043,
+                    "typicalParticipantWidth": 175,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "legacy-930",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "limit": "legacy",
+                    "requestedTargetPx": null,
+                    "requestedTargetMet": null,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "edge",
+                      "id": "farmer-to-app-1",
+                      "from": "farmer",
+                      "to": "app"
+                    },
+                    "minimumSourceTextPx": 11,
+                    "minimumProjectedTextPx": 11,
+                    "semanticTextCount": 13
+                  },
+                  "issues": []
+                }
+              }
+            },
+            {
+              "id": "repo-layout",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMIN\\AppData\\Local\\Temp\\archify-explainer-check-0VQOQ0\\child.html",
+                "artifact": {
+                  "sha256": "f5059ffaae3b9b221732e3cbd4f8835cff33ae09db9433d5201fcd64720916ea",
+                  "bytes": 820691
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": [
+                      "no legend marker found"
+                    ]
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": null,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 13,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": null,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": null,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "legacy-930",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "limit": "legacy",
+                    "requestedTargetPx": 7.5,
+                    "requestedTargetMet": true,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "node",
+                      "id": "src"
+                    },
+                    "minimumSourceTextPx": 13,
+                    "minimumProjectedTextPx": 13,
+                    "semanticTextCount": 13
+                  },
+                  "issues": []
+                }
+              }
+            }
+          ]
+        },
+        "diagnostics": [],
+        "provenance": "current",
+        "deliveryReceiptId": "fed4b840-d6d0-4386-b672-4010b8ff40f0"
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.finalize.json",
+    "summaryReceipt": "C:\\Users\\ADMIN\\Desktop\\Projects\\saboot-clean\\.archify\\explainer-saboot-20261022-053216\\saboot-explained.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "finishedAt": "2026-10-22T00:03:21.648Z",
+  "durationMs": 2625,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "check-failed"
+  }
+}

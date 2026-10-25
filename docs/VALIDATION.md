@@ -48,8 +48,13 @@ Its numbers are never displayed in the product.
 ## Input files
 
 Put these four files and a `PROVENANCE.json` in `data/real/`. Lines that start with `#` are ignored, so a file can say where
-it came from. Column order does not matter; extra columns are ignored. All times are ISO 8601 **with a zone** (`Z` or an
-offset such as `+05:30`). A time without a zone is rejected, because it is ambiguous. Reports show times in UTC.
+it came from. Column order does not matter; extra columns are ignored. All times are full ISO 8601 date-times **with a zone**
+(`2026-07-14T08:30:00Z`, or an offset such as `+05:30`; seconds are optional). Anything else is rejected: a time without a
+zone is ambiguous, and a date such as `01-02-2026` is not a time. Reports show times in UTC.
+
+**A run refuses to be published if any row was rejected.** The report lists how many rows of each file were rejected (with the
+first reason), a missing column, and an unbalanced quote in a CSV (which would otherwise swallow the rest of the file). Fix the
+file and run again.
 
 ### `rainfall.csv`
 
@@ -59,7 +64,11 @@ offset such as `+05:30`). A time without a zone is rejected, because it is ambig
 | `lat`, `lon` | yes | Decimal degrees, WGS 84. |
 | `time_utc` | yes | The **end** of the interval the depth was measured over. |
 | `rain_mm` | yes | Rain depth in millimetres over the interval, 0 or more. |
-| `interval_h` | no | Length of the interval in hours, default 1. A depth over several hours is spread evenly over them. |
+| `interval_h` | no | Length of the interval in hours, default 1. The whole depth counts from the first whole hour at or after `time_utc`: it is **not** spread back over the interval, because a rule must not fire on hours before the reading existed. A reading at 08:30 counts from 09:00. The interval only says which hours the station reported on. |
+
+A station is used for an event only when, between its first and last hour in the window (the 24 hours before the start, to the
+end), at least 90% of the hours were reported. A station with gaps is skipped for that event, because a gap would read as dry
+weather and turn a flood into a miss.
 
 ### `river.csv`
 
@@ -94,7 +103,7 @@ One row per village per event, from an official process.
 | `lat`, `lon` | yes | Decimal degrees. Round them: a village-level comparison does not need the exact field. |
 | `area_ha`, `crop` | no | Carried for reference only. |
 | `elev_above_river_m` | no | Metres above the river. Below the low-lying line (2.6 m by default) the plot counts as low-lying for Rule A. |
-| `low_lying` | no | `1` or `0`. Takes precedence over `elev_above_river_m`. With neither, the plot is treated as not low-lying. |
+| `low_lying` | no | `1` or `0`. Takes precedence over `elev_above_river_m`. With neither, Rule A **cannot be evaluated** for the plot (it could never fire, which is not the same as no event), so rainfall alone does not make the village evaluable. |
 | `river_reach` | no | Gauges upstream of or beside the plot with the hours the flood wave needs to reach it: `GAUGE_ID:2.5;OTHER_ID:6`. Rule C runs only for plots that list a gauge. This needs hydrology knowledge the CSV cannot supply by itself. |
 
 ### `PROVENANCE.json`

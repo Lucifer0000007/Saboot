@@ -28,6 +28,11 @@ const dur = (h: number) => {
  * The countdown the farmer sees at the alert moment, as a pattern: the clock already reads the window minus the event-to-call
  * time, less the 0.02 h the alert moment lands after the call. The minute may be off by one while the page loads.
  */
+const wordsLeft = (window: number, callH: number) => {
+  const left = Math.round((window - callH) * 6) / 6;
+  const d = Math.floor(left / 24), h = Math.round(left - d * 24);
+  return `about ${d} ${d === 1 ? 'day' : 'days'}${h ? ` ${h} h` : ''}`;
+};
 const clockLeft = (window: number, callH: number) => {
   const left = window - callH - 0.02;
   const hh = Math.floor(left);
@@ -56,7 +61,7 @@ test('hosting headers: CSP without unsafe-inline scripts, nosniff, no framing, c
   expect(h['strict-transport-security']).toContain('max-age=');
   const sw = await page.request.get('/sw.js');
   expect(sw.headers()['cache-control']).toBe('no-cache');
-  const entry = /href="\.\/(assets\/index-[^"]+\.js)"/.exec(readFileSync('dist/index.html', 'utf8'))![1];
+  const entry = /"\.\/(assets\/index-[^"]+\.js)"/.exec(readFileSync('dist/index.html', 'utf8'))![1]; // named in the boot script (scripts/postbuild.mjs)
   expect((await page.request.get('/' + entry)).headers()['cache-control']).toContain('immutable');
   for (const p of ['/manifest.webmanifest', '/og.jpg', '/icon.svg', '/data/flood-replay.json']) expect((await page.request.get(p)).status(), p).toBe(200);
   const html = readFileSync('dist/index.html', 'utf8');
@@ -78,7 +83,8 @@ test('deep links open from a cold start, survive a reload, and the alert countdo
     // the default rail is the relief assessment: a capture-soon advice window that already runs when the call comes,
     // so the clock reads the window minus the event-to-call time (never the full window)
     const c = facts.combos['relief-demo'];
-    await expect(card.locator('.count'), pass).toHaveText(clockLeft(c.windowHours, c.focus.eventToCallH));
+    // advice, so the window reads in words, without ticking seconds: 48 h minus the event-to-call time is about 1 day 20 h
+    await expect(card.locator('.count.words'), pass).toHaveText(wordsLeft(c.windowHours, c.focus.eventToCallH));
     await expect(card.locator('.alert-started'), pass).toContainText('The clock started at about');
     await expect(card.locator('.alert-started'), pass).toContainText('This is advice, not a legal deadline.');
   }
@@ -189,16 +195,23 @@ test('presenter shortcuts: jump, network, language, help, HUD, tour, play, reset
   expect(errors).toEqual([]);
 });
 
-test('camera denied: the capture flow falls back to a simulated photo and location, and says so', async ({ page }) => {
+test('camera denied: the person is told why and chooses a labelled simulated photo, and nothing is swapped in silently', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('capture');`);
   await page.getByRole('button', { name: /Open camera/ }).click();
-  // the fallback is announced in a toast (and to screen readers), then the simulated shot is taken
-  await expect(page.getByText('Camera not available. Using a simulated photo.').first()).toBeVisible({ timeout: 10_000 });
+  // the camera is refused: a message with the way forward, and no photo taken on the person's behalf
+  await expect(page.locator('[data-cam-blocked]')).toContainText('The camera is blocked or not available', { timeout: 10_000 });
+  await page.waitForTimeout(600);
+  expect((await state(page)).shots).toBe(0);
+  await expect(page.locator('.shots li')).toHaveCount(0);
+  // the person chooses the simulated photo, and it says so on the photo and on its location
+  await page.getByRole('button', { name: /Use simulated photo/ }).click();
   const shot = page.locator('.shots li').first();
   await expect(shot).toBeVisible({ timeout: 20_000 });
   await expect(shot).toContainText('Simulated location', { timeout: 20_000 });
+  await expect(shot.locator('[data-v="photo"][data-prov="sim"]')).toBeVisible();
+  await expect(shot.locator('[data-v="loc"][data-prov="sim"]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -289,7 +302,7 @@ test('ledger: verify passes, the tamper test fails verification from the edited 
   expect(errors).toEqual([]);
 });
 
-test('impact panel: the figures match the facts file, the median leads, the check is not called validation, and validation is "not run"', async ({ page }) => {
+test('impact panel: the figures match the facts file, the median leads, the check is not called validation, and the replay block is on record', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `s.seek(168); s.tab('insurer'); s.insurer('impact');`);
@@ -309,7 +322,7 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   // evidence on file, event to evidence, objections: each with its definition
   await expect(panel.locator('[data-metric="evidence-on-file"]')).toContainText(`${f.pilot.truthWithEvidence} of ${f.pilot.truthFlooded} plots flooded in the synthetic truth`);
   await expect(panel.locator('[data-metric="event-to-evidence"] strong')).toHaveText(dur(f.pilot.eventToEvidenceMedianH));
-  await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objections} of ${f.pilot.onList} listed entries`);
+  await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objections} of the ${f.pilot.onList} plots the rules found an event for`);
   await expect(panel.locator('[data-metric="objections"]')).toContainText(`${f.pilot.objectionsAnswered} answered by the officer, outside Saboot`);
   // no "visits avoided": there is no honest baseline for it
   await expect(panel).not.toContainText(/visits? avoided/i);
@@ -325,9 +338,10 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   await expect(cc.locator('h4')).toHaveText('Simulated consistency check, not validation');
   await expect(cc).toContainText(`Precision ${Math.round(f.consistencyCheck.precision * 100)}%, recall ${Math.round(f.consistencyCheck.recall * 100)}%`);
   await expect(panel.locator('.impact')).not.toContainText(/precision|recall/i);
-  // real-data validation: not run
+  // real-data validation: the published replay, with raw counts under a REPLAY label (its own test is in relief.spec.ts)
   const val = panel.locator('[data-metric="validation"]');
-  await expect(val.locator('[data-validation-run="false"]')).toContainText('Not run.', { timeout: 20_000 });
+  await expect(val.locator('[data-replay="R-1"]')).toBeVisible({ timeout: 20_000 });
+  await expect(val).not.toContainText('Not run.');
   await expect(panel).toContainText('Decision happens outside Saboot.');
   expect(raw.seed).toBe(20260714);
   expect(raw.focus).toBe('P-04');
@@ -339,7 +353,7 @@ test('impact panel: the figures match the facts file, the median leads, the chec
   expect(errors).toEqual([]);
 });
 
-test('imported packet: a good code verifies and is tagged Imported (live); a tampered code fails', async ({ page }) => {
+test('imported packet: a good code verifies and says where it came from (here simulated photos); a tampered code fails', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3);`);
@@ -353,7 +367,9 @@ test('imported packet: a good code verifies and is tagged Imported (live); a tam
   await expect(result.locator('.note-ok')).toContainText('Integrity verified: not altered since sealing.', { timeout: 20_000 });
   await expect(result.locator('.note-ok')).toContainText('This does not prove who sealed it.');
   await page.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
-  await expect(page.locator('.import-sheet')).toContainText('Imported (live)');
+  // the scripted photos are simulated, and the packet says so: the laptop must not call them live
+  await expect(page.locator('.import-sheet')).toContainText('Imported (simulated)');
+  await expect(page.locator('.import-sheet [data-k-shot] [data-prov="sim"]').first()).toBeVisible();
   // flip one character in the middle (a photo fingerprint byte): chain or signature must fail
   const mid = Math.floor(code.length / 2);
   const bad = code.slice(0, mid) + (code[mid] === 'A' ? 'B' : 'A') + code.slice(mid + 1);
@@ -401,6 +417,8 @@ test('state survives a reload mid-flow; reset and cleared site data return to fi
   await expect.poll(async () => (await state(page)).shots, { timeout: 20_000 }).toBe(3);
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.keyboard.press('r');
+  // three real shots are on the phone, so Reset asks first
+  await page.getByRole('dialog', { name: /Clear what this phone captured/ }).getByRole('button', { name: /Clear it and start over/ }).click();
   await expect.poll(async () => (await state(page)).shots, { timeout: 10_000 }).toBe(0);
   expect((await state(page)).t).toBe(0);
   await sab(page, `await s.jump('capture'); await s.ensure('captured');`);

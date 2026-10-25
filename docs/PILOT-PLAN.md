@@ -11,6 +11,20 @@ disaster-management office assess faster and with better evidence, without takin
 a test of a claims product and it does not touch compensation. Saboot assembles evidence and ranks review work. Officers
 decide, outside Saboot.
 
+## Phase 0: an evidence-only pilot that needs no department data
+
+The full design below needs a department's plot register, gauge data and a comparison block. A smaller first step needs none
+of that, because the evidence half of Saboot already runs on an ordinary phone today:
+
+| Works today (tested) | Needs building first | Needs a person to agree |
+|---|---|---|
+| Guided capture of three photos, offline; per-farmer consent; helper mode for several farmers; sealing; the QR, code or link to the officer's laptop; the tamper check with no server | Starting the clock by hand when a helper hears a flood warning, labelled HAND (the HAND trust rule is built and tested; the button is not) | A helper (a CSC operator or sarpanch) to capture, and one patwari or officer willing to open the sealed codes on a laptop |
+
+What it would show: whether helpers can capture sealed evidence for farmers during a real flood, and whether an officer accepts
+a sealed code as a usable record. What it cannot show: detection, timing against a department's own list, or any effect on
+assessment. The roles such a pilot needs are the roles in `docs/INTERVIEWS.md` (a patwari, a CSC operator, farmers); **none of
+them has agreed to host one**, and no Haryana conversation has happened yet. Where and with whom: **[TO FILL]**.
+
 ## Design: one block against a comparison block
 
 | | Pilot block | Comparison block |

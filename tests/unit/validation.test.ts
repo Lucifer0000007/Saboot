@@ -148,6 +148,97 @@ const walk = (d: string): string[] => readdirSync(d).flatMap((n) => (statSync(jo
 test('nothing in the product reads or names the fixture, and the product status starts as "not run"', () => {
   for (const f of walk('src')) assert.ok(!/fixtures?\/validation|FIXTURE/.test(readFileSync(f, 'utf8')), `${f} must not mention the validation fixture`);
   const status = JSON.parse(readFileSync('public/data/validation-status.json', 'utf8'));
-  assert.deepEqual(status, { v: 1, run: false });
+  // "not run", or a replay of a real past flood published by scripts/replay/publish.ts: raw counts, no fixture, no percentage
+  if (status.run) {
+    assert.equal(status.v, 2);
+    assert.equal(status.replay.id, 'R-1');
+    assert.ok(status.replay.runs.A.events['R1-FLOOD'].points > 0);
+    assert.ok(!/fixture|FIXTURE/.test(JSON.stringify(status)));
+    assert.ok(!('precision' in status) && !('recall' in status));
+  } else assert.deepEqual(status, { v: 1, run: false });
   assert.ok(!existsSync('public/data/validation-fixture.json'));
+});
+
+// ---- audit L1-09, L1-10, L1-11: a published recall must not be silently wrong ---------------------------------------------
+import { spawnSync } from 'node:child_process';
+import { parseTime } from '../../scripts/validation/harness.ts';
+
+/** A scratch dataset whose only rain is one station's `rows`, so Rule A on Fixture-A depends on nothing else. */
+function rainOnly(rows: string[], plots?: (t: string) => string) {
+  return scratch((d) => {
+    writeFileSync(join(d, 'rainfall.csv'), ['station_id,lat,lon,time_utc,rain_mm,interval_h', ...rows].join('\n') + '\n');
+    if (plots) writeFileSync(join(d, 'plots.csv'), plots(readFileSync(join(d, 'plots.csv'), 'utf8')));
+  });
+}
+const villageA = (r: ReturnType<typeof runValidation>) => r.events[0].villages.find((v) => v.name === 'Fixture-A')!;
+
+test('a reading is never credited before it was taken: 08:30 counts from the next whole hour, not from 08:00', () => {
+  const r = runValidation({ dir: rainOnly(['FIXTURE-R1,30.000,75.000,2000-01-01T08:30:00Z,150,1']), fixture: true });
+  assert.equal(villageA(r).predicted, true);
+  assert.equal(villageA(r).firstFireUtc, '2000-01-01T09:00:00Z');
+});
+
+test('a daily total is not spread back over the day: it counts from the moment it was taken', () => {
+  const r = runValidation({ dir: rainOnly(['FIXTURE-R1,30.000,75.000,2000-01-02T03:00:00Z,150,24']), fixture: true });
+  assert.equal(villageA(r).firstFireUtc, '2000-01-02T03:00:00Z');
+});
+
+test('only a full ISO time with its zone is a time: digits that look like an offset in a date do not count', () => {
+  for (const ok of ['2000-01-01T08:00:00Z', '2000-01-01T08:00Z', '2000-01-01T08:00:00+05:30', '2000-01-01 08:00:00+0530', '2000-01-01T08:00:00.250Z']) assert.notEqual(parseTime(ok), null, ok);
+  for (const bad of ['01-02-2000', '1/2/2000 08:00 +0530', '2000-01-01', '2000-01-01T08:00:00', '2000-01-01T25:00:00Z', '2000-13-01T00:00:00Z', 'Jan 1 2000 08:00 +0530', '']) assert.equal(parseTime(bad), null, bad);
+  assert.equal(parseTime('2000-01-01T08:00:00+05:30'), Date.parse('2000-01-01T02:30:00Z'));
+});
+
+test('a plot with no elevation information is not evaluated for rain, rather than counted as a quiet false negative', () => {
+  const dir = rainOnly(['FIXTURE-R1,30.000,75.000,2000-01-01T08:00:00Z,150,1'], (t) => t.replace('FA-1,Fixture-A,30.001,75.001,1.2,paddy,1.5,1,', 'FA-1,Fixture-A,30.001,75.001,1.2,paddy,,,'));
+  const r = runValidation({ dir, fixture: true });
+  assert.equal(villageA(r).evaluable, false);
+  assert.ok(r.events[0].notEvaluable.includes('Fixture-A'));
+});
+
+test('a rain station that reports only half of its hours is not used: the gaps would read as dry weather', () => {
+  const rows = [7, 8, 9, 10, 11, 12].map((h) => `FIXTURE-R1,30.000,75.000,2000-01-01T${String(h).padStart(2, '0')}:00:00Z,${h === 12 ? 150 : 0},1`).filter((_, i) => i % 2 === 0);
+  const r = runValidation({ dir: rainOnly(rows), fixture: true });
+  assert.equal(villageA(r).evaluable, false, 'three of the six hours between its first and last reading are missing');
+});
+
+test('rows that were rejected are reported as an error, so a recall built from mostly-rejected data cannot be published', () => {
+  const dir = scratch((d) => {
+    const f = join(d, 'rainfall.csv');
+    // 12 of the 48 hourly rows lose their time zone
+    const lines = readFileSync(f, 'utf8').split('\n');
+    let n = 0;
+    writeFileSync(f, lines.map((l) => (/T\d\d:00:00Z/.test(l) && n++ < 12 ? l.replace(/Z,/, ',') : l)).join('\n'));
+    // not the fixture, so the only thing that can stop it being published is the rejected rows
+    const p = JSON.parse(readFileSync(join(d, 'PROVENANCE.json'), 'utf8'));
+    delete p._fixture;
+    writeFileSync(join(d, 'PROVENANCE.json'), JSON.stringify(p));
+  });
+  const r = runValidation({ dir });
+  assert.equal(r.inputs['rainfall.csv'].problems.count, 12);
+  assert.ok(r.errors.some((e) => /12 of 48 rows in rainfall\.csv were rejected/.test(e)), r.errors.join(' | '));
+  assert.throws(() => statusFrom(r), /inputs have problems/);
+});
+
+test('an unbalanced quote is a reported problem, not a silent loss of the rest of the file', () => {
+  assert.equal(readTable('a,b\n"x,1\n2,3\n').unterminated, true);
+  assert.equal(readTable('a,b\n"x",1\n').unterminated, false);
+  const dir = scratch((d) => {
+    const f = join(d, 'plots.csv');
+    writeFileSync(f, readFileSync(f, 'utf8').replace('FB-1,Fixture-B', '"FB-1,Fixture-B'));
+  });
+  assert.ok(runValidation({ dir, fixture: true }).errors.some((e) => /unbalanced quote/.test(e) && /plots\.csv/.test(e)));
+});
+
+test('a file with a hundred and fifty thousand rows is read without running out of stack', () => {
+  const rows: string[] = [];
+  for (let i = 0; i < 150_000; i++) rows.push(`FIXTURE-R1,30.000,75.000,${new Date(Date.UTC(2000, 0, 1, 7) + i * 3600e3).toISOString().replace('.000Z', 'Z')},0,1`);
+  const r = runValidation({ dir: rainOnly(rows), fixture: true });
+  assert.equal(r.inputs['rainfall.csv'].rows, 150_000);
+});
+
+test('a command-line number that is not a number stops the run instead of silently making nothing fire', () => {
+  const r = spawnSync(process.execPath, ['--import', './scripts/ts-resolve.mjs', 'scripts/validation/run.ts', '--fixture', '--rain24', 'abc'], { encoding: 'utf8' });
+  assert.equal(r.status, 2);
+  assert.match(r.stderr, /--rain24 must be a number/);
 });

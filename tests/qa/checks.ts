@@ -1,6 +1,6 @@
 // In-page layout checks (spec §10.2). Self-contained: Playwright serialises this function into the page.
 export interface CheckOpts {
-  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel
+  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, primary, simlabel, prov, tokens
   stickyMax?: number; // max share of the viewport sticky chrome may take (mobile)
 }
 
@@ -146,7 +146,7 @@ export function runChecks(opts: CheckOpts): string[] {
     if (used > opts.stickyMax * H) out.push(`sticky chrome uses ${Math.round(used)}px of ${H}px (> ${Math.round(opts.stickyMax * 100)}%)`);
   }
 
-  // 5. touch targets: >= 48px in the farmer app (with >= 8px between them), >= 44px elsewhere; inline text links exempt
+  // 5. touch targets: >= 48px in the farmer app (with >= 12px between them), >= 44px elsewhere; inline text links exempt
   if (want('targets')) {
     const farmer: typeof items = [];
     for (const { e, r: vr } of items) {
@@ -167,7 +167,7 @@ export function runChecks(opts: CheckOpts): string[] {
         if (a.e.contains(b.e) || b.e.contains(a.e)) continue;
         const gx = Math.max(b.r.left - a.r.right, a.r.left - b.r.right);
         const gy = Math.max(b.r.top - a.r.bottom, a.r.top - b.r.bottom);
-        if (gx < 7.5 && gy < 7.5) out.push(`farmer targets closer than 8px (${Math.round(Math.max(gx, gy))}px): ${desc(a.e)} ⟷ ${desc(b.e)}`);
+        if (gx < 11.5 && gy < 11.5) out.push(`farmer targets closer than 12px (${Math.round(Math.max(gx, gy))}px): ${desc(a.e)} ⟷ ${desc(b.e)}`);
       }
     }
   }
@@ -195,15 +195,15 @@ export function runChecks(opts: CheckOpts): string[] {
     }
   }
 
-  // 7. at most one lake-blue filled button visible on screen
-  if (want('blue')) {
-    const blues = items.filter(({ e, r }) => {
-      if (getComputedStyle(e).backgroundColor !== 'rgb(43, 89, 209)') return false;
+  // 7. at most one primary (haldi, docs/DESIGN.md) filled button visible on screen
+  if (want('primary')) {
+    const primaries = items.filter(({ e, r }) => {
+      if (getComputedStyle(e).backgroundColor !== 'rgb(242, 179, 0)') return false;
       if (r.bottom <= 0 || r.top >= H || r.right <= 0 || r.left >= W) return false;
       const hit = document.elementFromPoint(Math.min(W - 1, Math.max(0, r.left + r.width / 2)), Math.min(H - 1, Math.max(0, r.top + r.height / 2)));
       return !!hit && (hit === e || e.contains(hit));
     });
-    if (blues.length > 1) out.push(`${blues.length} blue primary buttons on screen: ${blues.map((b) => desc(b.e)).join(' | ')}`);
+    if (primaries.length > 1) out.push(`${primaries.length} primary buttons on screen: ${primaries.map((b) => desc(b.e)).join(' | ')}`);
   }
 
   // 8. every visible region with simulated numbers carries a "Simulated" label; the SIM indicator is always on screen
@@ -221,6 +221,41 @@ export function runChecks(opts: CheckOpts): string[] {
       return !!hit && (hit === el || el.contains(hit));
     });
     if (!onScreen) out.push('no SIMULATION indicator visible on this screen');
+  }
+
+  // 8b. every value carries a valid provenance label (LIVE, REPLAY, SIMULATED, HAND, or "not recorded" for an old packet), and
+  //     no latitude/longitude is printed outside a labelled element: a coordinate must always say where it came from
+  if (want('prov')) {
+    const valid = ['live', 'replay', 'sim', 'hand', 'unrecorded'];
+    for (const el of document.querySelectorAll('[data-v]')) {
+      const p = el.getAttribute('data-prov');
+      if (!p || !valid.includes(p)) out.push(`value without a valid provenance label (data-prov="${p ?? ''}"): ${desc(el)}`);
+    }
+    const coord = /-?\d{1,2}\.\d{3,}°?\s*[NS]?,?\s+-?\d{1,3}\.\d{3,}°?\s*[EW]?/;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const el = n.parentElement;
+      if (!el || el.closest('script, style, template, [data-prov]')) continue;
+      if (coord.test(n.textContent || '')) out.push(`a coordinate outside any provenance label: ${desc(el)}`);
+    }
+  }
+
+  // 9. no raw {token} in the copy: a string that was meant to be filled in and was not. Reads the text itself, so the
+  //    answer in a closed <details> counts too.
+  if (want('tokens')) {
+    const raw = /\{[A-Za-z][A-Za-z0-9_]*\}/;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const el = n.parentElement;
+      const m = el && !el.closest('script, style, template') ? raw.exec(n.textContent || '') : null;
+      if (el && m) out.push(`raw placeholder ${m[0]} in the copy: ${desc(el)}`);
+    }
+    for (const el of document.querySelectorAll('[aria-label], [title], [alt], [placeholder]')) {
+      for (const a of ['aria-label', 'title', 'alt', 'placeholder']) {
+        const m = raw.exec(el.getAttribute(a) || '');
+        if (m) out.push(`raw placeholder ${m[0]} in ${a}: ${desc(el)}`);
+      }
+    }
   }
   return out;
 }

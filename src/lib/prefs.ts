@@ -20,29 +20,52 @@ function persist<T>(k: string, s: { value: T }) {
 }
 
 export type TextScale = 100 | 125 | 150;
+/** Light or dark: 'system' follows the device setting (docs/DESIGN.md). */
+export type Theme = 'system' | 'light' | 'dark';
 /** Simulated phone network. 'offline' = airplane mode; 'weak' = 2G (slow, hash-first sync). */
 export type Net = 'online' | 'weak' | 'offline';
 
-export const lang = signal<Lang>(load('lang', 'en'));
+/** The language a first-time visitor sees: the first of their device's languages that the app has, else English. */
+export function pickLang(languages: readonly string[] | undefined): Lang {
+  for (const l of languages ?? []) {
+    const p = l.slice(0, 2).toLowerCase();
+    if (p === 'hi' || p === 'pa' || p === 'en') return p;
+  }
+  return 'en';
+}
+const deviceLang = (): Lang => (typeof navigator === 'undefined' ? 'en' : pickLang(navigator.languages?.length ? navigator.languages : [navigator.language]));
+
+export const lang = signal<Lang>(load('lang', deviceLang()));
 export const textScale = signal<TextScale>(load<TextScale>('textScale', load('largeText', false) ? 125 : 100));
 export const voiceMode = signal<boolean>(load('voice', false));
 export const lowData = signal<boolean>(load('lowData', false));
 export const highContrast = signal<boolean>(load('hc', false));
+export const theme = signal<Theme>(load<Theme>('theme', 'system'));
 export const network = signal<Net>('online');
 export const tourSeen = signal<boolean>(load('tourSeen', false));
 /** The rail on show: the relief assessment (primary) or the PMFBY intimation (second). A per-viewer choice. */
 export const rail = signal<Rail>((RAILS as readonly string[]).includes(load<string>('rail', DEFAULT_RAIL)) ? load<Rail>('rail', DEFAULT_RAIL) : DEFAULT_RAIL);
 /** Radar cadence of the replay: 'demo' (simulated 12 h) or 'slow' (a few days, closer to real revisit times, still simulated). */
 export const cadence = signal<Cadence>('demo');
+/**
+ * True on a phone or laptop that opened the app from the demo receiver's own address with ?receiver=1 (scripts/receipt-server.mjs).
+ * Off by default, and then no request beyond the site's own files is ever made. The receiver is this page's origin, so no address
+ * is stored; ?receiver=0 forgets it.
+ */
+export const receiver = signal<boolean>(load('receiver', false));
 
 persist('lang', lang);
 persist('textScale', textScale);
 persist('voice', voiceMode);
 persist('lowData', lowData);
 persist('hc', highContrast);
+persist('theme', theme);
 persist('tourSeen', tourSeen);
 persist('rail', rail);
+persist('receiver', receiver);
 
+const darkQuery = typeof matchMedia === 'function' ? matchMedia('(prefers-color-scheme: dark)') : null;
+const systemDark = signal<boolean>(!!darkQuery?.matches);
 const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const reducedMotion = signal<boolean>(reduce);
 /** Real browser connectivity (navigator.onLine); a real outage forces the simulated phone offline too. */
@@ -52,6 +75,7 @@ if (typeof document !== 'undefined') {
   addEventListener('online', () => (browserOnline.value = true));
   addEventListener('offline', () => (browserOnline.value = false));
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', (e) => (reducedMotion.value = e.matches));
+  darkQuery?.addEventListener?.('change', (e) => (systemDark.value = e.matches));
   effect(() => {
     const r = document.documentElement.classList;
     const ts = textScale.value;
@@ -67,6 +91,7 @@ if (typeof document !== 'undefined') {
     }
     r.toggle('lowdata', lowData.value);
     r.toggle('hc', highContrast.value);
+    r.toggle('theme-dark', theme.value === 'dark' || (theme.value === 'system' && systemDark.value));
     r.toggle('still', lowData.value || reducedMotion.value);
   });
 }

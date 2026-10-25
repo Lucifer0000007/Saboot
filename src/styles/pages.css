@@ -7,10 +7,10 @@
 /* ---------- presenter ---------- */
 .hud {
   position: fixed; left: 12px; bottom: calc(var(--dock-real, 0px) + 20px); z-index: var(--z-toast);
-  display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 16px;
-  background: var(--off-black); color: var(--white); font-size: 0.8125rem; max-width: calc(100vw - 24px);
+  display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: var(--r-card);
+  background: var(--kali); color: var(--silt); font-size: 0.8125rem; max-width: calc(100vw - 24px); box-shadow: var(--shadow-float);
 }
-.hud .muted { color: var(--ash); }
+.hud .muted { color: var(--silt); opacity: 0.85; }
 .keylist { margin: 0; display: flex; flex-direction: column; }
 .keylist div { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: var(--bd); align-items: baseline; }
 .keylist dd { margin: 0; font-size: 0.9375rem; }

@@ -1,13 +1,13 @@
 """Subset Saboot's open-licence fonts to the glyphs the app actually uses.
 
-Families (all OFL, google/fonts repo, downloaded once into .cache/fonts):
-  Saboot Serif       Instrument Serif 400                  Latin headings (preloaded)
-  Saboot Mono        JetBrains Mono var 400-500 or IBM Plex Mono 400+500, whichever is smaller
-                     after subsetting                       Latin body/UI (preloaded)
-  Saboot Deva Sans   Noto Sans Devanagari var 400-500       Hindi body/UI (lazy, on language switch)
-  Saboot Deva Serif  Noto Serif Devanagari 400              Hindi headings (lazy)
-  Saboot Guru Sans   Noto Sans Gurmukhi var 400-500         Punjabi body/UI (lazy)
-  Saboot Guru Serif  Noto Serif Gurmukhi 400                Punjabi headings (lazy)
+Families (all OFL, google/fonts repo, downloaded once into .cache/fonts; docs/DESIGN.md, "Type"):
+  Saboot Display       Anek Latin 600, width 87.5            Latin headings and big numbers (preloaded)
+  Saboot Sans          Noto Sans var 400-700                 Latin body/UI (preloaded)
+  Saboot Mono          JetBrains Mono var 400-500            hashes and codes only
+  Saboot Deva Sans     Noto Sans Devanagari var 400-500      Hindi body/UI (lazy, on language switch)
+  Saboot Deva Display  Anek Devanagari 600, width 87.5       Hindi headings (lazy)
+  Saboot Guru Sans     Noto Sans Gurmukhi var 400-500        Punjabi body/UI (lazy)
+  Saboot Guru Display  Anek Gurmukhi 600, width 87.5         Punjabi headings (lazy)
 
 Scans src/ for every character used, subsets with full OpenType layout closure for Indic scripts
 (conjuncts must still shape), writes WOFF2 to public/fonts/ and src/styles/fonts.css with
@@ -34,20 +34,20 @@ BASE = 'https://github.com/google/fonts/raw/main/'
 WINFONTS = os.path.join(os.environ.get('WINDIR', 'C:/Windows'), 'Fonts')
 
 SOURCES = {
-    'instrument': 'ofl/instrumentserif/InstrumentSerif-Regular.ttf',
+    'anek-latin': 'ofl/aneklatin/AnekLatin%5Bwdth,wght%5D.ttf',
+    'noto-sans': 'ofl/notosans/NotoSans%5Bwdth,wght%5D.ttf',
     'jetbrains': 'ofl/jetbrainsmono/JetBrainsMono%5Bwght%5D.ttf',
-    'plex400': 'ofl/ibmplexmono/IBMPlexMono-Regular.ttf',
-    'plex500': 'ofl/ibmplexmono/IBMPlexMono-Medium.ttf',
     'deva-sans': 'ofl/notosansdevanagari/NotoSansDevanagari%5Bwdth,wght%5D.ttf',
-    'deva-serif': 'ofl/notoserifdevanagari/NotoSerifDevanagari%5Bwdth,wght%5D.ttf',
+    'anek-deva': 'ofl/anekdevanagari/AnekDevanagari%5Bwdth,wght%5D.ttf',
     'guru-sans': 'ofl/notosansgurmukhi/NotoSansGurmukhi%5Bwdth,wght%5D.ttf',
-    'guru-serif': 'ofl/notoserifgurmukhi/NotoSerifGurmukhi%5Bwght%5D.ttf',
+    'anek-guru': 'ofl/anekgurmukhi/AnekGurmukhi%5Bwdth,wght%5D.ttf',
 }
+DISPLAY = {'wght': 600, 'wdth': 87.5}
 DEVA = [(0x0900, 0x097F), (0xA8E0, 0xA8FF), (0x1CD0, 0x1CFF)]
 GURU = [(0x0A00, 0x0A7F), (0x0964, 0x0965)]
 JOINERS = [0x200C, 0x200D, 0x25CC]
 # Spaces and punctuation inside Hindi/Punjabi text must come from the Indic face, not the mono fallback
-# (digits and Latin letters stay in mono on purpose: tabular numbers, product names).
+# (digits and Latin letters stay in the Latin faces on purpose: tabular numbers, product names).
 INDIC_PUNCT = [0x20, 0xA0, 0xB7] + list(range(0x21, 0x30)) + list(range(0x3A, 0x41)) + list(range(0x5B, 0x61)) + list(range(0x7B, 0x7F)) + list(range(0x2010, 0x2015)) + [0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2026]
 LATIN_EXTRA = [(0x00A0, 0x024F), (0x2000, 0x2BFF), (0x20B9, 0x20B9)]
 
@@ -177,57 +177,51 @@ def build():
     for old in glob.glob(os.path.join(OUT, '*.woff2')):
         os.remove(old)
 
-    serif = load('instrument', None)
-    data, cps = subset_font(serif, latin, latin_feat)
-    write('serif-latin.woff2', data)
-    css.append("@font-face{font-family:'Saboot Serif';src:url(fonts/serif-latin.woff2) format('woff2');"
-               "font-weight:400;font-style:normal;font-display:swap;unicode-range:%s}" % unicode_range(cps))
+    display = load('anek-latin', DISPLAY)
+    data, cps = subset_font(display, latin, latin_feat + ['tnum'])
+    write('display-latin.woff2', data)
+    css.append("@font-face{font-family:'Saboot Display';src:url(fonts/display-latin.woff2) format('woff2');"
+               "font-weight:600;font-style:normal;font-display:swap;unicode-range:%s}" % unicode_range(cps))
 
-    # Mono: compare JetBrains Mono (one variable file) with IBM Plex Mono (two static files).
-    jb, jb_cps = subset_font(load('jetbrains', {'wght': (400, 500)}), latin, mono_feat)
-    p4, p4_cps = subset_font(load('plex400', None), latin, mono_feat)
-    p5, _ = subset_font(load('plex500', None), latin, mono_feat)
-    print('mono candidates: JetBrains Mono var %.1f KB | IBM Plex Mono 400+500 %.1f KB' % (len(jb) / 1024, (len(p4) + len(p5)) / 1024))
-    if len(jb) <= len(p4) + len(p5):
-        mono_name = 'JetBrains Mono'
-        write('mono-latin.woff2', jb)
-        css.append("@font-face{font-family:'Saboot Mono';src:url(fonts/mono-latin.woff2) format('woff2');"
-                   "font-weight:400 500;font-style:normal;font-display:swap;unicode-range:%s}" % unicode_range(jb_cps))
-        mono_web = load('jetbrains', {'wght': 400})
-    else:
-        mono_name = 'IBM Plex Mono'
-        write('mono-latin.woff2', p4)
-        write('mono-latin-500.woff2', p5)
-        ur = unicode_range(p4_cps)
-        css.append("@font-face{font-family:'Saboot Mono';src:url(fonts/mono-latin.woff2) format('woff2');"
-                   "font-weight:400;font-style:normal;font-display:swap;unicode-range:%s}" % ur)
-        css.append("@font-face{font-family:'Saboot Mono';src:url(fonts/mono-latin-500.woff2) format('woff2');"
-                   "font-weight:500;font-style:normal;font-display:swap;unicode-range:%s}" % ur)
-        mono_web = load('plex400', None)
-    print('mono: using', mono_name)
+    data, cps = subset_font(load('noto-sans', {'wdth': 100, 'wght': (400, 700)}), latin, latin_feat + ['tnum'])
+    write('sans-latin.woff2', data)
+    css.append("@font-face{font-family:'Saboot Sans';src:url(fonts/sans-latin.woff2) format('woff2');"
+               "font-weight:400 700;font-style:normal;font-display:swap;unicode-range:%s}" % unicode_range(cps))
+
+    data, cps = subset_font(load('jetbrains', {'wght': (400, 500)}), latin, mono_feat)
+    write('mono-latin.woff2', data)
+    css.append("@font-face{font-family:'Saboot Mono';src:url(fonts/mono-latin.woff2) format('woff2');"
+               "font-weight:400 500;font-style:normal;font-display:swap;unicode-range:%s}" % unicode_range(cps))
 
     indic = [
         ('Saboot Deva Sans', 'deva-sans', {'wdth': 100, 'wght': (400, 500)}, deva, DEVA, '400 500'),
-        ('Saboot Deva Serif', 'deva-serif', {'wdth': 100, 'wght': 400}, deva, DEVA, '400'),
+        ('Saboot Deva Display', 'anek-deva', DISPLAY, deva, DEVA, '600'),
         ('Saboot Guru Sans', 'guru-sans', {'wdth': 100, 'wght': (400, 500)}, guru, GURU, '400 500'),
-        ('Saboot Guru Serif', 'guru-serif', {'wght': 400}, guru, GURU, '400'),
+        ('Saboot Guru Display', 'anek-guru', DISPLAY, guru, GURU, '600'),
     ]
     for family, key, axes, text, ranges, weight in indic:
         data, cps = subset_font(load(key, axes), text, ['*'])
-        write(key + '.woff2', data)
+        fname = key.replace('anek-', '') + '-display.woff2' if key.startswith('anek-') else key + '.woff2'
+        write(fname, data)
         cps = {cp for cp in cps if in_ranges(chr(cp), ranges) or cp in JOINERS or cp in INDIC_PUNCT}
-        css.append("@font-face{font-family:'%s';src:url(fonts/%s.woff2) format('woff2');"
-                   "font-weight:%s;font-style:normal;font-display:swap;unicode-range:%s}" % (family, key, weight, unicode_range(cps)))
+        css.append("@font-face{font-family:'%s';src:url(fonts/%s) format('woff2');"
+                   "font-weight:%s;font-style:normal;font-display:swap;unicode-range:%s}" % (family, fname, weight, unicode_range(cps)))
 
     fbs = [
-        fallback('Saboot Serif Fallback', ['Times New Roman', 'TimesNewRomanPSMT', 'Liberation Serif', 'Tinos', 'Noto Serif'],
-                 TTFont(fetch('instrument')), os.path.join(WINFONTS, 'times.ttf'), LATIN_SAMPLE),
+        fallback('Saboot Display Fallback', ['Arial', 'ArialMT', 'Roboto', 'Liberation Sans', 'Arimo'],
+                 display, os.path.join(WINFONTS, 'arial.ttf'), LATIN_SAMPLE),
+        fallback('Saboot Sans Fallback', ['Arial', 'ArialMT', 'Roboto', 'Liberation Sans', 'Arimo'],
+                 load('noto-sans', {'wdth': 100, 'wght': 400}), os.path.join(WINFONTS, 'arial.ttf'), LATIN_SAMPLE),
         fallback('Saboot Mono Fallback', ['Courier New', 'CourierNewPSMT', 'Liberation Mono', 'Cousine', 'Droid Sans Mono'],
-                 mono_web, os.path.join(WINFONTS, 'cour.ttf'), LATIN_SAMPLE),
+                 load('jetbrains', {'wght': 400}), os.path.join(WINFONTS, 'cour.ttf'), LATIN_SAMPLE),
         fallback('Saboot Deva Fallback', ['Nirmala UI', 'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Mangal'],
                  load('deva-sans', {'wdth': 100, 'wght': 400}), os.path.join(WINFONTS, 'Nirmala.ttc'), DEVA_SAMPLE),
         fallback('Saboot Guru Fallback', ['Nirmala UI', 'Gurmukhi MN', 'Noto Sans Gurmukhi', 'Raavi'],
                  load('guru-sans', {'wdth': 100, 'wght': 400}), os.path.join(WINFONTS, 'Nirmala.ttc'), GURU_SAMPLE),
+        fallback('Saboot Deva Display Fallback', ['Nirmala UI', 'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Mangal'],
+                 load('anek-deva', DISPLAY), os.path.join(WINFONTS, 'Nirmala.ttc'), DEVA_SAMPLE),
+        fallback('Saboot Guru Display Fallback', ['Nirmala UI', 'Gurmukhi MN', 'Noto Sans Gurmukhi', 'Raavi'],
+                 load('anek-guru', DISPLAY), os.path.join(WINFONTS, 'Nirmala.ttc'), GURU_SAMPLE),
     ]
     css += [f for f in fbs if f]
     with open(CSS, 'w', encoding='utf8', newline='\n') as fh:  # LF on Windows too

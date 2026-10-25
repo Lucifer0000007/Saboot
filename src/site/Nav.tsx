@@ -29,6 +29,23 @@ function LangSwitch() {
   }, [open]);
   return (
     <div class="lang" ref={box}>
+      {/* wide bars: the three languages side by side, one tap each (docs/DESIGN.md, "Language") */}
+      <div class="seg lang-seg" role="radiogroup" aria-label={tr('nav.lang')}>
+        {LANGS.map((l) => (
+          <button
+            key={l.id}
+            type="button"
+            role="radio"
+            lang={l.bcp}
+            aria-label={l.label}
+            aria-checked={langReady.value === l.id}
+            onPointerEnter={() => l.id !== langReady.value && prefetchLang(l.id)}
+            onClick={() => setLang(l.id)}
+          >
+            {l.short}
+          </button>
+        ))}
+      </div>
       <button
         type="button"
         class="pill pill-ghost pill-sm lang-btn"
