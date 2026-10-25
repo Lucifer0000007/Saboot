@@ -2,7 +2,11 @@
 // index.html at build time (src/ssr.tsx), so they must stay SSR-safe: no window access at render.
 import { useEffect, useState } from 'preact/hooks';
 import { Icon, Mark, type IconName } from '../ui/Icon';
+import { Seal } from '../ui/Seal';
+import { ProvTag, FieldTag } from '../ui/ProvTag';
+import { INTERVIEWS, TARGET_STATE, fieldCounts } from '../data/fieldEvidence';
 import { tr, tList } from '../lib/i18n';
+import { buildLabel } from '../lib/build';
 import { reducedMotion } from '../lib/prefs';
 import { TEAM_NAME, PROJECT, TRACK, EVENT, REPO_URL } from '../config';
 import { SCENARIO } from '../generated/scenario-summary';
@@ -44,22 +48,39 @@ export function Hero() {
   return (
     <section class="hero" aria-labelledby="hero-h">
       <div class="wrap hero-in">
-        <p class="eyebrow">{tr('hero.eyebrow')}</p>
-        <h1 id="hero-h" class="display">{tr('hero.h')}</h1>
-        <div class="hero-lines">
-          <p>{tr('hero.l1')}</p>
-          <p>{tr('hero.l2')}</p>
+        <div class="hero-copy">
+          <p class="eyebrow">{tr('hero.eyebrow')}</p>
+          <h1 id="hero-h" class="display">{tr('hero.h')}</h1>
+          <div class="hero-lines">
+            <p>{tr('hero.l1')}</p>
+            <p>{tr('hero.l2')}</p>
+          </div>
+          <div class="cta-row">
+            <a id="hero-cta" class="pill pill-primary pill-lg" href="#simulation" onClick={(e) => { e.preventDefault(); runSimulation(); }}>
+              {tr('hero.run')} <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="pill pill-ghost pill-lg" href="#how" onClick={(e) => { e.preventDefault(); scrollToId('how'); }}>{tr('hero.how')}</a>
+          </div>
         </div>
-        <div class="cta-row">
-          <a id="hero-cta" class="pill pill-primary" href="#simulation" onClick={(e) => { e.preventDefault(); runSimulation(); }}>
-            {tr('hero.run')} <span class="arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="pill pill-ghost" href="#how" onClick={(e) => { e.preventDefault(); scrollToId('how'); }}>{tr('hero.how')}</a>
-        </div>
+        {/* the product's real moment: the clock that starts at the event, the seal, and the labels on every value */}
         <div class="hero-visual">
-          <div class="wash wash-a" aria-hidden="true" />
-          <HeroClock />
-          <p class="hero-clock-cap">{tr('hero.clockCap')}</p>
+          <div class="hero-board">
+            <Seal state="sealed" size={88} class="hero-seal" />
+            <div class="hero-time">
+              <HeroClock />
+              <p class="hero-clock-cap">{tr('hero.clockCap')}</p>
+            </div>
+          </div>
+          <div class="hero-labels">
+            <p>{tr('hero.labels')}</p>
+            <div class="row">
+              <ProvTag prov="live" />
+              <ProvTag prov="replay" />
+              <ProvTag prov="sim" />
+              <ProvTag prov="hand" />
+              <FieldTag />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -67,6 +88,35 @@ export function Hero() {
 }
 
 const PROBLEMS: [IconName, string][] = [['clock', 'pb.1'], ['phone', 'pb.2'], ['image', 'pb.3']];
+
+// the plain roles of src/data/fieldEvidence.ts, translated for the landing list (an unknown role shows as recorded)
+const ROLE_KEY: Record<string, string> = { Patwari: 'fe.role.patwari', 'Insurer loss assessor': 'fe.role.assessor', Farmer: 'fe.role.farmer', 'CSC operator': 'fe.role.csc' };
+
+/** Who the team spoke to (src/data/fieldEvidence.ts): role and state, one row per pair, with how many. Real, not simulated. */
+function FieldPeople() {
+  const c = fieldCounts();
+  if (c.interviews === 0) return null;
+  const rows = new Map<string, { role: string; state: string; n: number }>();
+  for (const i of INTERVIEWS) {
+    const k = i.role + '|' + i.state;
+    rows.set(k, { role: i.role, state: i.state, n: (rows.get(k)?.n ?? 0) + 1 });
+  }
+  return (
+    <div class="card field-people" data-field-people>
+      <div class="row-between">
+        <h3>{tr('fe.landing.h')}</h3>
+        <FieldTag />
+      </div>
+      <p class="fe-strip">{tr('fe.strip', { n: c.interviews, states: c.states, roles: c.roles })}</p>
+      <ul class="fp-list" role="list">
+        {[...rows.values()].map((r) => (
+          <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
+        ))}
+      </ul>
+      <p class="muted small">{tr('fe.target', { state: TARGET_STATE, n: c.inTargetState })} {tr('fe.landing.note')}</p>
+    </div>
+  );
+}
 
 export function Problem() {
   return (
@@ -85,6 +135,7 @@ export function Problem() {
             </li>
           ))}
         </ul>
+        <FieldPeople />
       </div>
     </section>
   );
@@ -122,6 +173,7 @@ export function Footer() {
           <span class="brand"><Mark class="brand-mark" /><span class="brand-word">saboot</span></span>
           <p class="small muted">{tr('foot.note')}</p>
           <a class="foot-link" href={REPO_URL} target="_blank" rel="noopener noreferrer">{tr('foot.code')}</a>
+          <p class="small muted foot-build">{tr('foot.build', { b: buildLabel() })}</p>
         </div>
         <dl>
           <div><dt>{tr('foot.team')}</dt><dd>{TEAM_NAME}</dd></div>

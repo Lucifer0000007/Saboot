@@ -40,6 +40,7 @@ const hi: Record<string, string | string[]> = {
   'hero.how': 'यह कैसे काम करता है', // needs-native-review
   'hero.clockLabel': 'चित्र: एक घड़ी, जो तूफ़ान के साथ गिनना शुरू करती है', // needs-native-review
   'hero.clockCap': 'घटना के समय से गिनती, फ़ोन कॉल से नहीं', // needs-native-review
+  'hero.labels': 'स्क्रीन पर हर आँकड़ा बताता है कि वह कहाँ से आया:', // needs-native-review
 
   'pb.eyebrow': 'समस्या', // needs-native-review
   'pb.h': 'प्रमाण आकलन से पहले ही फीके पड़ जाते हैं।', // needs-native-review
@@ -75,6 +76,8 @@ const hi: Record<string, string | string[]> = {
   'sim.retry': 'फिर कोशिश करें', // needs-native-review
   'lang.fail': '{lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'app.offlineReady': 'ऑफ़लाइन चलने के लिए तैयार।', // needs-native-review
+  'app.updated': 'सबूत का नया संस्करण तैयार है।', // needs-native-review
+  'app.reload': 'फिर से लोड करें', // needs-native-review
   'lazy.failed': 'पेज का यह हिस्सा लोड नहीं हो सका। कनेक्शन जाँचें, फिर पेज दोबारा लोड करें।', // needs-native-review
   'lazy.reload': 'पेज दोबारा लोड करें', // needs-native-review
   'sim.consoleNote': 'बीमा कंपनी और ज़िले का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review
@@ -157,6 +160,7 @@ const hi: Record<string, string | string[]> = {
   'foot.track': 'ट्रैक', // needs-native-review
   'foot.event': 'आयोजन', // needs-native-review
   'foot.code': 'GitHub पर सोर्स कोड', // needs-native-review
+  'foot.build': 'बिल्ड {b}', // needs-native-review
 
   'tour.step': 'जज टूर · {n} / {total}', // needs-native-review
   'tour.skip': 'टूर छोड़ें', // needs-native-review
@@ -457,6 +461,22 @@ const hi: Record<string, string | string[]> = {
   'prov.hand': 'हाथ से दर्ज', // needs-native-review
   'prov.by': '{who} द्वारा', // needs-native-review
   'prov.none': 'स्रोत दर्ज नहीं', // needs-native-review
+  'prov.field': 'फ़ील्ड रिकॉर्ड', // needs-native-review
+  'fe.h': 'फ़ील्ड से मिले सबूत', // needs-native-review
+  'fe.note': 'सिमुलेटेड नहीं: मौखिक सहमति से की गई गुमनाम बातचीत, docs/INTERVIEWS.md में दर्ज। लोगों ने जो कहा वह उनका अपना अनुभव है, कोई निष्कर्ष नहीं।', // needs-native-review
+  'fe.strip': '{n} इंटरव्यू · {states} राज्य · {roles} भूमिकाएँ', // needs-native-review
+  'fe.target': '{state} में इंटरव्यू: अब तक {n}।', // needs-native-review
+  'fe.letters': 'रुचि-पत्र: {n}', // needs-native-review
+  'fe.users': 'इसे इस्तेमाल करने वाले लोग: {n}', // needs-native-review
+  'fe.raised': 'इंटरव्यू में लोगों ने क्या बताया', // needs-native-review
+  'fe.theme': '{state} में बताया गया: {theme}', // needs-native-review
+  'fe.quote': '“{quote}” ({role}, {state})', // needs-native-review
+  'fe.landing.h': 'हमने उन लोगों से पूछा जो यह काम करते हैं', // needs-native-review
+  'fe.landing.note': 'मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। सूची docs/INTERVIEWS.md में है। उन्होंने जो बताया वह उनका अपना अनुभव है।', // needs-native-review
+  'fe.role.patwari': 'पटवारी', // needs-native-review
+  'fe.role.assessor': 'बीमा कंपनी के नुक़सान आकलनकर्ता', // needs-native-review
+  'fe.role.farmer': 'किसान', // needs-native-review
+  'fe.role.csc': 'सीएससी संचालक', // needs-native-review
   'fl.title': 'अपना प्रमाण साझा करें', // needs-native-review
   'fl.title.pmfby': 'नुकसान की रिपोर्ट करें', // needs-native-review
   'fl.intro': 'सबूत कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को अपना सील किया हुआ प्रमाण दिखाएँ। आपका ब्योरा तैयार है।', // needs-native-review
@@ -631,6 +651,10 @@ const hi: Record<string, string | string[]> = {
   'set.lowData': 'कम डेटा मोड', // needs-native-review
   'set.lowDataHelp': 'ग़ैर-ज़रूरी नक्शे और तस्वीरें छिपाता है।', // needs-native-review
   'set.contrast': 'हाई कंट्रास्ट', // needs-native-review
+  'set.theme': 'हल्का या गहरा', // needs-native-review
+  'set.theme.system': 'फ़ोन जैसा', // needs-native-review
+  'set.theme.light': 'हल्का', // needs-native-review
+  'set.theme.dark': 'गहरा', // needs-native-review
   'set.close': 'बंद करें', // needs-native-review
   'set.data': 'इस फ़ोन पर आपका डेटा', // needs-native-review
   'set.dataHelp': 'फ़ोटो, सहमति और सील किए गए पैकेट केवल इसी फ़ोन में रहते हैं। अपने आप कुछ अपलोड नहीं होता: केवल हस्ताक्षरित कोड जा सकता है, और वह भी तभी जब आप उसे भेजें। आप कॉपी ले सकते हैं या सब मिटा सकते हैं।', // needs-native-review

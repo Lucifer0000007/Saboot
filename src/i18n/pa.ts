@@ -40,6 +40,7 @@ const pa: Record<string, string | string[]> = {
   'hero.how': 'ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ', // needs-native-review
   'hero.clockLabel': 'ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ', // needs-native-review
   'hero.clockCap': 'ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਤੀ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ', // needs-native-review
+  'hero.labels': 'ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ:', // needs-native-review
 
   'pb.eyebrow': 'ਸਮੱਸਿਆ', // needs-native-review
   'pb.h': 'ਪ੍ਰਮਾਣ ਮੁਲਾਂਕਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਫਿੱਕੇ ਪੈ ਜਾਂਦੇ ਹਨ।', // needs-native-review
@@ -75,6 +76,8 @@ const pa: Record<string, string | string[]> = {
   'sim.retry': 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ', // needs-native-review
   'lang.fail': '{lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'app.offlineReady': 'ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ।', // needs-native-review
+  'app.updated': 'ਸਬੂਤ ਦਾ ਨਵਾਂ ਸੰਸਕਰਣ ਤਿਆਰ ਹੈ।', // needs-native-review
+  'app.reload': 'ਮੁੜ ਲੋਡ ਕਰੋ', // needs-native-review
   'lazy.failed': 'ਪੰਨੇ ਦਾ ਇਹ ਹਿੱਸਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ।', // needs-native-review
   'lazy.reload': 'ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ', // needs-native-review
   'sim.consoleNote': 'ਬੀਮਾ ਕੰਪਨੀ ਅਤੇ ਜ਼ਿਲ੍ਹੇ ਦਾ ਕੰਸੋਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।', // needs-native-review
@@ -157,6 +160,7 @@ const pa: Record<string, string | string[]> = {
   'foot.track': 'ਟ੍ਰੈਕ', // needs-native-review
   'foot.event': 'ਸਮਾਗਮ', // needs-native-review
   'foot.code': 'GitHub ਉੱਤੇ ਸੋਰਸ ਕੋਡ', // needs-native-review
+  'foot.build': 'ਬਿਲਡ {b}', // needs-native-review
 
   'tour.step': 'ਜੱਜ ਟੂਰ · {n} / {total}', // needs-native-review
   'tour.skip': 'ਟੂਰ ਛੱਡੋ', // needs-native-review
@@ -457,6 +461,22 @@ const pa: Record<string, string | string[]> = {
   'prov.hand': 'ਹੱਥ ਨਾਲ ਦਰਜ', // needs-native-review
   'prov.by': '{who} ਵੱਲੋਂ', // needs-native-review
   'prov.none': 'ਸਰੋਤ ਦਰਜ ਨਹੀਂ', // needs-native-review
+  'prov.field': 'ਫ਼ੀਲਡ ਰਿਕਾਰਡ', // needs-native-review
+  'fe.h': 'ਫ਼ੀਲਡ ਤੋਂ ਮਿਲੇ ਸਬੂਤ', // needs-native-review
+  'fe.note': 'ਸਿਮੂਲੇਟ ਨਹੀਂ: ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਗੱਲਾਂ, docs/INTERVIEWS.md ਵਿੱਚ ਦਰਜ। ਲੋਕਾਂ ਨੇ ਜੋ ਕਿਹਾ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ, ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ।', // needs-native-review
+  'fe.strip': '{n} ਇੰਟਰਵਿਊ · {states} ਰਾਜ · {roles} ਭੂਮਿਕਾਵਾਂ', // needs-native-review
+  'fe.target': '{state} ਵਿੱਚ ਇੰਟਰਵਿਊ: ਹੁਣ ਤੱਕ {n}।', // needs-native-review
+  'fe.letters': 'ਦਿਲਚਸਪੀ ਦੇ ਪੱਤਰ: {n}', // needs-native-review
+  'fe.users': 'ਇਸ ਨੂੰ ਵਰਤਣ ਵਾਲੇ ਲੋਕ: {n}', // needs-native-review
+  'fe.raised': 'ਇੰਟਰਵਿਊ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਕੀ ਦੱਸਿਆ', // needs-native-review
+  'fe.theme': '{state} ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ: {theme}', // needs-native-review
+  'fe.quote': '“{quote}” ({role}, {state})', // needs-native-review
+  'fe.landing.h': 'ਅਸੀਂ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਪੁੱਛਿਆ ਜੋ ਇਹ ਕੰਮ ਕਰਦੇ ਹਨ', // needs-native-review
+  'fe.landing.note': 'ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਸੂਚੀ docs/INTERVIEWS.md ਵਿੱਚ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ।', // needs-native-review
+  'fe.role.patwari': 'ਪਟਵਾਰੀ', // needs-native-review
+  'fe.role.assessor': 'ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਨੁਕਸਾਨ ਮੁਲਾਂਕਣਕਾਰ', // needs-native-review
+  'fe.role.farmer': 'ਕਿਸਾਨ', // needs-native-review
+  'fe.role.csc': 'ਸੀਐਸਸੀ ਸੰਚਾਲਕ', // needs-native-review
   'fl.title': 'ਆਪਣਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ', // needs-native-review
   'fl.title.pmfby': 'ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'fl.intro': 'ਸਬੂਤ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦਾ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ।', // needs-native-review
@@ -631,6 +651,10 @@ const pa: Record<string, string | string[]> = {
   'set.lowData': 'ਘੱਟ ਡਾਟਾ ਮੋਡ', // needs-native-review
   'set.lowDataHelp': 'ਬੇਲੋੜੇ ਨਕਸ਼ੇ ਅਤੇ ਤਸਵੀਰਾਂ ਲੁਕਾਉਂਦਾ ਹੈ।', // needs-native-review
   'set.contrast': 'ਹਾਈ ਕੰਟ੍ਰਾਸਟ', // needs-native-review
+  'set.theme': 'ਹਲਕਾ ਜਾਂ ਗੂੜ੍ਹਾ', // needs-native-review
+  'set.theme.system': 'ਫ਼ੋਨ ਵਾਂਗ', // needs-native-review
+  'set.theme.light': 'ਹਲਕਾ', // needs-native-review
+  'set.theme.dark': 'ਗੂੜ੍ਹਾ', // needs-native-review
   'set.close': 'ਬੰਦ ਕਰੋ', // needs-native-review
   'set.data': 'ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਤੁਹਾਡਾ ਡਾਟਾ', // needs-native-review
   'set.dataHelp': 'ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਸਿਰਫ਼ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ। ਆਪਣੇ ਆਪ ਕੁਝ ਅੱਪਲੋਡ ਨਹੀਂ ਹੁੰਦਾ: ਸਿਰਫ਼ ਦਸਤਖ਼ਤੀ ਕੋਡ ਜਾ ਸਕਦਾ ਹੈ, ਅਤੇ ਉਹ ਵੀ ਤਾਂ ਹੀ ਜਦੋਂ ਤੁਸੀਂ ਉਸ ਨੂੰ ਭੇਜੋ। ਤੁਸੀਂ ਕਾਪੀ ਲੈ ਸਕਦੇ ਹੋ ਜਾਂ ਸਭ ਮਿਟਾ ਸਕਦੇ ਹੋ।', // needs-native-review

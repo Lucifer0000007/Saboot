@@ -12,7 +12,10 @@ import { buildModel } from '../sim/model';
 import { modelOptions } from '../sim/options';
 import { metrics, pilotMetrics, eventToCall, type Metrics, type PilotMetrics } from '../sim/metrics';
 import { rows } from './state';
-import { ProvTag } from '../ui/ProvTag';
+import { ProvTag, FieldTag } from '../ui/ProvTag';
+import { fieldView, TARGET_STATE } from '../data/fieldEvidence';
+import en from '../i18n/en';
+import { fill } from '../lib/i18n';
 
 const scope = signal<'now' | 'full'>('full');
 
@@ -244,6 +247,38 @@ function ReplayBlock({ r }: { r: ReplayStatus }) {
   );
 }
 
+/** What is real about adoption: the recorded interviews (src/data/fieldEvidence.ts). Every number comes from fieldCounts();
+ *  letters and users appear only above zero, and a quote only when the raw note has one. English, like the console. */
+function FieldStrip() {
+  const v = fieldView();
+  const c = v.counts;
+  if (c.interviews + c.letters + c.users === 0) return null;
+  const t = (k: string, vars: Record<string, string | number>) => fill(en[k] as string, vars);
+  return (
+    <div class="card stack" data-field-evidence>
+      <div class="row-between"><h4>{en['fe.h'] as string}</h4><FieldTag english /></div>
+      <p class="fe-strip" data-field-strip>{t('fe.strip', { n: c.interviews, states: c.states, roles: c.roles })}</p>
+      <p class="muted" data-field-target>{t('fe.target', { state: TARGET_STATE, n: c.inTargetState })}</p>
+      {(v.showLetters || v.showUsers) && (
+        <ul class="fieldstrip" role="list">
+          {v.showLetters && <li data-field-letters>{t('fe.letters', { n: c.letters })}</li>}
+          {v.showUsers && <li data-field-users>{t('fe.users', { n: c.users })}</li>}
+        </ul>
+      )}
+      {v.themes.length > 0 && (
+        <>
+          <h4>{en['fe.raised'] as string}</h4>
+          <ul class="fe-themes" role="list" data-field-themes>
+            {v.themes.map((x) => <li key={x.id + x.theme}><FieldTag english /> <span>{t('fe.theme', { state: x.state, theme: x.theme })}</span></li>)}
+          </ul>
+        </>
+      )}
+      {v.quotes.map((q) => <blockquote key={q.id} class="fe-quote" data-field-quote>{t('fe.quote', { quote: q.quote, role: q.role, state: q.state })}</blockquote>)}
+      <p class="muted small">{en['fe.note'] as string}</p>
+    </div>
+  );
+}
+
 export function Impact() {
   const { k, pm } = scope.value === 'full' ? fullReplay.value : nowMetrics.value;
   const relief = model.value!.opts.rail === 'relief';
@@ -279,6 +314,7 @@ export function Impact() {
         </p>
       </div>
       <ValidationBlock />
+      <FieldStrip />
       <p class="note note-plain" role="note"><Icon name="gavel" /><span><strong>Decision happens outside Saboot.</strong> None of these figures is a decision about any claim, eligibility or amount.</span></p>
     </section>
   );

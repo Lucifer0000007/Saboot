@@ -38,6 +38,10 @@ Principles to show everywhere:
 
 ## 3. Design system (editorial technical journal on warm parchment)
 
+> Superseded by `docs/DESIGN.md`: the visual system was rebuilt (soil-and-field palette, Anek and Noto Sans, a dark theme,
+> the lac seal as the one bold element). This section is kept as the record of the first design; the adaptations in
+> section 4 (Indic line heights, the 16 px floor, 48 px targets, reduced motion) still hold.
+
 Mood: calm, trustworthy, spacious. No stock photos, no emoji, no icon library (hand-drawn inline SVG icons, 20px, 1.5px stroke).
 
 **Colors (CSS custom properties)**

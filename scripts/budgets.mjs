@@ -30,6 +30,8 @@ const html = readFileSync(join(DIST, 'index.html'), 'utf8');
 const initial = new Set(['index.html']);
 for (const m of html.matchAll(/<script[^>]+src="\.?\/?([^"]+)"/g)) initial.add(m[1]);
 for (const m of html.matchAll(/<link[^>]+rel="(?:modulepreload|stylesheet|preload)"[^>]*href="\.?\/?([^"]+)"/g)) initial.add(m[1]);
+// the boot script preloads the entry and its static imports after the first paint (scripts/postbuild.mjs): still the initial load
+for (const m of html.matchAll(/const P=(\[[^\]]*\])/g)) for (const h of JSON.parse(m[1])) initial.add(h.replace(/^\.?\//, ''));
 for (const r of [...initial]) {
   if (!r.endsWith('.js') || !by[r]) continue;
   const src = readFileSync(join(DIST, r), 'utf8');

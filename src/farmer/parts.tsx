@@ -70,13 +70,13 @@ export function PlotMini() {
   const near = m.plots.filter((q) => q.v === p.v && q.id !== p.id);
   return (
     <svg class="mini decor" viewBox={vb} role="img" aria-label={`${tr('reg.plot')} ${p.id}, ${p.village}`}>
-      <rect x={p.cx - 70} y={p.cy - 48} width="140" height="96" fill="#ece7e3" />
-      <path d={m.raw.map.river} fill="none" stroke="#a0b5eb" stroke-width="7" stroke-linecap="round" />
-      {near.map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="#f6f3f1" stroke="#797776" stroke-width=".6" />)}
-      <polygon points={p.pts.join(' ')} fill="#cfdaf5" stroke="#242424" stroke-width="1.2" />
+      <rect x={p.cx - 70} y={p.cy - 48} width="140" height="96" fill="var(--sunk)" />
+      <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="7" stroke-linecap="round" />
+      {near.map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="var(--silt)" stroke="var(--rule-strong)" stroke-width=".6" />)}
+      <polygon points={p.pts.join(' ')} fill="var(--neel-tint)" stroke="var(--kali)" stroke-width="1.2" />
       <g transform={`translate(${p.cx} ${p.cy - 4})`}>
-        <path d="M0 4c-4-5-6-7.5-6-10.5a6 6 0 0 1 12 0C6-3.5 4-1 0 4z" fill="#000" stroke="#f6f3f1" stroke-width="1" />
-        <circle cy="-6.5" r="2.2" fill="#f6f3f1" />
+        <path d="M0 4c-4-5-6-7.5-6-10.5a6 6 0 0 1 12 0C6-3.5 4-1 0 4z" fill="var(--kali)" stroke="var(--silt)" stroke-width="1" />
+        <circle cy="-6.5" r="2.2" fill="var(--silt)" />
       </g>
     </svg>
   );
@@ -84,14 +84,14 @@ export function PlotMini() {
 
 /** Framing pictograms for the fixed shot list (line drawings, journal style). */
 export function ShotPicto({ kind }: { kind: ShotKind }) {
-  const ink = '#242424';
+  const ink = 'var(--kali)';
   return (
     <svg class="picto" viewBox="0 0 120 80" aria-hidden="true">
-      <rect x="1" y="1" width="118" height="78" rx="10" fill="#f6f3f1" stroke={ink} stroke-width="1.2" />
+      <rect x="1" y="1" width="118" height="78" rx="10" fill="var(--silt)" stroke={ink} stroke-width="1.2" />
       {kind === 'wide' && (
         <g fill="none" stroke={ink} stroke-width="1.2" stroke-linecap="round">
           <path d="M1 40h118" />
-          <path d="M1 47c12 3 24 3 36 0s24-3 36 0 24 3 46 0" stroke="#a0b5eb" stroke-width="2" />
+          <path d="M1 47c12 3 24 3 36 0s24-3 36 0 24 3 46 0" stroke="var(--water)" stroke-width="2" />
           {[10, 26, 42, 58, 74, 90, 106].map((x) => <path key={x} d={`M${x} 64l-2-9M${x} 64l2-9`} />)}
           <path d="M8 8h14M8 8v10M112 8H98M112 8v10M8 72h14M8 72V62M112 72H98M112 72V62" stroke-width="2" />
         </g>
@@ -99,7 +99,7 @@ export function ShotPicto({ kind }: { kind: ShotKind }) {
       {kind === 'close' && (
         <g fill="none" stroke={ink} stroke-width="1.2" stroke-linecap="round">
           {[30, 52, 74, 96].map((x) => <path key={x} d={`M${x} 72l-8-44M${x} 72l1-46M${x} 72l9-42`} />)}
-          <path d="M10 46c14 3 28 3 42 0s28-3 58 0" stroke="#a0b5eb" stroke-width="2.2" />
+          <path d="M10 46c14 3 28 3 42 0s28-3 58 0" stroke="var(--water)" stroke-width="2.2" />
           <path d="M110 30v28M106 34l4-4 4 4M106 54l4 4 4-4" />
         </g>
       )}

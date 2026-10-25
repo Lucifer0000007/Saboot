@@ -19,6 +19,16 @@ export function ProvTag({ prov, who, english }: { prov: ProvOrDash; who?: string
   );
 }
 
+/** FIELD: evidence from a consented interview or a signed letter (src/data/fieldEvidence.ts). A display label only: it is
+ *  not a packet origin, so it carries data-source and not data-prov. */
+export function FieldTag({ english }: { english?: boolean }) {
+  return (
+    <span class="tag tag-prov tag-prov-field" data-source="field">
+      <Icon name="user" size={14} /> <span>{english ? (en['prov.field'] as string) : tr('prov.field')}</span>
+    </span>
+  );
+}
+
 /** A value and its label together. `kind` says what the value is, so a test can find every value on a screen. */
 export function Val({ kind, prov, who, english, children }: { kind: 'loc' | 'time' | 'photo' | 'reading' | 'reg' | 'note'; prov: ProvOrDash; who?: string; english?: boolean; children: ComponentChildren }) {
   return (

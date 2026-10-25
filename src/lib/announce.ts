@@ -2,6 +2,8 @@ import { signal } from '@preact/signals';
 
 /** Screen-reader announcements (rendered into an aria-live region) + visual toasts. */
 export const liveMsg = signal('');
+/** A new service worker took over this page: the new build shows after a reload (src/main.tsx). */
+export const updateReady = signal(false);
 export const toast = signal<{ id: number; text: string; tone?: 'ok' | 'warn' } | null>(null);
 let n = 0;
 let timer: ReturnType<typeof setTimeout> | undefined;

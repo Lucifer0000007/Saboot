@@ -19,26 +19,26 @@ export function MapDefs() {
     <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
         <pattern id="pat-supported" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect width="6" height="6" fill="#e4eee8" />
-          <path d="M0 0v6" stroke="#1f6b4a" stroke-width="1.4" />
+          <rect width="6" height="6" fill="var(--ok-tint)" />
+          <path d="M0 0v6" stroke="var(--ok)" stroke-width="1.4" />
         </pattern>
         <pattern id="pat-partial" width="6" height="6" patternUnits="userSpaceOnUse">
-          <rect width="6" height="6" fill="#f3e8cf" />
-          <circle cx="3" cy="3" r="1.2" fill="#8a5a00" />
+          <rect width="6" height="6" fill="var(--warn-tint)" />
+          <circle cx="3" cy="3" r="1.2" fill="var(--warn)" />
         </pattern>
         <pattern id="pat-insufficient" width="6" height="6" patternUnits="userSpaceOnUse">
-          <rect width="6" height="6" fill="#f4e1db" />
-          <path d="M0 0l6 6M6 0l-6 6" stroke="#b3402a" stroke-width="1" />
+          <rect width="6" height="6" fill="var(--bad-tint)" />
+          <path d="M0 0l6 6M6 0l-6 6" stroke="var(--bad)" stroke-width="1" />
         </pattern>
         <pattern id="pat-low" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-          <path d="M0 0v8" stroke="#797776" stroke-width="0.8" opacity=".5" />
+          <path d="M0 0v8" stroke="var(--rule-strong)" stroke-width="0.8" opacity=".5" />
         </pattern>
       </defs>
     </svg>
   );
 }
 
-export const tierPaint = (t: Tier) => (t === 'none' ? '#f6f3f1' : `url(#pat-${t})`);
+export const tierPaint = (t: Tier) => (t === 'none' ? 'var(--silt)' : `url(#pat-${t})`);
 
 const view = signal<{ z: number; cx: number; cy: number }>({ z: 1, cx: 0.5, cy: 0.5 });
 const ZOOMS = [1, 1.5, 2, 3];
@@ -98,12 +98,12 @@ export function DistrictMap() {
       </div>
       <div class="map-frame">
         <svg ref={svg} viewBox={`${vx} ${vy} ${vw} ${vh}`} role="group" aria-label={`District map, ${m.raw.district}. Plots are buttons; Enter opens details.`}>
-          <path d={m.raw.map.boundary} fill="#fbfaf9" stroke="#797776" stroke-width="1.5" stroke-dasharray="6 4" />
+          <path d={m.raw.map.boundary} fill="var(--paper)" stroke="var(--rule-strong)" stroke-width="1.5" stroke-dasharray="6 4" />
           {lay.terrain && <path d={low} fill="url(#pat-low)" />}
-          {lay.flood && <path class="flood" d={flood} fill="#a0b5eb" opacity=".7" />}
-          {m.raw.map.roads.map((d, i) => <path key={i} d={d} fill="none" stroke="#cecac8" stroke-width="3" />)}
-          <path d={m.raw.map.canal} fill="none" stroke="#a0b5eb" stroke-width="2" stroke-dasharray="5 3" />
-          <path d={m.raw.map.river} fill="none" stroke="#a0b5eb" stroke-width="9" stroke-linecap="round" />
+          {lay.flood && <path class="flood" d={flood} fill="var(--water)" opacity=".7" />}
+          {m.raw.map.roads.map((d, i) => <path key={i} d={d} fill="none" stroke="var(--rule)" stroke-width="3" />)}
+          <path d={m.raw.map.canal} fill="none" stroke="var(--water)" stroke-width="2" stroke-dasharray="5 3" />
+          <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="9" stroke-linecap="round" />
           {rows.value.map((r) => {
             const p = r.s.plot;
             const on = filt[r.e.tier];
@@ -119,29 +119,29 @@ export function DistrictMap() {
                 onClick={() => select(r)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(r); } }}
               >
-                <polygon points={p.pts.join(' ')} fill={tierPaint(r.e.tier)} stroke={isSel || focus ? '#000' : '#797776'} stroke-width={isSel ? 3 : focus ? 2 : 0.8} />
+                <polygon points={p.pts.join(' ')} fill={tierPaint(r.e.tier)} stroke={isSel || focus ? 'var(--kali)' : 'var(--rule-strong)'} stroke-width={isSel ? 3 : focus ? 2 : 0.8} />
                 {focus && (
-                  <path transform={`translate(${p.cx} ${p.cy - 3}) scale(${Math.max(1, fs(16) / 12)})`} d="M0 4c-4-5-6-7.5-6-10.5a6 6 0 0 1 12 0C6-3.5 4-1 0 4z" fill="#000" stroke="#fff" stroke-width="1" />
+                  <path transform={`translate(${p.cx} ${p.cy - 3}) scale(${Math.max(1, fs(16) / 12)})`} d="M0 4c-4-5-6-7.5-6-10.5a6 6 0 0 1 12 0C6-3.5 4-1 0 4z" fill="var(--kali)" stroke="var(--paper)" stroke-width="1" />
                 )}
               </g>
             );
           })}
           {importedRows.value.map((r) => (
             <g key={r.k.head} class="imp-badge" aria-hidden="true">
-              <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(14)} fill="none" stroke="#000" stroke-width={fs(2)} />
-              <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(9)} fill="none" stroke="#000" stroke-width={fs(1.2)} stroke-dasharray={`${fs(3)} ${fs(2)}`} />
+              <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(14)} fill="none" stroke="var(--kali)" stroke-width={fs(2)} />
+              <circle cx={r.s.plot.cx} cy={r.s.plot.cy} r={fs(9)} fill="none" stroke="var(--kali)" stroke-width={fs(1.2)} stroke-dasharray={`${fs(3)} ${fs(2)}`} />
               {!small && <text x={r.s.plot.cx + fs(18)} y={r.s.plot.cy + fs(4)} style={{ fontSize: fs(12) + 'px', strokeWidth: fs(3) + 'px' }} class="vlabel">{importedLabel(r.k)}</text>}
             </g>
           ))}
           {t >= hz.t && (
             <g class="hail" aria-hidden="true">
-              <circle cx={hz.x} cy={hz.y} r={hz.r} fill="none" stroke="#242424" stroke-width="1.5" stroke-dasharray="4 4" />
+              <circle cx={hz.x} cy={hz.y} r={hz.r} fill="none" stroke="var(--kali)" stroke-width="1.5" stroke-dasharray="4 4" />
               {!small && <text class="vlabel" x={hz.x} y={hz.y + hz.r + fs(14)} text-anchor="middle" style={{ fontSize: fs(12) + 'px', strokeWidth: fs(3) + 'px' }}>Hail cell · low confidence</text>}
             </g>
           )}
           {lay.gauges && m.stations.map((s) => (
             <g key={s.id} class="gauge" aria-hidden="true">
-              <path d={`M${s.x} ${s.y - 7}l6 10h-12z`} fill="#242424" />
+              <path d={`M${s.x} ${s.y - 7}l6 10h-12z`} fill="var(--kali)" />
               {!small && <text x={s.x + 9} y={s.y + 3} style={{ fontSize: fs(12) + 'px' }}>{s.id}</text>}
             </g>
           ))}
@@ -149,7 +149,7 @@ export function DistrictMap() {
             <text key={vl.name} class="vlabel" x={vl.x} y={vl.y - 50} text-anchor="middle" aria-hidden="true" style={{ fontSize: fs(13) + 'px', strokeWidth: fs(3) + 'px' }}>{vl.name}</text>
           ))}
           <g class="scale" aria-hidden="true" transform={`translate(${vx + fs(16)} ${vy + vh - fs(16)})`}>
-            <path d="M0 0h100M0 -4v8M100 -4v8" stroke="#242424" stroke-width="1.5" fill="none" />
+            <path d="M0 0h100M0 -4v8M100 -4v8" stroke="var(--kali)" stroke-width="1.5" fill="none" />
             <text x="50" y={-fs(6)} text-anchor="middle" style={{ fontSize: fs(12) + 'px' }}>1 km</text>
           </g>
         </svg>
@@ -174,14 +174,14 @@ export function Legend() {
         {tiers.map((tr) => (
           <label key={tr} class="lg-item">
             <input type="checkbox" checked={filt[tr]} onChange={() => (tierFilter.value = { ...filt, [tr]: !filt[tr] })} />
-            <svg width="28" height="20" aria-hidden="true"><rect x=".5" y=".5" width="27" height="19" rx="4" fill={tierPaint(tr)} stroke="#797776" /></svg>
+            <svg width="28" height="20" aria-hidden="true"><rect x=".5" y=".5" width="27" height="19" rx="4" fill={tierPaint(tr)} stroke="var(--rule-strong)" /></svg>
             <span>{TIER_META[tr].label}</span>
             <span class="cnt num">{counts[tr] ?? 0}</span>
           </label>
         ))}
       </fieldset>
       {importedRows.value.length > 0 && (
-        <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="#000" stroke-width="2" /></svg><span>Imported from a judge’s phone</span></p>
+        <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="var(--kali)" stroke-width="2" /></svg><span>Imported from a judge’s phone</span></p>
       )}
       <fieldset>
         <legend>Layers</legend>

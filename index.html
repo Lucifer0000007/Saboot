@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Saboot — the clock starts at the storm</title>
     <meta name="description" content="Saboot is a prototype of a disaster crop-loss evidence layer. After a flood it starts an evidence clock, alerts the farmer by voice, guides photos that work offline and seals them so any edit shows. The demo uses synthetic data in a fictional district." />
-    <meta name="theme-color" content="#f6f3f1" />
+    <meta name="theme-color" content="#f0f1ea" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#12140f" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.webmanifest" />
     <script>
@@ -18,6 +19,8 @@
         if (ts === 125 || ts === 150) c.add('t' + ts);
         if (get('lowData')) c.add('lowdata', 'still');
         if (get('hc')) c.add('hc');
+        var th = get('theme');
+        if (th === 'dark' || (th !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) c.add('theme-dark');
         // no saved choice: the device's language, the same rule as pickLang() in src/lib/prefs.ts
         var l = get('lang');
         if (l === null) {

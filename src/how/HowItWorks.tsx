@@ -56,7 +56,7 @@ function Connectors({ box }: { box: { current: HTMLDivElement | null } }) {
   }, [langReady.value]);
   return (
     <svg class="arch-lines" width={size.w} height={size.h} viewBox={`0 0 ${size.w} ${size.h}`} aria-hidden="true" focusable="false">
-      {paths.map((d, i) => <path key={i} d={d} fill="none" stroke="#cecac8" stroke-width="1" />)}
+      {paths.map((d, i) => <path key={i} d={d} fill="none" stroke="var(--rule)" stroke-width="1" />)}
     </svg>
   );
 }

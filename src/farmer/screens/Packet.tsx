@@ -13,6 +13,7 @@ import { activePlotId } from '../../sim/engine';
 import { backToQueue } from '../helper';
 import { SyncLog } from '../SyncLog';
 import { Thumb } from './Capture';
+import { Seal } from '../../ui/Seal';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
 
@@ -59,9 +60,12 @@ export function Packet() {
     .filter(([, n]) => n > 0);
   return (
     <div class="stack f-stack">
-      <div class="row-between">
-        <h2 class="f-title">{tr('pk.title')}</h2>
-        <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
+      <div class="pk-head">
+        <Seal state={v.seal ? 'sealed' : 'open'} size={76} />
+        <div>
+          <h2 class="f-title">{tr('pk.title')}</h2>
+          <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
+        </div>
       </div>
 
       <ul class="pk-photos" role="list">

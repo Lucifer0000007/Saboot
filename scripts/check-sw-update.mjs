@@ -61,6 +61,9 @@ try {
     st = next;
   }
   console.log(`load 1 after deploy: title "${t1}" (old shell, as expected); worker now ${JSON.stringify(st)}`);
+  // ...and that old page says a new version is ready, with a reload button (src/main.tsx, .update-bar)
+  await page.waitForSelector('.update-bar button', { timeout: 10_000 });
+  console.log(`✓ load 1 shows "${(await page.textContent('.update-bar span'))?.trim()}" with a reload button`);
   await page.goto(url);
   await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
   const title = await page.title();

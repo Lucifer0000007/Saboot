@@ -28,23 +28,23 @@ export function RainChart({ m, station, t, eventT, title }: { m: Model; station:
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${title ?? 'Rainfall'} at ${st.id}: peak 24-hour total ${peak.toFixed(0)} mm so far; heavy-rain line ${th.rain24} mm. Simulated data.`}>
         {[0, 24, 48, 72, 96, 120, 144, 168].map((h) => (
           <g key={h}>
-            <path d={`M${x(h)} ${PT}V${H - PB}`} stroke="#cecac8" />
+            <path d={`M${x(h)} ${PT}V${H - PB}`} stroke="var(--rule)" />
             <text x={x(h)} y={H - 6} text-anchor="middle" class="ax">{h / 24}d</text>
           </g>
         ))}
-        <path d={`M${PL} ${ya(th.rain24)}H${W - PR}`} stroke="#8a5a00" stroke-dasharray="4 3" stroke-width="1.5" />
+        <path d={`M${PL} ${ya(th.rain24)}H${W - PR}`} stroke="var(--warn)" stroke-dasharray="4 3" stroke-width="1.5" />
         <text x={W - PR + 2} y={ya(th.rain24) + 3} class="ax">{th.rain24}</text>
-        <path d={`M${PL} ${ya(th.rainHeavy)}H${W - PR}`} stroke="#b3402a" stroke-dasharray="2 3" stroke-width="1.2" />
+        <path d={`M${PL} ${ya(th.rainHeavy)}H${W - PR}`} stroke="var(--bad)" stroke-dasharray="2 3" stroke-width="1.2" />
         <text x={W - PR + 2} y={ya(th.rainHeavy) + 3} class="ax">{th.rainHeavy}</text>
-        <path d={bars} stroke="#a0b5eb" stroke-width="1.8" />
-        <path d={line} fill="none" stroke="#242424" stroke-width="1.6" />
+        <path d={bars} stroke="var(--water)" stroke-width="1.8" />
+        <path d={line} fill="none" stroke="var(--kali)" stroke-width="1.6" />
         {eventT !== null && eventT <= t && (
           <g>
-            <path d={`M${x(eventT)} ${PT}V${H - PB}`} stroke="#8a5a00" stroke-width="1.5" />
+            <path d={`M${x(eventT)} ${PT}V${H - PB}`} stroke="var(--warn)" stroke-width="1.5" />
             <text x={x(eventT) + 3} y={PT + 11} class="ax">event</text>
           </g>
         )}
-        <path d={`M${x(Math.min(t, hours))} ${PT}V${H - PB}`} stroke="#000" stroke-width="1.2" />
+        <path d={`M${x(Math.min(t, hours))} ${PT}V${H - PB}`} stroke="var(--kali)" stroke-width="1.2" />
         <text x={PL - 4} y={yb(maxMM) + 4} text-anchor="end" class="ax">20</text>
         <text x={PL - 4} y={yb(0)} text-anchor="end" class="ax">0</text>
       </svg>
@@ -71,14 +71,14 @@ export function SarSpark({ m, p, t }: { m: Model; p: Plot; t: number }) {
   const latest = passes.length ? Math.round(sarFrac(p, passes[passes.length - 1]) * 100) : 0;
   return (
     <svg class="spark" viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`Simulated radar: water seen on the plot at ${passes.length} processed passes; latest ${latest}%${base > 0 ? `. Paddy in the standing-water season: the radar sees about ${Math.round(base * 100)}% water anyway` : ''}`}>
-      <path d={`M${pad} ${y(thr)}H${w - pad}`} stroke="#8a5a00" stroke-dasharray="4 3" />
-      {base > 0 && <path d={`M${pad} ${y(base)}H${w - pad}`} stroke="#797776" stroke-dasharray="1 3" stroke-width="1.5" />}
+      <path d={`M${pad} ${y(thr)}H${w - pad}`} stroke="var(--warn)" stroke-dasharray="4 3" />
+      {base > 0 && <path d={`M${pad} ${y(base)}H${w - pad}`} stroke="var(--rule-strong)" stroke-dasharray="1 3" stroke-width="1.5" />}
       {m.sar.map((s, i) => {
         const done = s + 1 <= t;
         const f = sarFrac(p, s);
         return (
           <g key={s}>
-            <rect x={x(i) - 6} y={done ? y(f) : y(0) - 2} width="12" height={done ? Math.max(2, y(0) - y(f)) : 2} rx="2" fill={done ? (sarExcess(p, s) >= th ? '#242424' : '#a0b5eb') : '#cecac8'} />
+            <rect x={x(i) - 6} y={done ? y(f) : y(0) - 2} width="12" height={done ? Math.max(2, y(0) - y(f)) : 2} rx="2" fill={done ? (sarExcess(p, s) >= th ? 'var(--kali)' : 'var(--water)') : 'var(--rule)'} />
             {i % 2 === 0 && <text x={x(i)} y={h - 4} text-anchor="middle" class="ax">{s}h</text>}
           </g>
         );
@@ -105,25 +105,25 @@ export function RiverChart({ m, p, t }: { m: Model; p: Plot; t: number }) {
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`River stage at ${gauges.map((g) => g.id).join(' and ')}, danger level ${danger} ${unit}. Simulated data.`}>
         {[0, 24, 48, 72, 96, 120, 144, 168].map((hh) => (
           <g key={hh}>
-            <path d={`M${x(hh)} ${PT}V${H - PB}`} stroke="#cecac8" />
+            <path d={`M${x(hh)} ${PT}V${H - PB}`} stroke="var(--rule)" />
             <text x={x(hh)} y={H - 6} text-anchor="middle" class="ax">{hh / 24}d</text>
           </g>
         ))}
-        <path d={`M${PL} ${y(danger)}H${W - PR}`} stroke="#b3402a" stroke-dasharray="2 3" stroke-width="1.2" />
+        <path d={`M${PL} ${y(danger)}H${W - PR}`} stroke="var(--bad)" stroke-dasharray="2 3" stroke-width="1.2" />
         <text x={W - PR + 2} y={y(danger) + 3} class="ax">{danger}</text>
         {gauges.map((g, i) => {
           let d = '';
           for (let hh = 0; hh <= now; hh++) d += (hh ? 'L' : 'M') + x(hh).toFixed(1) + ' ' + y(g.series[hh]).toFixed(1);
-          return <path key={g.id} d={d} fill="none" stroke={i ? '#4e4d4d' : '#242424'} stroke-width="1.6" stroke-dasharray={dash[i]} />;
+          return <path key={g.id} d={d} fill="none" stroke={i ? 'var(--kali-2)' : 'var(--kali)'} stroke-width="1.6" stroke-dasharray={dash[i]} />;
         })}
-        <path d={`M${x(Math.min(t, hours))} ${PT}V${H - PB}`} stroke="#000" stroke-width="1.2" />
+        <path d={`M${x(Math.min(t, hours))} ${PT}V${H - PB}`} stroke="var(--kali)" stroke-width="1.2" />
         <text x={PL - 4} y={y(maxV) + 4} text-anchor="end" class="ax">{maxV}</text>
         <text x={PL - 4} y={y(0)} text-anchor="end" class="ax">0</text>
       </svg>
       <figcaption>
         {gauges.map((g, i) => (
           <span key={g.id}>
-            <svg width="22" height="8" aria-hidden="true"><path d="M1 4h20" stroke={i ? '#4e4d4d' : '#242424'} stroke-width="2" stroke-dasharray={dash[i]} /></svg> {g.id} ({unit}){' · '}
+            <svg width="22" height="8" aria-hidden="true"><path d="M1 4h20" stroke={i ? 'var(--kali-2)' : 'var(--kali)'} stroke-width="2" stroke-dasharray={dash[i]} /></svg> {g.id} ({unit}){' · '}
           </span>
         ))}
         <span class="key thr" /> danger {danger} {unit} · now {fmtT(t)}

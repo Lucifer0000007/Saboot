@@ -61,7 +61,7 @@ test('hosting headers: CSP without unsafe-inline scripts, nosniff, no framing, c
   expect(h['strict-transport-security']).toContain('max-age=');
   const sw = await page.request.get('/sw.js');
   expect(sw.headers()['cache-control']).toBe('no-cache');
-  const entry = /href="\.\/(assets\/index-[^"]+\.js)"/.exec(readFileSync('dist/index.html', 'utf8'))![1];
+  const entry = /"\.\/(assets\/index-[^"]+\.js)"/.exec(readFileSync('dist/index.html', 'utf8'))![1]; // named in the boot script (scripts/postbuild.mjs)
   expect((await page.request.get('/' + entry)).headers()['cache-control']).toContain('immutable');
   for (const p of ['/manifest.webmanifest', '/og.jpg', '/icon.svg', '/data/flood-replay.json']) expect((await page.request.get(p)).status(), p).toBe(200);
   const html = readFileSync('dist/index.html', 'utf8');

@@ -151,11 +151,11 @@ function FloodInset({ s }: { s: PlotState }) {
   const vb = `${p.cx - 60} ${p.cy - 40} 120 80`;
   return (
     <svg class="inset" viewBox={vb} role="img" aria-label={`Flood overlay around ${p.id} from ${pass === null ? 'no radar pass yet' : 'the simulated radar pass at ' + fmtT(pass)}`}>
-      <rect x={p.cx - 60} y={p.cy - 40} width="120" height="80" fill="#ffffff" />
-      <path d={m.raw.map.river} fill="none" stroke="#a0b5eb" stroke-width="9" />
-      <path d={d} fill="#a0b5eb" opacity=".7" />
-      {m.plots.filter((q) => q.v === p.v).map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="none" stroke="#797776" stroke-width=".6" />)}
-      <polygon points={p.pts.join(' ')} fill="none" stroke="#000" stroke-width="1.8" />
+      <rect x={p.cx - 60} y={p.cy - 40} width="120" height="80" fill="var(--paper)" />
+      <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="9" />
+      <path d={d} fill="var(--water)" opacity=".7" />
+      {m.plots.filter((q) => q.v === p.v).map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="none" stroke="var(--rule-strong)" stroke-width=".6" />)}
+      <polygon points={p.pts.join(' ')} fill="none" stroke="var(--kali)" stroke-width="1.8" />
     </svg>
   );
 }

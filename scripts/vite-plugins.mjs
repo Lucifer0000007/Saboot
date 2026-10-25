@@ -26,14 +26,14 @@ export function inlineCss() {
   };
 }
 
-/** Inline the generated @font-face block (document-relative URLs) + preload serif and mono 400 only. */
+/** Inline the generated @font-face block (document-relative URLs) + preload the Latin display and body faces only. */
 /** @returns {import('vite').Plugin} */
 export function fontFaces() {
   return {
     name: 'saboot-font-faces',
     transformIndexHtml(html) {
       const css = readFileSync('src/styles/fonts.css', 'utf8').replace(/\/\*.*?\*\/\s*/s, '').trim();
-      const pre = ['serif-latin', 'mono-latin']
+      const pre = ['display-latin', 'sans-latin']
         .map((f) => `<link rel="preload" href="fonts/${f}.woff2" as="font" type="font/woff2" crossorigin>`)
         .join('');
       return html.replace('<!--fonts-->', `${pre}<style>${css}</style>`);
@@ -42,9 +42,9 @@ export function fontFaces() {
 }
 
 /**
- * Deep links (?tab=insurer, ?at=…, #k=…) need a lazy chunk right away: a tiny inline script adds
- * <link rel=modulepreload> for it while the entry chunk is still downloading (low priority, like the entry: the
- * prerendered page needs no script to paint). Plain visits preload nothing.
+ * Deep links (?tab=insurer, ?at=…, #k=…) need a lazy chunk right away: a tiny inline script lists it in self.__dl, and
+ * the boot script (scripts/postbuild.mjs) preloads it with the entry, after the first paint (the prerendered page needs
+ * no script to paint). Plain visits preload nothing.
  * @param {Record<string, string>} chunks name -> module path suffix
  * @returns {import('vite').Plugin}
  */
@@ -64,7 +64,7 @@ export function deepLinkPreload(chunks) {
       }
       const js = `(function(){var m=${JSON.stringify(map)},q=new URLSearchParams(location.search),t=q.get('tab'),l=[];` +
         `if(t&&m[t])l=m[t];if(/^#k=/.test(location.hash)&&m.import)l=l.concat(m.import,m.insurer||[]);` +
-        `l.forEach(function(h){var e=document.createElement('link');e.rel='modulepreload';e.href=h;e.fetchPriority='low';document.head.appendChild(e)})})()`;
+        `self.__dl=l})()`;
       html.source = String(html.source).replace('</title>', `</title><script>${js}</script>`);
     },
   };

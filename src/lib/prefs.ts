@@ -20,6 +20,8 @@ function persist<T>(k: string, s: { value: T }) {
 }
 
 export type TextScale = 100 | 125 | 150;
+/** Light or dark: 'system' follows the device setting (docs/DESIGN.md). */
+export type Theme = 'system' | 'light' | 'dark';
 /** Simulated phone network. 'offline' = airplane mode; 'weak' = 2G (slow, hash-first sync). */
 export type Net = 'online' | 'weak' | 'offline';
 
@@ -38,6 +40,7 @@ export const textScale = signal<TextScale>(load<TextScale>('textScale', load('la
 export const voiceMode = signal<boolean>(load('voice', false));
 export const lowData = signal<boolean>(load('lowData', false));
 export const highContrast = signal<boolean>(load('hc', false));
+export const theme = signal<Theme>(load<Theme>('theme', 'system'));
 export const network = signal<Net>('online');
 export const tourSeen = signal<boolean>(load('tourSeen', false));
 /** The rail on show: the relief assessment (primary) or the PMFBY intimation (second). A per-viewer choice. */
@@ -56,10 +59,13 @@ persist('textScale', textScale);
 persist('voice', voiceMode);
 persist('lowData', lowData);
 persist('hc', highContrast);
+persist('theme', theme);
 persist('tourSeen', tourSeen);
 persist('rail', rail);
 persist('receiver', receiver);
 
+const darkQuery = typeof matchMedia === 'function' ? matchMedia('(prefers-color-scheme: dark)') : null;
+const systemDark = signal<boolean>(!!darkQuery?.matches);
 const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const reducedMotion = signal<boolean>(reduce);
 /** Real browser connectivity (navigator.onLine); a real outage forces the simulated phone offline too. */
@@ -69,6 +75,7 @@ if (typeof document !== 'undefined') {
   addEventListener('online', () => (browserOnline.value = true));
   addEventListener('offline', () => (browserOnline.value = false));
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change', (e) => (reducedMotion.value = e.matches));
+  darkQuery?.addEventListener?.('change', (e) => (systemDark.value = e.matches));
   effect(() => {
     const r = document.documentElement.classList;
     const ts = textScale.value;
@@ -84,6 +91,7 @@ if (typeof document !== 'undefined') {
     }
     r.toggle('lowdata', lowData.value);
     r.toggle('hc', highContrast.value);
+    r.toggle('theme-dark', theme.value === 'dark' || (theme.value === 'system' && systemDark.value));
     r.toggle('still', lowData.value || reducedMotion.value);
   });
 }

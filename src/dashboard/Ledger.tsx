@@ -8,6 +8,7 @@ import { liveViews, type FocusView } from '../farmer/focus';
 import { ledger, statuses, tamper, building, verifyMs, rebuild, verifyLedger, tamperTest, restore, type LedgerLink } from '../sim/ledger';
 import { rows } from './state';
 import { imported, loadImported } from '../k/imported';
+import { Seal } from '../ui/Seal';
 
 function fmtData(l: LedgerLink) {
   return Object.entries(l.body.data)
@@ -81,9 +82,15 @@ export function Ledger() {
         </div>
       </div>
       <div aria-live="polite" class="lg-status">
-        {st && bad < 0 && <p class="note note-ok"><Icon name="okShape" /><span>Chain intact — {st.length} records recomputed from genesis in {verifyMs.value} ms. No record was changed.</span></p>}
-        {st && bad >= 0 && (
-          <p class="note note-bad"><Icon name="barShape" /><span>Integrity failure at record #{bad + 1} ({c[bad].body.type}, <span class="nowrap">{c[bad].body.plot}</span>): its stored hash no longer matches its contents. {st.length - bad - 1} later records chain from a broken link and cannot be trusted.</span></p>
+        {st && (
+          <div class="lg-verdict">
+            <Seal state={bad < 0 ? 'verified' : 'broken'} size={64} />
+            {bad < 0 ? (
+              <p class="note note-ok"><Icon name="okShape" /><span>Chain intact — {st.length} records recomputed from genesis in {verifyMs.value} ms. No record was changed.</span></p>
+            ) : (
+              <p class="note note-bad"><Icon name="barShape" /><span>Integrity failure at record #{bad + 1} ({c[bad].body.type}, <span class="nowrap">{c[bad].body.plot}</span>): its stored hash no longer matches its contents. {st.length - bad - 1} later records chain from a broken link and cannot be trusted.</span></p>
+            )}
+          </div>
         )}
         {tp && <p class="note note-warn"><Icon name="info" /><span>Tamper test active: record #{tp.seq + 1} was edited (time moved 6 h earlier, “backdating” a photo) without re-hashing. The ledger is frozen until you restore it.</span></p>}
         {!c.length && <p class="note note-plain"><Icon name="info" /><span>No events yet at {fmtT(t)}. Jump to “Trigger”.</span></p>}

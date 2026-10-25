@@ -19,6 +19,7 @@ import { receipts, type Receipt as ReceiptEntry } from '../k/receipt';
 import { GAP_FLAG_H } from '../farmer/focus';
 import { openPlot, importReceived } from '../site/layout';
 import { ConsoleNote } from './ConsoleNote';
+import { Seal } from '../ui/Seal';
 
 const NO_CRYPTO = 'This page cannot check signatures here. Open it over https, or on localhost.';
 
@@ -230,7 +231,11 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
       )}
       {res && (
         <section class="k-result" aria-live="polite">
-          <Checks res={res} />
+          {/* the verdict leads with the seal: whole and ringed when the checks pass, cracked when the copy was changed */}
+          <div class="k-verdict">
+            <Seal state={res.ok ? 'verified' : res.failed === 'decode' ? 'open' : 'broken'} size={84} />
+            <Checks res={res} />
+          </div>
           {res.ok ? (
             <p class="note note-ok"><Icon name="okShape" /><span><strong>Integrity verified: not altered since sealing.</strong> This does not prove who sealed it.</span></p>
           ) : (
@@ -239,14 +244,14 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
           {original && !res.ok && (
             <p class="muted">This is the packet you checked, with one bit of the first photo fingerprint changed, as a tampered copy would be. <button type="button" class="link-arrow" data-restore onClick={restore}>Put the original back</button></p>
           )}
+          {res.ok && !original && (
+            <button type="button" class="pill k-try" data-change-copy onClick={change}><Icon name="barShape" size={16} /> Try a changed copy</button>
+          )}
           {res.payload && <Details res={res} receivedAt={receivedAt} />}
           {res.ok && res.payload && (
             <button type="button" class="pill pill-ghost" data-export-bundle onClick={() => download(`saboot-evidence-${res.payload!.plot}.json`, bundleJson(makeBundle(checked, res.payload!)), 'application/json')}>
               <Icon name="download" size={16} /> Export evidence bundle (JSON)
             </button>
-          )}
-          {res.ok && !original && (
-            <button type="button" class="pill pill-ghost" data-change-copy onClick={change}><Icon name="barShape" size={16} /> Try a changed copy</button>
           )}
           {res.ok && (added ? (
             <p class="note note-plain"><Icon name="check" /><span>Added to the dashboard as <strong>{importedLabel(res.payload!)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload!.plot}</button></span></p>

@@ -19,8 +19,8 @@ export const langLoading = signal<Lang | null>(null);
 
 const FONTS: Record<Lang, [string, string][]> = {
   en: [],
-  hi: [['400 16px "Saboot Deva Sans"', 'अआ'], ['500 16px "Saboot Deva Sans"', 'अआ'], ['400 16px "Saboot Deva Serif"', 'अआ']],
-  pa: [['400 16px "Saboot Guru Sans"', 'ਅਆ'], ['500 16px "Saboot Guru Sans"', 'ਅਆ'], ['400 16px "Saboot Guru Serif"', 'ਅਆ']],
+  hi: [['400 16px "Saboot Deva Sans"', 'अआ'], ['500 16px "Saboot Deva Sans"', 'अआ'], ['600 16px "Saboot Deva Display"', 'अआ']],
+  pa: [['400 16px "Saboot Guru Sans"', 'ਅਆ'], ['500 16px "Saboot Guru Sans"', 'ਅਆ'], ['600 16px "Saboot Guru Display"', 'ਅਆ']],
 };
 const pending: Partial<Record<Lang, Promise<unknown>>> = {};
 
@@ -71,7 +71,7 @@ function lookup(key: string): string | string[] {
 type Vars = Record<string, string | number>;
 
 /** Put each value where its {name} stands. */
-function fill(s: string, vars?: Vars): string {
+export function fill(s: string, vars?: Vars): string {
   if (vars) for (const k in vars) s = s.split('{' + k + '}').join(String(vars[k]));
   return s;
 }

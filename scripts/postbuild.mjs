@@ -10,7 +10,8 @@ import { PUBLIC_URL } from '../src/config.ts';
 
 const OUT = 'dist';
 
-// 1. prerender
+// 1. prerender (with the build stamp `vite build` just wrote: vite.config.ts)
+process.env.SABOOT_PRERENDER = '1';
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' });
 let out;
 try {
@@ -26,14 +27,21 @@ try {
   // the page until the app has loaded that language, so it boots at once; a hidden tab too; and never later than 1 s.
   const entry = /<script type="module" crossorigin src="(\.\/assets\/index-[^"]+\.js)"><\/script>/.exec(out);
   if (!entry) throw new Error('dist/index.html: entry <script type="module"> not found');
-  const boot = `let d=0;const go=()=>{if(!d){d=1;import("${entry[1]}")}};` +
+  // Nothing the app needs is requested before that paint either: the entry's static imports, the scenario data and a
+  // deep link's chunk (self.__dl, scripts/vite-plugins.mjs) are preloaded together, in parallel, the moment go() runs.
+  // (A request that starts before the first paint is counted into Lighthouse's simulated LCP.)
+  const deps = [...out.matchAll(/<link rel="modulepreload" crossorigin href="([^"]+)">/g)].map((m) => m[1]);
+  out = out.replace(/<link rel="modulepreload" crossorigin href="[^"]+">/g, '');
+  if (!/<link rel="preload" href="data\/flood-replay\.json"[^>]*>/.test(out)) throw new Error('dist/index.html: the scenario preload is missing');
+  out = out.replace(/<link rel="preload" href="data\/flood-replay\.json"[^>]*>/, '');
+  const boot = `const P=${JSON.stringify([entry[1], ...deps])};let d=0;` +
+    `const add=(h,a)=>{const e=document.createElement("link");e.rel=a?"preload":"modulepreload";if(a)e.as=a;e.href=h;e.crossOrigin="";document.head.appendChild(e)};` +
+    `const go=()=>{if(!d){d=1;add("data/flood-replay.json","fetch");P.concat(self.__dl||[]).forEach((h)=>add(h));import("${entry[1]}")}};` +
     `if(document.visibilityState==="hidden"||document.documentElement.classList.contains("lang-pending")||!(self.PerformanceObserver&&(PerformanceObserver.supportedEntryTypes||[]).includes("paint")))go();` +
     `else{new PerformanceObserver((l,o)=>{if(l.getEntries().some((e)=>e.name==="first-contentful-paint")){o.disconnect();setTimeout(go,0)}}).observe({type:"paint",buffered:true});setTimeout(go,1000)}`;
   out = out
-    .replace(entry[0], `<link rel="modulepreload" crossorigin href="${entry[1]}">`)
-    .replace('</body>', `<script type="module">${boot}</script></body>`)
-    // the prerendered page needs no script to paint: scripts load at low priority, after the fonts
-    .replace(/<link rel="modulepreload" /g, '<link rel="modulepreload" fetchpriority="low" ');
+    .replace(entry[0], '')
+    .replace('</body>', `<script type="module">${boot}</script></body>`);
   // Lazy chunks list the entry's CSS among their preload dependencies, but inlineCss moved it into index.html and
   // dropped the file. Point those entries at the entry chunk instead: already loaded, so the preload helper skips it.
   const entryJs = entry[1].replace('./assets/', './');

@@ -2,7 +2,7 @@
 // sections that need the browser are replaced by placeholders of the same size.
 import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
-import { liveMsg, toast } from '../lib/announce';
+import { liveMsg, toast, updateReady } from '../lib/announce';
 import { tr } from '../lib/i18n';
 import { loadScenario, model } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
@@ -121,6 +121,12 @@ export function Page({ ssr }: { ssr?: boolean }) {
           <ResetAsk />
           <Presenter />
           {tourStep.value !== null && <Tour />}
+          {updateReady.value && (
+            <div class="update-bar" role="status">
+              <span>{tr('app.updated')}</span>
+              <button type="button" class="pill pill-sm pill-dark" onClick={() => location.reload()}>{tr('app.reload')}</button>
+            </div>
+          )}
           {toast.value && (
             <div class={'toast' + (toast.value.tone === 'warn' ? ' warn' : '')} key={toast.value.id} aria-hidden="true">
               {toast.value.text}

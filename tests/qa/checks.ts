@@ -1,6 +1,6 @@
 // In-page layout checks (spec §10.2). Self-contained: Playwright serialises this function into the page.
 export interface CheckOpts {
-  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, blue, simlabel, prov, tokens
+  only?: string[]; // run a subset: overflow, clip, overlap, sticky, targets, labels, svgsize, primary, simlabel, prov, tokens
   stickyMax?: number; // max share of the viewport sticky chrome may take (mobile)
 }
 
@@ -195,15 +195,15 @@ export function runChecks(opts: CheckOpts): string[] {
     }
   }
 
-  // 7. at most one lake-blue filled button visible on screen
-  if (want('blue')) {
-    const blues = items.filter(({ e, r }) => {
-      if (getComputedStyle(e).backgroundColor !== 'rgb(43, 89, 209)') return false;
+  // 7. at most one primary (haldi, docs/DESIGN.md) filled button visible on screen
+  if (want('primary')) {
+    const primaries = items.filter(({ e, r }) => {
+      if (getComputedStyle(e).backgroundColor !== 'rgb(242, 179, 0)') return false;
       if (r.bottom <= 0 || r.top >= H || r.right <= 0 || r.left >= W) return false;
       const hit = document.elementFromPoint(Math.min(W - 1, Math.max(0, r.left + r.width / 2)), Math.min(H - 1, Math.max(0, r.top + r.height / 2)));
       return !!hit && (hit === e || e.contains(hit));
     });
-    if (blues.length > 1) out.push(`${blues.length} blue primary buttons on screen: ${blues.map((b) => desc(b.e)).join(' | ')}`);
+    if (primaries.length > 1) out.push(`${primaries.length} primary buttons on screen: ${primaries.map((b) => desc(b.e)).join(' | ')}`);
   }
 
   // 8. every visible region with simulated numbers carries a "Simulated" label; the SIM indicator is always on screen

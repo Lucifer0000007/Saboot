@@ -4,12 +4,13 @@ import type { Signal } from '@preact/signals';
 import { Icon, type IconName } from './Icon';
 import { Sheet } from './Sheet';
 import { tr, setLang, LANGS, langReady } from '../lib/i18n';
-import { textScale, voiceMode, lowData, highContrast, type TextScale } from '../lib/prefs';
+import { textScale, voiceMode, lowData, highContrast, theme, type TextScale, type Theme } from '../lib/prefs';
 import { stopVoice } from '../lib/voice';
 import { settingsOpen } from '../farmer/nav';
 import { exportMyData, deleteMyData } from '../farmer/focus';
 import { download } from '../lib/download';
 import { showToast } from '../lib/announce';
+import { buildLabel } from '../lib/build';
 
 function Toggle({ sig, label, help, icon, onChange }: { sig: Signal<boolean>; label: string; help?: string; icon: IconName; onChange?: (v: boolean) => void }) {
   return (
@@ -83,8 +84,19 @@ export function Settings() {
       </fieldset>
       <Toggle sig={voiceMode} label={tr('set.voice')} help={tr('set.voiceHelp')} icon="volume" onChange={(v) => !v && stopVoice()} />
       <Toggle sig={lowData} label={tr('set.lowData')} help={tr('set.lowDataHelp')} icon="download" />
+      <fieldset class="set-group">
+        <legend><Icon name="eye" /> {tr('set.theme')}</legend>
+        <div class="seg" role="radiogroup" aria-label={tr('set.theme')}>
+          {(['system', 'light', 'dark'] as Theme[]).map((t) => (
+            <button key={t} type="button" role="radio" aria-checked={theme.value === t} onClick={() => (theme.value = t)}>
+              {tr('set.theme.' + t)}
+            </button>
+          ))}
+        </div>
+      </fieldset>
       <Toggle sig={highContrast} label={tr('set.contrast')} icon="eye" />
       <YourData />
+      <p class="small muted set-build">{tr('foot.build', { b: buildLabel() })}</p>
       <button type="button" class="pill pill-dark pill-block" onClick={() => (settingsOpen.value = false)}>{tr('set.close')}</button>
     </Sheet>
   );

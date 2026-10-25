@@ -1,5 +1,9 @@
 # Design tokens
 
+> **Superseded by `docs/DESIGN.md`.** The visual system was rebuilt: a soil-and-field palette (silt, kali, khet, haldi,
+> neel, lal, lac), Anek and Noto Sans, a dark theme, and the lac seal. This page records the first design's tokens. The
+> spacing scale, the 48 px / 12 px targets, the Indic line heights and the 16 px floor described below still hold.
+
 Every colour, size, radius, layer and sticky height lives in `src/styles/tokens.css`; `scripts/contrast.mjs` reads that file and
 fails on any text pair under 4.5:1 (3:1 for large text and control boundaries), in the normal theme and again in high contrast.
 This page says what the tokens mean and why they are what they are. Nothing here is decoration: every rule answers a person
