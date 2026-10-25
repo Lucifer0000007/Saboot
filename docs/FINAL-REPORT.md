@@ -103,8 +103,8 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 - The 100× replay drops to about 27 frames a second on a 4× throttled phone (L5-04, not on the demo path).
 - The translations are machine-made and flagged `needs-native-review`; farmer and village names are Latin in Hindi and
   Punjabi (L4-16).
-- 13 `{{VERIFY}}` claims remain for you to confirm or remove (`npm run deploy` refuses while any remain); the LICENSE holder
-  is a placeholder.
+- No `{{VERIFY}}` claim remains (`docs/DECISIONS.md`, D-51): each was cited, softened to what the evidence supports, or
+  reworded as Saboot's design. The LICENSE holder is a placeholder.
 - The field evidence has roles, places, dates and consent only: no raw note is in `docs/interviews/raw/` yet, so no theme,
   figure or quote is recorded; no Haryana conversation, no letter of interest, no user.
 - The replay is Pakistan-side data; India has no public activation. Rule B is not independently validated.
@@ -115,7 +115,7 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 1. Native-speaker review of Hindi and Punjabi, the consent wording first.
 2. Rehearse on a real phone: Android Chrome after the camera, iOS `capture`, an in-app browser, EXIF rotation; and the
    laptop webcam reading the phone's QR (`?at=alert`, three photos, seal, share).
-3. Confirm or remove the 13 `{{VERIFY}}` claims (`node scripts/markers.mjs`) and fill the LICENSE holder.
+3. Fill the LICENSE holder. (`node scripts/markers.mjs` reports no `{{VERIFY}}` claim left.)
 4. Install the Chrome extension and run `/chrome` if you want exploratory checks (`docs/SETUP.md`).
 5. Record three backup clips with a "RECORDED" caption (`docs/USP-MVP.md`).
 6. Deploy from this branch when you are ready: `npm run deploy` (it runs the full gate first). Not before the demo starts.

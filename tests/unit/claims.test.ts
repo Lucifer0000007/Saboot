@@ -74,12 +74,12 @@ test('the relief rail (every base key) names no state; only the crop-insurance v
   for (const [k, v] of copy(en)) if (k.endsWith('.pmfby')) for (const s of STATES) assert.ok(!new RegExp(`\\b${s}\\b`, 'i').test(v), `en ${k} hard-codes ${s}: use {state}`);
   assert.equal(PMFBY.state, 'Haryana', 'the crop-insurance rail uses the state the owner chose, with a marker to confirm it');
   const cfg = readFileSync('src/config.ts', 'utf8');
-  assert.match(cfg, /\{\{VERIFY: that Haryana runs PMFBY/);
+  assert.match(cfg, /Source: Haryana notifies PMFBY/);
 });
 
-test('every real-world parameter of the relief rail carries a VERIFY marker', () => {
+test('every real-world parameter of the relief rail carries its source', () => {
   const cfg = readFileSync('src/config.ts', 'utf8');
-  assert.match(cfg, /\{\{VERIFY: damage-share threshold[^}]*SDRF norms[^}]*\}\}/);
+  assert.match(cfg, /Source: MHA norms for SDRF\/NDRF assistance: input subsidy for crop loss of 33% and above/);
   assert.equal(RELIEF.damageShareThreshold, 0.33);
 });
 

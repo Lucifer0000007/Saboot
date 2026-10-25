@@ -45,11 +45,11 @@ const en: Record<string, string | string[]> = {
   'pb.eyebrow': 'The problem',
   'pb.h': 'Evidence fades faster than assessments happen.',
   'pb.1.t': 'Assessed after the water is gone',
-  // {{VERIFY: that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority}}
-  'pb.1.b': 'A loss assessment is usually a walk through the fields once the flood has gone down, when the evidence has already faded.',
+  // Softened to "often": practice differs by state (girdawari-style field visits after the water recedes).
+  'pb.1.b': 'A loss assessment is often a walk through the fields once the flood has gone down, when the evidence has already faded.',
   'pb.2.t': 'Nobody tells the farmer what to capture',
-  // {{VERIFY: that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App}}
-  'pb.2.b': 'The water arrives before any message does. A farmer rarely hears that a loss clock has started, or which proof will help.',
+  // Softened to "often": no source states how often; the farmer conversations are in docs/INTERVIEWS.md.
+  'pb.2.b': 'The water often arrives before any message does. A farmer often does not hear that a loss clock has started, or which proof will help.',
   'pb.3.t': 'Proof that can be questioned',
   'pb.3.b': 'A photo without a trusted time and place is easy to doubt. Late or doubtful evidence makes a fair assessment harder.',
 
@@ -61,7 +61,8 @@ const en: Record<string, string | string[]> = {
   'rail.relief': 'Relief assessment',
   'rail.pmfby': 'PMFBY intimation',
   'rail.d.relief': 'A state or district assessment of flood losses. The officer ranks and verifies; the farmer supplies sealed evidence. The capture-soon advice is not a deadline. No state is named.',
-  // {{VERIFY: 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in}}
+  // Source: PMFBY operational guidelines, localized calamities: intimation within 72 hours (48 hours until 2018), Lok
+  // Sabha unstarred question 3866 (eparlib.nic.in). Shown on the PMFBY rail only.
   'rail.d.pmfby': 'The 72‑hour intimation of a localized calamity, for a state that runs PMFBY. A fictional district in {state}.',
   'cad.label': 'Radar passes',
   'cad.demo': 'Every {n} h (demo)',
@@ -304,7 +305,8 @@ const en: Record<string, string | string[]> = {
   'rs.13.p': 'Field pilots',
   'rs.14.c': 'River gauges',
   'rs.14.d': 'Synthetic hourly river-stage series for {n} gauges, made from the same simulated flood',
-  // {{VERIFY: river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in)}}
+  // Source: the Central Water Commission is the nodal flood-forecasting agency (river-level and dam-inflow forecasts,
+  // cwc.gov.in/en/mco/flood-forecast); states run flood works with their water resources departments (Lok Sabha AU2047).
   'rs.14.p': 'State water resources department and national flood-forecasting gauges',
   'rs.15.c': 'Real-data validation',
   'rs.15.d': 'Not run yet. The precision and recall shown are a simulated consistency check',
@@ -497,7 +499,8 @@ const en: Record<string, string | string[]> = {
   'fl.copyFail': 'Could not copy. Please read the details aloud instead.',
   'fl.steps': 'How to report',
   'fl.s1': 'Tell the officer who assesses your village that you have sealed photos of the flood.',
-  // {{VERIFY: that farmers can intimate loss through the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or the Crop Insurance App (named in the How it works section) — source to be added by the owner}}
+  // Source: the Krishi Rakshak Portal & Helpline, toll-free 14447, and the Crop Insurance App take crop-loss intimation,
+  // Lok Sabha unstarred question 2508 (eparlib.sansad.in).
   'fl.s1.pmfby': 'Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App.',
   'fl.s2': 'Give your plot number and show the details on this screen.',
   'fl.s2.pmfby': 'Say: crop loss from flood. Give your policy number and plot number.',
@@ -549,7 +552,8 @@ const en: Record<string, string | string[]> = {
   'st.decisionNote': 'Saboot never decides. The officer does.',
   'st.decisionNote.pmfby': 'Saboot never decides claims.',
   'st.surveyAt': 'Scheduled {time}',
-  // {{VERIFY: that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx}}
+  // Design: the draft list, the objection window and the department's final decision are the relief rail's proposed
+  // workflow (docs/SABOOT-SPEC.md §14), shown on screen as simulated; no state's order is described.
   'ob.title': 'Officer’s draft list',
   'ob.soon': 'Later, the officer publishes a draft list. This is simulated: about {time}. If your entry looks wrong, you can attach your sealed evidence until {until}.',
   'ob.open': 'The officer’s draft list is out (simulated). If your entry looks wrong, attach your sealed evidence. This is open until {until}.',
@@ -588,7 +592,8 @@ const en: Record<string, string | string[]> = {
   'hm.consentIntro': 'Read this out to {farmer}. {farmer} agrees by pressing and holding the button, or by speaking. Nothing is captured without it.',
   'hm.title': 'Helper mode',
   'hm.sub': 'Capture for several farmers',
-  // {{VERIFY: that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines}}
+  // Design: the helper roles are Saboot's choice (docs/SABOOT-SPEC.md §14), offered as people who can help, not a claim
+  // about who farmers turn to; a CSC operator is among the conversations in docs/INTERVIEWS.md.
   'hm.intro': 'For a sarpanch, CSC operator, cooperative or extension worker. Capture for several farmers on this phone. Each farmer gives their own consent, and each farmer’s evidence is sealed on its own.',
   'hm.name': 'Your name',
   'hm.role': 'You are',

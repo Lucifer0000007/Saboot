@@ -345,9 +345,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `pb.eyebrow` | The problem | समस्या |  |
 | `pb.h` | Evidence fades faster than assessments happen. | प्रमाण आकलन से पहले ही फीके पड़ जाते हैं। |  |
 | `pb.1.t` | Assessed after the water is gone | पानी उतरने के बाद आकलन |  |
-| `pb.1.b` | A loss assessment is usually a walk through the fields once the flood has gone down, when the evidence has already faded. | नुकसान का आकलन आमतौर पर बाढ़ उतरने के बाद खेतों में घूमकर होता है, जब तक प्रमाण फीके पड़ चुके होते हैं। |  |
+| `pb.1.b` | A loss assessment is often a walk through the fields once the flood has gone down, when the evidence has already faded. | नुकसान का आकलन अक्सर बाढ़ उतरने के बाद खेतों में घूमकर होता है, जब तक प्रमाण फीके पड़ चुके होते हैं। |  |
 | `pb.2.t` | Nobody tells the farmer what to capture | किसान को कोई नहीं बताता कि क्या खींचना है |  |
-| `pb.2.b` | The water arrives before any message does. A farmer rarely hears that a loss clock has started, or which proof will help. | पानी किसी भी संदेश से पहले आ जाता है। किसान को शायद ही कभी पता चलता है कि नुकसान की घड़ी शुरू हो गई है, या कौन-सा प्रमाण काम आएगा। |  |
+| `pb.2.b` | The water often arrives before any message does. A farmer often does not hear that a loss clock has started, or which proof will help. | पानी अक्सर किसी भी संदेश से पहले आ जाता है। किसान को अक्सर पता नहीं चलता कि नुकसान की घड़ी शुरू हो गई है, या कौन-सा प्रमाण काम आएगा। |  |
 | `pb.3.t` | Proof that can be questioned | प्रमाण, जिस पर सवाल उठ सकते हैं |  |
 | `pb.3.b` | A photo without a trusted time and place is easy to doubt. Late or doubtful evidence makes a fair assessment harder. | भरोसेमंद समय और जगह के बिना फ़ोटो पर शक करना आसान है। देर से मिला या संदिग्ध प्रमाण निष्पक्ष आकलन को मुश्किल बनाता है। |  |
 | `faq.eyebrow` | Honest limits | ईमानदार सीमाएँ |  |

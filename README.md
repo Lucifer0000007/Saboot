@@ -262,21 +262,7 @@ are not marked; they are labelled "Simulated" wherever they appear. Regenerate t
 Claims in `docs/` carry the same marker text so they can be found with a search, but the deploy gate does not scan them.
 
 <!-- markers:start -->
-| # | Where | What to check, and where |
-|---|---|---|
-| 1 | `src/config.ts:36` | damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA) |
-| 2 | `src/config.ts:51` | that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department |
-| 3 | `src/dashboard/DraftView.tsx:17` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; the same claim sits in src/i18n/en.ts (ob.*) |
-| 4 | `src/explainer/Explainer.tsx:281` | paddy fields are normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water — source to be added by the owner |
-| 5 | `src/explainer/Explainer.tsx:302` | PMFBY paddy and sugarcane localised-inundation rule — 2023 guidelines excluded them; reportedly being reintroduced for Kharif 2026, final notification not confirmed — source to be added by the owner |
-| 6 | `src/explainer/Explainer.tsx:304` | C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping |
-| 7 | `src/i18n/en.ts:47` | that a state crop-loss assessment (girdawari-style) is usually done by officials walking the fields once the water has receded — the state revenue department assessment manual or order, and the state disaster management authority |
-| 8 | `src/i18n/en.ts:50` | that farmers rarely receive an alert that a loss-reporting or assessment clock has started, or what evidence to capture — check the state agriculture and revenue advisories, the PMFBY portal and the Crop Insurance App |
-| 9 | `src/i18n/en.ts:63` | 72-hour loss-intimation window for localized calamities, shown on the PMFBY rail only (keys rail.d.pmfby, reg.voice.pmfby, al.started.pmfby, al.voice.pmfby, al.expiredMsg.pmfby, al.clock.pmfby, tour.s1.b.pmfby, tour.s3.b.pmfby, arch.clk.pmfby, arch.caption.pmfby, wf.2.b.pmfby, rs.5.c.pmfby) — PMFBY Operational Guidelines, "localized calamities" section, pmfby.gov.in |
-| 10 | `src/i18n/en.ts:303` | river-stage and dam-release data sources — the state water resources department and the Central Water Commission flood forecasting service (cwc.gov.in) |
-| 11 | `src/i18n/en.ts:480` | that farmers can intimate loss through the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or the Crop Insurance App (named in the How it works section) — source to be added by the owner |
-| 12 | `src/i18n/en.ts:532` | that a state officer publishes a draft assessment list, that farmers may then attach evidence within an objection window, and that the department decides the final list — the state revenue department assessment order; keys ob.soon, ob.open, ob.filed, ob.answered, ob.closed and their hi/pa lines, and the Draft list steps in src/dashboard/DraftView.tsx |
-| 13 | `src/i18n/en.ts:571` | that sarpanches, CSC (Common Service Centre) operators, cooperative workers and agriculture extension workers are the people farmers turn to for help with loss reporting — the state agriculture department and the scheme operating guidelines; keys hm.intro, hm.r.sarpanch, hm.r.csc, hm.r.coop, hm.r.ext, hm.card.body and their hi/pa lines |
+No markers remain.
 <!-- markers:end -->
 
 ## Translations (machine-drafted)

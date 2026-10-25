@@ -345,9 +345,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `pb.eyebrow` | The problem | ਸਮੱਸਿਆ |  |
 | `pb.h` | Evidence fades faster than assessments happen. | ਪ੍ਰਮਾਣ ਮੁਲਾਂਕਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਫਿੱਕੇ ਪੈ ਜਾਂਦੇ ਹਨ। |  |
 | `pb.1.t` | Assessed after the water is gone | ਪਾਣੀ ਉੱਤਰਨ ਤੋਂ ਬਾਅਦ ਮੁਲਾਂਕਣ |  |
-| `pb.1.b` | A loss assessment is usually a walk through the fields once the flood has gone down, when the evidence has already faded. | ਨੁਕਸਾਨ ਦਾ ਮੁਲਾਂਕਣ ਆਮ ਤੌਰ ਉੱਤੇ ਹੜ੍ਹ ਉੱਤਰਨ ਤੋਂ ਬਾਅਦ ਖੇਤਾਂ ਵਿੱਚ ਘੁੰਮ ਕੇ ਹੁੰਦਾ ਹੈ, ਜਦੋਂ ਤੱਕ ਪ੍ਰਮਾਣ ਫਿੱਕੇ ਪੈ ਚੁੱਕੇ ਹੁੰਦੇ ਹਨ। |  |
+| `pb.1.b` | A loss assessment is often a walk through the fields once the flood has gone down, when the evidence has already faded. | ਨੁਕਸਾਨ ਦਾ ਮੁਲਾਂਕਣ ਅਕਸਰ ਹੜ੍ਹ ਉੱਤਰਨ ਤੋਂ ਬਾਅਦ ਖੇਤਾਂ ਵਿੱਚ ਘੁੰਮ ਕੇ ਹੁੰਦਾ ਹੈ, ਜਦੋਂ ਤੱਕ ਪ੍ਰਮਾਣ ਫਿੱਕੇ ਪੈ ਚੁੱਕੇ ਹੁੰਦੇ ਹਨ। |  |
 | `pb.2.t` | Nobody tells the farmer what to capture | ਕਿਸਾਨ ਨੂੰ ਕੋਈ ਨਹੀਂ ਦੱਸਦਾ ਕਿ ਕੀ ਖਿੱਚਣਾ ਹੈ |  |
-| `pb.2.b` | The water arrives before any message does. A farmer rarely hears that a loss clock has started, or which proof will help. | ਪਾਣੀ ਕਿਸੇ ਵੀ ਸੁਨੇਹੇ ਤੋਂ ਪਹਿਲਾਂ ਆ ਜਾਂਦਾ ਹੈ। ਕਿਸਾਨ ਨੂੰ ਸ਼ਾਇਦ ਹੀ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਨੁਕਸਾਨ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ, ਜਾਂ ਕਿਹੜਾ ਪ੍ਰਮਾਣ ਕੰਮ ਆਵੇਗਾ। |  |
+| `pb.2.b` | The water often arrives before any message does. A farmer often does not hear that a loss clock has started, or which proof will help. | ਪਾਣੀ ਅਕਸਰ ਕਿਸੇ ਵੀ ਸੁਨੇਹੇ ਤੋਂ ਪਹਿਲਾਂ ਆ ਜਾਂਦਾ ਹੈ। ਕਿਸਾਨ ਨੂੰ ਅਕਸਰ ਪਤਾ ਨਹੀਂ ਲੱਗਦਾ ਕਿ ਨੁਕਸਾਨ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ, ਜਾਂ ਕਿਹੜਾ ਪ੍ਰਮਾਣ ਕੰਮ ਆਵੇਗਾ। |  |
 | `pb.3.t` | Proof that can be questioned | ਪ੍ਰਮਾਣ, ਜਿਸ ਉੱਤੇ ਸਵਾਲ ਉੱਠ ਸਕਦੇ ਹਨ |  |
 | `pb.3.b` | A photo without a trusted time and place is easy to doubt. Late or doubtful evidence makes a fair assessment harder. | ਭਰੋਸੇਯੋਗ ਸਮੇਂ ਅਤੇ ਥਾਂ ਤੋਂ ਬਿਨਾਂ ਫ਼ੋਟੋ ਉੱਤੇ ਸ਼ੱਕ ਕਰਨਾ ਸੌਖਾ ਹੈ। ਦੇਰ ਨਾਲ ਮਿਲਿਆ ਜਾਂ ਸ਼ੱਕੀ ਪ੍ਰਮਾਣ ਨਿਰਪੱਖ ਮੁਲਾਂਕਣ ਨੂੰ ਔਖਾ ਬਣਾਉਂਦਾ ਹੈ। |  |
 | `faq.eyebrow` | Honest limits | ਇਮਾਨਦਾਰ ਹੱਦਾਂ |  |

@@ -278,7 +278,7 @@ export default function Explainer() {
           <li>
             <strong>Rule B, radar change:</strong> the plot shows no water at the baseline radar pass, then the water <em>above what the crop shows anyway</em> reaches <span class="num">{Math.round(th.floodFrac * 100)}%</span> of the plot at a later pass.
             {base && <> Dry crops are expected to show none. Paddy is normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water. In this simulation paddy is expected to show about <span class="num">{Math.round(base.frac * 100)}%</span>, so only water on top of that counts, the alert is marked low confidence, and the radar weight in the evidence tier is lowered and its uncertainty widened.</>}
-            {/* {{VERIFY: paddy fields are normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water — source to be added by the owner}} */}
+            {/* Source: transplanted paddy shows low radar backscatter from standing water, so flood maps need a paddy mask (Singha et al., Scientific Data 2019; ISPRS 2020). */}
             {' '}This crop-aware treatment is an unvalidated design decision. Limit: radar passes are infrequent.
           </li>
           <li>
@@ -299,9 +299,7 @@ export default function Explainer() {
         <section class="xpanel" aria-labelledby="x-lim">
           <h4 id="x-lim"><Icon name="info" /> Honest limits</h4>
           <ul class="limits">
-            {/* {{VERIFY: PMFBY paddy and sugarcane localised-inundation rule — 2023 guidelines excluded them; reportedly being reintroduced for Kharif 2026, final notification not confirmed — source to be added by the owner}} */}
-            <li>Under the 2023 PMFBY guidelines, paddy and sugarcane were excluded from localised inundation cover. The rule for Kharif 2026 is being confirmed and may change.</li>
-            {/* {{VERIFY: C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping}} */}
+            {/* Source: UN-SPIDER Recommended Practice, flood mapping: radar has difficulty detecting flooded vegetation, including agricultural areas. */}
             <li>Radar under-sees water beneath tall crops (sugarcane, maize): those plots can be missed by the radar rule, and farmers can still report with a helper.</li>
             {/* Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner). */}
             <li>This replay assumes a radar pass every {cad} hours (simulated; the slower option is every {m.raw.sarSlow ? m.raw.sarSlow[1] - m.raw.sarSlow[0] : '—'} hours, also simulated). Real revisits are slower: radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. That is why the rain and river rules exist.</li>

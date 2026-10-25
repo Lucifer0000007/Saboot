@@ -33,7 +33,8 @@ export const RELIEF = {
    * standing water are most useful before the water recedes. This is Saboot's design assumption.
    */
   captureSoonHours: 48,
-  // {{VERIFY: damage-share threshold above which a plot is listed first for officer review (0.33, one third, is a scenario parameter and not an official figure) — the state revenue / disaster management department order and the SDRF norms (MHA / NDMA)}}
+  // Source: MHA norms for SDRF/NDRF assistance: input subsidy for crop loss of 33% and above (earlier 50%), Lok Sabha
+  // unstarred question 2488 (eparlib.nic.in). 0.33 here is a scenario parameter for ranking review work, not an amount rule.
   damageShareThreshold: 0.33,
   /** Not set on purpose: the product shows no per-acre amount. */
   perAcreAmount: null as number | null,
@@ -48,7 +49,8 @@ export const RELIEF = {
 export const PMFBY = {
   /** Hours from the event to the end of the localized-calamity intimation window. The claim itself is marked in src/i18n/en.ts. */
   windowHours: 72,
-  // {{VERIFY: that Haryana runs PMFBY (the scheme is not adopted by every state) — pmfby.gov.in and the Haryana agriculture department}}
+  // Source: Haryana notifies PMFBY each season (Kharif 2025 district notifications, Tribune, and Lok Sabha unstarred
+  // question 2719, eparlib.sansad.in); not every state runs it.
   state: 'Haryana',
 };
 
