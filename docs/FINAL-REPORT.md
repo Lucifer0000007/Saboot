@@ -10,8 +10,9 @@ photos sealed on a real phone and checked on a laptop with no server; a real pas
 rules, shown as raw counts under a REPLAY label; and a label on every value saying whether it is live, replayed, simulated or
 typed by hand. Along the way the audit found 80 problems; every blocker and every major one on the demo path is fixed, each
 with a test that was red before the fix. The quick gate (`npm run verify -- --quick`), the full QA matrix and Lighthouse
-pass: 580 Playwright tests, 540 captures with 0 problems, 219 unit tests, Lighthouse 98/100/100 on all three pages.
-Sixty-five commits, one concern each.
+pass: 609 Playwright tests (24 of them in the dark theme), 564 captures, 229 unit tests, Lighthouse 97 to 98 / 100 / 100 on all
+three pages with LCP 2.11 s. Since then: a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and seven real
+conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`).
 
 ## 2. The mistakes that mattered most, and what was done
 
@@ -93,17 +94,19 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 
 ## 8. Remaining risks
 
-- LCP is 2.41 s against a 2.5 s limit (Lighthouse median of 3) on the build that closed Phase 6. In the last session of
-  work the same gate measured 2.70 s on every page, and also 2.70 s on the earlier passing source built again, so the
-  shift is on the machine (a browser update or background load), not in the branch. `npm run deploy` runs this gate and
-  refuses on a failure: rerun `node scripts/lighthouse.mjs --runs=5` on a quiet machine first; if it still fails there,
-  the entry bundle (89.5 KB, unchanged in composition) is the place to look.
+- LCP is 2.11 s on all three pages (median of 5) since the boot script stopped requesting code before the first paint
+  (`docs/DESIGN_LOG.md`, iteration 2). Time to interactive on `?tab=insurer` reads 2.4 to 3.2 s against a 3 s limit
+  depending on machine load (the same with and without the newest landing section). `npm run deploy` runs this gate and
+  refuses on a failure: rerun `node scripts/lighthouse.mjs --runs=5` on a quiet machine first.
 - A Hindi or Punjabi first visit paints at 2.3 s on the budget profile and about 3 s on fast 3G; the Lighthouse gate measures
   English only (audit L5-01, L5-02, open).
 - The 100× replay drops to about 27 frames a second on a 4× throttled phone (L5-04, not on the demo path).
 - The translations are machine-made and flagged `needs-native-review`; farmer and village names are Latin in Hindi and
   Punjabi (L4-16).
-- 19 `{{VERIFY}}` claims remain for you to confirm or remove; the LICENSE holder is a placeholder.
+- 13 `{{VERIFY}}` claims remain for you to confirm or remove (`npm run deploy` refuses while any remain); the LICENSE holder
+  is a placeholder.
+- The field evidence has roles, places, dates and consent only: no raw note is in `docs/interviews/raw/` yet, so no theme,
+  figure or quote is recorded; no Haryana conversation, no letter of interest, no user.
 - The replay is Pakistan-side data; India has no public activation. Rule B is not independently validated.
 - A deploy during the event can break open tabs (A-12): do not deploy once the demo has started.
 
@@ -112,12 +115,13 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 1. Native-speaker review of Hindi and Punjabi, the consent wording first.
 2. Rehearse on a real phone: Android Chrome after the camera, iOS `capture`, an in-app browser, EXIF rotation; and the
    laptop webcam reading the phone's QR (`?at=alert`, three photos, seal, share).
-3. Confirm or remove the 19 `{{VERIFY}}` claims (`node scripts/markers.mjs`) and fill the LICENSE holder.
+3. Confirm or remove the 13 `{{VERIFY}}` claims (`node scripts/markers.mjs`) and fill the LICENSE holder.
 4. Install the Chrome extension and run `/chrome` if you want exploratory checks (`docs/SETUP.md`).
 5. Record three backup clips with a "RECORDED" caption (`docs/USP-MVP.md`).
 6. Deploy from this branch when you are ready: `npm run deploy` (it runs the full gate first). Not before the demo starts.
 8. For the receiver: install mkcert, make the certificate for the laptop's address, put the root on the demo phone, start
    `scripts/receipt-server.mjs`, rehearse both paths (`docs/SETUP.md`, "The demo receiver"). Have the two reviewers work
-   through `translation/hi.md` and `translation/pa.md`; make the one phone call with `docs/STAKEHOLDER-INTERVIEW-GUIDE.md`
-   and record it in `docs/INTERVIEWS.md`.
+   through `translation/hi.md` and `translation/pa.md` (regenerated: 624 rows each). Add the raw interview notes to
+   `docs/interviews/raw/`, then the themes to `src/data/fieldEvidence.ts`, and rerun `scripts/interviews-doc.mjs`; a Haryana
+   farmer or patwari conversation closes the biggest gap. The receiver certificate is already in `.cache/demo.pem`.
 7. Optional: a Copernicus Global Flood Monitoring login if you ever want an Indian-side replay (R-2).

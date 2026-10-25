@@ -141,6 +141,10 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `set.lowData` | Low-data mode | ਘੱਟ ਡਾਟਾ ਮੋਡ |  |
 | `set.lowDataHelp` | Hides maps and pictures that are not needed. | ਬੇਲੋੜੇ ਨਕਸ਼ੇ ਅਤੇ ਤਸਵੀਰਾਂ ਲੁਕਾਉਂਦਾ ਹੈ। |  |
 | `set.contrast` | High contrast | ਹਾਈ ਕੰਟ੍ਰਾਸਟ |  |
+| `set.theme` | Light or dark | ਹਲਕਾ ਜਾਂ ਗੂੜ੍ਹਾ |  |
+| `set.theme.system` | Device | ਫ਼ੋਨ ਵਾਂਗ |  |
+| `set.theme.light` | Light | ਹਲਕਾ |  |
+| `set.theme.dark` | Dark | ਗੂੜ੍ਹਾ |  |
 | `set.close` | Close | ਬੰਦ ਕਰੋ |  |
 | `set.data` | Your data on this phone | ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਤੁਹਾਡਾ ਡਾਟਾ |  |
 | `set.dataHelp` | Photos, consent and sealed packets are kept only on this phone. Nothing is uploaded by itself: only a signed code can leave, and only when you send it. You can take a copy or delete it all. | ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਸਿਰਫ਼ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ। ਆਪਣੇ ਆਪ ਕੁਝ ਅੱਪਲੋਡ ਨਹੀਂ ਹੁੰਦਾ: ਸਿਰਫ਼ ਦਸਤਖ਼ਤੀ ਕੋਡ ਜਾ ਸਕਦਾ ਹੈ, ਅਤੇ ਉਹ ਵੀ ਤਾਂ ਹੀ ਜਦੋਂ ਤੁਸੀਂ ਉਸ ਨੂੰ ਭੇਜੋ। ਤੁਸੀਂ ਕਾਪੀ ਲੈ ਸਕਦੇ ਹੋ ਜਾਂ ਸਭ ਮਿਟਾ ਸਕਦੇ ਹੋ। |  |
@@ -213,7 +217,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `fl.copyFail` | Could not copy. Please read the details aloud instead. | ਕਾਪੀ ਨਹੀਂ ਹੋ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਣਕਾਰੀ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। |  |
 | `fl.steps` | How to report | ਰਿਪੋਰਟ ਕਿਵੇਂ ਕਰੀਏ |  |
 | `fl.s1` | Tell the officer who assesses your village that you have sealed photos of the flood. | ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਹੜ੍ਹ ਦੀਆਂ ਸੀਲ ਕੀਤੀਆਂ ਫ਼ੋਟੋਆਂ ਹਨ। |  |
-| `fl.s1.pmfby` | Call the crop insurance helpline, or open the official crop insurance app. | ਫ਼ਸਲ ਬੀਮਾ ਹੈਲਪਲਾਈਨ ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ ਸਰਕਾਰੀ ਫ਼ਸਲ ਬੀਮਾ ਐਪ ਖੋਲ੍ਹੋ। |  |
+| `fl.s1.pmfby` | Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App. | Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ Crop Insurance App ਖੋਲ੍ਹੋ। |  |
 | `fl.s2` | Give your plot number and show the details on this screen. | ਆਪਣਾ ਖੇਤ ਨੰਬਰ ਦੱਸੋ ਅਤੇ ਇਸ ਸਕ੍ਰੀਨ ਦਾ ਵੇਰਵਾ ਵਿਖਾਓ। |  |
 | `fl.s2.pmfby` | Say: crop loss from flood. Give your policy number and plot number. | ਕਹੋ: ਹੜ੍ਹ ਨਾਲ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ। ਆਪਣਾ ਪਾਲਿਸੀ ਨੰਬਰ ਅਤੇ ਖੇਤ ਨੰਬਰ ਦੱਸੋ। |  |
 | `fl.s3` | If asked, read out your evidence fingerprint. | ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣੇ ਸਬੂਤ ਦਾ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। |  |
@@ -281,6 +285,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `prov.hand` | Entered by hand | ਹੱਥ ਨਾਲ ਦਰਜ |  |
 | `prov.by` | by {who} | {who} ਵੱਲੋਂ |  |
 | `prov.none` | Origin not recorded | ਸਰੋਤ ਦਰਜ ਨਹੀਂ |  |
+| `prov.field` | Field record | ਫ਼ੀਲਡ ਰਿਕਾਰਡ |  |
 | `net.online` | Online | ਆਨਲਾਈਨ |  |
 | `net.weak` | Weak (2G) | ਕਮਜ਼ੋਰ (2G) |  |
 | `net.offline` | Offline | ਆਫ਼ਲਾਈਨ |  |
@@ -336,6 +341,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `hero.how` | How it works | ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ |  |
 | `hero.clockLabel` | Illustration: a clock that starts counting at the storm | ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ |  |
 | `hero.clockCap` | Counted from the event, not from the phone call | ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਤੀ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ |  |
+| `hero.labels` | Every value on screen says where it came from: | ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ: |  |
 | `pb.eyebrow` | The problem | ਸਮੱਸਿਆ |  |
 | `pb.h` | Evidence fades faster than assessments happen. | ਪ੍ਰਮਾਣ ਮੁਲਾਂਕਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਫਿੱਕੇ ਪੈ ਜਾਂਦੇ ਹਨ। |  |
 | `pb.1.t` | Assessed after the water is gone | ਪਾਣੀ ਉੱਤਰਨ ਤੋਂ ਬਾਅਦ ਮੁਲਾਂਕਣ |  |
@@ -357,7 +363,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `faq.q5` | Who controls the evidence? | ਪ੍ਰਮਾਣ ਉੱਤੇ ਕੰਟਰੋਲ ਕਿਸ ਦਾ ਹੈ? |  |
 | `faq.a5` | Saboot is meant to be a neutral evidence layer. The farmer keeps a copy of their packet on their phone, and insurers and officers see it only with the farmer’s consent.' 'In this simulation everything runs on your phone and nothing leaves it unless you choose to share it. | ਸਬੂਤ ਇੱਕ ਨਿਰਪੱਖ ਪ੍ਰਮਾਣ-ਪਰਤ ਬਣਨ ਲਈ ਹੈ। ਕਿਸਾਨ ਆਪਣੇ ਪੈਕੇਟ ਦੀ ਇੱਕ ਕਾਪੀ ਆਪਣੇ ਫ਼ੋਨ ਉੱਤੇ ਰੱਖਦਾ ਹੈ, ਅਤੇ ਬੀਮਾ ਕੰਪਨੀ ਤੇ ਅਫ਼ਸਰ ਉਸ ਨੂੰ ਸਿਰਫ਼ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਨਾਲ ਵੇਖਦੇ ਹਨ।' 'ਇਸ ਸਿਮੂਲੇਸ਼ਨ ਵਿੱਚ ਸਭ ਕੁਝ ਤੁਹਾਡੇ ਫ਼ੋਨ ਉੱਤੇ ਚੱਲਦਾ ਹੈ ਅਤੇ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਆਪ ਸਾਂਝਾ ਨਾ ਕਰੋ, ਕੁਝ ਵੀ ਫ਼ੋਨ ਤੋਂ ਬਾਹਰ ਨਹੀਂ ਜਾਂਦਾ। |  |
 | `faq.q6` | What is real and what is simulated? | ਇੱਥੇ ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ? |  |
-| `faq.a6` | Real in your browser: camera and location, SHA-256 fingerprints and the hash chain, the offline queue, voice playback and the offline app itself.' 'Simulated: the rain, the river gauges, the satellite flood maps, the server, the voice call, the officer or insurer, the filing channel, and all {plots} plots and their farmers. Every number on screen comes from the simulation.' // {{VERIFY: Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu}} 'Real satellite radar passes the same field only every few days. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated. | ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਅਸਲੀ: ਕੈਮਰਾ ਅਤੇ ਲੋਕੇਸ਼ਨ, SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਅਤੇ ਹੈਸ਼ ਚੇਨ, ਆਫ਼ਲਾਈਨ ਕਤਾਰ, ਆਵਾਜ਼ ਚਲਾਉਣਾ ਅਤੇ ਆਫ਼ਲਾਈਨ ਐਪ ਆਪ।' 'ਸਿਮੂਲੇਟ ਕੀਤਾ: ਮੀਂਹ, ਦਰਿਆ ਦੇ ਮਾਪਕ, ਸੈਟੇਲਾਈਟ ਹੜ੍ਹ-ਨਕਸ਼ੇ, ਸਰਵਰ, ਫ਼ੋਨ ਕਾਲ, ਅਧਿਕਾਰੀ ਜਾਂ ਬੀਮਾ ਕੰਪਨੀ, ਦਰਜ ਕਰਨ ਦਾ ਰਾਹ, ਅਤੇ ਸਾਰੇ {plots} ਖੇਤ ਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕਿਸਾਨ। ਸਕ੍ਰੀਨ ਦੀ ਹਰ ਗਿਣਤੀ ਸਿਮੂਲੇਸ਼ਨ ਤੋਂ ਆਉਂਦੀ ਹੈ।' 'ਅਸਲੀ ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਇੱਕੋ ਖੇਤ ਦੇ ਉੱਪਰੋਂ ਸਿਰਫ਼ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਲੰਘਦਾ ਹੈ। ਡੈਮੋ ਵਿੱਚ ਹਰ {cadence} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਪਾਸ ਮੰਨਿਆ ਗਿਆ ਹੈ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ; ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ। |  |
+| `faq.a6` | Real in your browser: camera and location, SHA-256 fingerprints and the hash chain, the offline queue, voice playback and the offline app itself.' 'Simulated: the rain, the river gauges, the satellite flood maps, the server, the voice call, the officer or insurer, the filing channel, and all {plots} plots and their farmers. Every number on screen comes from the simulation.' // Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner). 'Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated. | ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਅਸਲੀ: ਕੈਮਰਾ ਅਤੇ ਲੋਕੇਸ਼ਨ, SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਅਤੇ ਹੈਸ਼ ਚੇਨ, ਆਫ਼ਲਾਈਨ ਕਤਾਰ, ਆਵਾਜ਼ ਚਲਾਉਣਾ ਅਤੇ ਆਫ਼ਲਾਈਨ ਐਪ ਆਪ।' 'ਸਿਮੂਲੇਟ ਕੀਤਾ: ਮੀਂਹ, ਦਰਿਆ ਦੇ ਮਾਪਕ, ਸੈਟੇਲਾਈਟ ਹੜ੍ਹ-ਨਕਸ਼ੇ, ਸਰਵਰ, ਫ਼ੋਨ ਕਾਲ, ਅਧਿਕਾਰੀ ਜਾਂ ਬੀਮਾ ਕੰਪਨੀ, ਦਰਜ ਕਰਨ ਦਾ ਰਾਹ, ਅਤੇ ਸਾਰੇ {plots} ਖੇਤ ਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕਿਸਾਨ। ਸਕ੍ਰੀਨ ਦੀ ਹਰ ਗਿਣਤੀ ਸਿਮੂਲੇਸ਼ਨ ਤੋਂ ਆਉਂਦੀ ਹੈ।' 'ਰਡਾਰ ਸੈਟੇਲਾਈਟ ਦੋ ਸੈਟੇਲਾਈਟਾਂ (Sentinel-1C ਅਤੇ 1D) ਨਾਲ ਹਰ 6 ਦਿਨ ਵਿੱਚ ਇੱਕ ਖੇਤ ਉੱਪਰੋਂ ਲੰਘਦੇ ਹਨ, ਜਾਂ ਇੱਕ ਸੈਟੇਲਾਈਟ ਨਾਲ ਹਰ 12 ਦਿਨ ਵਿੱਚ। ਡੈਮੋ ਵਿੱਚ ਹਰ {cadence} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਪਾਸ ਮੰਨਿਆ ਗਿਆ ਹੈ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ; ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ। |  |
 | `faq.q7` | Has any of this been validated on real floods? | ਕੀ ਇਹ ਸਭ ਅਸਲੀ ਹੜ੍ਹਾਂ ਉੱਤੇ ਪਰਖਿਆ ਗਿਆ ਹੈ? |  |
 | `faq.a7` | No. The precision and recall on screen are a consistency check against the simulator’s own synthetic truth, not a validation. The river rule works in the replay because the gauge series come from the same simulated flood.' 'Real-data validation, replaying past floods against villages that an official process later confirmed as affected, has not been run yet. The product says so until a real report exists. | ਨਹੀਂ। ਸਕ੍ਰੀਨ ਉੱਤੇ ਦਿਖਦੀ ਪ੍ਰਿਸੀਜ਼ਨ ਅਤੇ ਰਿਕਾਲ ਸਿਮੂਲੇਟਰ ਦੇ ਆਪਣੇ ਨਕਲੀ ਸੱਚ ਦੇ ਵਿਰੁੱਧ ਇੱਕ ਸੰਗਤੀ-ਜਾਂਚ ਹੈ, ਪਰਖ ਨਹੀਂ। ਰੀਪਲੇ ਵਿੱਚ ਦਰਿਆ ਦਾ ਨਿਯਮ ਇਸ ਲਈ ਚੱਲਦਾ ਹੈ ਕਿ ਮਾਪਕ ਦੀ ਲੜੀ ਉਸੇ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹੜ੍ਹ ਤੋਂ ਬਣੀ ਹੈ।' 'ਅਸਲੀ ਡਾਟੇ ਉੱਤੇ ਪਰਖ, ਯਾਨੀ ਬੀਤੇ ਹੜ੍ਹਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਪਿੰਡਾਂ ਦੇ ਵਿਰੁੱਧ ਦੁਹਰਾਉਣਾ ਜਿਨ੍ਹਾਂ ਨੂੰ ਕਿਸੇ ਅਧਿਕਾਰਤ ਪ੍ਰਕਿਰਿਆ ਨੇ ਬਾਅਦ ਵਿੱਚ ਪ੍ਰਭਾਵਿਤ ਮੰਨਿਆ, ਅਜੇ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਅਸਲੀ ਰਿਪੋਰਟ ਆਉਣ ਤੱਕ ਉਤਪਾਦ ਇਹੀ ਦੱਸਦਾ ਹੈ। |  |
 | `faq.q8` | Who pays for it? | ਇਸ ਦਾ ਖ਼ਰਚਾ ਕੌਣ ਚੁੱਕੇਗਾ? |  |
@@ -368,6 +374,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `foot.track` | Track | ਟ੍ਰੈਕ |  |
 | `foot.event` | Event | ਸਮਾਗਮ |  |
 | `foot.code` | Source code on GitHub | GitHub ਉੱਤੇ ਸੋਰਸ ਕੋਡ |  |
+| `foot.build` | Build {b} | ਬਿਲਡ {b} |  |
 | `tour.invite` | New here? Take the 2-minute judge tour. | ਪਹਿਲੀ ਵਾਰ? 2 ਮਿੰਟ ਦਾ ਜੱਜ ਟੂਰ ਲਓ। |  |
 | `tour.start` | Start tour | ਟੂਰ ਸ਼ੁਰੂ ਕਰੋ |  |
 | `tour.dismiss` | Dismiss | ਹਟਾਓ |  |
@@ -441,7 +448,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `wf.4.b` | Every photo and action is fingerprinted with SHA-256 and chained, so any later edit shows. | ਹਰ ਫ਼ੋਟੋ ਅਤੇ ਹਰ ਕਾਰਵਾਈ ਦਾ SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਬਣਦਾ ਹੈ ਅਤੇ ਕੜੀ ਵਿੱਚ ਜੁੜਦਾ ਹੈ, ਇਸ ਲਈ ਬਾਅਦ ਦਾ ਕੋਈ ਵੀ ਬਦਲਾਅ ਦਿਸ ਪੈਂਦਾ ਹੈ। |  |
 | `wf.5.t` | Hand off and track | ਸੌਂਪਣਾ ਅਤੇ ਨਜ਼ਰ ਰੱਖਣਾ |  |
 | `wf.5.b` | The farmer shows the sealed evidence to the officer. Saboot keeps the audit trail and tracks the officer’s acknowledgement; the officer decides, outside Saboot. | ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ। ਸਬੂਤ ਆਡਿਟ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ ਅਤੇ ਅਧਿਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ; ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, ਸਬੂਤ ਦੇ ਬਾਹਰ। |  |
-| `wf.5.b.pmfby` | Details are ready for the official channel (in India, for example, the Crop Insurance App or the 14447 helpline). Saboot tracks the acknowledgement and escalates if it slips. | ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, ਫ਼ਸਲ ਬੀਮਾ ਐਪ ਜਾਂ 14447 ਹੈਲਪਲਾਈਨ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ। |  |
+| `wf.5.b.pmfby` | Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips. | ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, Crop Insurance App, ਜਾਂ Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਜੋ ਹੈਲਪਲਾਈਨ ਅਤੇ ਸ਼ਿਕਾਇਤ ਦਾ ਰਾਹ ਹੈ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ। |  |
 | `rs.h` | What is real and what is simulated | ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ |  |
 | `rs.c` | Part | ਹਿੱਸਾ |  |
 | `rs.demo` | In this demo | ਇਸ ਡੈਮੋ ਵਿੱਚ |  |
@@ -456,7 +463,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `rs.1.p` | Weather agency and state automatic weather stations | ਮੌਸਮ ਏਜੰਸੀ ਅਤੇ ਰਾਜ ਦੇ ਸਵੈਚਾਲਿਤ ਮੌਸਮ ਕੇਂਦਰ |  |
 | `rs.2.c` | Flood mapping | ਹੜ੍ਹ ਦਾ ਨਕਸ਼ਾ |  |
 | `rs.2.d` | Synthetic radar flood maps, a pass every {n} hours in the demo or every {slow} hours in the slower option (simulated cadence) | ਨਕਲੀ ਰਡਾਰ ਹੜ੍ਹ-ਨਕਸ਼ੇ, ਡੈਮੋ ਵਿੱਚ ਹਰ {n} ਘੰਟੇ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਵਾਰ (ਸਿਮੂਲੇਟਡ ਵਕਫ਼ਾ) |  |
-| `rs.2.p` | Satellite radar flood mapping, which revisits a field only every few days | ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਹੜ੍ਹ ਮੈਪਿੰਗ, ਜੋ ਕਿਸੇ ਖੇਤ ਉੱਤੋਂ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਇੱਕ ਵਾਰ ਲੰਘਦੀ ਹੈ |  |
+| `rs.2.p` | Satellite radar flood mapping. Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. | ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਹੜ੍ਹ ਮੈਪਿੰਗ। ਰਡਾਰ ਸੈਟੇਲਾਈਟ ਦੋ ਸੈਟੇਲਾਈਟਾਂ (Sentinel-1C ਅਤੇ 1D) ਨਾਲ ਹਰ 6 ਦਿਨ ਵਿੱਚ ਇੱਕ ਖੇਤ ਉੱਪਰੋਂ ਲੰਘਦੇ ਹਨ, ਜਾਂ ਇੱਕ ਸੈਟੇਲਾਈਟ ਨਾਲ ਹਰ 12 ਦਿਨ ਵਿੱਚ। |  |
 | `rs.3.c` | Terrain | ਜ਼ਮੀਨ |  |
 | `rs.3.d` | Synthetic elevation grid | ਨਕਲੀ ਉਚਾਈ ਗਰਿੱਡ |  |
 | `rs.3.p` | Digital elevation model | ਡਿਜੀਟਲ ਉਚਾਈ ਮਾਡਲ |  |
@@ -536,6 +543,8 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `cad.d` | Both cadences are simulated. The slower one shows what a late radar pass does. | ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ। ਹੌਲੀ ਚੱਕਰ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਦੇਰ ਨਾਲ ਆਉਣ ਵਾਲਾ ਰਡਾਰ ਪਾਸ ਕੀ ਕਰਦਾ ਹੈ। |  |
 | `lang.fail` | Could not load {lang}. Check your connection and try again. | {lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
 | `app.offlineReady` | Ready to work offline. | ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ। |  |
+| `app.updated` | A new version of Saboot is ready. | ਸਬੂਤ ਦਾ ਨਵਾਂ ਸੰਸਕਰਣ ਤਿਆਰ ਹੈ। |  |
+| `app.reload` | Reload | ਮੁੜ ਲੋਡ ਕਰੋ |  |
 | `lazy.failed` | This part of the page did not load. Check the connection, then reload the page. | ਪੰਨੇ ਦਾ ਇਹ ਹਿੱਸਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। |  |
 | `lazy.reload` | Reload the page | ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ |  |
 | `m.trigger` | Trigger | ਟ੍ਰਿਗਰ |  |
@@ -573,6 +582,21 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `crop.Vegetables` | Vegetables | ਸਬਜ਼ੀਆਂ |  |
 | `sec.http` | Opened over plain HTTP. The camera, location and signing are off here. Open the HTTPS link from the QR code. Simulated photos still get a fingerprint. | ਇਹ ਪੰਨਾ ਸਾਦੇ HTTP ਉੱਤੇ ਖੁੱਲ੍ਹਾ ਹੈ। ਇੱਥੇ ਕੈਮਰਾ, ਲੋਕੇਸ਼ਨ ਅਤੇ ਸਾਈਨਿੰਗ ਬੰਦ ਹਨ। QR ਕੋਡ ਵਾਲਾ HTTPS ਲਿੰਕ ਖੋਲ੍ਹੋ। ਨਕਲੀ ਫ਼ੋਟੋ ਨੂੰ ਫਿਰ ਵੀ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਮਿਲਦਾ ਹੈ। |  |
 | `db.memory` | This phone is not saving your photos. Keep this page open until they are sent. | ਇਹ ਫ਼ੋਨ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਰਿਹਾ। ਭੇਜੇ ਜਾਣ ਤੱਕ ਇਹ ਪੇਜ ਖੁੱਲ੍ਹਾ ਰੱਖੋ। |  |
+| `fe.h` | Field evidence | ਫ਼ੀਲਡ ਤੋਂ ਮਿਲੇ ਸਬੂਤ |  |
+| `fe.note` | Not simulated: anonymous conversations with verbal consent, listed in docs/INTERVIEWS.md. What people said is their own account, not a finding. | ਸਿਮੂਲੇਟ ਨਹੀਂ: ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਗੱਲਾਂ, docs/INTERVIEWS.md ਵਿੱਚ ਦਰਜ। ਲੋਕਾਂ ਨੇ ਜੋ ਕਿਹਾ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ, ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ। |  |
+| `fe.strip` | {n} interviews · {states} states · {roles} roles | {n} ਇੰਟਰਵਿਊ · {states} ਰਾਜ · {roles} ਭੂਮਿਕਾਵਾਂ |  |
+| `fe.target` | {state} interviews: {n} so far. | {state} ਵਿੱਚ ਇੰਟਰਵਿਊ: ਹੁਣ ਤੱਕ {n}। |  |
+| `fe.letters` | Letters of interest: {n} | ਦਿਲਚਸਪੀ ਦੇ ਪੱਤਰ: {n} |  |
+| `fe.users` | People using it: {n} | ਇਸ ਨੂੰ ਵਰਤਣ ਵਾਲੇ ਲੋਕ: {n} |  |
+| `fe.raised` | What interviewees raised | ਇੰਟਰਵਿਊ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਕੀ ਦੱਸਿਆ |  |
+| `fe.theme` | Reported in {state}: {theme} | {state} ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ: {theme} |  |
+| `fe.quote` | “{quote}” ({role}, {state}) | “{quote}” ({role}, {state}) |  |
+| `fe.landing.h` | We asked the people who do this work | ਅਸੀਂ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਪੁੱਛਿਆ ਜੋ ਇਹ ਕੰਮ ਕਰਦੇ ਹਨ |  |
+| `fe.landing.note` | Anonymous phone conversations with verbal consent; recording was not part of it. The list is in docs/INTERVIEWS.md. What they told us is their own account. | ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਸੂਚੀ docs/INTERVIEWS.md ਵਿੱਚ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ। |  |
+| `fe.role.patwari` | Patwari | ਪਟਵਾਰੀ |  |
+| `fe.role.assessor` | Insurer loss assessor | ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਨੁਕਸਾਨ ਮੁਲਾਂਕਣਕਾਰ |  |
+| `fe.role.farmer` | Farmer | ਕਿਸਾਨ |  |
+| `fe.role.csc` | CSC operator | ਸੀਐਸਸੀ ਸੰਚਾਲਕ |  |
 | `ob.title` | Officer’s draft list | ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ |  |
 | `ob.soon` | Later, the officer publishes a draft list. This is simulated: about {time}. If your entry looks wrong, you can attach your sealed evidence until {until}. | ਅੱਗੇ ਚੱਲ ਕੇ ਅਧਿਕਾਰੀ ਇੱਕ ਖਰੜਾ ਸੂਚੀ ਜਾਰੀ ਕਰਨਗੇ। ਇਹ ਸਿਮੂਲੇਸ਼ਨ ਹੈ: ਲਗਭਗ {time}। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ। |  |
 | `ob.open` | The officer’s draft list is out (simulated). If your entry looks wrong, attach your sealed evidence. This is open until {until}. | ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ ਆ ਗਈ ਹੈ (ਸਿਮੂਲੇਟਿਡ)। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜੋ। ਇਹ {until} ਤੱਕ ਖੁੱਲ੍ਹਾ ਹੈ। |  |
@@ -589,7 +613,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `fp.s2` | Saboot calls back | ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਦਾ ਹੈ |  |
 | `fp.s3` | Keypad answer | ਕੀਪੈਡ ਨਾਲ ਜਵਾਬ |  |
 | `fp.s4` | A helper records the photos | ਸਹਾਇਕ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ |  |
-| `fp.s1.b` | The farmer gives a missed call to the number shown on the village noticeboard. In the design, Saboot calls back and reads the alert aloud. | ਕਿਸਾਨ ਪਿੰਡ ਦੇ ਸੂਚਨਾ-ਬੋਰਡ ਉੱਤੇ ਲਿਖੇ ਨੰਬਰ ਉੱਤੇ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ। ਡਿਜ਼ਾਈਨ ਵਿੱਚ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ। |  |
+| `fp.s1.b` | In the design, the farmer gives a missed call and Saboot calls back and reads the alert aloud. | ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ। |  |
 | `fp.call` | Give a missed call | ਮਿਸਡ ਕਾਲ ਦਿਓ |  |
 | `fp.incoming` | Call from Saboot | ਸਬੂਤ ਦੀ ਕਾਲ |  |
 | `fp.press` | Listen, then press 1 or 2. | ਸੁਣੋ, ਫਿਰ 1 ਜਾਂ 2 ਦਬਾਓ। |  |

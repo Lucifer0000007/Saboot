@@ -127,6 +127,18 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 | D-43 | The Lighthouse gate at 2.70 s in the last session | **Recorded, not worked around** | The earlier passing source measures the same on this machine now, so the cause is environmental. The threshold is untouched; the owner reruns on a quiet machine before deploying. |
 | D-42 | The farmland number on the console | **From the activation's own statistics, labelled as the problem's scale** | The number flows from the saved record through the sample, the summary and the status file; it is never typed by hand, and the sentence says it is not a result of this app. |
 
+## 4d. Final-round decisions (the owner gave full control of the project; each with its reason)
+
+| # | Decision | Chosen | Why |
+|---|---|---|---|
+| D-44 | The six `{{VERIFY}}` markers removed in the citation pass (Sentinel revisit ×3, IMD heavy rain, the 14447 channel, the missed-call noticeboard) | **Removed, signed off** | The owner supplied the verified facts (Sentinel-1C and 1D, IMD categories, KRPH and 14447) and asked for the noticeboard to become a design note; the replacement copy uses only those facts. Thirteen markers remain. |
+| D-45 | The visual layer | **Rebuilt (docs/DESIGN.md)** | The parchment, serif and mono look read as a template; the soil palette, Anek and Noto Sans, the lac seal and the five label chips make the subject and the honesty visible. Logic, facts and label meaning unchanged. |
+| D-46 | Field evidence | **One data file (src/data/fieldEvidence.ts), shown on the landing page and the impact view** | Every number comes from fieldCounts(); themes, figures and quotes stay empty until a raw note exists; roles are counted plainly (4), a description never makes a new role. |
+| D-47 | The scheme field where a person did not say | **"not confirmed"** | The owner's rule; Bihar and West Bengal already carried it. |
+| D-48 | The target-state line | **"{state} interviews: {n} so far."** | The owner's word order; the state comes from the data because English copy may not name a state (tests/unit/claims.test.ts). |
+| D-49 | Phase 0 of the pilot | **An evidence-only pilot with a helper and an officer** | It needs no department data and uses what runs today; it claims nothing about detection or assessment. |
+| D-50 | The ECC plugin the owner installed | **Kept as installed (user-wide, standard hooks)** | The owner's choice. Its Stop hook may reformat edited files; the repo's own lint and tests stay the gate. |
+
 ## 5. Blocked log
 None. Three tasks needed a second attempt (section 4).
 
