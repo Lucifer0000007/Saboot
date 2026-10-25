@@ -17,3 +17,6 @@ Thumbs.db
 # real validation data may carry a licence that forbids redistribution
 data/real/*.csv
 data/real/PROVENANCE.json
+
+# Local Netlify folder
+.netlify
