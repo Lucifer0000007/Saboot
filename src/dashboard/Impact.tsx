@@ -136,9 +136,9 @@ function CadenceTable() {
   return (
     <div class="card stack" data-metric="cadence">
       <h4>Radar cadence: demo and slower (both simulated)</h4>
-      {/* {{VERIFY: that a real radar satellite revisits a given field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu}} */}
+      {/* Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner). */}
       <p class="muted">
-        The replay uses a fast simulated radar cadence so a demo fits in a minute. A real satellite revisits a field less often, so the slower option is closer to what to expect.
+        The replay uses a fast simulated radar cadence so a demo fits in a minute. A real satellite revisits a field less often, so the slower option is closer to what to expect. Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one.
         It is still a simulation, not a measured revisit time. At the slower cadence the radar rule misses plots it would have caught late, so the percentiles cover fewer plots: read them with the count of flooded plots never alerted.
       </p>
       <table class="rtable cad-table">

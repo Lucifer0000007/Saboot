@@ -140,7 +140,7 @@ const pa: Record<string, string | string[]> = {
   'faq.a6': [ // needs-native-review
     'ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਅਸਲੀ: ਕੈਮਰਾ ਅਤੇ ਲੋਕੇਸ਼ਨ, SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਅਤੇ ਹੈਸ਼ ਚੇਨ, ਆਫ਼ਲਾਈਨ ਕਤਾਰ, ਆਵਾਜ਼ ਚਲਾਉਣਾ ਅਤੇ ਆਫ਼ਲਾਈਨ ਐਪ ਆਪ।',
     'ਸਿਮੂਲੇਟ ਕੀਤਾ: ਮੀਂਹ, ਦਰਿਆ ਦੇ ਮਾਪਕ, ਸੈਟੇਲਾਈਟ ਹੜ੍ਹ-ਨਕਸ਼ੇ, ਸਰਵਰ, ਫ਼ੋਨ ਕਾਲ, ਅਧਿਕਾਰੀ ਜਾਂ ਬੀਮਾ ਕੰਪਨੀ, ਦਰਜ ਕਰਨ ਦਾ ਰਾਹ, ਅਤੇ ਸਾਰੇ {plots} ਖੇਤ ਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕਿਸਾਨ। ਸਕ੍ਰੀਨ ਦੀ ਹਰ ਗਿਣਤੀ ਸਿਮੂਲੇਸ਼ਨ ਤੋਂ ਆਉਂਦੀ ਹੈ।',
-    'ਅਸਲੀ ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਇੱਕੋ ਖੇਤ ਦੇ ਉੱਪਰੋਂ ਸਿਰਫ਼ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਲੰਘਦਾ ਹੈ। ਡੈਮੋ ਵਿੱਚ ਹਰ {cadence} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਪਾਸ ਮੰਨਿਆ ਗਿਆ ਹੈ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ; ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ।',
+    'ਰਡਾਰ ਸੈਟੇਲਾਈਟ ਦੋ ਸੈਟੇਲਾਈਟਾਂ (Sentinel-1C ਅਤੇ 1D) ਨਾਲ ਹਰ 6 ਦਿਨ ਵਿੱਚ ਇੱਕ ਖੇਤ ਉੱਪਰੋਂ ਲੰਘਦੇ ਹਨ, ਜਾਂ ਇੱਕ ਸੈਟੇਲਾਈਟ ਨਾਲ ਹਰ 12 ਦਿਨ ਵਿੱਚ। ਡੈਮੋ ਵਿੱਚ ਹਰ {cadence} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਪਾਸ ਮੰਨਿਆ ਗਿਆ ਹੈ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ; ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ।',
   ],
   'faq.q7': 'ਕੀ ਇਹ ਸਭ ਅਸਲੀ ਹੜ੍ਹਾਂ ਉੱਤੇ ਪਰਖਿਆ ਗਿਆ ਹੈ?', // needs-native-review
   'faq.a7': [ // needs-native-review
@@ -235,7 +235,7 @@ const pa: Record<string, string | string[]> = {
   'wf.4.b': 'ਹਰ ਫ਼ੋਟੋ ਅਤੇ ਹਰ ਕਾਰਵਾਈ ਦਾ SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਬਣਦਾ ਹੈ ਅਤੇ ਕੜੀ ਵਿੱਚ ਜੁੜਦਾ ਹੈ, ਇਸ ਲਈ ਬਾਅਦ ਦਾ ਕੋਈ ਵੀ ਬਦਲਾਅ ਦਿਸ ਪੈਂਦਾ ਹੈ।', // needs-native-review
   'wf.5.t': 'ਸੌਂਪਣਾ ਅਤੇ ਨਜ਼ਰ ਰੱਖਣਾ', // needs-native-review
   'wf.5.b': 'ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ। ਸਬੂਤ ਆਡਿਟ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ ਅਤੇ ਅਧਿਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ; ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, ਸਬੂਤ ਦੇ ਬਾਹਰ।', // needs-native-review
-  'wf.5.b.pmfby': 'ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, ਫ਼ਸਲ ਬੀਮਾ ਐਪ ਜਾਂ 14447 ਹੈਲਪਲਾਈਨ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।', // needs-native-review
+  'wf.5.b.pmfby': 'ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, Crop Insurance App, ਜਾਂ Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਜੋ ਹੈਲਪਲਾਈਨ ਅਤੇ ਸ਼ਿਕਾਇਤ ਦਾ ਰਾਹ ਹੈ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।', // needs-native-review {{TRANSLATE}}: official names kept in English until a native speaker confirms the Hindi/Punjabi terms
   'rs.h': 'ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ', // needs-native-review
   'rs.c': 'ਹਿੱਸਾ', // needs-native-review
   'rs.demo': 'ਇਸ ਡੈਮੋ ਵਿੱਚ', // needs-native-review
@@ -250,7 +250,7 @@ const pa: Record<string, string | string[]> = {
   'rs.1.p': 'ਮੌਸਮ ਏਜੰਸੀ ਅਤੇ ਰਾਜ ਦੇ ਸਵੈਚਾਲਿਤ ਮੌਸਮ ਕੇਂਦਰ', // needs-native-review
   'rs.2.c': 'ਹੜ੍ਹ ਦਾ ਨਕਸ਼ਾ', // needs-native-review
   'rs.2.d': 'ਨਕਲੀ ਰਡਾਰ ਹੜ੍ਹ-ਨਕਸ਼ੇ, ਡੈਮੋ ਵਿੱਚ ਹਰ {n} ਘੰਟੇ ਅਤੇ ਹੌਲੀ ਵਿਕਲਪ ਵਿੱਚ ਹਰ {slow} ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਵਾਰ (ਸਿਮੂਲੇਟਡ ਵਕਫ਼ਾ)', // needs-native-review
-  'rs.2.p': 'ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਹੜ੍ਹ ਮੈਪਿੰਗ, ਜੋ ਕਿਸੇ ਖੇਤ ਉੱਤੋਂ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਇੱਕ ਵਾਰ ਲੰਘਦੀ ਹੈ', // needs-native-review
+  'rs.2.p': 'ਸੈਟੇਲਾਈਟ ਰਡਾਰ ਹੜ੍ਹ ਮੈਪਿੰਗ। ਰਡਾਰ ਸੈਟੇਲਾਈਟ ਦੋ ਸੈਟੇਲਾਈਟਾਂ (Sentinel-1C ਅਤੇ 1D) ਨਾਲ ਹਰ 6 ਦਿਨ ਵਿੱਚ ਇੱਕ ਖੇਤ ਉੱਪਰੋਂ ਲੰਘਦੇ ਹਨ, ਜਾਂ ਇੱਕ ਸੈਟੇਲਾਈਟ ਨਾਲ ਹਰ 12 ਦਿਨ ਵਿੱਚ।', // needs-native-review
   'rs.3.c': 'ਜ਼ਮੀਨ', // needs-native-review
   'rs.3.d': 'ਨਕਲੀ ਉਚਾਈ ਗਰਿੱਡ', // needs-native-review
   'rs.3.p': 'ਡਿਜੀਟਲ ਉਚਾਈ ਮਾਡਲ', // needs-native-review
@@ -467,7 +467,7 @@ const pa: Record<string, string | string[]> = {
   'fl.copyFail': 'ਕਾਪੀ ਨਹੀਂ ਹੋ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਣਕਾਰੀ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ।', // needs-native-review
   'fl.steps': 'ਰਿਪੋਰਟ ਕਿਵੇਂ ਕਰੀਏ', // needs-native-review
   'fl.s1': 'ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਹੜ੍ਹ ਦੀਆਂ ਸੀਲ ਕੀਤੀਆਂ ਫ਼ੋਟੋਆਂ ਹਨ।', // needs-native-review
-  'fl.s1.pmfby': 'ਫ਼ਸਲ ਬੀਮਾ ਹੈਲਪਲਾਈਨ ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ ਸਰਕਾਰੀ ਫ਼ਸਲ ਬੀਮਾ ਐਪ ਖੋਲ੍ਹੋ।', // needs-native-review
+  'fl.s1.pmfby': 'Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ Crop Insurance App ਖੋਲ੍ਹੋ।', // needs-native-review {{TRANSLATE}}: official names kept in English
   'fl.s2': 'ਆਪਣਾ ਖੇਤ ਨੰਬਰ ਦੱਸੋ ਅਤੇ ਇਸ ਸਕ੍ਰੀਨ ਦਾ ਵੇਰਵਾ ਵਿਖਾਓ।', // needs-native-review
   'fl.s2.pmfby': 'ਕਹੋ: ਹੜ੍ਹ ਨਾਲ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ। ਆਪਣਾ ਪਾਲਿਸੀ ਨੰਬਰ ਅਤੇ ਖੇਤ ਨੰਬਰ ਦੱਸੋ।', // needs-native-review
   'fl.s3': 'ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣੇ ਸਬੂਤ ਦਾ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ।', // needs-native-review
@@ -600,7 +600,7 @@ const pa: Record<string, string | string[]> = {
   'fp.s2': 'ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਦਾ ਹੈ', // needs-native-review
   'fp.s3': 'ਕੀਪੈਡ ਨਾਲ ਜਵਾਬ', // needs-native-review
   'fp.s4': 'ਸਹਾਇਕ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ', // needs-native-review
-  'fp.s1.b': 'ਕਿਸਾਨ ਪਿੰਡ ਦੇ ਸੂਚਨਾ-ਬੋਰਡ ਉੱਤੇ ਲਿਖੇ ਨੰਬਰ ਉੱਤੇ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ। ਡਿਜ਼ਾਈਨ ਵਿੱਚ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ।', // needs-native-review
+  'fp.s1.b': 'ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ।', // needs-native-review
   'fp.call': 'ਮਿਸਡ ਕਾਲ ਦਿਓ', // needs-native-review
   'fp.incoming': 'ਸਬੂਤ ਦੀ ਕਾਲ', // needs-native-review
   'fp.press': 'ਸੁਣੋ, ਫਿਰ 1 ਜਾਂ 2 ਦਬਾਓ।', // needs-native-review

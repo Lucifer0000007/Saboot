@@ -277,14 +277,14 @@ export default function Explainer() {
           <li><strong>Rule A, rain + terrain:</strong> 24-hour rain at the nearest gauge ≥ <span class="num">{th.rainHeavy}</span> mm <em>and</em> the plot is low-lying. Limit: gauges are sparse, so rain at the gauge is only a proxy for rain on the plot.</li>
           <li>
             <strong>Rule B, radar change:</strong> the plot shows no water at the baseline radar pass, then the water <em>above what the crop shows anyway</em> reaches <span class="num">{Math.round(th.floodFrac * 100)}%</span> of the plot at a later pass.
-            {base && <> Dry crops are expected to show none. Paddy in the standing-water season is expected to show about <span class="num">{Math.round(base.frac * 100)}%</span>, so only water on top of that counts, the alert is marked low confidence, and the radar weight in the evidence tier is lowered and its uncertainty widened.</>}
-            {/* {{VERIFY: paddy fields are normally flooded on purpose in the kharif transplanting season, so radar change detection cannot separate irrigation water from flood water — UN-SPIDER recommended practice for SAR flood mapping, and the state agriculture department crop calendar}} */}
+            {base && <> Dry crops are expected to show none. Paddy is normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water. In this simulation paddy is expected to show about <span class="num">{Math.round(base.frac * 100)}%</span>, so only water on top of that counts, the alert is marked low confidence, and the radar weight in the evidence tier is lowered and its uncertainty widened.</>}
+            {/* {{VERIFY: paddy fields are normally flooded on purpose during kharif transplanting, so radar change detection can confuse irrigation water with flood water — source to be added by the owner}} */}
             {' '}This crop-aware treatment is an unvalidated design decision. Limit: radar passes are infrequent.
           </li>
           <li>
             <strong>Rule C, river or dam:</strong> a river gauge upstream of or beside the plot reaches its danger level{R && <> (<span class="num">{R.gauges[0].danger} {R.gauges[0].unit}</span> in this simulation, a scenario parameter)</>}, and the plot is riverside or low-lying within reach{R && <> (within <span class="num">{R.reachM / 1000}</span> km of the river, or low-lying within <span class="num">{R.lowReachM / 1000}</span> km, and no more than <span class="num">{R.maxLagH}</span> h of flood-wave travel from the gauge)</>}. Limit: it alerts every plot in reach, flooded or not, so it creates false alarms that the farmer’s “no damage” reply closes.
           </li>
-          {/* {{VERIFY: IMD classifies 64.5–115.5 mm of rain in 24 hours as "heavy rain" — IMD terminology glossary (mausam.imd.gov.in)}} */}
+          {/* Source: IMD rainfall categories used in IMD bulletins. In 24 hours: heavy rain 64.5–115.5 mm, very heavy 115.6–204.4 mm, extremely heavy above 204.4 mm. */}
           <li><strong>Clock start:</strong> the <em>earliest</em> qualifying signal: when 24-hour rain crossed <span class="num">{th.rain24}</span> mm (the threshold IMD uses for “heavy rain”), or the river reached its danger level, or else the last clear radar pass. Never the alert time. If unsure, the farmer gets less time, not more.</li>
         </ol>
         <p>By design, AI would be used only for perception (is water visible in a photo?) and language. It would never set a deadline and never decide anything. This prototype runs no AI model: the photo check is planned, not built, and the voice is a recorded clip or the phone’s speech synthesis.</p>
@@ -299,10 +299,12 @@ export default function Explainer() {
         <section class="xpanel" aria-labelledby="x-lim">
           <h4 id="x-lim"><Icon name="info" /> Honest limits</h4>
           <ul class="limits">
+            {/* {{VERIFY: PMFBY paddy and sugarcane localised-inundation rule — 2023 guidelines excluded them; reportedly being reintroduced for Kharif 2026, final notification not confirmed — source to be added by the owner}} */}
+            <li>Under the 2023 PMFBY guidelines, paddy and sugarcane were excluded from localised inundation cover. The rule for Kharif 2026 is being confirmed and may change.</li>
             {/* {{VERIFY: C-band SAR under-detects floodwater beneath tall crop canopies such as sugarcane and maize — e.g. UN-SPIDER recommended practice for SAR flood mapping}} */}
             <li>Radar under-sees water beneath tall crops (sugarcane, maize): those plots can be missed by the radar rule, and farmers can still report with a helper.</li>
-            {/* {{VERIFY: real satellite radar revisits a field less often than every 12 hours (Sentinel-1: about 6 to 12 days) — ESA Sentinel-1 mission overview}} */}
-            <li>This replay assumes a radar pass every {cad} hours (simulated; the slower option is every {m.raw.sarSlow ? m.raw.sarSlow[1] - m.raw.sarSlow[0] : '—'} hours, also simulated). Real revisits are slower, which is why the rain and river rules exist.</li>
+            {/* Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner). */}
+            <li>This replay assumes a radar pass every {cad} hours (simulated; the slower option is every {m.raw.sarSlow ? m.raw.sarSlow[1] - m.raw.sarSlow[0] : '—'} hours, also simulated). Real revisits are slower: radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. That is why the rain and river rules exist.</li>
             <li>The river gauges and the paddy baseline are synthetic. Rule C works here because the gauge series come from the same simulated flood, so its results show the mechanism and not real-world accuracy.</li>
             <li>The precision and recall shown elsewhere are a consistency check against the simulator’s own truth. They are not a validation, and they must not be quoted as accuracy.</li>
             <li>Rules create false alarms (rain on low land that drained, a river that stayed in its banks). The farmer’s “no damage” reply closes them at no cost.</li>

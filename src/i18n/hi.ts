@@ -140,7 +140,7 @@ const hi: Record<string, string | string[]> = {
   'faq.a6': [ // needs-native-review
     'आपके ब्राउज़र में असली: कैमरा और लोकेशन, SHA-256 फ़िंगरप्रिंट और हैश चेन, ऑफ़लाइन कतार, आवाज़ चलाना और ऑफ़लाइन ऐप खुद।',
     'सिमुलेटेड: बारिश, नदी के मापक, सैटेलाइट बाढ़-नक्शे, सर्वर, फ़ोन कॉल, अधिकारी या बीमा कंपनी, दर्ज करने का माध्यम, और सभी {plots} खेत व उनके किसान। स्क्रीन की हर संख्या सिमुलेशन से आती है।',
-    'असली सैटेलाइट रडार एक ही खेत के ऊपर से केवल कुछ दिनों में गुज़रता है। डेमो में हर {cadence} घंटे में एक पास माना गया है और धीमे विकल्प में हर {slow} घंटे में; दोनों चक्र सिमुलेटेड हैं।',
+    'रडार सैटेलाइट दो सैटेलाइट (Sentinel-1C और 1D) से हर 6 दिन में एक खेत के ऊपर से गुज़रते हैं, या एक सैटेलाइट से हर 12 दिन में। डेमो में हर {cadence} घंटे में एक पास माना गया है और धीमे विकल्प में हर {slow} घंटे में; दोनों चक्र सिमुलेटेड हैं।',
   ],
   'faq.q7': 'क्या यह सब असली बाढ़ों पर परखा गया है?', // needs-native-review
   'faq.a7': [ // needs-native-review
@@ -235,7 +235,7 @@ const hi: Record<string, string | string[]> = {
   'wf.4.b': 'हर फ़ोटो और हर कार्रवाई का SHA-256 फ़िंगरप्रिंट बनता है और कड़ी में जुड़ता है, इसलिए बाद का कोई भी बदलाव दिख जाता है।', // needs-native-review
   'wf.5.t': 'सौंपना और नज़र रखना', // needs-native-review
   'wf.5.b': 'किसान सील किया हुआ प्रमाण अधिकारी को दिखाता है। सबूत ऑडिट रिकॉर्ड रखता है और अधिकारी की पुष्टि पर नज़र रखता है; फ़ैसला अधिकारी करता है, Saboot के बाहर।', // needs-native-review
-  'wf.5.b.pmfby': 'जानकारी आधिकारिक माध्यम के लिए तैयार रहती है (भारत में, उदाहरण के लिए, फ़सल बीमा ऐप या 14447 हेल्पलाइन)। सबूत पुष्टि पर नज़र रखता है और देर होने पर शिकायत आगे बढ़ाता है।', // needs-native-review
+  'wf.5.b.pmfby': 'जानकारी आधिकारिक माध्यम के लिए तैयार रहती है (भारत में, उदाहरण के लिए, Crop Insurance App, या Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, जो हेल्पलाइन और शिकायत का माध्यम है)। सबूत पुष्टि पर नज़र रखता है और देर होने पर शिकायत आगे बढ़ाता है।', // needs-native-review {{TRANSLATE}}: official names kept in English until a native speaker confirms the Hindi/Punjabi terms
   'rs.h': 'क्या असली है और क्या सिमुलेटेड', // needs-native-review
   'rs.c': 'हिस्सा', // needs-native-review
   'rs.demo': 'इस डेमो में', // needs-native-review
@@ -250,7 +250,7 @@ const hi: Record<string, string | string[]> = {
   'rs.1.p': 'मौसम एजेंसी और राज्य के स्वचालित मौसम केंद्र', // needs-native-review
   'rs.2.c': 'बाढ़ का नक्शा', // needs-native-review
   'rs.2.d': 'कृत्रिम रडार बाढ़-नक्शे, डेमो में हर {n} घंटे और धीमे विकल्प में हर {slow} घंटे में एक बार (सिमुलेटेड अंतराल)', // needs-native-review
-  'rs.2.p': 'सैटेलाइट रडार बाढ़ मानचित्रण, जो किसी खेत के ऊपर से कुछ दिनों में एक बार गुज़रता है', // needs-native-review
+  'rs.2.p': 'सैटेलाइट रडार बाढ़ मानचित्रण। रडार सैटेलाइट दो सैटेलाइट (Sentinel-1C और 1D) से हर 6 दिन में एक खेत के ऊपर से गुज़रते हैं, या एक सैटेलाइट से हर 12 दिन में।', // needs-native-review
   'rs.3.c': 'भू-भाग', // needs-native-review
   'rs.3.d': 'कृत्रिम ऊँचाई ग्रिड', // needs-native-review
   'rs.3.p': 'डिजिटल ऊँचाई मॉडल', // needs-native-review
@@ -467,7 +467,7 @@ const hi: Record<string, string | string[]> = {
   'fl.copyFail': 'कॉपी नहीं हो सका। कृपया जानकारी पढ़कर सुनाएँ।', // needs-native-review
   'fl.steps': 'रिपोर्ट कैसे करें', // needs-native-review
   'fl.s1': 'अपने गाँव का आकलन करने वाले अधिकारी को बताएँ कि आपके पास बाढ़ की सील की हुई फ़ोटो हैं।', // needs-native-review
-  'fl.s1.pmfby': 'फ़सल बीमा हेल्पलाइन पर फ़ोन करें, या आधिकारिक फ़सल बीमा ऐप खोलें।', // needs-native-review
+  'fl.s1.pmfby': 'Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, पर फ़ोन करें, या Crop Insurance App खोलें।', // needs-native-review {{TRANSLATE}}: official names kept in English
   'fl.s2': 'अपना खेत नंबर बताएँ और इस स्क्रीन का ब्योरा दिखाएँ।', // needs-native-review
   'fl.s2.pmfby': 'कहें: बाढ़ से फ़सल का नुकसान। अपना पॉलिसी नंबर और खेत नंबर बताएँ।', // needs-native-review
   'fl.s3': 'पूछे जाने पर अपने सबूत का फ़िंगरप्रिंट पढ़कर सुनाएँ।', // needs-native-review
@@ -600,7 +600,7 @@ const hi: Record<string, string | string[]> = {
   'fp.s2': 'सबूत वापस कॉल करता है', // needs-native-review
   'fp.s3': 'कीपैड से जवाब', // needs-native-review
   'fp.s4': 'सहायक फ़ोटो लेता है', // needs-native-review
-  'fp.s1.b': 'किसान गाँव की सूचना-पट्टी पर लिखे नंबर पर मिस्ड कॉल देता है। डिज़ाइन में सबूत वापस कॉल करके चेतावनी बोलकर सुनाता है।', // needs-native-review
+  'fp.s1.b': 'डिज़ाइन में, किसान मिस्ड कॉल देता है और सबूत वापस कॉल करके चेतावनी बोलकर सुनाता है।', // needs-native-review
   'fp.call': 'मिस्ड कॉल दें', // needs-native-review
   'fp.incoming': 'सबूत की कॉल', // needs-native-review
   'fp.press': 'सुनिए, फिर 1 या 2 दबाइए।', // needs-native-review

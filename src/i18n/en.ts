@@ -143,8 +143,8 @@ const en: Record<string, string | string[]> = {
   'faq.a6': [
     'Real in your browser: camera and location, SHA-256 fingerprints and the hash chain, the offline queue, voice playback and the offline app itself.',
     'Simulated: the rain, the river gauges, the satellite flood maps, the server, the voice call, the officer or insurer, the filing channel, and all {plots} plots and their farmers. Every number on screen comes from the simulation.',
-    // {{VERIFY: Sentinel-1 radar revisit interval over India (about 6–12 days) — ESA Sentinel-1 mission overview, sentinels.copernicus.eu}}
-    'Real satellite radar passes the same field only every few days. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated.',
+    // Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner).
+    'Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one. The demo assumes a pass every {cadence} hours, and the slower option every {slow} hours; both cadences are simulated.',
   ],
   'faq.q7': 'Has any of this been validated on real floods?',
   'faq.a7': [
@@ -241,8 +241,8 @@ const en: Record<string, string | string[]> = {
   'wf.4.b': 'Every photo and action is fingerprinted with SHA-256 and chained, so any later edit shows.',
   'wf.5.t': 'Hand off and track',
   'wf.5.b': 'The farmer shows the sealed evidence to the officer. Saboot keeps the audit trail and tracks the officer’s acknowledgement; the officer decides, outside Saboot.',
-  // {{VERIFY: official intimation channels — the Crop Insurance App and the Krishi Rakshak Portal and Helpline 14447 — pmfby.gov.in and agriwelfare.gov.in}}
-  'wf.5.b.pmfby': 'Details are ready for the official channel (in India, for example, the Crop Insurance App or the 14447 helpline). Saboot tracks the acknowledgement and escalates if it slips.',
+  // Official names confirmed by the owner: the Crop Insurance App, and the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel.
+  'wf.5.b.pmfby': 'Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips.',
   'rs.h': 'What is real and what is simulated',
   'rs.c': 'Part',
   'rs.demo': 'In this demo',
@@ -257,8 +257,8 @@ const en: Record<string, string | string[]> = {
   'rs.1.p': 'Weather agency and state automatic weather stations',
   'rs.2.c': 'Flood mapping',
   'rs.2.d': 'Synthetic radar flood maps, a pass every {n} hours in the demo or every {slow} hours in the slower option (simulated cadence)',
-  // {{VERIFY: satellite radar revisit over a given field is several days — ESA Sentinel-1 mission overview}}
-  'rs.2.p': 'Satellite radar flood mapping, which revisits a field only every few days',
+  // Source: ESA Sentinel-1 mission overview (revisit interval confirmed by the owner).
+  'rs.2.p': 'Satellite radar flood mapping. Radar satellites revisit a field every 6 days using two satellites (Sentinel-1C and 1D), or every 12 days with one.',
   'rs.3.c': 'Terrain',
   'rs.3.d': 'Synthetic elevation grid',
   'rs.3.p': 'Digital elevation model',
@@ -477,8 +477,8 @@ const en: Record<string, string | string[]> = {
   'fl.copyFail': 'Could not copy. Please read the details aloud instead.',
   'fl.steps': 'How to report',
   'fl.s1': 'Tell the officer who assesses your village that you have sealed photos of the flood.',
-  // {{VERIFY: that farmers can intimate loss through an official crop-insurance helpline or app (named in the How it works section) — pmfby.gov.in}}
-  'fl.s1.pmfby': 'Call the crop insurance helpline, or open the official crop insurance app.',
+  // {{VERIFY: that farmers can intimate loss through the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or the Crop Insurance App (named in the How it works section) — source to be added by the owner}}
+  'fl.s1.pmfby': 'Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App.',
   'fl.s2': 'Give your plot number and show the details on this screen.',
   'fl.s2.pmfby': 'Say: crop loss from flood. Give your policy number and plot number.',
   'fl.s3': 'If asked, read out your evidence fingerprint.',
@@ -613,8 +613,8 @@ const en: Record<string, string | string[]> = {
   'fp.s2': 'Saboot calls back',
   'fp.s3': 'Keypad answer',
   'fp.s4': 'A helper records the photos',
-  // {{VERIFY: that a missed call to a number shown on a village noticeboard is a workable way to reach farmers without a smartphone — a design assumption to confirm with the district office and a telephony partner, not an existing service; key fp.s1.b and its hi/pa lines}}
-  'fp.s1.b': 'The farmer gives a missed call to the number shown on the village noticeboard. In the design, Saboot calls back and reads the alert aloud.',
+  // Design note, not an existing service: a missed call to a number shown on a village noticeboard is an idea to confirm with the district office and a telephony partner. It is deliberately not stated as fact in the visible text of fp.s1.b.
+  'fp.s1.b': 'In the design, the farmer gives a missed call and Saboot calls back and reads the alert aloud.',
   'fp.call': 'Give a missed call',
   'fp.incoming': 'Call from Saboot',
   'fp.press': 'Listen, then press 1 or 2.',
