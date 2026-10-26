@@ -343,7 +343,7 @@ const pa: Record<string, string | string[]> = {
   'sync.empty': 'ਅਜੇ ਭੇਜਣ ਲਈ ਕੁਝ ਨਹੀਂ।', // needs-native-review
 
   'reg.title': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ', // needs-native-review
-  'reg.watching': 'ਸਬੂਤ ਤੁਹਾਡੇ ਖੇਤ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖ ਰਿਹਾ ਹੈ।', // needs-native-review
+  'reg.watching': 'ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਖੇਤ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖ ਰਹੀ ਹੈ।', // needs-native-review
   'reg.allClear': 'ਸਭ ਠੀਕ ਹੈ', // needs-native-review
   'reg.watch': 'ਭਾਰੀ ਮੀਂਹ ਦੀ ਚੇਤਾਵਨੀ', // needs-native-review
   'reg.rain': 'ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਦਾ ਮੀਂਹ: {mm} ਮਿਮੀ', // needs-native-review
@@ -354,8 +354,8 @@ const pa: Record<string, string | string[]> = {
   'reg.khasra': 'ਖਸਰਾ ਨੰ.', // needs-native-review
   'reg.season': 'ਮੌਸਮ', // needs-native-review
   'reg.kharif': 'ਸਾਉਣੀ 2026', // needs-native-review
-  'reg.voice': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗਾ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗਾ।', // needs-native-review
-  'reg.voice.pmfby': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗਾ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ।', // needs-native-review
+  'reg.voice': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗੀ।', // needs-native-review
+  'reg.voice.pmfby': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ।', // needs-native-review
   'reg.listen': 'ਸੁਣੋ', // needs-native-review
   'crop.Paddy': 'ਝੋਨਾ', // needs-native-review
   'crop.Maize': 'ਮੱਕੀ', // needs-native-review
@@ -369,8 +369,8 @@ const pa: Record<string, string | string[]> = {
   'al.clock.pmfby': 'ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਬਾਕੀ ਸਮਾਂ', // needs-native-review
   'al.started': 'ਘੜੀ ਲਗਭਗ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ, ਜਦੋਂ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਪਹਿਲੀ ਵਾਰ ਵੇਖਿਆ ਗਿਆ। ਜਦੋਂ ਤੱਕ ਪਾਣੀ ਦਿਸ ਰਿਹਾ ਹੈ, ਫ਼ੋਟੋਆਂ ਸਭ ਤੋਂ ਵੱਧ ਕੰਮ ਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਇਹ ਸਲਾਹ ਹੈ, ਕਾਨੂੰਨੀ ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ।', // needs-native-review
   'al.started.pmfby': '72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ, ਜਦੋਂ ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਈ — ਇਹ ਸੁਨੇਹਾ ਮਿਲਣ ਵੇਲੇ ਨਹੀਂ।', // needs-native-review
-  'al.voice': 'ਸਬੂਤ ਅਲਰਟ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਲਦੀ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਲਓ। ਇਹ ਸਲਾਹ ਹੈ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ।', // needs-native-review
-  'al.voice.pmfby': 'ਸਬੂਤ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਮਿਲਿਆ ਹੈ। ਰਿਪੋਰਟ ਕਰਨ ਦੀ 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ। “ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ” ਦਬਾਓ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ।', // needs-native-review
+  'al.voice': 'ਸਬੂਤ ਐਪ ਦੀ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਲਦੀ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਲਓ। ਇਹ ਸਲਾਹ ਹੈ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ।', // needs-native-review
+  'al.voice.pmfby': 'ਸਬੂਤ ਐਪ ਦੀ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਮਿਲਿਆ ਹੈ। ਰਿਪੋਰਟ ਕਰਨ ਦੀ 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ। “ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ” ਦਬਾਓ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ।', // needs-native-review
   'al.cta': 'ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ', // needs-native-review
   'al.noDamage': 'ਮੇਰੇ ਖੇਤ ਵਿੱਚ ਨੁਕਸਾਨ ਨਹੀਂ', // needs-native-review
   'al.help': 'ਕੋਈ ਮੇਰੀ ਮਦਦ ਕਰੇਗਾ', // needs-native-review
@@ -502,7 +502,7 @@ const pa: Record<string, string | string[]> = {
   'fl.title': 'ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'fl.title.pmfby': 'ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'fl.intro': 'ਸਬੂਤ ਐਪ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦੀ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ ਅਤੇ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ: ਉਸ ਦਾ QR ਕੋਡ “ਮੇਰਾ ਸਬੂਤ” ਟੈਬ ਉੱਤੇ ਹੈ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ।', // needs-native-review
-  'fl.intro.pmfby': 'ਸਬੂਤ ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਾਅਵਾ ਦਰਜ ਨਹੀਂ ਕਰਦਾ। ਸਰਕਾਰੀ ਰਾਹ ਰਾਹੀਂ ਰਿਪੋਰਟ ਕਰੋ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਤਿਆਰ ਹੈ।', // needs-native-review
+  'fl.intro.pmfby': 'ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਾਅਵਾ ਦਰਜ ਨਹੀਂ ਕਰਦੀ। ਸਰਕਾਰੀ ਰਾਹ ਰਾਹੀਂ ਰਿਪੋਰਟ ਕਰੋ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਤਿਆਰ ਹੈ।', // needs-native-review
   'fl.summary': 'ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ', // needs-native-review
   'fl.copy': 'ਜਾਣਕਾਰੀ ਕਾਪੀ ਕਰੋ', // needs-native-review
   'fl.copied': 'ਕਾਪੀ ਹੋ ਗਈ', // needs-native-review
@@ -533,8 +533,8 @@ const pa: Record<string, string | string[]> = {
 
   'st.title': 'ਸਬੂਤ ਦੀ ਸਥਿਤੀ', // needs-native-review
   'st.title.pmfby': 'ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ', // needs-native-review
-  'st.note': 'ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ।', // needs-native-review
-  'st.note.pmfby': 'ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ।', // needs-native-review
+  'st.note': 'ਸਬੂਤ ਐਪ ਨਜ਼ਰ ਰੱਖਦੀ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ।', // needs-native-review
+  'st.note.pmfby': 'ਸਬੂਤ ਐਪ ਨਜ਼ਰ ਰੱਖਦੀ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ।', // needs-native-review
   'st.detected': 'ਘਟਨਾ ਪਛਾਣੀ ਗਈ', // needs-native-review
   'st.alerted': 'ਚੇਤਾਵਨੀ ਮਿਲੀ', // needs-native-review
   'st.captured': 'ਫ਼ੋਟੋਆਂ ਖਿੱਚੀਆਂ', // needs-native-review
@@ -560,8 +560,8 @@ const pa: Record<string, string | string[]> = {
   'st.escalated': 'ਜ਼ਿਲ੍ਹਾ ਦਫ਼ਤਰ ਨੂੰ ਭੇਜਿਆ ਗਿਆ', // needs-native-review
   'st.escalated.pmfby': 'ਜ਼ਿਲ੍ਹਾ ਖੇਤੀਬਾੜੀ ਦਫ਼ਤਰ ਨੂੰ ਭੇਜਿਆ ਗਿਆ', // needs-native-review
   'st.none': 'ਅਜੇ ਯਾਦ ਦਿਵਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ।', // needs-native-review
-  'st.decisionNote': 'ਸਬੂਤ ਕਦੇ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ।', // needs-native-review
-  'st.decisionNote.pmfby': 'ਸਬੂਤ ਕਦੇ ਵੀ ਦਾਅਵਿਆਂ ਦਾ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
+  'st.decisionNote': 'ਸਬੂਤ ਐਪ ਕਦੇ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ।', // needs-native-review
+  'st.decisionNote.pmfby': 'ਸਬੂਤ ਐਪ ਕਦੇ ਵੀ ਦਾਅਵਿਆਂ ਦਾ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ।', // needs-native-review
   'st.surveyAt': '{time} ਲਈ ਤੈਅ', // needs-native-review
   'ob.title': 'ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ', // needs-native-review
   'ob.soon': 'ਅੱਗੇ ਚੱਲ ਕੇ ਅਧਿਕਾਰੀ ਇੱਕ ਖਰੜਾ ਸੂਚੀ ਜਾਰੀ ਕਰਨਗੇ। ਇਹ ਸਿਮੂਲੇਸ਼ਨ ਹੈ: ਲਗਭਗ {time}। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ।', // needs-native-review
@@ -607,8 +607,8 @@ const pa: Record<string, string | string[]> = {
   'as.noMic': 'ਮਾਈਕ੍ਰੋਫ਼ੋਨ ਉਪਲਬਧ ਨਹੀਂ। ਦਬਾ ਕੇ ਰੱਖਣ ਵਾਲਾ ਤਰੀਕਾ ਵਰਤੋ।', // needs-native-review
   'as.means': 'ਇਸ ਦਾ ਮਤਲਬ', // needs-native-review
   'as.means1': 'ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੀ ਪਛਾਣ-ਛਾਪ, ਸਮਾਂ ਅਤੇ ਲਗਭਗ 100 ਮੀਟਰ ਤੱਕ ਗੋਲ ਕੀਤੀ ਹੋਈ ਥਾਂ ਸਾਂਝੀ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।', // needs-native-review
-  'as.means2': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
-  'as.means2.pmfby': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
+  'as.means2': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਐਪ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ।', // needs-native-review
+  'as.means2.pmfby': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਐਪ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ।', // needs-native-review
   'as.means3': 'ਤੁਸੀਂ ਕਦੇ ਵੀ ਆਪਣੀ ਕਾਪੀ ਮੰਗ ਸਕਦੇ ਹੋ, ਜਾਂ ਇਸ ਫ਼ੋਨ ਤੋਂ ਸਭ ਕੁਝ ਮਿਟਵਾ ਸਕਦੇ ਹੋ।', // needs-native-review
   'as.uiCopy': 'ਇਹੀ ਸ਼ਬਦ {lang} ਵਿੱਚ, ਤੁਹਾਡੇ ਲਈ', // needs-native-review
   'hm.consentTitle': 'ਕਿਸਾਨ {farmer} ਦੀ ਸਹਿਮਤੀ', // needs-native-review
@@ -666,24 +666,24 @@ const pa: Record<string, string | string[]> = {
   'fp.note': 'ਇੱਥੇ ਕੋਈ ਅਸਲੀ ਫ਼ੋਨ ਕਾਲ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ ਐੱਸਐੱਮਐੱਸ ਜਾਂ ਵਟਸਐਪ ਸੁਨੇਹਾ ਨਹੀਂ ਜਾਂਦਾ। ਇਹ ਸਿਰਫ਼ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਪ੍ਰਕਿਰਿਆ ਕਿਵੇਂ ਚੱਲੇਗੀ, ਅਤੇ ਰੀਪਲੇ ਵਿੱਚ ਕੁਝ ਨਹੀਂ ਬਦਲਦਾ।', // needs-native-review
   'fp.stepsLabel': 'ਕਾਲ ਦੇ ਪੜਾਅ', // needs-native-review
   'fp.s1': 'ਮਿਸਡ ਕਾਲ', // needs-native-review
-  'fp.s2': 'ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਦਾ ਹੈ', // needs-native-review
+  'fp.s2': 'ਸਬੂਤ ਐਪ ਵਾਪਸ ਕਾਲ ਕਰਦੀ ਹੈ', // needs-native-review
   'fp.s3': 'ਕੀਪੈਡ ਨਾਲ ਜਵਾਬ', // needs-native-review
   'fp.s4': 'ਸਹਾਇਕ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ', // needs-native-review
-  'fp.s1.b': 'ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ।', // needs-native-review
+  'fp.s1.b': 'ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਐਪ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦੀ ਹੈ।', // needs-native-review
   'fp.call': 'ਮਿਸਡ ਕਾਲ ਦਿਓ', // needs-native-review
-  'fp.incoming': 'ਸਬੂਤ ਦੀ ਕਾਲ', // needs-native-review
+  'fp.incoming': 'ਸਬੂਤ ਐਪ ਦੀ ਕਾਲ', // needs-native-review
   'fp.press': 'ਸੁਣੋ, ਫਿਰ 1 ਜਾਂ 2 ਦਬਾਓ।', // needs-native-review
   'fp.k1': 'ਤੁਸੀਂ 1 ਦਬਾਇਆ: ਨੁਕਸਾਨ।', // needs-native-review
   'fp.k2': 'ਤੁਸੀਂ 2 ਦਬਾਇਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ।', // needs-native-review
   'fp.kother': 'ਨੁਕਸਾਨ ਲਈ 1 ਜਾਂ ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ ਲਈ 2 ਦਬਾਓ।', // needs-native-review
-  'fp.prompt': 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ। ਇਹ ਸਬੂਤ ਹੈ। ਤੁਹਾਡੇ ਖੇਤ ਕੋਲ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਮਿਲਿਆ ਹੈ। ਜੇ ਖੇਤ ਵਿੱਚ ਪਾਣੀ ਨਾਲ ਨੁਕਸਾਨ ਹੈ ਤਾਂ 1 ਦਬਾਓ। ਜੇ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ ਤਾਂ 2 ਦਬਾਓ।', // needs-native-review
+  'fp.prompt': 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ। ਇਹ ਸਬੂਤ ਐਪ ਹੈ। ਤੁਹਾਡੇ ਖੇਤ ਕੋਲ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਮਿਲਿਆ ਹੈ। ਜੇ ਖੇਤ ਵਿੱਚ ਪਾਣੀ ਨਾਲ ਨੁਕਸਾਨ ਹੈ ਤਾਂ 1 ਦਬਾਓ। ਜੇ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ ਤਾਂ 2 ਦਬਾਓ।', // needs-native-review
   'fp.play': 'ਕਾਲ ਸੁਣੋ', // needs-native-review
   'fp.keypad': 'ਫ਼ੋਨ ਦਾ ਕੀਪੈਡ', // needs-native-review
   'fp.key1': 'ਨੁਕਸਾਨ', // needs-native-review
   'fp.key2': 'ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ', // needs-native-review
-  'fp.out1': 'ਸਬੂਤ ਤੁਹਾਡੇ ਨੇੜੇ ਦੇ ਕਿਸੇ ਸਹਾਇਕ ਨੂੰ ਕਹਿੰਦਾ ਹੈ ਕਿ ਉਹ ਆ ਕੇ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋਆਂ ਖਿੱਚੇ। ਇਸ ਕਾਲ ਨਾਲ ਕੋਈ ਰਿਪੋਰਟ ਦਰਜ ਨਹੀਂ ਹੁੰਦੀ।', // needs-native-review
-  'fp.out2': 'ਸਬੂਤ ਇਸ ਖੇਤ ਲਈ “ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ” ਦਰਜ ਕਰਦਾ ਹੈ ਅਤੇ ਕੁਝ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
-  'fp.logHead': 'ਸਬੂਤ ਕੀ ਦਰਜ ਕਰੇਗਾ', // needs-native-review
+  'fp.out1': 'ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਨੇੜੇ ਦੇ ਕਿਸੇ ਸਹਾਇਕ ਨੂੰ ਕਹਿੰਦੀ ਹੈ ਕਿ ਉਹ ਆ ਕੇ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋਆਂ ਖਿੱਚੇ। ਇਸ ਕਾਲ ਨਾਲ ਕੋਈ ਰਿਪੋਰਟ ਦਰਜ ਨਹੀਂ ਹੁੰਦੀ।', // needs-native-review
+  'fp.out2': 'ਸਬੂਤ ਐਪ ਇਸ ਖੇਤ ਲਈ “ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ” ਦਰਜ ਕਰਦੀ ਹੈ ਅਤੇ ਕੁਝ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰਦੀ।', // needs-native-review
+  'fp.logHead': 'ਸਬੂਤ ਐਪ ਕੀ ਦਰਜ ਕਰੇਗੀ', // needs-native-review
   'fp.helper': 'ਸਹਾਇਕ ਸਮਾਰਟਫ਼ੋਨ ਲੈ ਕੇ ਆਉਂਦਾ ਹੈ, ਕਿਸਾਨ ਨਾਲ ਸਹਿਮਤੀ ਬੋਲ ਕੇ ਪੜ੍ਹਦਾ ਹੈ, ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਪੈਕੇਟ ਸੀਲ ਕਰਦਾ ਹੈ। ਪੈਕੇਟ ਵਿੱਚ ਸਹਾਇਕ ਦਾ ਨਾਂ ਅਤੇ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਦਰਜ ਰਹਿੰਦੀ ਹੈ।', // needs-native-review
   'fp.open': 'ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ', // needs-native-review
   'fp.again': 'ਫਿਰ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
