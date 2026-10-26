@@ -81,7 +81,8 @@ export default function Dashboard() {
   }, []);
   // an officer link moves the replay to its moment after the page starts; until then the console waits in its loading
   // state, so the figures do not render at T+0 and then jump down the page (Lighthouse layout shift on ?tab=insurer)
-  if (!deepLinkDone.value) return <div class="loading" style={{ minHeight: '480px' }} role="status" aria-busy="true"><span class="spin" aria-hidden="true" /></div>;
+  // (a full screen tall: with the view switch moved into the dock on a phone, 480 px let the next section show and then move)
+  if (!deepLinkDone.value) return <div class="loading" style={{ minHeight: '100vh' }} role="status" aria-busy="true"><span class="spin" aria-hidden="true" /></div>;
   return (
     <section class="dash" aria-labelledby="dash-h" data-tour="dash" data-sim-numbers>
       <MapDefs />
