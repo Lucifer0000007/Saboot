@@ -201,7 +201,7 @@ export function PlotList() {
             <li key={r.k.head} class="imported" data-tour="imported">
               <span class="qrank" aria-hidden="true"><Icon name="scan" size={16} /></span>
               <div class="qmain">
-                <button type="button" class="plink" aria-label={`Open the imported packet for ${r.s.plot.id}`} onClick={() => (openImported.value = r.k.head)}>{r.s.plot.id} · imported packet <Icon name="arrow" size={16} /></button>
+                <button type="button" class="plink" onClick={() => (openImported.value = r.k.head)}>{r.s.plot.id} · imported packet <Icon name="arrow" size={16} /></button>
                 <span class="tag imported-tag"><Icon name="scan" size={16} />{importedLabel(r.k)}</span>
                 <span class="sub">{r.s.plot.name} · signed on the judge’s phone · Evidence received · integrity verified</span>
                 <span class="sub num">{r.k.shots.length} photo fingerprints · chain {r.k.head.slice(0, 10)}…</span>

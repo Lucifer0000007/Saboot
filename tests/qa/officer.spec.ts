@@ -191,7 +191,7 @@ test('an imported packet opens its own record, verified again, not the simulated
   await page.keyboard.press('Escape');
   // from the worklist: the imported row and the cohort row have different names and open different records
   await sab(page, `s.tab('insurer'); s.insurer('claims');`);
-  await page.getByRole('button', { name: 'Open the imported packet for P-04' }).click();
+  await page.getByRole('button', { name: /^P-04 · imported packet/ }).click();
   await expect(page.locator('.imp-drawer')).toBeVisible();
   await page.locator('.imp-drawer [data-open-cohort]').click();
   await expect(page.locator('.imp-drawer')).toHaveCount(0);
