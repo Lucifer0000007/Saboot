@@ -48,8 +48,12 @@ if (hasDom) {
   // field's button (audit R8). Any text-like input counts, not only type=text.
   const NOT_TEXT = /^(button|checkbox|radio|range|submit|reset|file|image|color|hidden)$/;
   const isText = (el: EventTarget | null) => el instanceof HTMLTextAreaElement || (el instanceof HTMLInputElement && !NOT_TEXT.test(el.type)) || (el instanceof HTMLElement && el.isContentEditable);
-  addEventListener('focusin', (e) => document.documentElement.classList.toggle('typing', isText(e.target)));
-  addEventListener('focusout', () => document.documentElement.classList.remove('typing'));
+  // the dock comes back a moment after the field loses focus: a tap on the form's button moves focus first, and a dock
+  // reappearing at once would land under the finger and take the tap
+  let back: ReturnType<typeof setTimeout> | undefined;
+  const later = () => { clearTimeout(back); back = setTimeout(() => document.documentElement.classList.remove('typing'), 400); };
+  addEventListener('focusin', (e) => { if (isText(e.target)) { clearTimeout(back); document.documentElement.classList.add('typing'); } else later(); });
+  addEventListener('focusout', later);
 
   // A rotation (or any large change of width) reflows the whole page: come back to what was on screen, not to the same
   // pixel offset, which by then shows another section (audit R7). The anchor is what sat a third of the way down the
