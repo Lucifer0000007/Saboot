@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
 import { liveMsg, toast, updateReady } from '../lib/announce';
-import { tr } from '../lib/i18n';
+import { tr, langLoading } from '../lib/i18n';
 import { loadScenario, model, t } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
@@ -76,7 +76,14 @@ async function applyDeepLink() {
       simTab.value = 'farmer';
       await jumpTo(d.at as MomentId);
     }
-    if (d.at) requestAnimationFrame(() => scrollToPhone());
+    // the phone's position (and its main button above the dock) depends on the words and fonts of a saved Hindi or Punjabi
+    // choice still loading: wait for them before the scroll (audit F2, J12)
+    if (d.at) {
+      for (let i = 0; langLoading.value && i < 100; i++) await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => requestAnimationFrame(r));
+      await document.fonts?.ready;
+      requestAnimationFrame(() => scrollToPhone());
+    }
     else if (d.tab && d.tab !== 'farmer') requestAnimationFrame(() => scrollToPanel());
     else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));

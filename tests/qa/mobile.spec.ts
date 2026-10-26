@@ -257,6 +257,24 @@ test('the farmer can see how the alert reached them and who registered the plot,
   expect(errors).toEqual([]);
 });
 
+for (const lang of ['en', 'hi', 'pa']) {
+  test(`the alert link (?at=alert) shows the farmer’s main button whole, between the nav and the dock, at 360x640 in ${lang} (F2, J12)`, async ({ page }) => {
+    const errors: string[] = [];
+    await page.addInitScript((l) => { try { localStorage.setItem('saboot.lang', JSON.stringify(l)); } catch { /* storage unavailable */ } }, lang);
+    await page.setViewportSize({ width: 360, height: 640 });
+    page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto('/?at=alert');
+    await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+    await page.evaluate('window.__sab.ready()');
+    await expect(page.locator('[data-tour=cta]')).toBeVisible({ timeout: 20_000 });
+    await expect.poll(async () => {
+      const cta = await box(page, '[data-tour=cta]'), dock = await box(page, '.ctrl-dock'), nav = await box(page, 'header.nav');
+      return cta.top >= nav.bottom && cta.bottom <= dock.top;
+    }, { timeout: 5_000 }).toBe(true);
+    expect(errors).toEqual([]);
+  });
+}
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {
