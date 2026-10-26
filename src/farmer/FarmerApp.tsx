@@ -117,10 +117,11 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
   // only way to a farmer, so the tabs are hidden there (audit H2).
   const nav = !(helperSession.value && activePlotId.value === null && s === 'helper');
   return (
-    <section class={'farmer' + (framed ? ' framed' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
+    <section class={'farmer' + (framed ? ' framed' : '') + (activePlotId.value !== null && s !== 'helper' ? ' acting-for' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
       <ConnStrip />
       {!storageOk.value && <p class="note note-warn" role="status" data-storage-warning><Icon name="info" /><span>{tr('db.memory')}</span></p>}
       {storageOk.value && storagePersistent.value === false && view.value.queued > 0 && <p class="note note-warn" role="status" data-persist-warning><Icon name="info" /><span>{tr('db.notPersistent')}</span></p>}
+      {/* a helper acting for a farmer keeps that farmer's name on screen while scrolling to the shutter or the seal (audit H12) */}
       <header class="f-top">
         <div class="f-who">
           <strong>{s === 'helper' ? tr('hm.title') : nm(p.name)}</strong>

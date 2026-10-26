@@ -189,7 +189,8 @@ export function Capture() {
         </div>
       ) : kind && !all ? (
         <div class="shotcard" data-tour="shot">
-          <p class="eyebrow">{tr('cap.step', { n })}</p>
+          {/* a helper capturing for a farmer sees whose photos these are on the card itself (audit H12) */}
+          <p class="eyebrow">{tr('cap.step', { n })}{activePlotId.value !== null && <> · {nm(focusPlot.value!.name)}</>}</p>
           <ShotPicto kind={kind} />
           <h3>{tr('shot.' + kind)}</h3>
           <p>{tr('shot.' + kind + '.d')}</p>

@@ -35,6 +35,12 @@
 .f-strip.net-weak .f-net { padding: 0 8px; border: 1.5px solid var(--warn); border-radius: var(--r-chip); color: var(--warn); background: var(--warn-tint); }
 
 .f-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp4); padding: var(--sp3) var(--f-pad); }
+/* helper mode on a phone tall enough for one more bar: the farmer's name stays under the nav (on a short phone the photo card
+   names the farmer instead, src/farmer/screens/Capture.tsx) */
+@media (min-height: 760px) {
+  .farmer.acting-for:not(.framed) .f-top { position: sticky; top: var(--nav-real, var(--nav-h)); z-index: 2; padding-block: var(--sp2); background: var(--silt); border-bottom: 1px solid var(--rule); }
+  .farmer.acting-for:not(.framed) .f-body * { scroll-margin-top: 72px; }
+}
 .f-who { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
 .f-who strong { font-family: var(--font-head); font-weight: var(--weight-head); font-size: 1.5rem; line-height: var(--lh-head); }
 .f-who span { font-size: 1rem; color: var(--kali-2); }

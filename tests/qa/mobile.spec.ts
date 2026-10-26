@@ -197,6 +197,33 @@ test('turning a phone on its side keeps the farmer’s alert on screen, and the 
   expect(errors).toEqual([]);
 });
 
+test('a helper capturing for a farmer keeps the farmer’s name in view: under the nav on a tall phone, on the photo card on a short one (H12)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.active('P-05'); s.tab('farmer'); s.screen('capture');`);
+  await page.evaluate(() => document.querySelector('.farmer .shots li:last-child')!.scrollIntoView({ block: 'end' }));
+  const top = await box(page, '.farmer .f-top');
+  const nav = await box(page, 'header.nav');
+  expect(Math.abs(top.top - nav.bottom)).toBeLessThan(2);
+  await expect(page.locator('.farmer .f-top')).toContainText('Mohinder Dhillon');
+  // a short phone: no extra bar, the photo card says whose photo it is
+  await page.setViewportSize({ width: 360, height: 640 });
+  await sab(page, `s.active(null); s.screen('helper');`);
+  await page.locator('[data-farmer="P-06"]').getByRole('button', { name: /Start/ }).click();
+  const hold = page.locator('button.hold');
+  await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
+  await hold.scrollIntoViewIfNeeded();
+  const b = (await hold.boundingBox())!;
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+  await page.mouse.down();
+  await page.waitForTimeout(2300);
+  await page.mouse.up();
+  await page.getByRole('button', { name: /Start photos/ }).click();
+  await expect(page.locator('.farmer .shotcard .eyebrow')).toHaveText(/^Photo 1 of 3 · \S+/);
+  expect(await page.locator('.farmer .f-top').evaluate((e) => getComputedStyle(e).position)).toBe('static');
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {
