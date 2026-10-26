@@ -274,16 +274,39 @@ export function simGeo(seed = 0): Geo {
 /** How long a photo waits for a location before it says "simulated location" and goes on. */
 const GEO_WAIT_MS = 3500;
 
+/** A fix is reused for a photo while it is younger than this. */
+const FIX_MAX_AGE_MS = 60000;
+let lastFix: { geo: Geo; at: number } | null = null;
+const freshFix = () => (lastFix && Date.now() - lastFix.at < FIX_MAX_AGE_MS ? lastFix.geo : null);
+const keepFix = (p: GeolocationPosition): Geo => {
+  const geo: Geo = { lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' };
+  lastFix = { geo, at: Date.now() };
+  return geo;
+};
+
+/**
+ * Listen for the phone's location while the camera screen is open. A cold GPS fix outdoors, or a permission prompt still on
+ * screen, takes longer than a photo can wait; this way the fix is usually there by the time the photo is taken. Returns the stop.
+ */
+export function watchGeo(): () => void {
+  if (!('geolocation' in navigator)) return () => {};
+  const id = navigator.geolocation.watchPosition(keepFix, () => {}, { enableHighAccuracy: true, maximumAge: FIX_MAX_AGE_MS });
+  return () => navigator.geolocation.clearWatch(id);
+}
+
+/** The phone's location for a photo: a recent fix, else a precise one, else a coarse (network) one, else "simulated location". */
 export function getGeo(): Promise<Geo> {
+  const recent = freshFix();
+  if (recent) return Promise.resolve(recent);
   return new Promise((res) => {
     if (!('geolocation' in navigator)) return res(simGeo(1));
-    const done = (g: Geo) => res(g);
-    const timer = setTimeout(() => done(simGeo(2)), GEO_WAIT_MS);
-    navigator.geolocation.getCurrentPosition(
-      (p) => { clearTimeout(timer); done({ lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' }); },
-      () => { clearTimeout(timer); done(simGeo(3)); },
-      { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 500, maximumAge: 60000 }
-    );
+    let over = false;
+    const done = (g: Geo) => { if (!over) { over = true; clearTimeout(timer); res(g); } };
+    // a fix the watch delivers while this waits counts too
+    const timer = setTimeout(() => done(freshFix() ?? simGeo(2)), GEO_WAIT_MS);
+    const ok = (p: GeolocationPosition) => done(keepFix(p));
+    const coarse = () => navigator.geolocation.getCurrentPosition(ok, () => done(freshFix() ?? simGeo(3)), { enableHighAccuracy: false, timeout: GEO_WAIT_MS - 500, maximumAge: FIX_MAX_AGE_MS });
+    navigator.geolocation.getCurrentPosition(ok, (e) => (e.code === e.PERMISSION_DENIED ? done(simGeo(3)) : coarse()), { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 1500, maximumAge: FIX_MAX_AGE_MS });
   });
 }
 

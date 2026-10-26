@@ -5,7 +5,7 @@ import { fmtClock } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { announce } from '../../lib/announce';
 import { lowData } from '../../lib/prefs';
-import { view, addShot, addSyntheticShot, getGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
+import { view, addShot, addSyntheticShot, getGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
@@ -71,8 +71,8 @@ export function Capture() {
   /** The camera is blocked or missing: say so and let the person choose, never swap in a simulated photo on their behalf. */
   const [camBlocked, setCamBlocked] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  // ask for the location as the screen opens, so the first photo does not wait for it
-  useEffect(() => { void getGeo(); }, []);
+  // listen for the location while the screen is open, so the first photo does not wait for a cold GPS fix
+  useEffect(() => watchGeo(), []);
   const kind = sel ?? SHOTS.find((k) => !v.shots[k]) ?? null;
   const helper = v.consent?.helper;
   /** A helper is capturing for a farmer who has not agreed yet: no photo until they do. */
