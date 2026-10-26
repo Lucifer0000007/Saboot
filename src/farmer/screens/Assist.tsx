@@ -6,7 +6,7 @@ import { sha256 } from '../../lib/hash';
 import { dbSet } from '../../lib/db';
 import { showToast } from '../../lib/announce';
 import { focusPlot, activePlotId } from '../../sim/engine';
-import { view, recordConsent, helperSession, reportNoDamage } from '../focus';
+import { view, recordConsent, helperSession, reportNoDamage, activeKey } from '../focus';
 import { screen } from '../nav';
 import { backToQueue } from '../helper';
 import { VoiceCaption } from '../parts';
@@ -80,19 +80,22 @@ export function Assist() {
     return true;
   }
 
-  async function commit(method: 'hold' | 'voice', audioSha?: string) {
-    await recordConsent({ farmer: p.name, helper, role: session ? session.role : tr(role), method, audioSha, text });
+  // the farmer whose consent it is is fixed when the hold or the recording starts: moving on to another farmer while it
+  // is saved must not put this farmer's words in that farmer's log (audit CC-05)
+  async function commit(key: string, method: 'hold' | 'voice', audioSha?: string) {
+    await recordConsent({ farmer: p.name, helper, role: session ? session.role : tr(role), method, audioSha, text }, key);
     showToast(tr('as.doneToast'), 'ok');
   }
 
   function begin() {
     if (!ready()) return;
+    const key = activeKey.value;
     start.current = performance.now();
     const step = (now: number) => {
       const k = Math.min(1, (now - start.current) / HOLD_MS);
       setHold(k);
       // a consent that could not be stored is not consent: say so and empty the ring, so the person can hold again
-      if (k >= 1) { commit('hold').catch(() => { setErr(tr('as.saveFail')); setHold(0); }); return; }
+      if (k >= 1) { commit(key, 'hold').catch(() => { setErr(tr('as.saveFail')); setHold(0); }); return; }
       raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);
@@ -105,6 +108,7 @@ export function Assist() {
   async function toggleRec() {
     if (rec) { rec.stop(); return; }
     if (!ready()) return;
+    const key = activeKey.value;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       // the person left while the phone asked for the microphone: the answer must not leave it on
@@ -119,8 +123,10 @@ export function Assist() {
         const blob = new Blob(parts, { type: r.mimeType });
         try {
           const h = await sha256(blob);
+          // the helper left this farmer while the recording was being saved: it is not consent, so it is dropped
+          if (gone.current || activeKey.value !== key) return;
           await dbSet('photos', 'consent-' + h.slice(0, 16), blob);
-          await commit('voice', h);
+          await commit(key, 'voice', h);
         } catch {
           setErr(tr('as.saveFail'));
         }

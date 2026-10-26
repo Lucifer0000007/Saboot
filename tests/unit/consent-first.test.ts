@@ -63,6 +63,14 @@ test('CC-02: "no damage" is refused for a farmer who has not agreed, and recorde
   assert.deepEqual(types('P-05'), ['consent', 'no_damage']);
 });
 
+test('CC-05: a consent is written to the farmer it was given for, even if the helper has moved on to another farmer', async () => {
+  // the voice recording started for P-05; by the time it is saved the helper has opened P-09
+  activePlotId.value = 'P-09';
+  await recordConsent({ farmer: 'Farmer Five', helper: 'Test Helper', role: 'Sarpanch', method: 'voice', text: 'I, Farmer Five, allow Test Helper to take photos.' }, 'P-05');
+  assert.deepEqual(types('P-05'), ['consent']);
+  assert.deepEqual(types('P-09'), []);
+});
+
 test('the demo farmer reports "no damage" for themself, with no consent step', async () => {
   activePlotId.value = null;
   await reportNoDamage();

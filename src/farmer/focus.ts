@@ -472,7 +472,8 @@ export async function reportNoDamage(undo = false) {
   if (!undo) await requireConsent(key);
   return append({ type: 'no_damage', simT: t.value, data: { undo } }, key);
 }
-export const recordConsent = (c: Consent) => append({ type: 'consent', simT: t.value, data: c });
+/** `key`: the farmer whose consent this is, fixed when the hold or the recording began (audit CC-05). */
+export const recordConsent = (c: Consent, key: string = activeKey.value) => append({ type: 'consent', simT: t.value, data: c }, key);
 /** Attach the sealed packet to the published draft list (relief rail). Saboot never resolves it: the officer does, outside Saboot. */
 export async function fileObjection() {
   const v = view.value;
