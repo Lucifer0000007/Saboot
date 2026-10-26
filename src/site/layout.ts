@@ -54,17 +54,19 @@ if (hasDom) {
   // A rotation (or any large change of width) reflows the whole page: come back to what was on screen, not to the same
   // pixel offset, which by then shows another section (audit R7). The anchor is what sat a third of the way down the
   // screen when the person last scrolled; if the new layout re-rendered it (the phone frame), its nearest marked ancestor.
-  let anchor: Element | null = null, mark: string | null = null, lastW = innerWidth, resizedAt = 0, pending = 0;
+  let anchor: Element | null = null, mark: string | null = null, lastW = innerWidth, resizedAt = -Infinity;
+  let cap: ReturnType<typeof setTimeout> | undefined;
   addEventListener('scroll', () => {
-    if (pending || performance.now() - resizedAt < 600) return;
-    pending = requestAnimationFrame(() => {
-      pending = 0;
+    if (performance.now() - resizedAt < 600) return;
+    clearTimeout(cap);
+    cap = setTimeout(() => {
       anchor = document.elementFromPoint(innerWidth / 2, innerHeight / 3);
       const m = anchor?.closest('[data-tour], section[id]');
       mark = !m ? null : m.id ? '#' + m.id : `[data-tour="${m.getAttribute('data-tour')}"]`;
-    });
+    }, 120);
   }, { passive: true });
   addEventListener('resize', () => {
+    clearTimeout(cap);
     if (Math.abs(innerWidth - lastW) > 100 && (anchor || mark)) {
       const a = anchor, sel = mark;
       resizedAt = performance.now();
