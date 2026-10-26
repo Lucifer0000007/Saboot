@@ -62,6 +62,18 @@ function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, 
   );
 }
 
+/** Seal, or say on screen why it did not happen (storage failed, or the farmer has not agreed). True once sealed. */
+export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boolean> {
+  setMsg(null);
+  try {
+    await seal();
+    return true;
+  } catch (e) {
+    setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: focusPlot.value!.name }) : tr('cap.sealFail'));
+    return false;
+  }
+}
+
 export function Capture() {
   const v = view.value;
   const [sel, setSel] = useState<ShotKind | null>(null);
@@ -184,9 +196,12 @@ export function Capture() {
           <input ref={fileRef} type="file" accept="image/*" capture="environment" class="sr-only" tabIndex={-1} aria-hidden="true" onChange={onFile} />
         </div>
       ) : (
-        <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || !!v.seal} onClick={async () => { await seal(); screen.value = 'packet'; }}>
-          <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
-        </button>
+        <>
+          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || !!v.seal} onClick={async () => { if (await sealOrSay(setMsg)) screen.value = 'packet'; }}>
+            <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
+        </>
       )}
 
       <ul class="shots" role="list" data-tour="shots">

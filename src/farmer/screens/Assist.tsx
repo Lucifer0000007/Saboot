@@ -91,7 +91,8 @@ export function Assist() {
     const step = (now: number) => {
       const k = Math.min(1, (now - start.current) / HOLD_MS);
       setHold(k);
-      if (k >= 1) { commit('hold'); return; }
+      // a consent that could not be stored is not consent: say so and empty the ring, so the person can hold again
+      if (k >= 1) { commit('hold').catch(() => { setErr(tr('as.saveFail')); setHold(0); }); return; }
       raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);
@@ -116,9 +117,13 @@ export function Assist() {
         mic.current = null;
         setRec(null);
         const blob = new Blob(parts, { type: r.mimeType });
-        const h = await sha256(blob);
-        await dbSet('photos', 'consent-' + h.slice(0, 16), blob);
-        await commit('voice', h);
+        try {
+          const h = await sha256(blob);
+          await dbSet('photos', 'consent-' + h.slice(0, 16), blob);
+          await commit('voice', h);
+        } catch {
+          setErr(tr('as.saveFail'));
+        }
       };
       r.start();
       mic.current = { r, stream };

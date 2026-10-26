@@ -18,3 +18,19 @@ test('CC-03: two jumps at once add each photo once, and no photo after the seal'
   expect(demo.events, 'three photos, the seal and the reference').toBe(5);
   expect(errors).toEqual([]);
 });
+
+test('CC-07: a seal that cannot be stored says so on screen, and works once storage does', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, PHONE, 'en', errors);
+  await sab(page, `await s.jump('capture'); s.tab('farmer'); s.screen('capture');`);
+  // the phone's storage refuses every write (the log is written under a Web Lock)
+  await page.evaluate(() => { (navigator.locks as unknown as { request: unknown }).request = () => Promise.reject(new Error('QuotaExceededError')); });
+  const btn = page.getByRole('button', { name: /Seal my evidence/ });
+  await btn.click();
+  await expect(page.locator('[data-seal-fail]')).toContainText('could not be sealed');
+  expect(await page.evaluate('window.__sab.state().sealed')).toBe(false);
+  await page.evaluate(() => { delete (navigator.locks as unknown as { request?: unknown }).request; });
+  await btn.click();
+  await expect.poll(() => page.evaluate('window.__sab.state().sealed')).toBe(true);
+  await expect(page.locator('[data-seal-fail]')).toHaveCount(0);
+});

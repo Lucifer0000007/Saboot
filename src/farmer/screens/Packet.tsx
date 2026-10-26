@@ -6,13 +6,13 @@ import { tr, trr } from '../../lib/i18n';
 import { fmtClock, fmtDur } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { network } from '../../lib/prefs';
-import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link, type FocusEvent } from '../focus';
+import { view, syncOutbox, busy, isOffline, GAP_FLAG_H, type Link, type FocusEvent } from '../focus';
 import { SHOTS } from '../photo';
 import { screen } from '../nav';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { backToQueue } from '../helper';
 import { SyncLog } from '../SyncLog';
-import { Thumb } from './Capture';
+import { Thumb, sealOrSay } from './Capture';
 import { Seal } from '../../ui/Seal';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
@@ -41,6 +41,7 @@ function groups(h: string) {
 
 export function Packet() {
   const v = view.value;
+  const [msg, setMsg] = useState<string | null>(null);
   if (!v.shotCount) {
     return (
       <div class="stack f-stack">
@@ -136,9 +137,12 @@ export function Packet() {
           <Icon name="file" /> {trr('pk.cta')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : (
-        <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={seal}>
-          <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
-        </button>
+        <>
+          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={() => sealOrSay(setMsg)}>
+            <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
+        </>
       )}
     </div>
   );

@@ -461,6 +461,7 @@ const pa: Record<string, string | string[]> = {
   'k.fail': 'ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'cap.camDenied': 'ਕੈਮਰਾ ਬੰਦ ਹੈ ਜਾਂ ਉਪਲਬਧ ਨਹੀਂ। ਆਪਣੀ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਸੀਂ ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵੀ ਲੈ ਸਕਦੇ ਹੋ; ਉਸ ਉੱਤੇ "ਸਿਮੂਲੇਟਡ" ਲਿਖਿਆ ਹੋਵੇਗਾ।', // needs-native-review
   'cap.saveFail': 'ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
+  'cap.sealFail': 'ਸਬੂਤ ਇਸ ਫ਼ੋਨ ਤੇ ਸੀਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'cap.badPhoto': 'ਇਹ ਫ਼ੋਟੋ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਇਸ ਨੂੰ ਦੁਬਾਰਾ ਲਓ।', // needs-native-review
   'cap.needConsent': '{farmer} ਨੇ ਹਾਲੇ ਸਹਿਮਤੀ ਨਹੀਂ ਦਿੱਤੀ। ਕੋਈ ਵੀ ਫ਼ੋਟੋ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ ਲਓ।', // needs-native-review
   'cap.askConsent': 'ਸਹਿਮਤੀ ਲਓ', // needs-native-review
@@ -578,6 +579,7 @@ const pa: Record<string, string | string[]> = {
   'as.recording': 'ਰਿਕਾਰਡਿੰਗ… ਰੋਕਣ ਲਈ ਦਬਾਓ', // needs-native-review
   'as.done': 'ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ', // needs-native-review
   'as.doneToast': 'ਸਹਿਮਤੀ ਦਰਜ ਹੋਈ।', // needs-native-review
+  'as.saveFail': 'ਸਹਿਮਤੀ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'as.start': 'ਫ਼ੋਟੋਆਂ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
   'as.needName': 'ਪਹਿਲਾਂ ਸਹਾਇਕ ਦਾ ਨਾਂ ਲਿਖੋ।', // needs-native-review
   'as.voiceSha': 'ਆਵਾਜ਼ ਨਾਲ ਸਹਿਮਤੀ · ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ {h}', // needs-native-review
