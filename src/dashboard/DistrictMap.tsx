@@ -198,8 +198,7 @@ export function Legend() {
       {/* the layer switches are rarely needed: folded on a phone, open on wider screens (audit J7) */}
       <details class="lg-layers" open={layout.value !== 'mobile'}>
         <summary>Map layers</summary>
-        <fieldset>
-          <legend class="sr-only">Layers</legend>
+        <fieldset aria-label="Map layers">
           {(['flood', 'terrain', 'gauges'] as const).map((k) => (
             <label key={k} class="lg-item">
               <input type="checkbox" checked={lay[k]} onChange={() => (layers.value = { ...lay, [k]: !lay[k] })} />
