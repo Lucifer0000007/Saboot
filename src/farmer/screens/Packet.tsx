@@ -12,7 +12,7 @@ import { screen } from '../nav';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { backToQueue } from '../helper';
 import { SyncLog } from '../SyncLog';
-import { Thumb, sealOrSay } from './Capture';
+import { Thumb, sealOrSay, sealLabel } from './Capture';
 import { Seal } from '../../ui/Seal';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
@@ -42,10 +42,12 @@ function groups(h: string) {
 export function Packet() {
   const v = view.value;
   const [msg, setMsg] = useState<string | null>(null);
+  // a helper looks at the farmer's evidence, not "your evidence" (audit H11)
+  const title = activePlotId.value !== null ? tr('hm.pkTitle', { farmer: focusPlot.value!.name }) : tr('pk.title');
   if (!v.shotCount) {
     return (
       <div class="stack f-stack">
-        <h2 class="f-title">{tr('pk.title')}</h2>
+        <h2 class="f-title">{title}</h2>
         <p>{tr('pk.empty')}</p>
         <button type="button" class="pill pill-primary pill-lg pill-block" data-take-photos onClick={() => (screen.value = 'capture')}>
           <Icon name="camera" /> {tr('cap.title')} <span class="arrow" aria-hidden="true">→</span>
@@ -66,7 +68,7 @@ export function Packet() {
       <div class="pk-head">
         <Seal state={v.seal ? 'sealed' : 'open'} size={76} />
         <div>
-          <h2 class="f-title">{tr('pk.title')}</h2>
+          <h2 class="f-title">{title}</h2>
           <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
         </div>
       </div>
@@ -139,7 +141,7 @@ export function Packet() {
       ) : (
         <>
           <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={() => sealOrSay(setMsg)}>
-            <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
+            <Icon name="lock" /> {sealLabel()} <span class="arrow" aria-hidden="true">→</span>
           </button>
           {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
         </>

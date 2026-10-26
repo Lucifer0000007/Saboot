@@ -629,6 +629,11 @@ const hi: Record<string, string | string[]> = {
   'hm.card.btn': 'सहायक मोड खोलें', // needs-native-review
   'hm.noDamage': 'किसान ने बताया: कोई नुकसान नहीं', // needs-native-review
   'hm.next': 'अगला किसान', // needs-native-review
+  'hm.seal': '{farmer} का सबूत सील करें', // needs-native-review
+  'hm.pkTitle': '{farmer} का सबूत', // needs-native-review
+  'hm.flTitle': '{farmer} का प्रमाण साझा करें', // needs-native-review
+  'hm.flTitle.pmfby': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
+  'hm.noDamageDone': '{farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए।', // needs-native-review
   'hm.jumpAlert': 'पहली चेतावनी पर जाएँ (रीप्ले)', // needs-native-review
   'hm.paused': 'किसी किसान को खोलते ही रीप्ले रुक जाता है, ताकि उनकी सहमति, फ़ोटो और सील पर रीप्ले का वही समय दर्ज हो जब आपने ये किए।', // needs-native-review
   'pk.by': 'फ़ोटो किसने लीं', // needs-native-review

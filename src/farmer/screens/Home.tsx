@@ -56,15 +56,17 @@ export function Home() {
   const windowH = d.deadlineT! - d.eventT!;
   const expired = left <= 0;
   const done = v.shotCount >= 3;
-  const needConsent = activePlotId.value !== null && !v.consent;
+  // a helper acting for a farmer: the farmer's words are not the helper's ("No damage at my field"), audit H11
+  const helped = activePlotId.value !== null;
+  const needConsent = helped && !v.consent;
   // once the relief advice window has passed, the label stops saying "Best to capture within" (audit J16)
   const clockLabel = expired && !hard ? tr('al.passedLabel') : trr('al.clock');
 
   if (v.noDamage !== null) {
     return (
       <div class="stack f-stack">
-        <h2 class="f-title">{tr('al.noDamage')}</h2>
-        <p class="note note-ok" role="status"><Icon name="okShape" /><span>{trr('al.noDamageDone')}</span></p>
+        <h2 class="f-title">{helped ? tr('hm.s.nodamage') : tr('al.noDamage')}</h2>
+        <p class="note note-ok" role="status"><Icon name="okShape" /><span>{helped ? tr('hm.noDamageDone', { farmer: p.name }) : trr('al.noDamageDone')}</span></p>
         <button type="button" class="pill pill-ghost" onClick={() => reportNoDamage(true)}>{tr('al.undo')}</button>
       </div>
     );
@@ -110,15 +112,18 @@ export function Home() {
             </div>
           ) : <div class="f-row2">
             <button type="button" class="pill pill-ghost" onClick={() => reportNoDamage()}>
-              <Icon name="check" /> {tr('al.noDamage')}
+              <Icon name="check" /> {helped ? tr('hm.noDamage') : tr('al.noDamage')}
             </button>
-            <button type="button" class="pill pill-ghost" onClick={() => (screen.value = 'assist')}>
-              <Icon name="users" /> {tr('al.help')}
-            </button>
+            {/* the helper is the help */}
+            {!helped && (
+              <button type="button" class="pill pill-ghost" onClick={() => (screen.value = 'assist')}>
+                <Icon name="users" /> {tr('al.help')}
+              </button>
+            )}
           </div>}
         </>
       )}
-      <HelperCard />
+      {!helped && <HelperCard />}
     </div>
   );
 }

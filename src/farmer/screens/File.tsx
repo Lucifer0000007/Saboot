@@ -4,7 +4,7 @@ import { tr, trr } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { showToast } from '../../lib/announce';
 import { checkCode } from '../../lib/hash';
-import { focusPlot, focusDet, model } from '../../sim/engine';
+import { focusPlot, focusDet, model, activePlotId } from '../../sim/engine';
 import { view, recordRef, policyNo } from '../focus';
 import { screen } from '../nav';
 import { cropName } from '../parts';
@@ -49,7 +49,7 @@ export function FileClaim() {
 
   return (
     <div class="stack f-stack">
-      <h2 class="f-title">{trr('fl.title')}</h2>
+      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: p.name }) : trr('fl.title')}</h2>
       <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
       <section class="card summary" aria-labelledby="sum-h">
         <div class="row-between">

@@ -58,7 +58,9 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await expect(page.locator('[data-helper-bar]')).toContainText('Capturing for Mohinder Dhillon (P-05)');
   await expect(page.locator('.farmer .f-nav')).toHaveCount(1);
   await takePhotos(page, 3);
-  await page.getByRole('button', { name: /Seal my evidence/ }).click();
+  // H11: the helper seals the farmer's evidence, not "my evidence"
+  await page.getByRole('button', { name: /Seal Mohinder Dhillon’s evidence/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Mohinder Dhillon’s evidence');
   await expect(page.locator('[data-captured-by]')).toContainText('Test Helper, Sarpanch', { timeout: 10_000 });
   await page.getByRole('button', { name: /Next farmer/ }).click();
   const first = page.locator('[data-farmer="P-05"]');

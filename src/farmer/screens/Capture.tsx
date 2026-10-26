@@ -62,6 +62,9 @@ function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, 
   );
 }
 
+/** A helper seals a farmer's evidence, not "my evidence" (audit H11). */
+export const sealLabel = () => (activePlotId.value !== null ? tr('hm.seal', { farmer: focusPlot.value!.name }) : tr('cap.done'));
+
 /** Seal, or say on screen why it did not happen (storage failed, or the farmer has not agreed). True once sealed. */
 export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boolean> {
   setMsg(null);
@@ -198,7 +201,7 @@ export function Capture() {
       ) : (
         <>
           <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || !!v.seal} onClick={async () => { if (await sealOrSay(setMsg)) screen.value = 'packet'; }}>
-            <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
+            <Icon name="lock" /> {sealLabel()} <span class="arrow" aria-hidden="true">→</span>
           </button>
           {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
         </>
