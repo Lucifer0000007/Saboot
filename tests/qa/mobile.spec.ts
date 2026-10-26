@@ -33,6 +33,18 @@ test('Run the simulation on a phone goes to the farmer’s phone and stops once 
   expect(errors).toEqual([]);
 });
 
+test('the top nav stays one row from 320 to 600 px in every language, 390 included (H15, J4, R3)', async ({ page }) => {
+  const errors: string[] = [];
+  for (const lang of ['en', 'hi', 'pa']) {
+    await open(page, V('390x844'), lang, errors);
+    for (const w of [320, 360, 384, 386, 390, 393, 400, 412, 430, 480, 599]) {
+      await page.setViewportSize({ width: w, height: 844 });
+      await expect.poll(async () => (await box(page, 'header.nav')).height, { message: `${lang} at ${w}px` }).toBeLessThan(80);
+    }
+  }
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {

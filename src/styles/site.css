@@ -38,7 +38,8 @@
 .lang-seg > button { min-width: 48px; padding-inline: 10px; }
 /* हि and ਪੰ draw small beside Latin capitals at the same size: one step up so the three read as equals */
 .lang-seg > button:lang(hi), .lang-seg > button:lang(pa) { font-size: 1.125rem; }
-@container nav (min-width: 24em) {
+/* the long tag and the larger wordmark only where they fit on one row with the rest (at 24em the bar wrapped, audit H15, J4, R3) */
+@container nav (min-width: 25em) {
   .nav-in, .nav-actions { gap: 0 var(--s1); }
   .brand-word { font-size: 1.75rem; }
   .nav .tag-sim .tag-long { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
