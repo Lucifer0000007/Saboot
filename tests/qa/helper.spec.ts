@@ -47,6 +47,8 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await expect(page.locator('[data-helper-name]')).toContainText('Test Helper, Sarpanch');
   await expect(page.locator('.hq li')).toHaveCount(4);
   await expect(page.locator('.hs-progress')).toHaveText('0 of 4 farmers done');
+  // H2: the queue is the only way to a farmer: no farmer tabs that would open the demo farmer instead
+  await expect(page.locator('.farmer .f-nav')).toHaveCount(0);
 
   // farmer one: consent, three photos, seal; the packet names the helper
   await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
@@ -54,6 +56,7 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await giveConsent(page);
   await page.getByRole('button', { name: /Start photos/ }).click();
   await expect(page.locator('[data-helper-bar]')).toContainText('Capturing for Mohinder Dhillon (P-05)');
+  await expect(page.locator('.farmer .f-nav')).toHaveCount(1);
   await takePhotos(page, 3);
   await page.getByRole('button', { name: /Seal my evidence/ }).click();
   await expect(page.locator('[data-captured-by]')).toContainText('Test Helper, Sarpanch', { timeout: 10_000 });

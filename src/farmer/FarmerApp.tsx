@@ -7,7 +7,7 @@ import { storageOk, storagePersistent } from '../lib/db';
 import { say, stopVoice } from '../lib/voice';
 import { announce } from '../lib/announce';
 import { t, focusPlot, focusDet, activePlotId } from '../sim/engine';
-import { view, syncOutbox, rewound } from './focus';
+import { view, syncOutbox, rewound, helperSession } from './focus';
 import { screen, settingsOpen, type Screen } from './nav';
 import { ConnStrip } from './ConnStrip';
 import { Home } from './screens/Home';
@@ -105,6 +105,9 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
   }, [alerted]);
 
   if (!p || !d) return null;
+  // On the helper's queue the farmer tabs would open the demo farmer's screens, not a farmer in the queue: the queue is the
+  // only way to a farmer, so the tabs are hidden there (audit H2).
+  const nav = !(helperSession.value && activePlotId.value === null && s === 'helper');
   return (
     <section class={'farmer' + (framed ? ' framed' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
       <ConnStrip />
@@ -119,7 +122,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
           <Icon name="gear" />
         </button>
       </header>
-      {!framed && <FarmerNav />}
+      {!framed && nav && <FarmerNav />}
       {activePlotId.value !== null && s !== 'helper' && (
         <div class="hbar" role="group" aria-label={tr('hm.title')} data-helper-bar>
           <span class="hbar-t"><Icon name="users" size={18} /> {tr('hm.bar', { farmer: p.name, plot: p.id })}</span>
@@ -144,7 +147,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
           {s === 'helper' && <Helper />}
         </div>
       </div>
-      {framed && <FarmerNav />}
+      {framed && nav && <FarmerNav />}
     </section>
   );
 }
