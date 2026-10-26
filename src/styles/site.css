@@ -26,7 +26,7 @@
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none;
   font-size: var(--fs-ui); font-weight: 600; color: var(--kali-2); border-radius: var(--r-btn);
 }
-.nav-links a:hover { color: var(--kali); background: var(--sunk); }
+@media (hover: hover) { .nav-links a:hover { color: var(--kali); background: var(--sunk); } }
 .nav-actions { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 4px; min-width: 0; padding-block: 4px; }
 .nav .tag-sim { flex: none; }
 .nav .tag-sim .tag-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -73,7 +73,7 @@
   border: 0; border-radius: var(--r-ctl); background: transparent; text-align: left; font-size: 1rem; font-weight: 600;
 }
 .lang-menu button[aria-checked='true'] { background: var(--kali); color: var(--silt); }
-.lang-menu button:hover:not([aria-checked='true']) { background: var(--sunk); }
+@media (hover: hover) { .lang-menu button:hover:not([aria-checked='true']) { background: var(--sunk); } }
 
 .menu-links { display: flex; flex-direction: column; }
 .menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: var(--bd); text-decoration: none; font-family: var(--font-head); font-weight: var(--weight-head); font-size: var(--fs-h-sm); }
@@ -150,7 +150,7 @@ html.lay-mobile .rail-chip, html.lay-tablet .rail-chip { display: inline-flex; }
   min-height: 48px; padding: 8px 12px; border: 0; border-radius: var(--r-chip); background: transparent; color: var(--kali-2);
   font-size: var(--fs-ui); font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
 }
-.sim-tabs button:hover { color: var(--kali); background: var(--paper); }
+@media (hover: hover) { .sim-tabs button:hover { color: var(--kali); background: var(--paper); } }
 .sim-tabs button[aria-selected='true'] { background: var(--kali); color: var(--silt); }
 /* a narrow phone: the three tabs stay on one row, each icon above its word */
 @media (max-width: 459px) { .sim-tabs button { flex-direction: column; gap: 2px; padding: 6px 4px; text-align: center; } }
@@ -212,7 +212,7 @@ html:not(.lay-mobile) .farmer-solo { border: 2px solid var(--kali); border-radiu
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 6px 12px; border: var(--bd-ctl);
   border-radius: var(--r-btn); background: var(--paper); font-size: var(--fs-ui); font-weight: 600; color: var(--kali-2);
 }
-.chip-btn:hover { color: var(--kali); border-color: var(--kali); }
+@media (hover: hover) { .chip-btn:hover { color: var(--kali); border-color: var(--kali); } }
 .chip-btn.at { background: var(--kali); border-color: var(--kali); color: var(--silt); }
 
 /* honest limits (FAQ) */
@@ -222,7 +222,7 @@ html:not(.lay-mobile) .farmer-solo { border: 2px solid var(--kali); border-radiu
   list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--s2);
   padding-block: var(--s3); font-family: var(--font-head); font-weight: var(--weight-head); font-size: var(--fs-h-sm); line-height: var(--lh-head);
 }
-.faq summary:hover { color: var(--khet); }
+@media (hover: hover) { .faq summary:hover { color: var(--khet); } }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary > span { min-width: 0; }
 .faq summary .ic { transition: transform var(--t-fast); flex: none; }

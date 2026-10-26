@@ -78,7 +78,7 @@
 .map svg { display: block; width: 100%; height: auto; aspect-ratio: 600 / 420; touch-action: manipulation; }
 .map figcaption { font-size: 0.875rem; color: var(--kali-2); }
 .map .plot { cursor: pointer; }
-.map .plot:hover polygon { stroke: var(--kali); stroke-width: 2.4; }
+@media (hover: hover) { .map .plot:hover polygon { stroke: var(--kali); stroke-width: 2.4; } }
 .map .plot:focus { outline: none; }
 .map .plot:focus-visible polygon { stroke: var(--kali); stroke-width: 3.5; }
 .map .plot.dim { opacity: 0.25; }
@@ -100,7 +100,7 @@
 .rtable { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 .rtable th, .rtable td { text-align: left; vertical-align: top; padding: 11px 10px; border-bottom: 1px solid var(--rule); }
 .rtable thead th { font-weight: 600; color: var(--kali-2); border-bottom: 2px solid var(--kali); }
-.rtable tbody tr:hover { background: var(--sunk); }
+@media (hover: hover) { .rtable tbody tr:hover { background: var(--sunk); } }
 .rtable .sub { display: block; color: var(--kali-2); font-size: 0.8125rem; overflow-wrap: anywhere; }
 /* stacked cards: the label floats in a padded gutter, so cells with several children stay together, and the cell (a flow
    root) grows to hold a label that wraps to two lines instead of letting it run into the next row (audit OF-08) */
@@ -280,7 +280,7 @@
 /* ledger */
 .lg-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .tamper-btn { border-color: var(--bad); color: var(--bad); background: var(--paper); }
-.tamper-btn:hover { background: var(--bad-tint); }
+@media (hover: hover) { .tamper-btn:hover { background: var(--bad-tint); } }
 .lg-status:empty { display: none; }
 .lg-status { display: flex; flex-direction: column; gap: var(--s1); }
 .lg-verdict { display: flex; align-items: center; gap: 16px; }
@@ -307,7 +307,7 @@
 .k-steps .bad { color: var(--bad); border-left-color: var(--bad); background: var(--bad-tint); font-weight: 600; }
 .k-steps .skip { color: var(--kali-2); border-left-style: dashed; }
 .k-try { align-self: flex-start; border-color: var(--bad); color: var(--bad); background: var(--paper); }
-.k-try:hover { background: var(--bad-tint); }
+@media (hover: hover) { .k-try:hover { background: var(--bad-tint); } }
 .imp-drawer .k-verdict p { flex: 1; min-width: 0; }
 .imp-cohort { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .k-details { display: flex; flex-direction: column; gap: 12px; }
