@@ -279,6 +279,18 @@ test('H6: opening a farmer pauses the replay, so the consent time is the replay 
   expect(errors).toEqual([]);
 });
 
+test('H7: a queue opened before any alert offers one jump to the first alert, and stays on the queue', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(2); await s.helper(0); s.tab('farmer'); s.screen('helper');`);
+  await expect(page.locator('.hq li.hq-no-alert')).toHaveCount(4);
+  await page.locator('[data-jump-alert]').click();
+  await expect(page.locator('[data-helper-screen]')).toBeVisible();
+  await expect(page.locator('.hq li.hq-consent').first().getByRole('button', { name: /Start/ })).toBeEnabled();
+  await expect(page.locator('[data-jump-alert]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

@@ -6,7 +6,7 @@ import { lazy } from '../../lib/lazy';
 import { tr } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { helperSession, startHelperSession } from '../focus';
-import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, type QueueState } from '../helper';
+import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, jumpToFirstAlert, type QueueState } from '../helper';
 import { cropName } from '../parts';
 
 const FeaturePhone = lazy(() => import('../FeaturePhone'), 0);
@@ -69,6 +69,11 @@ export function Helper() {
             <p class="tag" data-helper-name><Icon name="users" size={16} /> {tr('hm.session', { name: session.name, role: session.role })}</p>
             <p class="hs-progress" role="status">{tr('hm.progress', { done: doneCount.value, n: list.length })}</p>
           </div>
+          {list.length > 0 && list.every((q) => q.state === 'no-alert') && (
+            <button type="button" class="pill pill-primary pill-lg pill-block" data-jump-alert onClick={jumpToFirstAlert}>
+              <Icon name="clock" /> {tr('hm.jumpAlert')} <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          )}
           <ol class="hq" role="list" aria-label={tr('hm.queue')}>
             {list.map((q) => {
               const m = META[q.state];

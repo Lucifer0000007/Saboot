@@ -647,6 +647,7 @@ const en: Record<string, string | string[]> = {
   'hm.card.btn': 'Open helper mode',
   'hm.noDamage': 'The farmer reports no damage',
   'hm.next': 'Next farmer',
+  'hm.jumpAlert': 'Jump to the first alert (replay)',
   'hm.paused': 'The replay pauses when you open a farmer, so their consent, photos and seal carry the replay time at which you did them.',
   'pk.by': 'Captured by',
   'pk.byValue': '{name}, {role}',

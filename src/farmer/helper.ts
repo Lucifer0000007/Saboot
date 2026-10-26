@@ -2,7 +2,7 @@
 // phone. This module holds the queue and each farmer's status. Every farmer keeps their own consent, photos and sealed
 // packet in their own device log (focus.ts), so "who captured what" is a property of the evidence, not a note on the side.
 import { computed } from '@preact/signals';
-import { model, t, activePlotId, pause } from '../sim/engine';
+import { model, t, activePlotId, pause, seek } from '../sim/engine';
 import type { Plot } from '../sim/model';
 import { logs, reduce, recordConsent, ensureFocus, endHelperSession, startHelperSession, type FocusView } from './focus';
 import { screen } from './nav';
@@ -50,6 +50,19 @@ export const queue = computed<QueueItem[]>(() => {
     };
   });
 });
+
+/**
+ * A queue opened before any of its farmers was alerted has nothing to start: move the replay to the first alert among them
+ * and stay on the queue (audit H7). A replay jump, labelled as one; it records nothing.
+ */
+export function jumpToFirstAlert() {
+  const m = model.value;
+  if (!m) return;
+  const first = Math.min(...helperPlots.value.map((p) => m.det[p.idx].alertT ?? Infinity));
+  if (!Number.isFinite(first)) return;
+  pause();
+  seek(first + 0.02);
+}
 
 /** Farmers whose evidence is sealed or who reported no damage: the helper has nothing left to do for them. */
 export const doneCount = computed(() => queue.value.filter((q) => q.state === 'sealed' || q.state === 'no-damage').length);

@@ -629,6 +629,7 @@ const pa: Record<string, string | string[]> = {
   'hm.card.btn': 'ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ', // needs-native-review
   'hm.noDamage': 'ਕਿਸਾਨ ਨੇ ਦੱਸਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ', // needs-native-review
   'hm.next': 'ਅਗਲਾ ਕਿਸਾਨ', // needs-native-review
+  'hm.jumpAlert': 'ਪਹਿਲੀ ਚੇਤਾਵਨੀ ਉੱਤੇ ਜਾਓ (ਰੀਪਲੇ)', // needs-native-review
   'hm.paused': 'ਕਿਸੇ ਕਿਸਾਨ ਨੂੰ ਖੋਲ੍ਹਦੇ ਹੀ ਰੀਪਲੇ ਰੁਕ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਜੋ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਉੱਤੇ ਰੀਪਲੇ ਦਾ ਉਹੀ ਸਮਾਂ ਦਰਜ ਹੋਵੇ ਜਦੋਂ ਤੁਸੀਂ ਇਹ ਕੀਤੇ।', // needs-native-review
   'pk.by': 'ਫ਼ੋਟੋਆਂ ਕਿਸ ਨੇ ਖਿੱਚੀਆਂ', // needs-native-review
   'pk.byValue': '{name}, {role}', // needs-native-review
