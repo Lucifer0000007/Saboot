@@ -56,6 +56,8 @@ export function Home() {
   const windowH = d.deadlineT! - d.eventT!;
   const expired = left <= 0;
   const done = v.shotCount >= 3;
+  // once the relief advice window has passed, the label stops saying "Best to capture within" (audit J16)
+  const clockLabel = expired && !hard ? tr('al.passedLabel') : trr('al.clock');
 
   if (v.noDamage !== null) {
     return (
@@ -85,8 +87,8 @@ export function Home() {
         <p>{tr('al.msg')}</p>
         {cta}
         <div class="alert-clock">
-          <p class="clock-label">{trr('al.clock')}</p>
-          <Countdown left={left} total={windowH} hard={hard} />
+          <p class="clock-label">{clockLabel}</p>
+          <Countdown left={left} total={windowH} hard={hard} label={clockLabel} ended={tr('al.endedAt', { time: fmtClock(d.deadlineT!) })} />
         </div>
         <p class="alert-started">{trr('al.started', { time: fmtClock(d.eventT!) })}</p>
       </div>

@@ -390,6 +390,8 @@ const en: Record<string, string | string[]> = {
   'al.lastHours': 'Capture soon',
   'al.about': 'about {t}',
   'al.passedWords': 'the advice window has passed',
+  'al.passedLabel': 'Capture-soon advice',
+  'al.endedAt': 'ended {time}',
   'al.advice': 'Advice, not a deadline',
   'al.lastHours.pmfby': 'Last hours',
   'al.noDamageDone': 'Thank you. We recorded: no damage. Nothing more is needed from you.',

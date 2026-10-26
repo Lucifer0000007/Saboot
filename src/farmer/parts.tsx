@@ -45,15 +45,15 @@ export function countdownTone(left: number, hard = true) {
   return left <= 0 ? (hard ? 'over' : 'passed') : left < 6 ? 'last' : left < 24 ? 'amber' : 'ink';
 }
 
-export function Countdown({ left, total, hard = true }: { left: number; total: number; hard?: boolean }) {
+export function Countdown({ left, total, hard = true, label, ended }: { left: number; total: number; hard?: boolean; label: string; ended: string }) {
   const pct = Math.max(0, Math.min(1, left / total));
   const tone = countdownTone(left, hard);
   return (
     <div class={'countdown ' + tone}>
       {hard ? (
-        <div class="count num" role="timer" aria-label={trr('al.clock')}>{fmtCountdown(left)}</div>
+        <div class="count num" role="timer" aria-label={label}>{fmtCountdown(left)}</div>
       ) : (
-        <div class="count words" role="timer" aria-label={trr('al.clock')}>{fmtCountdownWords(left)}</div>
+        <div class="count words" role="timer" aria-label={label}>{left <= 0 ? ended : fmtCountdownWords(left)}</div>
       )}
       {tone === 'last' && <span class="tag tag-warn last-tag"><Icon name="clock" size={16} />{trr('al.lastHours')}</span>}
       {!hard && <span class="tag advice-tag"><Icon name="info" size={16} />{tr('al.advice')}</span>}

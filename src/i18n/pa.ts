@@ -377,6 +377,8 @@ const pa: Record<string, string | string[]> = {
   'al.reminder.pmfby': 'ਯਾਦ ਰੱਖੋ: {left} ਬਾਕੀ ਹਨ। ਫ਼ੋਟੋਆਂ ਵਿੱਚ 2 ਮਿੰਟ ਲੱਗਦੇ ਹਨ।', // needs-native-review
   'al.about': 'ਲਗਭਗ {t}', // needs-native-review
   'al.passedWords': 'ਸਲਾਹ ਦੀ ਮਿਆਦ ਲੰਘ ਗਈ', // needs-native-review
+  'al.passedLabel': 'ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ', // needs-native-review
+  'al.endedAt': '{time} ਨੂੰ ਖ਼ਤਮ ਹੋਈ', // needs-native-review
   'al.lastHours': 'ਜਲਦੀ ਫ਼ੋਟੋ ਲਓ', // needs-native-review
   'al.advice': 'ਸਲਾਹ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ', // needs-native-review
   'al.lastHours.pmfby': 'ਆਖ਼ਰੀ ਘੰਟੇ', // needs-native-review

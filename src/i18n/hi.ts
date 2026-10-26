@@ -377,6 +377,8 @@ const hi: Record<string, string | string[]> = {
   'al.reminder.pmfby': 'याद दिलाना: {left} बचे हैं। फ़ोटो में 2 मिनट लगते हैं।', // needs-native-review
   'al.about': 'लगभग {t}', // needs-native-review
   'al.passedWords': 'सलाह की अवधि बीत गई', // needs-native-review
+  'al.passedLabel': 'जल्दी फ़ोटो लेने की सलाह', // needs-native-review
+  'al.endedAt': '{time} को खत्म हुई', // needs-native-review
   'al.lastHours': 'जल्दी फ़ोटो लें', // needs-native-review
   'al.advice': 'सलाह, समय-सीमा नहीं', // needs-native-review
   'al.lastHours.pmfby': 'आख़िरी घंटे', // needs-native-review
