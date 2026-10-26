@@ -45,6 +45,19 @@ test('the top nav stays one row from 320 to 600 px in every language, 390 includ
   expect(errors).toEqual([]);
 });
 
+test('the bottom dock passes under the top nav when the end of the simulation scrolls up (UI-01)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await expect(page.locator('.ctrl-dock')).toBeAttached();
+  // the end of #simulation 40 px below the top of the screen: the dock, stuck to that end, now sits where the nav is
+  await page.evaluate(() => { const s = document.getElementById('simulation')!; scrollTo(0, s.getBoundingClientRect().bottom + scrollY - 40); });
+  const dock = await box(page, '.ctrl-dock');
+  expect(dock.top).toBeLessThan(65);
+  const hit = await page.evaluate(() => !!document.elementFromPoint(300, 30)?.closest('header.nav'));
+  expect(hit, 'the menu button, not the dock, is under a tap at the top right').toBe(true);
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {

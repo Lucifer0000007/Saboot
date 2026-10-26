@@ -15,7 +15,8 @@
 @media (max-width: 599px) { .ann p { font-size: var(--fs-xs); } }
 
 /* nav: sticky paper bar. Its contents adapt to the nav's own width in em (so 200% text gets the compact bar). */
-.nav { position: sticky; top: 0; z-index: var(--z-sticky); background: var(--paper); border-bottom: 1px solid var(--rule); container: nav / inline-size; font-size: 1rem; }
+/* one step above the other sticky bars: the bottom dock rides up with the end of the simulation and must pass under it (audit UI-01) */
+.nav { position: sticky; top: 0; z-index: calc(var(--z-sticky) + 1); background: var(--paper); border-bottom: 1px solid var(--rule); container: nav / inline-size; font-size: 1rem; }
 .nav-in { min-height: var(--nav-h); display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; padding-block: 4px; }
 .brand { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; text-decoration: none; flex: none; color: var(--kali); }
 .brand-word { font-family: var(--font-display); font-weight: 600; font-size: 1.375rem; line-height: 1; }
