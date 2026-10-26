@@ -101,7 +101,7 @@ export function Ledger() {
         <div class="lg-actions">
           <button type="button" class="pill pill-dark pill-sm" onClick={onVerify} disabled={building.value || !c.length}><Icon name="shield" /> Verify integrity</button>
           {tp ? (
-            <button type="button" class="pill pill-ghost pill-sm" onClick={restore}><Icon name="reset" /> Restore record</button>
+            <button type="button" class="pill pill-ghost pill-sm" data-lg-restore onClick={restore}><Icon name="reset" /> Restore record</button>
           ) : (
             <button type="button" class="pill pill-ghost pill-sm tamper-btn" onClick={onTamper} disabled={building.value || !c.length}><Icon name="alert" /> Tamper test</button>
           )}

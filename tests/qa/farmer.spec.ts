@@ -172,3 +172,24 @@ test('the tour step that asks for offline carries its own Go offline button', as
   await b.click();
   expect(errors).toEqual([]);
 });
+
+test('the tour has a tamper step: it opens the ledger at a populated moment, runs the tamper test from the card, and restores the record on Next', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.tour(5);`);
+  await expect(page.locator('#tour-h')).toHaveText('Tamper check: one changed record breaks the chain');
+  await expect(page.locator('.ledger')).toBeVisible({ timeout: 20_000 });
+  await page.locator('.tour-card [data-tour-tamper]').click();
+  await expect(page.locator('.ledger .lg-verdict .note-bad')).toContainText('Integrity failure at record', { timeout: 20_000 });
+  await expect(page.locator('.tour-card [data-tour-tamper]')).toHaveCount(0);
+  // the spotlight follows the failure, above the card
+  await page.waitForTimeout(1200);
+  const [spot, card] = await page.evaluate(() => [document.querySelector('.spot')!.getBoundingClientRect().bottom, document.querySelector('.tour-card')!.getBoundingClientRect().top]);
+  expect(spot).toBeLessThanOrEqual(card);
+  await page.locator('.tour-actions .pill-dark').click();
+  await expect(page.locator('#tour-h')).toHaveText('Ranked evidence, not verdicts');
+  await sab(page, `s.tour(null); s.tab('ledger');`);
+  await expect(page.locator('.ledger .tamper-btn')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('[data-lg-restore]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});

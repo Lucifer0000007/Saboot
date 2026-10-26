@@ -1,4 +1,4 @@
-// Judge tour (feature E): six steps, about 105 s when auto-advancing, Skip and Restart. Drives the
+// Judge tour (feature E): seven steps, about two minutes when auto-advancing, Skip and Restart. Drives the
 // replay, the simulation tabs and farmer screens. Under reduced motion it never auto-advances.
 import '../styles/tour.css';
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
@@ -20,6 +20,8 @@ interface Step {
   key: string;
   target: () => string | null;
   setup: () => Promise<void> | void;
+  /** Undo what the step changed, when the tour moves on or closes. */
+  leave?: () => void;
 }
 
 const STEP_MS = 17500;
@@ -60,6 +62,14 @@ export const STEPS: Step[] = [
     },
   },
   {
+    // the strongest proof moment, once only reachable by hand (audit J2): the console's ledger at a populated moment, with the
+    // tamper test one tap away; the step restores the record when the tour moves on
+    key: 's5t',
+    target: () => (document.querySelector('.ledger .lg-verdict') ? '.ledger .lg-verdict' : desk() ? '[data-tour=ledger]' : '.ledger .lg-actions'),
+    setup: async () => { await jumpTo('deadline'); openPlot.value = null; insurerView.value = 'ledger'; go('insurer'); },
+    leave: () => document.querySelector<HTMLButtonElement>('[data-lg-restore]')?.click(),
+  },
+  {
     key: 's6',
     target: () => '[data-tour=pipeline]',
     setup: async () => { insurerView.value = 'claims'; go('insurer'); await jumpTo('confirm'); openPlot.value = null; },
@@ -80,6 +90,17 @@ function tourVars(): Record<string, string> {
     median: e.median === null ? '—' : fmtDur(e.median),
     p90: e.p90 === null ? '—' : fmtDur(e.p90),
   };
+}
+
+/** Press the ledger's own Tamper test button, once the ledger has finished building (it is disabled until then). */
+function runTamper() {
+  const t0 = Date.now();
+  const tryIt = () => {
+    const b = document.querySelector<HTMLButtonElement>('.ledger .tamper-btn');
+    if (b && !b.disabled) b.click();
+    else if (Date.now() - t0 < 8000) setTimeout(tryIt, 150);
+  };
+  tryIt();
 }
 
 /** A sheet or the camera viewfinder is open: it sits above the tour. */
@@ -107,6 +128,7 @@ export default function Tour() {
   const card = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const [more, setMore] = useState(false);
+  const [tampered, setTampered] = useState(false);
   const [paused, setPaused] = useState(manual);
   const [elapsed, setElapsed] = useState(0);
   const head = useRef<HTMLHeadingElement>(null);
@@ -127,7 +149,7 @@ export default function Tour() {
       head.current?.focus({ preventScroll: true });
       announce(`${tr('tour.step', { n: i + 1, total: STEPS.length })}: ${title}`);
     });
-    return () => { alive = false; };
+    return () => { alive = false; step.leave?.(); };
   }, [i]);
 
   // Track the spotlight target for the whole step (tabs and lazy chunks render asynchronously, and the page can scroll or
@@ -160,6 +182,7 @@ export default function Tour() {
       // the step text scrolls inside a short card; a fade says there is more (audit J10)
       const bd = body.current;
       setMore(!!bd && bd.scrollHeight - bd.scrollTop - bd.clientHeight > 2);
+      setTampered(!!document.querySelector('[data-lg-restore]'));
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -203,6 +226,11 @@ export default function Tour() {
           <p id="tour-b">{trr(`tour.${step.key}.b`, tourVars())}</p>
           {manual && <p class="muted tour-manual">{tr('tour.manual')}</p>}
         </div>
+        {step.key === 's5t' && !tampered && (
+          <button type="button" class="pill pill-ghost pill-sm tour-try" data-tour-tamper onClick={runTamper}>
+            <Icon name="alert" size={16} /> {tr('tour.tamperTry')}
+          </button>
+        )}
         {/* the network switch lives in the closed dock sheet; the step that asks for it carries it (audit J10) */}
         {step.key === 's4' && (
           <button type="button" class="pill pill-ghost pill-sm tour-try" data-tour-net aria-pressed={network.value === 'offline'} onClick={() => (network.value = network.value === 'offline' ? 'online' : 'offline')}>
