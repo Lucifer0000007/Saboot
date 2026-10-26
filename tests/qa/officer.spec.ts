@@ -110,5 +110,10 @@ test('one tamper check in the console: the real packet and the audit ledger in o
   await page.evaluate('window.__sab.ready()');
   await expect(page.locator('.tcheck')).toBeVisible({ timeout: 20_000 });
   await expect(page.locator('[data-view-bar] [aria-checked=true]')).toHaveText(/Tamper check/);
+  // the chosen view is scrolled into the sideways bar, and only the figures' own view carries the figures
+  const bar = (await page.locator('[data-view-bar]').boundingBox())!, on = (await page.locator('[data-view-bar] [aria-checked=true]').boundingBox())!;
+  expect(on.x).toBeGreaterThanOrEqual(bar.x - 1);
+  expect(on.x + on.width).toBeLessThanOrEqual(bar.x + bar.width + 1);
+  await expect(page.locator('.dash .kpis')).toHaveCount(0);
   expect(errors).toEqual([]);
 });

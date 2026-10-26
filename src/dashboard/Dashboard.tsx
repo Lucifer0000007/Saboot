@@ -11,7 +11,7 @@ import { kpis } from './state';
 import { effect } from '@preact/signals';
 import { receiver } from '../lib/prefs';
 import { receipts } from '../k/receipt';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import { loadImported } from '../k/imported';
 import { loadAssignments } from './assign';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
@@ -58,6 +58,12 @@ export default function Dashboard() {
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
   const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
   useEffect(() => { void loadImported(); void loadAssignments(); }, []);
+  // the chosen view stays visible in the bar when it scrolls sideways on a phone (the page itself does not move)
+  const bar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = bar.current, b = el?.querySelector<HTMLElement>('[aria-checked="true"]');
+    if (el && b && (b.offsetLeft < el.scrollLeft || b.offsetLeft + b.offsetWidth > el.scrollLeft + el.clientWidth)) el.scrollLeft = b.offsetLeft - 4;
+  }, [view]);
   // the demo receiver's list, polled only when this laptop is the receiver (the preference is off by default). An effect,
   // not a mount-time check: on a laptop the console can mount before the deep link has set the preference.
   useEffect(() => {
@@ -87,23 +93,27 @@ export default function Dashboard() {
         </div>
       </header>
       {/* the views stay in reach: a bar that sticks under the nav (and the control bar on a laptop) while the console scrolls */}
-      <div class="seg view-seg" role="radiogroup" data-view-bar aria-label="Console view">
+      <div class="seg view-seg" role="radiogroup" data-view-bar aria-label="Console view" ref={bar}>
         {VIEWS[rail.value].map(([id, label, icon]) => (
           <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => (insurerView.value = id)}>
             <Icon name={icon} size={16} /> {label}
           </button>
         ))}
       </div>
-      <Kpis />
-      <Pipeline />
+      {/* the figures and the pipeline belong to the worklist; the other views have their own (the draft list's steps,
+          the pilot metrics), so on a phone they open on their content */}
       {view === 'claims' && (
-        <div class="claims">
-          <div class="claims-map">
-            <DistrictMap />
-            <Legend />
+        <>
+          <Kpis />
+          <Pipeline />
+          <div class="claims">
+            <div class="claims-map">
+              <DistrictMap />
+              <Legend />
+            </div>
+            <PlotList />
           </div>
-          <PlotList />
-        </div>
+        </>
       )}
       {view === 'draft' && <DraftView />}
       {view === 'ledger' && <TamperCheck />}
