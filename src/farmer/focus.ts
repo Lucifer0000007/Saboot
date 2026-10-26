@@ -114,10 +114,13 @@ async function currentLog(key: string): Promise<Link[]> {
  * replay is behind their last action, the replay moves forward to it so they can see what they did. A `passive` event (a
  * sync) never moves the replay.
  */
-async function append(ev: FocusEvent, key: string = activeKey.value, passive = false) {
+async function append(next: FocusEvent | ((c: Link[]) => Promise<FocusEvent | null>), key: string = activeKey.value, passive = false) {
   return exclusive(async () => {
     if (!loaded) await loadFocus();
     const c = await currentLog(key);
+    // an event built from the log (a seal) is built here, under the lock, from the log it will follow; null writes nothing
+    const ev = typeof next === 'function' ? await next(c) : next;
+    if (!ev) return null;
     const last = c.length ? c[c.length - 1].body.simT : -Infinity;
     const simT = Math.max(ev.simT, last);
     if (simT > ev.simT && !passive) {
@@ -363,16 +366,22 @@ export function packetBody(v: FocusView) {
 
 export async function seal() {
   const key = activeKey.value;
-  const v = view.value;
-  if (!v.shotCount || full.value.seal) return;
-  if (Object.values(v.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
+  const f = full.value;
+  if (!f.shotCount || f.seal) return;
+  if (Object.values(f.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
   busy.value = true;
   try {
-    const body = packetBody(v);
-    const packetHash = await sha256(canonical(body));
-    const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
-    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } }, key);
+    // The packet covers the whole log, not what the replay shows at t: after a scrub back it still holds every photo, and
+    // its prev is the head the seal actually follows.
+    await append(async (c) => {
+      const v = reduce(c, Infinity);
+      if (!v.shotCount || v.seal) return null;
+      const body = packetBody(v);
+      const packetHash = await sha256(canonical(body));
+      const queued = isOffline() || isWeak();
+      if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
+      return { type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } };
+    }, key);
   } finally {
     busy.value = false;
   }
@@ -424,8 +433,8 @@ export async function syncOutbox() {
         const packet = mine.some((k) => k.startsWith('packet-')) && seal ? seal.packetHash : undefined;
         await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner, true);
       }
-      await dbClear('outbox');
-      return;
+      // only what was sent: a photo or seal queued while this sync ran stays queued, and goes out on the next pass
+      await Promise.all(keys.map((k) => dbDel('outbox', k)));
     }
   } finally {
     syncing = false;
@@ -450,7 +459,15 @@ export const policyNo = (plotId: string) => `SIM-KSG-26-${plotId.replace('P-', '
 /** Scripted timings of the simulated people around the farmer (hours). Simulated, not rules and not real service levels. */
 export const SCRIPT = { capture: 3, seal: 3.1, ref: 5.1, ackDue: 48, escalate: 72, ack: 70, survey: 30, objectionResponse: 20 };
 
-export async function ensureFocus(stage: 'captured' | 'sealed' | 'filed') {
+let ensuring: Promise<unknown> = Promise.resolve();
+/** One catch-up at a time: two jumps at once (a double tap, a presenter key pressed twice) would each add the same photos. */
+export function ensureFocus(stage: 'captured' | 'sealed' | 'filed'): Promise<void> {
+  const run = ensuring.then(() => catchUp(stage));
+  ensuring = run.catch(() => undefined);
+  return run;
+}
+
+async function catchUp(stage: 'captured' | 'sealed' | 'filed') {
   if (!loaded) await loadFocus();
   const d = focusDet.value;
   if (!d || d.alertT === null) return;
