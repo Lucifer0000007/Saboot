@@ -476,13 +476,16 @@ const hi: Record<string, string | string[]> = {
   'fe.note': 'सिमुलेटेड नहीं: मौखिक सहमति से की गई गुमनाम बातचीत, docs/INTERVIEWS.md में दर्ज। लोगों ने जो कहा वह उनका अपना अनुभव है, कोई निष्कर्ष नहीं।', // needs-native-review
   'fe.strip': '{n} इंटरव्यू · {states} राज्य · {roles} भूमिकाएँ', // needs-native-review
   'fe.target': '{state} में इंटरव्यू: अब तक {n}।', // needs-native-review
+  'fe.next': 'अगला कदम: {state} में इंटरव्यू।', // needs-native-review
   'fe.letters': 'रुचि-पत्र: {n}', // needs-native-review
   'fe.users': 'इसे इस्तेमाल करने वाले लोग: {n}', // needs-native-review
   'fe.raised': 'इंटरव्यू में लोगों ने क्या बताया', // needs-native-review
   'fe.theme': '{state} में बताया गया: {theme}', // needs-native-review
   'fe.quote': '“{quote}” ({role}, {state})', // needs-native-review
   'fe.landing.h': 'हमने उन लोगों से पूछा जो यह काम करते हैं', // needs-native-review
-  'fe.landing.note': 'मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। सूची docs/INTERVIEWS.md में है। उन्होंने जो बताया वह उनका अपना अनुभव है।', // needs-native-review
+  'fe.landing.note': 'मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। उन्होंने जो बताया वह उनका अपना अनुभव है।', // needs-native-review
+  'fe.who': 'हमने किनसे बात की', // needs-native-review
+  'fe.listLink': 'पूरी सूची, प्रोजेक्ट के कोड में', // needs-native-review
   'fe.role.patwari': 'पटवारी', // needs-native-review
   'fe.role.assessor': 'बीमा कंपनी के नुक़सान आकलनकर्ता', // needs-native-review
   'fe.role.farmer': 'किसान', // needs-native-review

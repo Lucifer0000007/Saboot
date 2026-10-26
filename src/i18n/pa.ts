@@ -476,13 +476,16 @@ const pa: Record<string, string | string[]> = {
   'fe.note': 'ਸਿਮੂਲੇਟ ਨਹੀਂ: ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਗੱਲਾਂ, docs/INTERVIEWS.md ਵਿੱਚ ਦਰਜ। ਲੋਕਾਂ ਨੇ ਜੋ ਕਿਹਾ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ, ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ।', // needs-native-review
   'fe.strip': '{n} ਇੰਟਰਵਿਊ · {states} ਰਾਜ · {roles} ਭੂਮਿਕਾਵਾਂ', // needs-native-review
   'fe.target': '{state} ਵਿੱਚ ਇੰਟਰਵਿਊ: ਹੁਣ ਤੱਕ {n}।', // needs-native-review
+  'fe.next': 'ਅਗਲਾ ਕਦਮ: {state} ਵਿੱਚ ਇੰਟਰਵਿਊ।', // needs-native-review
   'fe.letters': 'ਦਿਲਚਸਪੀ ਦੇ ਪੱਤਰ: {n}', // needs-native-review
   'fe.users': 'ਇਸ ਨੂੰ ਵਰਤਣ ਵਾਲੇ ਲੋਕ: {n}', // needs-native-review
   'fe.raised': 'ਇੰਟਰਵਿਊ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਕੀ ਦੱਸਿਆ', // needs-native-review
   'fe.theme': '{state} ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ: {theme}', // needs-native-review
   'fe.quote': '“{quote}” ({role}, {state})', // needs-native-review
   'fe.landing.h': 'ਅਸੀਂ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਪੁੱਛਿਆ ਜੋ ਇਹ ਕੰਮ ਕਰਦੇ ਹਨ', // needs-native-review
-  'fe.landing.note': 'ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਸੂਚੀ docs/INTERVIEWS.md ਵਿੱਚ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ।', // needs-native-review
+  'fe.landing.note': 'ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ।', // needs-native-review
+  'fe.who': 'ਅਸੀਂ ਕਿਨ੍ਹਾਂ ਨਾਲ ਗੱਲ ਕੀਤੀ', // needs-native-review
+  'fe.listLink': 'ਪੂਰੀ ਸੂਚੀ, ਪ੍ਰੋਜੈਕਟ ਦੇ ਕੋਡ ਵਿੱਚ', // needs-native-review
   'fe.role.patwari': 'ਪਟਵਾਰੀ', // needs-native-review
   'fe.role.assessor': 'ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਨੁਕਸਾਨ ਮੁਲਾਂਕਣਕਾਰ', // needs-native-review
   'fe.role.farmer': 'ਕਿਸਾਨ', // needs-native-review

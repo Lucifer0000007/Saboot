@@ -108,12 +108,17 @@ function FieldPeople() {
         <FieldTag />
       </div>
       <p class="fe-strip">{tr('fe.strip', { n: c.interviews, states: c.states, roles: c.roles })}</p>
-      <ul class="fp-list" role="list">
-        {[...rows.values()].map((r) => (
-          <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
-        ))}
-      </ul>
-      <p class="muted small">{tr('fe.target', { state: TARGET_STATE, n: c.inTargetState })} {tr('fe.landing.note')}</p>
+      {/* one row per role and state is long on a phone: the list opens on request (audit J20) */}
+      <details class="fp-more" data-fp-more>
+        <summary>{tr('fe.who')}</summary>
+        <ul class="fp-list" role="list">
+          {[...rows.values()].map((r) => (
+            <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
+          ))}
+        </ul>
+        <a class="link-arrow" href={REPO_URL + '/blob/main/docs/INTERVIEWS.md'} target="_blank" rel="noopener noreferrer">{tr('fe.listLink')}</a>
+      </details>
+      <p class="muted small" data-fp-note>{c.inTargetState === 0 ? tr('fe.next', { state: TARGET_STATE }) : tr('fe.target', { state: TARGET_STATE, n: c.inTargetState })} {tr('fe.landing.note')}</p>
     </div>
   );
 }

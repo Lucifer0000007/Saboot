@@ -137,3 +137,18 @@ test('How it works: simulated rows use the Simulated icon, and the status words 
   expect(await simCells.first().locator('svg').innerHTML()).toBe(tagIcon);
   expect(errors).toEqual([]);
 });
+
+test('the landing interview card shows the strip, folds the list away, links the list, and names the next state', async ({ page }) => {
+  const { fieldCounts, TARGET_STATE } = await import('../../src/data/fieldEvidence');
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  const card = page.locator('[data-field-people]');
+  await card.scrollIntoViewIfNeeded();
+  await expect(card).not.toContainText('docs/INTERVIEWS.md');
+  await expect(card.locator('.fp-list')).toBeHidden();
+  if (fieldCounts().inTargetState === 0) await expect(card.locator('[data-fp-note]')).toContainText(`Next: interviews in ${TARGET_STATE}.`);
+  await card.locator('[data-fp-more] summary').click();
+  await expect(card.locator('.fp-list')).toBeVisible();
+  await expect(card.locator('[data-fp-more] a')).toHaveAttribute('href', /\/blob\/main\/docs\/INTERVIEWS\.md$/);
+  expect(errors).toEqual([]);
+});
