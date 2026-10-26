@@ -525,7 +525,8 @@ const en: Record<string, string | string[]> = {
   'fl.farmer': 'Farmer',
   'fl.event': 'Event began',
 
-  'st.title': 'Claim status',
+  'st.title': 'Evidence status',
+  'st.title.pmfby': 'Claim status',
   'st.note': 'Saboot tracks. The officer decides.',
   'st.note.pmfby': 'Saboot tracks. The insurer decides.',
   'st.detected': 'Event detected',

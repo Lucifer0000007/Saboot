@@ -96,7 +96,7 @@ export function Status() {
   const rem = focusReminders(d, v, now);
   return (
     <div class="stack f-stack">
-      <h2 class="f-title">{tr('st.title')}</h2>
+      <h2 class="f-title">{trr('st.title')}</h2>
       <p class="note note-plain"><Icon name="scale" /><span>{trr('st.note')}</span></p>
       <ol class="tl" role="list">
         {items.map((it) => (

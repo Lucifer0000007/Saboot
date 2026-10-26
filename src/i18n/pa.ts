@@ -511,7 +511,8 @@ const pa: Record<string, string | string[]> = {
   'fl.farmer': 'ਕਿਸਾਨ', // needs-native-review
   'fl.event': 'ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਈ', // needs-native-review
 
-  'st.title': 'ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ', // needs-native-review
+  'st.title': 'ਸਬੂਤ ਦੀ ਸਥਿਤੀ', // needs-native-review
+  'st.title.pmfby': 'ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ', // needs-native-review
   'st.note': 'ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ।', // needs-native-review
   'st.note.pmfby': 'ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ।', // needs-native-review
   'st.detected': 'ਘਟਨਾ ਪਛਾਣੀ ਗਈ', // needs-native-review

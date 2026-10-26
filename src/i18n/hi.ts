@@ -511,7 +511,8 @@ const hi: Record<string, string | string[]> = {
   'fl.farmer': 'किसान', // needs-native-review
   'fl.event': 'घटना शुरू हुई', // needs-native-review
 
-  'st.title': 'दावे की स्थिति', // needs-native-review
+  'st.title': 'सबूत की स्थिति', // needs-native-review
+  'st.title.pmfby': 'दावे की स्थिति', // needs-native-review
   'st.note': 'सबूत नज़र रखता है। फ़ैसला अधिकारी करता है।', // needs-native-review
   'st.note.pmfby': 'सबूत नज़र रखता है। फ़ैसला बीमा कंपनी करती है।', // needs-native-review
   'st.detected': 'घटना पहचानी गई', // needs-native-review
