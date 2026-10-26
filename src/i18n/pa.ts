@@ -68,7 +68,6 @@ const pa: Record<string, string | string[]> = {
   'sim.tab.farmer': 'ਕਿਸਾਨ', // needs-native-review
   'sim.tab.insurer': 'ਬੀਮਾ ਕੰਪਨੀ', // needs-native-review
   'sim.tab.insurer.relief': 'ਅਧਿਕਾਰੀ', // needs-native-review
-  'sim.tab.ledger': 'ਲੇਜਰ', // needs-native-review
   'sim.tab.explainer': 'ਵਿਆਖਿਆ', // needs-native-review
   'sim.phoneCap': 'ਕਿਸਾਨ ਦਾ ਫ਼ੋਨ, ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਸੱਚਮੁੱਚ ਚੱਲ ਰਿਹਾ ਹੈ', // needs-native-review
   'sim.loading': 'ਹੜ੍ਹ ਦਾ ਰੀਪਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…', // needs-native-review

@@ -42,7 +42,8 @@ export function installQaHooks() {
     jump: (id: MomentId) => jumpTo(id),
     ensure: (stage: 'captured' | 'sealed' | 'filed') => ensureFocus(stage),
     screen: (s: Screen | null) => (screen.value = s),
-    tab: (tab: SimTab) => (simTab.value = tab),
+    // 'ledger' was a tab of its own; it is now the console's tamper check (audit S-05)
+    tab: (tab: SimTab | 'ledger') => { if (tab === 'ledger') { simTab.value = 'insurer'; insurerView.value = 'ledger'; } else simTab.value = tab; },
     // 'triage' was the separate worklist, merged into the map's ranked list (audit OF-04): the old name still opens it
     insurer: (v: InsurerView | 'triage') => (insurerView.value = v === 'triage' ? 'claims' : v),
     plot: (id: string | null) => (openPlot.value = id),

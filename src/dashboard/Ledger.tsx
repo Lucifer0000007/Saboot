@@ -68,7 +68,7 @@ export function Ledger() {
       <div class="row-between">
         <div class="stack">
           <p class="eyebrow">Audit ledger</p>
-          <h3 id="lg-h" class="h-sm">Every event, hash-chained <span class="cnt num">{c.length}</span></h3>
+          <h4 id="lg-h" class="h-sm">2. Every event, hash-chained <span class="cnt num">{c.length}</span></h4>
           <p class="muted">Append-only. Each record stores SHA-256(previous hash + record), computed in your browser with WebCrypto at <span class="num">{fmtT(t)}</span>. The records describe a simulated cohort; the hashing is real.</p>
         </div>
         <div class="lg-actions">

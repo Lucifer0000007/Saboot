@@ -27,7 +27,7 @@ test('one ranked worklist under the map: no second list view, compact rows on a 
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
   await expect(page.locator('.claims .queue li').first()).toBeVisible({ timeout: 20_000 });
-  await expect(page.locator('.view-seg [role=radio]')).toHaveText([/Map & worklist/, /Draft list/, /Pilot metrics/]);
+  await expect(page.locator('.view-seg [role=radio]')).toHaveText([/Map & worklist/, /Draft list/, /Tamper check/, /Pilot metrics/]);
   const rows = page.locator('.queue > li');
   await expect(rows).toHaveCount(10);
   const tallest = Math.max(...(await rows.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))));
@@ -89,5 +89,26 @@ test('field-staff assignments survive a reload, show on the row and in the drawe
   await page.locator('[data-reset-yes]').click();
   await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
   await expect(page.locator('.queue [data-assigned]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('one tamper check in the console: the real packet and the audit ledger in one view, no Ledger tab; old ledger links land there (S-05)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await expect(page.locator('#st-ledger')).toHaveCount(0);
+  await expect(page.locator('.sim-tabs [role=tab]')).toHaveCount(3);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer'); s.insurer('ledger');`);
+  const view = page.locator('.tcheck');
+  await expect(view.locator('[data-tc-packet]')).toContainText('Try a changed copy', { timeout: 20_000 });
+  await expect(view.locator('.ledger .lg-table tbody tr').first()).toBeVisible({ timeout: 20_000 });
+  // nothing imported yet: the packet card opens the import sheet
+  await view.locator('[data-tc-packet] button', { hasText: 'Import evidence' }).click();
+  await expect(page.locator('.import-sheet')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.goto('/?tab=ledger');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await expect(page.locator('.tcheck')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('[data-view-bar] [aria-checked=true]')).toHaveText(/Tamper check/);
   expect(errors).toEqual([]);
 });

@@ -20,12 +20,13 @@ import { PlotDrawer } from './PlotDrawer';
 import { Pipeline } from './Pipeline';
 import { DraftView } from './DraftView';
 import { Impact } from './Impact';
+import { TamperCheck } from './TamperCheck';
 
 const ImportSheet = lazy(() => import('./Import'), 0);
 
 const VIEWS: Record<'relief' | 'pmfby', [InsurerView, string, IconName][]> = {
-  pmfby: [['claims', 'Map & worklist', 'map'], ['impact', 'Impact (simulated)', 'scale']],
-  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['impact', 'Pilot metrics (simulated)', 'scale']],
+  pmfby: [['claims', 'Map & worklist', 'map'], ['ledger', 'Tamper check', 'shield'], ['impact', 'Impact (simulated)', 'scale']],
+  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['ledger', 'Tamper check', 'shield'], ['impact', 'Pilot metrics (simulated)', 'scale']],
 };
 
 function Kpis() {
@@ -105,6 +106,7 @@ export default function Dashboard() {
         </div>
       )}
       {view === 'draft' && <DraftView />}
+      {view === 'ledger' && <TamperCheck />}
       {view === 'impact' && <Impact />}
       <PlotDrawer />
       {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(null, '', location.pathname + location.search); }} />}

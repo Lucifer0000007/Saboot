@@ -4,8 +4,9 @@ import { signal, computed } from '@preact/signals';
 import { PUBLIC_URL } from '../config';
 
 export type Layout = 'mobile' | 'tablet' | 'desktop';
-export type SimTab = 'farmer' | 'insurer' | 'ledger' | 'explainer';
-export type InsurerView = 'claims' | 'draft' | 'impact';
+export type SimTab = 'farmer' | 'insurer' | 'explainer';
+/** 'ledger' is the tamper check, once a tab of its own (audit S-05). */
+export type InsurerView = 'claims' | 'draft' | 'ledger' | 'impact';
 export type SectionId = 'problem' | 'simulation' | 'how' | 'limits';
 
 const hasDom = typeof window !== 'undefined';
@@ -86,7 +87,7 @@ export function scrollToPhone() {
   el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
-export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
+export interface DeepLink { at?: string; tab?: SimTab; view?: InsurerView; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
 
 /** ?at=alert (QR target), ?tab=insurer, ?rail=pmfby, ?cadence=slow, #how, #k=<payload>; old #/dashboard style links still work. */
 export function readDeepLink(): DeepLink {
@@ -100,7 +101,9 @@ export function readDeepLink(): DeepLink {
   const cad = q.get('cadence');
   if (cad === 'demo' || cad === 'slow') out.cadence = cad;
   const tab = q.get('tab');
-  if (tab && /^(farmer|insurer|ledger|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  if (tab && /^(farmer|insurer|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  // the ledger was a tab of its own: an old link opens the console's tamper check, where it now lives
+  if (tab === 'ledger') { out.tab = 'insurer'; out.view = 'ledger'; }
   // the public site is never a receiver (nothing listens there), so the flag is honoured only on another host: the demo laptop
   const rc = q.get('receiver');
   if (rc === '1' && location.host !== new URL(PUBLIC_URL).host) out.receiver = true;

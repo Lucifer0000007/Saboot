@@ -14,7 +14,7 @@ import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
+import { readDeepLink, scrollToId, scrollToPhone, simTab, insurerView, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
@@ -67,6 +67,7 @@ async function applyDeepLink() {
     if (d.cadence) cadence.value = d.cadence;
     if (d.receiver !== undefined) receiver.value = d.receiver;
     if (d.tab) simTab.value = d.tab;
+    if (d.view) insurerView.value = d.view;
     if (d.k) {
       simTab.value = 'insurer';
       importCode.value = d.k;

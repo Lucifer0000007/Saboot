@@ -102,7 +102,7 @@ test('the live flow: three real photos are sealed on the phone, the laptop check
   await expect(lap.getByRole('button', { name: /Tamper test/ })).toBeEnabled();
 
   // the same code again does not add a second row
-  await sab(lap, `s.tab('insurer');`);
+  await sab(lap, `s.tab('insurer'); s.insurer('claims');`);
   await lap.getByRole('button', { name: /Import evidence/ }).click();
   await lap.getByRole('radio', { name: /Paste code/ }).click();
   await lap.locator('.import-sheet textarea').fill(code);

@@ -1,7 +1,7 @@
 /* Officer console, ledger, triage, impact, plot drawer, import, real-vs-simulated table. Dense and scannable: paper
    tables on silt, tabular figures, sentence-case labels, a kali rule under every table head (docs/DESIGN.md).
    Loaded with the lazy chunks that use it (Vite fetches it before the chunk runs), not inlined into the page. */
-.dash, .ledger, .triage, .impactp { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
+.dash, .ledger, .triage, .impactp, .tcheck { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
 .dash-head { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .dash-head p { max-width: 70ch; }
 
@@ -268,6 +268,11 @@
 .fe-themes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; }
 .fe-themes li { display: flex; align-items: flex-start; gap: 8px; }
 .fe-quote { margin: 0; padding: 8px 14px; border-left: 4px solid var(--haldi-edge); background: var(--haldi-tint); font-size: 0.9375rem; }
+
+/* tamper check: a real packet first, then the ledger */
+.tc-btn { align-self: flex-start; }
+.tc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tc-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
 
 /* ledger */
 .lg-actions { display: flex; flex-wrap: wrap; gap: 8px; }

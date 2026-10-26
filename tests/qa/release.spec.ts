@@ -97,10 +97,11 @@ test('deep links open from a cold start, survive a reload, and the alert countdo
   expect(pm.windowHours).toBe(72);
   await expect(page.locator('[data-tour=alert] .alert-started')).toContainText('when the event began');
   await page.goto('/?at=alert');
-  // at T+0 the ledger has no records yet, so its heading (not its empty table) proves the tab opened
+  // at T+0 the ledger has no records yet, so its heading (not its empty table) proves the view opened; ?tab=ledger is an
+  // old link to the Ledger tab, which is now the console's tamper check (audit S-05)
   const tabs: [string, () => ReturnType<Page['locator']>][] = [
     ['insurer', () => page.locator('.dash')],
-    ['ledger', () => page.getByRole('heading', { name: 'Audit ledger', level: 2 })],
+    ['ledger', () => page.getByRole('heading', { name: /Every event, hash-chained/, level: 4 })],
     ['explainer', () => page.locator('#ex-h')],
   ];
   for (const [q, loc] of tabs) {

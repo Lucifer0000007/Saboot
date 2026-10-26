@@ -72,7 +72,6 @@ const en: Record<string, string | string[]> = {
   'sim.tab.farmer': 'Farmer',
   'sim.tab.insurer': 'Insurer',
   'sim.tab.insurer.relief': 'Officer',
-  'sim.tab.ledger': 'Ledger',
   'sim.tab.explainer': 'Explainer',
   'sim.phoneCap': 'The farmer’s phone, running for real in your browser',
   'sim.loading': 'Loading the flood replay…',

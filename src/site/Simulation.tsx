@@ -15,19 +15,17 @@ import { tourStep, startTour } from '../tour/state';
 import { layout, simTab, panelTab, bigText, type SimTab } from './layout';
 
 export const Dashboard = lazy(() => import('../dashboard/Dashboard'), 900);
-export const LedgerPanel = lazy(() => import('../dashboard/LedgerPanel'), 900);
 export const Explainer = lazy(() => import('../explainer/Explainer'), 900);
 
 const TABS: [SimTab, string, IconName][] = [
   ['farmer', 'sim.tab.farmer', 'phone'],
   ['insurer', 'sim.tab.insurer', 'map'],
-  ['ledger', 'sim.tab.ledger', 'link'],
   ['explainer', 'sim.tab.explainer', 'rain'],
 ];
 
 function Tabs({ tabs, active, label, idPrefix }: { tabs: typeof TABS; active: SimTab; label: string; idPrefix: string }) {
   return (
-    <div class={'sim-tabs' + (tabs.length === 3 ? ' panel-tabs' : '')} role="tablist" aria-label={label}>
+    <div class={'sim-tabs' + (idPrefix === 'pt-' ? ' panel-tabs' : '')} role="tablist" aria-label={label}>
       {tabs.map(([id, k, icon]) => (
         <button
           key={id}
@@ -61,7 +59,6 @@ function Panel({ tab }: { tab: Exclude<SimTab, 'farmer'> }) {
   return (
     <div class="panel" lang="en">
       {tab === 'insurer' && <Dashboard />}
-      {tab === 'ledger' && <LedgerPanel />}
       {tab === 'explainer' && <Explainer />}
     </div>
   );

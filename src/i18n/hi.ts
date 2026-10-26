@@ -68,7 +68,6 @@ const hi: Record<string, string | string[]> = {
   'sim.tab.farmer': 'किसान', // needs-native-review
   'sim.tab.insurer': 'बीमा कंपनी', // needs-native-review
   'sim.tab.insurer.relief': 'अधिकारी', // needs-native-review
-  'sim.tab.ledger': 'लेजर', // needs-native-review
   'sim.tab.explainer': 'व्याख्या', // needs-native-review
   'sim.phoneCap': 'किसान का फ़ोन, आपके ब्राउज़र में सचमुच चल रहा है', // needs-native-review
   'sim.loading': 'बाढ़ का रीप्ले लोड हो रहा है…', // needs-native-review

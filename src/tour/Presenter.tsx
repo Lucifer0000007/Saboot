@@ -8,7 +8,7 @@ import { showToast } from '../lib/announce';
 import { setLang, langReady } from '../lib/i18n';
 import { network, voiceMode, textScale, lowData, rail, cadence } from '../lib/prefs';
 import { SCENARIO } from '../generated/scenario-summary';
-import { simTab, scrollToId, type SimTab } from '../site/layout';
+import { simTab, insurerView, scrollToId, type SimTab } from '../site/layout';
 import { t, toggle, seek, pause, playing, speed, HOURS } from '../sim/engine';
 import { moments, jumpTo, type MomentId } from '../sim/moments';
 import { requestReset } from '../ui/ControlBar';
@@ -22,7 +22,7 @@ const KEYS: [string, string][] = [
   ['← / →', 'Back / forward 1 hour (Shift: 12 hours)'],
   ['1 – 6', 'Trigger · Alert · Capture · Deadline · Confirmation · Draft list (relief only)'],
   ['S', 'Cycle speed 1x / 10x / 100x'],
-  ['F · D · B · E', 'Farmer · Dashboard · Ledger (audit book) · Explainer'],
+  ['F · D · B · E', 'Farmer · Dashboard · Tamper check (audit ledger) · Explainer'],
   ['H', 'Scroll to How it works'],
   ['M', 'Process: relief assessment / PMFBY intimation'],
   ['C', 'Radar passes: demo cadence / slower cadence'],
@@ -61,7 +61,7 @@ function onKey(e: KeyboardEvent) {
     case 's': speed.value = speed.value === 1 ? 10 : speed.value === 10 ? 100 : 1; showToast(`Speed ${speed.value}x`); break;
     case 'f': go('farmer'); break;
     case 'd': go('insurer'); break;
-    case 'b': go('ledger'); break;
+    case 'b': insurerView.value = 'ledger'; go('insurer'); break;
     case 'e': go('explainer'); break;
     case 'h': scrollToId('how'); break;
     case 'm': rail.value = rail.value === 'relief' ? 'pmfby' : 'relief'; showToast(rail.value === 'relief' ? 'Relief assessment: capture-soon advice, officer decides' : 'PMFBY intimation: 72-hour window'); break;

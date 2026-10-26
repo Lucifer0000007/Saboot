@@ -70,9 +70,9 @@ test('R6: an English visit fetches no other language', async ({ page }) => {
 
 test('UI-04: a panel whose chunk never arrives says so after a while, with Reload, instead of spinning for ever', async ({ page }) => {
   test.setTimeout(60_000);
-  await page.route(/\/assets\/LedgerPanel-[^/]*\.js/, () => { /* never answers */ });
+  await page.route(/\/assets\/Explainer-[^/]*\.js/, () => { /* never answers */ });
   await open(page, PHONE, 'en', []);
-  await sab(page, `s.tab('ledger');`);
+  await sab(page, `s.tab('explainer');`);
   const failed = page.locator('.load-failed');
   await expect(failed).toBeVisible({ timeout: 20_000 });
   await expect(failed.getByRole('button')).toHaveText('Reload the page');
@@ -93,7 +93,7 @@ test('UI-04: starting the tour while its chunk is slow shows a loading card on s
 
 test('R4: one dropped shared chunk does not leave the officer console broken: the page reloads once, back on that tab', async ({ page }) => {
   let n = 0;
-  await page.route(/\/assets\/photos-[^/?]*\.js(\?.*)?$/, (r) => (++n === 1 ? r.abort('failed') : r.continue()));
+  await page.route(/\/assets\/state-[^/?]*\.js(\?.*)?$/, (r) => (++n === 1 ? r.abort('failed') : r.continue()));
   await open(page, PHONE, 'en', []);
   await sab(page, `s.tab('insurer');`);
   await expect(page.locator('.dash')).toBeVisible({ timeout: 30_000 });
@@ -104,7 +104,7 @@ test('R4: one dropped shared chunk does not leave the officer console broken: th
 test('R4: a chunk that keeps failing reloads only once, then shows Reload', async ({ page }) => {
   let navs = 0;
   page.on('request', (r) => { if (r.isNavigationRequest()) navs++; });
-  await page.route(/\/assets\/photos-[^/?]*\.js(\?.*)?$/, (r) => r.abort('failed'));
+  await page.route(/\/assets\/state-[^/?]*\.js(\?.*)?$/, (r) => r.abort('failed'));
   await open(page, PHONE, 'en', []);
   await sab(page, `s.tab('insurer');`);
   await expect(page.locator('.load-failed')).toBeVisible({ timeout: 30_000 });
