@@ -29,7 +29,7 @@ const ImportSheet = lazy(() => import('./Import'), 0);
 
 const VIEWS: Record<'relief' | 'pmfby', [InsurerView, string, IconName][]> = {
   pmfby: [['claims', 'Map & worklist', 'map'], ['ledger', 'Tamper check', 'shield'], ['impact', 'Impact (simulated)', 'scale']],
-  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['ledger', 'Tamper check', 'shield'], ['impact', 'Pilot metrics (simulated)', 'scale']],
+  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['ledger', 'Tamper check', 'shield']],
 };
 
 function Kpis() {
@@ -59,7 +59,10 @@ function Kpis() {
 export default function Dashboard() {
   const m = model.value!;
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
-  const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
+  // the relief rail's pilot metrics are a future pilot's figures, not a step in the demo: they sit under the draft list
+  // instead of in a view of their own (audit S-11, FEATURE-MAP F17); an 'impact' link opens the draft list there
+  const relief = rail.value === 'relief';
+  const view = insurerView.value === 'draft' && !relief ? 'claims' : insurerView.value === 'impact' && relief ? 'draft' : insurerView.value;
   useEffect(() => { void loadImported(); void loadAssignments(); void loadNoted(); }, []);
   // the chosen view stays visible in the bar when it scrolls sideways on a phone (the page itself does not move)
   const bar = useRef<HTMLDivElement>(null);
@@ -137,7 +140,7 @@ export default function Dashboard() {
       )}
       {view === 'draft' && <DraftView />}
       {view === 'ledger' && <TamperCheck />}
-      {view === 'impact' && <Impact />}
+      {(view === 'impact' || (view === 'draft' && relief)) && <Impact />}
       <PlotDrawer />
       <ImportedDrawer />
       {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(null, '', location.pathname + location.search); }} />}

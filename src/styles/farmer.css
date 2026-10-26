@@ -220,6 +220,8 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .k-code summary::-webkit-details-marker { display: none; }
 .k-code summary .ic { flex: none; transition: transform var(--t-fast); }
 .k-code[open] summary .ic { transform: rotate(180deg); }
+.fp-future[open] summary .ic:first-child, .al-how[open] summary .ic:first-child { transform: none; }
+.fp-future .link-arrow { justify-content: flex-start; text-align: start; }
 .k-code[open] { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 
 /* helper mode: a card on the home screen, the queue screen, and a bar saying who the app is acting for */

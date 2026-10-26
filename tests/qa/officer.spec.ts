@@ -28,7 +28,8 @@ test('one ranked worklist under the map: no second list view, compact rows on a 
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
   await expect(page.locator('.claims .queue li').first()).toBeVisible({ timeout: 20_000 });
-  await expect(page.locator('.view-seg [role=radio]')).toHaveText([/Map & worklist/, /Draft list/, /Tamper check/, /Pilot metrics/]);
+  // the pilot metrics sit under the draft list, not in a view of their own (S-11)
+  await expect(page.locator('.view-seg [role=radio]')).toHaveText([/Map & worklist/, /Draft list/, /Tamper check/]);
   const rows = page.locator('.queue > li');
   await expect(rows).toHaveCount(10);
   const tallest = Math.max(...(await rows.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))));

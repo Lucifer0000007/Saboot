@@ -663,6 +663,7 @@ const en: Record<string, string | string[]> = {
   'hm.a.view': 'View',
   'hm.note': 'Each farmer’s consent and photos are sealed in that farmer’s own log, with your name on every photo. You only capture. Saboot decides nothing.',
   'hm.phoneBtn': 'A farmer without a smartphone (design simulation)',
+  'hm.fpFuture': 'Future: a farmer with no smartphone?',
   'hm.end': 'End helper session',
   'hm.r.sarpanch': 'Sarpanch',
   'hm.r.csc': 'CSC operator',

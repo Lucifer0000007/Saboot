@@ -645,6 +645,7 @@ const pa: Record<string, string | string[]> = {
   'hm.a.view': 'ਵੇਖੋ', // needs-native-review
   'hm.note': 'ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਫ਼ੋਟੋਆਂ ਉਸੇ ਕਿਸਾਨ ਦੇ ਆਪਣੇ ਲਾਗ ਵਿੱਚ ਸੀਲ ਹੁੰਦੀਆਂ ਹਨ, ਹਰ ਫ਼ੋਟੋ ਉੱਤੇ ਤੁਹਾਡਾ ਨਾਂ ਰਹਿੰਦਾ ਹੈ। ਤੁਸੀਂ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦੇ ਹੋ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
   'hm.phoneBtn': 'ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ (ਡਿਜ਼ਾਈਨ ਸਿਮੂਲੇਸ਼ਨ)', // needs-native-review
+  'hm.fpFuture': 'ਅੱਗੇ: ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ?', // needs-native-review
   'hm.end': 'ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰੋ', // needs-native-review
   'hm.r.sarpanch': 'ਸਰਪੰਚ', // needs-native-review
   'hm.r.csc': 'ਸੀਐੱਸਸੀ ਚਲਾਉਣ ਵਾਲਾ', // needs-native-review

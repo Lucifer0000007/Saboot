@@ -645,6 +645,7 @@ const hi: Record<string, string | string[]> = {
   'hm.a.view': 'देखें', // needs-native-review
   'hm.note': 'हर किसान की सहमति और फ़ोटो उसी किसान के अपने लॉग में सील होती हैं, हर फ़ोटो पर आपका नाम रहता है। आप सिर्फ़ फ़ोटो लेते हैं। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
   'hm.phoneBtn': 'बिना स्मार्टफ़ोन वाला किसान (डिज़ाइन सिमुलेशन)', // needs-native-review
+  'hm.fpFuture': 'आगे: बिना स्मार्टफ़ोन वाला किसान?', // needs-native-review
   'hm.end': 'सहायक सत्र खत्म करें', // needs-native-review
   'hm.r.sarpanch': 'सरपंच', // needs-native-review
   'hm.r.csc': 'सीएससी संचालक', // needs-native-review

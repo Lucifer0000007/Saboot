@@ -148,6 +148,7 @@ test('feature-phone design simulation: a missed call, key 1 asks for a helper, k
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `s.seek(20); s.tab('farmer'); s.screen('helper');`);
   const before = await page.evaluate('window.__sab.state()');
+  await page.locator('[data-fp-future] summary').click(); // the design simulation is folded away (S-11)
   await page.locator('[data-fp-open]').first().click();
   const sheet = page.locator('.fphone-sheet');
   await expect(sheet).toBeVisible();
@@ -192,6 +193,7 @@ test('helper mode keeps the accessibility floor: 48 px targets in the queue and 
     .map((el) => ({ n: (el.textContent ?? el.getAttribute('aria-label') ?? '').trim().slice(0, 30), h: el.getBoundingClientRect().height, w: el.getBoundingClientRect().width }))
     .filter((r) => r.h > 0 && (r.h < 47.5 || r.w < 47.5)));
   expect(small, 'targets under 48 px in the helper queue').toEqual([]);
+  await page.locator('[data-fp-future] summary').click(); // the design simulation is folded away (S-11)
   await page.locator('[data-fp-open]').first().click();
   await page.locator('[data-fp-call]').click();
   const keys = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.fphone-sheet .key-btn')].map((el) => Math.min(el.getBoundingClientRect().height, el.getBoundingClientRect().width)));

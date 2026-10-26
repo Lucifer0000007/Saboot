@@ -102,7 +102,6 @@ export function Helper() {
           </ol>
           <p class="note note-plain"><Icon name="shield" /><span>{tr('hm.note')}</span></p>
           <p class="note note-plain" data-replay-paused><Icon name="clock" /><span>{tr('hm.paused')}</span></p>
-          <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
           {/* one tap away from the feature-phone link: ending asks first (audit H16) */}
           {!ending ? (
             <button type="button" class="pill pill-ghost" data-end-session onClick={() => setEnding(true)}>{tr('hm.end')}</button>
@@ -120,7 +119,11 @@ export function Helper() {
           )}
         </>
       )}
-      {!session && <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>}
+      {/* a future design, not the demo's path: folded away under one heading, with or without a session (audit S-11, FEATURE-MAP F8) */}
+      <details class="k-code fp-future" data-fp-future>
+        <summary><Icon name="phone" size={18} /> <span>{tr('hm.fpFuture')}</span> <Icon name="down" /></summary>
+        <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}>{tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
+      </details>
       {phone && <FeaturePhone onClose={() => setPhone(false)} />}
     </div>
   );
