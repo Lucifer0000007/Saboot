@@ -36,7 +36,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `lang.name.hi` | Hindi | हिन्दी | ਹਿੰਦੀ | needs review / needs review |
 | `lang.name.pa` | Punjabi | पंजाबी | ਪੰਜਾਬੀ | needs review / needs review |
 | `sim.tag` | Simulation | सिमुलेशन | ਸਿਮੂਲੇਸ਼ਨ | needs review / needs review |
-| `sim.tagShort` | Sim | SIM | SIM | needs review / needs review |
+| `sim.tagShort` | Sim | सिम. | ਸਿਮ. | needs review / needs review |
 | `hero.eyebrow` | Disaster crop-loss evidence layer | आपदा में फ़सल-नुकसान के प्रमाण की परत | ਆਫ਼ਤ ਵਿੱਚ ਫ਼ਸਲ-ਨੁਕਸਾਨ ਦੇ ਪ੍ਰਮਾਣ ਦੀ ਪਰਤ | needs review / needs review |
 | `hero.h` | The clock starts at the storm. | घड़ी तूफ़ान के साथ शुरू होती है। | ਘੜੀ ਤੂਫ਼ਾਨ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ। | needs review / needs review |
 | `hero.l1` | Saboot watches rain, river and satellite signals over registered fields, starts the evidence clock when a flood is likely, and calls the farmer in their language. | सबूत पंजीकृत खेतों पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रखता है, बाढ़ की आशंका होते ही प्रमाण की घड़ी शुरू करता है और किसान को उसकी भाषा में फ़ोन करता है। | ਸਬੂਤ ਰਜਿਸਟਰਡ ਖੇਤਾਂ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ, ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੁੰਦੇ ਹੀ ਪ੍ਰਮਾਣ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਕਿਸਾਨ ਨੂੰ ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਫ਼ੋਨ ਕਰਦਾ ਹੈ। | needs review / needs review |
@@ -44,7 +44,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `hero.run` | Run the simulation | सिमुलेशन चलाएँ | ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ | needs review / needs review |
 | `hero.how` | How it works | यह कैसे काम करता है | ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ | needs review / needs review |
 | `hero.clockLabel` | Illustration: a clock that starts counting at the storm | चित्र: एक घड़ी, जो तूफ़ान के साथ गिनना शुरू करती है | ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ | needs review / needs review |
-| `hero.clockCap` | Counted from the event, not from the phone call | घटना के समय से गिनती, फ़ोन कॉल से नहीं | ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਤੀ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ | needs review / needs review |
+| `hero.clockCap` | Illustration: an evidence clock starts at the event, not at the phone call | उदाहरण: प्रमाण की घड़ी घटना के समय से चलती है, फ़ोन कॉल से नहीं | ਉਦਾਹਰਨ: ਸਬੂਤ ਦੀ ਘੜੀ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਚੱਲਦੀ ਹੈ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ | needs review / needs review |
 | `hero.labels` | Every value on screen says where it came from: | स्क्रीन पर हर आँकड़ा बताता है कि वह कहाँ से आया: | ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ: | needs review / needs review |
 | `pb.eyebrow` | The problem | समस्या | ਸਮੱਸਿਆ | needs review / needs review |
 | `pb.h` | Evidence fades faster than assessments happen. | प्रमाण आकलन से पहले ही फीके पड़ जाते हैं। | ਪ੍ਰਮਾਣ ਮੁਲਾਂਕਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਫਿੱਕੇ ਪੈ ਜਾਂਦੇ ਹਨ। | needs review / needs review |
@@ -219,6 +219,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `wf.5.b` | The farmer shows the sealed evidence to the officer. Saboot keeps the audit trail and tracks the officer’s acknowledgement; the officer decides, outside Saboot. | किसान सील किया हुआ प्रमाण अधिकारी को दिखाता है। सबूत ऑडिट रिकॉर्ड रखता है और अधिकारी की पुष्टि पर नज़र रखता है; फ़ैसला अधिकारी करता है, Saboot के बाहर। | ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ। ਸਬੂਤ ਆਡਿਟ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ ਅਤੇ ਅਧਿਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ; ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, ਸਬੂਤ ਦੇ ਬਾਹਰ। | needs review / needs review |
 | `wf.5.b.pmfby` | Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips. | जानकारी आधिकारिक माध्यम के लिए तैयार रहती है (भारत में, उदाहरण के लिए, Crop Insurance App, या Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, जो हेल्पलाइन और शिकायत का माध्यम है)। सबूत पुष्टि पर नज़र रखता है और देर होने पर शिकायत आगे बढ़ाता है। | ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, Crop Insurance App, ਜਾਂ Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਜੋ ਹੈਲਪਲਾਈਨ ਅਤੇ ਸ਼ਿਕਾਇਤ ਦਾ ਰਾਹ ਹੈ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ। | needs review / needs review |
 | `rs.h` | What is real and what is simulated | क्या असली है और क्या सिमुलेटेड | ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ | needs review / needs review |
+| `rs.key` | Real: code that runs in your browser on this page. Simulated: invented data or a scripted stand-in. Partly real: real code working on simulated inputs or services. | असली: वह कोड जो इसी पेज पर आपके ब्राउज़र में चलता है। सिमुलेटेड: गढ़ा हुआ डेटा या पहले से तय नकली हिस्सा। आंशिक रूप से असली: असली कोड, जो सिमुलेटेड इनपुट या सेवाओं पर चलता है। | ਅਸਲੀ: ਉਹ ਕੋਡ ਜੋ ਇਸੇ ਪੰਨੇ ਉੱਤੇ ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਸਿਮੂਲੇਟਡ: ਘੜਿਆ ਹੋਇਆ ਡਾਟਾ ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਤੈਅ ਨਕਲੀ ਹਿੱਸਾ। ਅੰਸ਼ਕ ਤੌਰ ਉੱਤੇ ਅਸਲੀ: ਅਸਲੀ ਕੋਡ, ਜੋ ਸਿਮੂਲੇਟਡ ਇਨਪੁੱਟ ਜਾਂ ਸੇਵਾਵਾਂ ਉੱਤੇ ਚੱਲਦਾ ਹੈ। | needs review / needs review |
 | `rs.c` | Part | हिस्सा | ਹਿੱਸਾ | needs review / needs review |
 | `rs.demo` | In this demo | इस डेमो में | ਇਸ ਡੈਮੋ ਵਿੱਚ | needs review / needs review |
 | `rs.status` | Status | स्थिति | ਸਥਿਤੀ | needs review / needs review |
@@ -350,6 +351,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `al.lastHours` | Capture soon | जल्दी फ़ोटो लें | ਜਲਦੀ ਫ਼ੋਟੋ ਲਓ | needs review / needs review |
 | `al.about` | about {t} | लगभग {t} | ਲਗਭਗ {t} | needs review / needs review |
 | `al.passedWords` | the advice window has passed | सलाह की अवधि बीत गई | ਸਲਾਹ ਦੀ ਮਿਆਦ ਲੰਘ ਗਈ | needs review / needs review |
+| `al.passedLabel` | Capture-soon advice | जल्दी फ़ोटो लेने की सलाह | ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ | needs review / needs review |
+| `al.endedAt` | ended {time} | {time} को खत्म हुई | {time} ਨੂੰ ਖ਼ਤਮ ਹੋਈ | needs review / needs review |
 | `al.advice` | Advice, not a deadline | सलाह, समय-सीमा नहीं | ਸਲਾਹ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ | needs review / needs review |
 | `al.lastHours.pmfby` | Last hours | आख़िरी घंटे | ਆਖ਼ਰੀ ਘੰਟੇ | needs review / needs review |
 | `al.noDamageDone` | Thank you. We recorded: no damage. Nothing more is needed from you. | धन्यवाद। हमने दर्ज किया: कोई नुकसान नहीं। आपसे और कुछ नहीं चाहिए। | ਧੰਨਵਾਦ। ਅਸੀਂ ਦਰਜ ਕੀਤਾ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਤੁਹਾਡੇ ਤੋਂ ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। | needs review / needs review |
@@ -385,6 +388,9 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `pk.sealed` | Sealed | सील किया गया | ਸੀਲ ਕੀਤਾ | needs review / needs review |
 | `pk.unsealed` | Not sealed yet | अभी सील नहीं | ਅਜੇ ਸੀਲ ਨਹੀਂ | needs review / needs review |
 | `pk.location` | Location | जगह | ਥਾਂ | needs review / needs review |
+| `pk.atPlot` | At plot {plot} | प्लॉट {plot} पर | ਪਲਾਟ {plot} ਉੱਤੇ | needs review / needs review |
+| `pk.notChecked` | not checked against the plot | प्लॉट से मिलाकर नहीं देखा गया | ਪਲਾਟ ਨਾਲ ਮਿਲਾ ਕੇ ਨਹੀਂ ਵੇਖਿਆ ਗਿਆ | needs review / needs review |
+| `pk.coords` | Location (coordinates) | जगह (निर्देशांक) | ਥਾਂ (ਨਿਰਦੇਸ਼ਾਂਕ) | needs review / needs review |
 | `pk.hash` | Fingerprint | फ़िंगरप्रिंट | ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ | needs review / needs review |
 | `pk.tech` | Technical details: fingerprint, sync log and tamper-evident log | तकनीकी विवरण: फ़िंगरप्रिंट, सिंक लॉग और छेड़छाड़-सूचक लॉग | ਤਕਨੀਕੀ ਵੇਰਵੇ: ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਿੰਕ ਲੌਗ ਅਤੇ ਛੇੜਛਾੜ-ਸੂਚਕ ਲੌਗ | needs review / needs review |
 | `pk.chain` | Tamper-evident log | छेड़छाड़-रोधी रिकॉर्ड | ਛੇੜਛਾੜ-ਰੋਧੀ ਰਿਕਾਰਡ | needs review / needs review |
@@ -399,11 +405,12 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `pk.server` | Server time | सर्वर का समय | ਸਰਵਰ ਦਾ ਸਮਾਂ | needs review / needs review |
 | `pk.syncNow` | Send now | अभी भेजें | ਹੁਣੇ ਭੇਜੋ | needs review / needs review |
 | `pk.prev` | previous | पिछला | ਪਿਛਲਾ | needs review / needs review |
-| `k.title` | Show it on the judges’ laptop | जजों के लैपटॉप पर दिखाएँ | ਜੱਜਾਂ ਦੇ ਲੈਪਟਾਪ ਉੱਤੇ ਵਿਖਾਓ | needs review / needs review |
-| `k.body` | Turn your sealed packet into a signed code. Only fingerprints, times and a rough location are shared; the photos stay on this phone. | अपने सील किए पैकेट को हस्ताक्षरित कोड में बदलें। केवल फ़िंगरप्रिंट, समय और अनुमानित जगह साझा होती है; फ़ोटो इसी फ़ोन में रहती हैं। | ਆਪਣੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਨੂੰ ਦਸਤਖ਼ਤੀ ਕੋਡ ਵਿੱਚ ਬਦਲੋ। ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਸਾਂਝੀ ਹੁੰਦੀ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
+| `pk.evObjection` | Evidence attached to the draft list | मसौदा सूची में सबूत जोड़ा गया | ਖਰੜਾ ਸੂਚੀ ਨਾਲ ਸਬੂਤ ਜੋੜਿਆ ਗਿਆ | needs review / needs review |
+| `k.title` | Show it to the officer or patwari | अधिकारी या पटवारी को दिखाएँ | ਅਧਿਕਾਰੀ ਜਾਂ ਪਟਵਾਰੀ ਨੂੰ ਵਿਖਾਓ | needs review / needs review |
+| `k.body` | Your proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone. | आपका सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं। | ਤੁਹਾਡਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
 | `k.btn` | Share as a QR code | QR कोड से साझा करें | QR ਕੋਡ ਨਾਲ ਸਾਂਝਾ ਕਰੋ | needs review / needs review |
 | `k.sheet` | Signed evidence code | हस्ताक्षरित प्रमाण कोड | ਦਸਤਖ਼ਤੀ ਪ੍ਰਮਾਣ ਕੋਡ | needs review / needs review |
-| `k.lead` | Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent unless you choose to send it. | यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है। | ਇਹ QR ਕੋਡ ਲੈਪਟਾਪ ਦੇ ਕੈਮਰੇ ਨੂੰ ਵਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਤੁਸੀਂ ਆਪ ਭੇਜੋ, ਤਾਂ ਹੀ ਕੁਝ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ। | needs review / needs review |
+| `k.lead` | Let the officer scan this QR code with their phone or laptop, or copy the code or the link. Nothing is sent unless you choose to send it. | अधिकारी को यह QR कोड अपने फ़ोन या लैपटॉप से स्कैन करने दें, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है। | ਅਧਿਕਾਰੀ ਨੂੰ ਇਹ QR ਕੋਡ ਆਪਣੇ ਫ਼ੋਨ ਜਾਂ ਲੈਪਟਾਪ ਨਾਲ ਸਕੈਨ ਕਰਨ ਦਿਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਤੁਸੀਂ ਆਪ ਭੇਜੋ, ਤਾਂ ਹੀ ਕੁਝ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ। | needs review / needs review |
 | `k.send` | Send to the laptop | लैपटॉप को भेजें | ਲੈਪਟਾਪ ਨੂੰ ਭੇਜੋ | needs review / needs review |
 | `k.sendHelp` | Sends only this signed code to the laptop this page was opened from. Photos stay on the phone. | केवल यह हस्ताक्षरित कोड उस लैपटॉप को भेजा जाता है जहाँ से यह पेज खोला गया। फ़ोटो फ़ोन में ही रहती हैं। | ਸਿਰਫ਼ ਇਹ ਦਸਤਖ਼ਤੀ ਕੋਡ ਉਸ ਲੈਪਟਾਪ ਨੂੰ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ ਜਿੱਥੋਂ ਇਹ ਪੰਨਾ ਖੋਲ੍ਹਿਆ ਗਿਆ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
 | `k.sending` | Sending… | भेजा जा रहा है… | ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ… | needs review / needs review |
@@ -417,7 +424,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `k.bundleNote` | Open format, designed to be ingestible by other systems. It is not an integration with any system. Photos stay on the phone. | खुला प्रारूप, जिसे दूसरे सिस्टम पढ़ सकें। यह किसी सिस्टम से जुड़ा हुआ नहीं है। फ़ोटो फ़ोन में ही रहती हैं। | ਖੁੱਲ੍ਹਾ ਫਾਰਮੈਟ, ਜਿਸ ਨੂੰ ਹੋਰ ਸਿਸਟਮ ਪੜ੍ਹ ਸਕਣ। ਇਹ ਕਿਸੇ ਸਿਸਟਮ ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਨਹੀਂ ਹੈ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
 | `k.share` | Share link | लिंक साझा करें | ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ | needs review / needs review |
 | `k.copied` | Copied | कॉपी हो गया | ਕਾਪੀ ਹੋ ਗਿਆ | needs review / needs review |
-| `k.code` | The code | कोड | ਕੋਡ | needs review / needs review |
+| `k.code` | Technical details: the code and a data file | तकनीकी विवरण: कोड और डेटा फ़ाइल | ਤਕਨੀਕੀ ਵੇਰਵੇ: ਕੋਡ ਅਤੇ ਡਾਟਾ ਫ਼ਾਈਲ | needs review / needs review |
 | `k.making` | Signing your packet… | आपके पैकेट पर हस्ताक्षर हो रहे हैं… | ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ… | needs review / needs review |
 | `k.stay` | Photos stay on this phone. The code holds only their fingerprints. | फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं। | ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ। | needs review / needs review |
 | `k.fail` | Could not make the code. Check that your photos are sealed, then try again. | कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें। | ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
@@ -439,13 +446,16 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `fe.note` | Not simulated: anonymous conversations with verbal consent, listed in docs/INTERVIEWS.md. What people said is their own account, not a finding. | सिमुलेटेड नहीं: मौखिक सहमति से की गई गुमनाम बातचीत, docs/INTERVIEWS.md में दर्ज। लोगों ने जो कहा वह उनका अपना अनुभव है, कोई निष्कर्ष नहीं। | ਸਿਮੂਲੇਟ ਨਹੀਂ: ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਗੱਲਾਂ, docs/INTERVIEWS.md ਵਿੱਚ ਦਰਜ। ਲੋਕਾਂ ਨੇ ਜੋ ਕਿਹਾ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ, ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ। | needs review / needs review |
 | `fe.strip` | {n} interviews · {states} states · {roles} roles | {n} इंटरव्यू · {states} राज्य · {roles} भूमिकाएँ | {n} ਇੰਟਰਵਿਊ · {states} ਰਾਜ · {roles} ਭੂਮਿਕਾਵਾਂ | needs review / needs review |
 | `fe.target` | {state} interviews: {n} so far. | {state} में इंटरव्यू: अब तक {n}। | {state} ਵਿੱਚ ਇੰਟਰਵਿਊ: ਹੁਣ ਤੱਕ {n}। | needs review / needs review |
+| `fe.next` | Next: interviews in {state}. | अगला कदम: {state} में इंटरव्यू। | ਅਗਲਾ ਕਦਮ: {state} ਵਿੱਚ ਇੰਟਰਵਿਊ। | needs review / needs review |
 | `fe.letters` | Letters of interest: {n} | रुचि-पत्र: {n} | ਦਿਲਚਸਪੀ ਦੇ ਪੱਤਰ: {n} | needs review / needs review |
 | `fe.users` | People using it: {n} | इसे इस्तेमाल करने वाले लोग: {n} | ਇਸ ਨੂੰ ਵਰਤਣ ਵਾਲੇ ਲੋਕ: {n} | needs review / needs review |
 | `fe.raised` | What interviewees raised | इंटरव्यू में लोगों ने क्या बताया | ਇੰਟਰਵਿਊ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਕੀ ਦੱਸਿਆ | needs review / needs review |
 | `fe.theme` | Reported in {state}: {theme} | {state} में बताया गया: {theme} | {state} ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ: {theme} | needs review / needs review |
 | `fe.quote` | “{quote}” ({role}, {state}) | “{quote}” ({role}, {state}) | “{quote}” ({role}, {state}) | needs review / needs review |
 | `fe.landing.h` | We asked the people who do this work | हमने उन लोगों से पूछा जो यह काम करते हैं | ਅਸੀਂ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਪੁੱਛਿਆ ਜੋ ਇਹ ਕੰਮ ਕਰਦੇ ਹਨ | needs review / needs review |
-| `fe.landing.note` | Anonymous phone conversations with verbal consent; recording was not part of it. The list is in docs/INTERVIEWS.md. What they told us is their own account. | मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। सूची docs/INTERVIEWS.md में है। उन्होंने जो बताया वह उनका अपना अनुभव है। | ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਸੂਚੀ docs/INTERVIEWS.md ਵਿੱਚ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ। | needs review / needs review |
+| `fe.landing.note` | Anonymous phone conversations with verbal consent; recording was not part of it. What they told us is their own account. | मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। उन्होंने जो बताया वह उनका अपना अनुभव है। | ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ। | needs review / needs review |
+| `fe.who` | Who we spoke to | हमने किनसे बात की | ਅਸੀਂ ਕਿਨ੍ਹਾਂ ਨਾਲ ਗੱਲ ਕੀਤੀ | needs review / needs review |
+| `fe.listLink` | The full list, in the project’s code | पूरी सूची, प्रोजेक्ट के कोड में | ਪੂਰੀ ਸੂਚੀ, ਪ੍ਰੋਜੈਕਟ ਦੇ ਕੋਡ ਵਿੱਚ | needs review / needs review |
 | `fe.role.patwari` | Patwari | पटवारी | ਪਟਵਾਰੀ | needs review / needs review |
 | `fe.role.assessor` | Insurer loss assessor | बीमा कंपनी के नुक़सान आकलनकर्ता | ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਨੁਕਸਾਨ ਮੁਲਾਂਕਣਕਾਰ | needs review / needs review |
 | `fe.role.farmer` | Farmer | किसान | ਕਿਸਾਨ | needs review / needs review |
@@ -463,7 +473,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `fl.s1.pmfby` | Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App. | Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, पर फ़ोन करें, या Crop Insurance App खोलें। | Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ Crop Insurance App ਖੋਲ੍ਹੋ। | needs review / needs review |
 | `fl.s2` | Give your plot number and show the details on this screen. | अपना खेत नंबर बताएँ और इस स्क्रीन का ब्योरा दिखाएँ। | ਆਪਣਾ ਖੇਤ ਨੰਬਰ ਦੱਸੋ ਅਤੇ ਇਸ ਸਕ੍ਰੀਨ ਦਾ ਵੇਰਵਾ ਵਿਖਾਓ। | needs review / needs review |
 | `fl.s2.pmfby` | Say: crop loss from flood. Give your policy number and plot number. | कहें: बाढ़ से फ़सल का नुकसान। अपना पॉलिसी नंबर और खेत नंबर बताएँ। | ਕਹੋ: ਹੜ੍ਹ ਨਾਲ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ। ਆਪਣਾ ਪਾਲਿਸੀ ਨੰਬਰ ਅਤੇ ਖੇਤ ਨੰਬਰ ਦੱਸੋ। | needs review / needs review |
-| `fl.s3` | If asked, read out your evidence fingerprint. | पूछे जाने पर अपने सबूत का फ़िंगरप्रिंट पढ़कर सुनाएँ। | ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣੇ ਸਬੂਤ ਦਾ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। | needs review / needs review |
+| `fl.s3` | If asked, read out your check code (8 digits). | पूछे जाने पर अपना जाँच कोड (8 अंक) पढ़कर सुनाएँ। | ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣਾ ਜਾਂਚ ਕੋਡ (8 ਅੰਕ) ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। | needs review / needs review |
+| `fl.check` | Check code | जाँच कोड | ਜਾਂਚ ਕੋਡ | needs review / needs review |
 | `fl.s4` | Write down any receipt or entry number you are given. | आपको जो भी रसीद या प्रविष्टि नंबर मिले, उसे लिख लें। | ਤੁਹਾਨੂੰ ਜੋ ਵੀ ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ ਮਿਲੇ, ਉਹ ਲਿਖ ਲਓ। | needs review / needs review |
 | `fl.s4.pmfby` | Write down the reference number they give you. | वे जो संदर्भ संख्या दें, उसे लिख लें। | ਉਹ ਜੋ ਹਵਾਲਾ ਨੰਬਰ ਦੇਣ, ਉਸ ਨੂੰ ਲਿਖ ਲਓ। | needs review / needs review |
 | `fl.ref` | Receipt or entry number | रसीद या प्रविष्टि नंबर | ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ | needs review / needs review |
@@ -479,7 +490,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `fl.deadline.pmfby` | Report before | इससे पहले रिपोर्ट करें | ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਰਿਪੋਰਟ ਕਰੋ | needs review / needs review |
 | `fl.farmer` | Farmer | किसान | ਕਿਸਾਨ | needs review / needs review |
 | `fl.event` | Event began | घटना शुरू हुई | ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਈ | needs review / needs review |
-| `st.title` | Claim status | दावे की स्थिति | ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ | needs review / needs review |
+| `st.title` | Evidence status | सबूत की स्थिति | ਸਬੂਤ ਦੀ ਸਥਿਤੀ | needs review / needs review |
+| `st.title.pmfby` | Claim status | दावे की स्थिति | ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ | needs review / needs review |
 | `st.note` | Saboot tracks. The officer decides. | सबूत नज़र रखता है। फ़ैसला अधिकारी करता है। | ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। | needs review / needs review |
 | `st.note.pmfby` | Saboot tracks. The insurer decides. | सबूत नज़र रखता है। फ़ैसला बीमा कंपनी करती है। | ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। | needs review / needs review |
 | `st.detected` | Event detected | घटना पहचानी गई | ਘਟਨਾ ਪਛਾਣੀ ਗਈ | needs review / needs review |
