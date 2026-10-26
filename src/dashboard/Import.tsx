@@ -21,6 +21,8 @@ import { Details } from './PacketDetails';
 import { Seal } from '../ui/Seal';
 
 const NO_CRYPTO = 'This page cannot check signatures here. Open it over https, or on localhost.';
+/** A touch screen is a phone or tablet in the field: its own camera points at the farmer's QR code (audit OF-15). */
+const touch = () => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
 
 function Checks({ res }: { res: KResult }) {
   const steps: [string, boolean | null][] = [
@@ -118,12 +120,24 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
     setReceivedAt(Date.now());
     setAdded(false);
     announce(r.ok ? 'Integrity verified: not altered since sealing.' : `Verification failed: ${r.reason}`);
+    // the verdict, not the code box, is what to read next: bring it up inside the sheet (audit OF-16)
+    requestAnimationFrame(() => document.querySelector('.import-sheet .k-result')?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   };
+  /** Paste from the clipboard, where the browser allows it; a refusal leaves the box as it was for a manual paste. */
+  async function pasteClip() {
+    try {
+      const c = (await navigator.clipboard.readText()).trim();
+      if (!c) return;
+      setText(c); setOriginal(null);
+      void run(c);
+    } catch { /* the person pastes into the box by hand */ }
+  }
   useEffect(() => { if (initial) void run(initial); }, []);
   useEffect(() => {
     if (mode !== 'scan' || !video.current) return;
     setCamErr(null);
-    return scanQr(video.current, (c) => { setText(codeFromQrText(c)); setMode('paste'); void run(c); }, () => setCamErr('No camera available here. Paste the code or open the link instead.'));
+    // no camera (or no permission): go straight to the paste box, saying why (audit OF-15)
+    return scanQr(video.current, (c) => { setText(codeFromQrText(c)); setMode('paste'); void run(c); }, () => { setCamErr('No camera available here, so this is the paste box. Paste the code or open the link instead.'); setMode('paste'); });
   }, [mode]);
 
   async function add() {
@@ -167,16 +181,20 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
         <Received onClose={onClose} />
       ) : mode === 'scan' ? (
         <div class="k-scan">
-          <video ref={video} muted playsInline aria-label="Webcam preview for QR scanning" />
-          {camErr ? <p class="note note-warn"><Icon name="info" /><span>{camErr}</span></p> : <p class="muted">Hold the farmer’s phone up to the webcam.</p>}
+          <video ref={video} muted playsInline aria-label="Camera preview for QR scanning" />
+          <p class="muted" data-scan-hint>{touch() ? 'Point this phone’s camera at the QR code on the farmer’s phone.' : 'Hold the farmer’s phone up to the webcam.'}</p>
         </div>
       ) : (
         <form class="stack" onSubmit={(e) => { e.preventDefault(); setOriginal(null); void run(text); }}>
+          {camErr && <p class="note note-warn" data-cam-err><Icon name="info" /><span>{camErr}</span></p>}
           <label class="field">
             <span>Evidence code or link</span>
             <textarea class="input k-text" rows={4} value={text} onInput={(e) => { setText((e.currentTarget as HTMLTextAreaElement).value); setRes(null); setOriginal(null); setAdded(false); }} spellcheck={false} />
           </label>
-          <button type="submit" class="pill pill-dark" disabled={!text.trim()}><Icon name="shield" /> Verify</button>
+          <div class="row">
+            <button type="submit" class="pill pill-dark" disabled={!text.trim()}><Icon name="shield" /> Verify</button>
+            {typeof navigator !== 'undefined' && !!navigator.clipboard?.readText && <button type="button" class="pill pill-ghost" data-paste-clip onClick={() => void pasteClip()}><Icon name="paste" size={16} /> Paste from clipboard</button>}
+          </div>
         </form>
       )}
       {res && (

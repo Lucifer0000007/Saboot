@@ -299,3 +299,37 @@ test('map on a phone: opens a step in on the demo village so plots are at least 
   await expect(page.locator('.drawer .sheet-head')).toContainText(spot!.id!);
   expect(errors).toEqual([]);
 });
+
+test('import sheet on a phone: phone wording for the camera, the paste box when there is no camera, and the verdict brought into view (OF-15, OF-16)', async ({ browser }) => {
+  const ctx = await browser.newContext({ baseURL: 'http://localhost:4330', serviceWorkers: 'block', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await ctx.newPage();
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  // a phone with no camera: getUserMedia refuses
+  await page.addInitScript(() => { Object.defineProperty(navigator, 'mediaDevices', { value: { getUserMedia: () => Promise.reject(new DOMException('none', 'NotFoundError')) } }); });
+  await page.goto('/');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3);`);
+  const code = (await page.evaluate('window.__sab.kcode()')) as string;
+  await sab(page, `s.tab('insurer');`);
+  await page.getByRole('button', { name: /Import evidence/ }).first().click();
+  const sheet = page.locator('.import-sheet');
+  await expect(sheet.getByRole('radio', { name: /Paste code/ })).toHaveAttribute('aria-checked', 'true', { timeout: 10_000 });
+  await expect(sheet.locator('[data-cam-err]')).toContainText('No camera available here');
+  await sheet.locator('textarea').fill(code);
+  await sheet.getByRole('button', { name: /^Verify/ }).click();
+  await expect(sheet.locator('.k-result .note-ok')).toBeInViewport({ timeout: 10_000 });
+  await ctx.close();
+  // with a camera that answers, a touch screen is told to point this phone's camera at the QR code
+  const ctx2 = await browser.newContext({ baseURL: 'http://localhost:4330', serviceWorkers: 'block', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const p2 = await ctx2.newPage();
+  await p2.addInitScript(() => { Object.defineProperty(navigator, 'mediaDevices', { value: { getUserMedia: () => new Promise(() => {}) } }); });
+  await p2.goto('/?tab=insurer');
+  await p2.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await p2.evaluate('window.__sab.ready()');
+  await p2.getByRole('button', { name: /Import evidence/ }).first().click();
+  await expect(p2.locator('.import-sheet [data-scan-hint]')).toHaveText('Point this phone’s camera at the QR code on the farmer’s phone.');
+  await ctx2.close();
+  expect(errors).toEqual([]);
+});
