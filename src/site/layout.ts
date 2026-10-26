@@ -68,7 +68,10 @@ if (hasDom) {
     if (Math.abs(innerWidth - lastW) > 100 && (anchor || mark)) {
       const a = anchor, sel = mark;
       resizedAt = performance.now();
-      requestAnimationFrame(() => (a?.isConnected ? a : sel ? document.querySelector(sel) : null)?.scrollIntoView({ block: 'center' }));
+      const back = () => (a?.isConnected ? a : sel ? document.querySelector(sel) : null)?.scrollIntoView({ block: 'center' });
+      // once at the next frame, and again when a layout switch (the phone frame) has re-rendered the views
+      requestAnimationFrame(back);
+      setTimeout(back, 350);
     }
     lastW = innerWidth;
   });
