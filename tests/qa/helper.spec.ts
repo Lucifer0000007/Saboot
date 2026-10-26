@@ -309,6 +309,27 @@ test('H9: offline, the queue row and the strip say which farmer’s evidence sti
   expect(errors).toEqual([]);
 });
 
+test('H10: one farmer can take a copy of their own data, or have it deleted, and the other farmers keep theirs', async ({ page }) => {
+  const errors: string[] = [];
+  const { readFileSync } = await import('node:fs');
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(2); s.active('P-05'); s.tab('farmer'); s.screen('packet'); s.settings(true);`);
+  const box = page.locator('[data-farmer-data]');
+  await expect(box).toContainText('Mohinder Dhillon’s data on this phone');
+  const [dl] = await Promise.all([page.waitForEvent('download'), box.locator('[data-farmer-export]').click()]);
+  const json = readFileSync((await dl.path())!, 'utf8');
+  expect(JSON.parse(json)).toMatchObject({ kind: 'saboot.farmer-export', plot: 'P-05' });
+  expect(json).not.toContain('P-06');
+  await box.locator('[data-farmer-delete]').click();
+  await expect(box.locator('[data-farmer-delete-ask]')).toContainText('Other farmers’ data stays');
+  await box.locator('[data-farmer-delete-yes]').click();
+  await expect(page.locator('[data-helper-screen]')).toBeVisible();
+  await expect.poll(async () => Object.keys(await logs(page)).sort()).toEqual(['P-06']);
+  await expect(page.locator('[data-farmer="P-05"]')).toContainText('Waiting for consent');
+  await expect(page.locator('[data-farmer="P-06"]')).toContainText('Evidence sealed');
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

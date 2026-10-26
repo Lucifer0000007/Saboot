@@ -176,6 +176,49 @@ export async function deleteMyData() {
   await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported'), dbDel('kv', 'k-send-queue')]);
 }
 
+/**
+ * One farmer's copy: that farmer's own log (consent, photo fingerprints, seal) and nothing about anyone else. What a helper
+ * hands over when one farmer asks (as.means3, audit H10). Photos are not in it: they stay on the phone.
+ */
+export function exportFarmerData(key: string) {
+  return {
+    kind: 'saboot.farmer-export',
+    v: 1,
+    simulation: true,
+    note: 'One farmer’s log from this phone in the Saboot simulation: their consent, photo fingerprints and seal. Photos are not included; they stay on the phone. Nothing was uploaded.',
+    plot: key,
+    log: logs.value[key] ?? [],
+  };
+}
+
+/** Delete one farmer's log, photos, spoken consent and queued items from this phone. Every other farmer's evidence stays. */
+export async function deleteFarmerData(key: string) {
+  await exclusive(async () => {
+    const owned = (c: Link[]) => c.flatMap((l) => {
+      const e = l.body;
+      if (e.type === 'shot') return [e.data.photoId];
+      if (e.type === 'consent' && e.data.audioSha) return ['consent-' + e.data.audioSha.slice(0, 16)];
+      return [];
+    });
+    // the same photo file can sit in two farmers' logs (it is flagged as reused): it stays while another log holds it
+    const others = new Set(Object.entries(logs.value).filter(([k]) => k !== key).flatMap(([, c]) => owned(c)));
+    const mine = owned(await currentLog(key)).filter((id) => !others.has(id));
+    const rest = { ...logs.value };
+    delete rest[key];
+    logs.value = rest;
+    for (const id of mine) { const u = photoUrls.get(id); if (u) URL.revokeObjectURL(u); photoUrls.delete(id); }
+    const queued = await Promise.all((await dbKeys('outbox')).map(async (k) => [k, await dbGet<OutboxEntry>('outbox', k)] as const));
+    const sends = (await dbGet<{ plot: string }[]>('kv', 'k-send-queue')) ?? [];
+    await Promise.all([
+      dbDel('kv', kvKey(key)),
+      dbSet('kv', IDS, Object.keys(rest).filter((k) => k !== DEMO)),
+      dbSet('kv', 'k-send-queue', sends.filter((s) => s.plot !== key)),
+      ...mine.map((id) => dbDel('photos', id)),
+      ...queued.filter(([, e]) => e?.plot === key).map(([k]) => dbDel('outbox', k)),
+    ]);
+  });
+}
+
 /** What each log shows at sim time t: the demo farmer's view, and the view of every farmer a helper has captured for. */
 export function liveViews(at: number): { focus: FocusView; live: Record<string, FocusView> } {
   const live: Record<string, FocusView> = {};

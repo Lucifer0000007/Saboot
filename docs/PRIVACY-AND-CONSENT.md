@@ -93,9 +93,12 @@ In Settings, under *Your data on this phone*:
 - **Delete my data from this phone** (with a confirmation step) removes **every** log, photo, queued item, helper session, the
   phone's signing key and any imported packets. It cannot be undone.
 
-Both act on the whole phone, not on one farmer. On a helper's phone that means one farmer's request exports or erases every
-farmer's log. Per-farmer export and delete are not built in this prototype; a pilot needs them before a helper's phone holds
-more than one farmer's evidence.
+Both act on the whole phone, for the phone's owner. In helper mode, with a farmer open, Settings also shows
+*{farmer}'s data on this phone*, which acts on that one farmer only:
+
+- **Copy of {farmer}'s data (JSON)** gives that farmer's own log and nothing about any other farmer.
+- **Delete {farmer}'s data from this phone** (with a confirmation step) removes that farmer's log, photos, spoken consent,
+  queued items and queued sends. Every other farmer's evidence stays; a photo file another farmer's log also holds stays too.
 
 In the simulation nothing exists anywhere else, so deleting on the phone deletes everything. In a pilot, withdrawing consent
 would also have to reach the officer's office: how a withdrawal changes a draft list that already names the plot is a process

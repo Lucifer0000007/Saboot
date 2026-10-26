@@ -685,5 +685,12 @@ const hi: Record<string, string | string[]> = {
   'set.deleteYes': 'हाँ, मिटाएँ', // needs-native-review
   'set.deleteNo': 'मेरा डेटा रहने दें', // needs-native-review
   'set.deleted': 'आपका डेटा इस फ़ोन से मिटा दिया गया।', // needs-native-review
+  'set.farmerData': 'इस फ़ोन पर {farmer} का डेटा', // needs-native-review
+  'set.farmerDataHelp': 'सिर्फ़ {farmer} की सहमति, फ़ोटो और सील किया गया पैकेट। किसी दूसरे किसान का डेटा नहीं छुआ जाता।', // needs-native-review
+  'set.farmerExport': '{farmer} के डेटा की कॉपी (JSON)', // needs-native-review
+  'set.farmerDelete': 'इस फ़ोन से {farmer} का डेटा मिटाएँ', // needs-native-review
+  'set.farmerDeleteAsk': 'इस फ़ोन से {farmer} की फ़ोटो, सहमति और सील किया गया पैकेट मिटाएँ? दूसरे किसानों का डेटा रहेगा। इसे वापस नहीं किया जा सकता।', // needs-native-review
+  'set.farmerKeep': 'रहने दें', // needs-native-review
+  'set.farmerDeleted': '{farmer} का डेटा इस फ़ोन से मिटा दिया गया।', // needs-native-review
 };
 export default hi;

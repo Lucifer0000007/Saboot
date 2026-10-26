@@ -685,5 +685,12 @@ const pa: Record<string, string | string[]> = {
   'set.deleteYes': 'ਹਾਂ, ਮਿਟਾਓ', // needs-native-review
   'set.deleteNo': 'ਮੇਰਾ ਡਾਟਾ ਰਹਿਣ ਦਿਓ', // needs-native-review
   'set.deleted': 'ਤੁਹਾਡਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ।', // needs-native-review
+  'set.farmerData': 'ਇਸ ਫ਼ੋਨ ਉੱਤੇ {farmer} ਦਾ ਡਾਟਾ', // needs-native-review
+  'set.farmerDataHelp': 'ਸਿਰਫ਼ {farmer} ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ। ਕਿਸੇ ਦੂਜੇ ਕਿਸਾਨ ਦਾ ਡਾਟਾ ਨਹੀਂ ਛੂਹਿਆ ਜਾਂਦਾ।', // needs-native-review
+  'set.farmerExport': '{farmer} ਦੇ ਡਾਟੇ ਦੀ ਕਾਪੀ (JSON)', // needs-native-review
+  'set.farmerDelete': 'ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦਾ ਡਾਟਾ ਮਿਟਾਓ', // needs-native-review
+  'set.farmerDeleteAsk': 'ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ ਮਿਟਾਉਣਾ ਹੈ? ਦੂਜੇ ਕਿਸਾਨਾਂ ਦਾ ਡਾਟਾ ਰਹੇਗਾ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।', // needs-native-review
+  'set.farmerKeep': 'ਰਹਿਣ ਦਿਓ', // needs-native-review
+  'set.farmerDeleted': '{farmer} ਦਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ।', // needs-native-review
 };
 export default pa;

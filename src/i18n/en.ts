@@ -704,5 +704,12 @@ const en: Record<string, string | string[]> = {
   'set.deleteYes': 'Yes, delete',
   'set.deleteNo': 'Keep my data',
   'set.deleted': 'Your data was deleted from this phone.',
+  'set.farmerData': '{farmer}’s data on this phone',
+  'set.farmerDataHelp': 'Only {farmer}’s consent, photos and sealed packet. No other farmer’s data is touched.',
+  'set.farmerExport': 'Copy of {farmer}’s data (JSON)',
+  'set.farmerDelete': 'Delete {farmer}’s data from this phone',
+  'set.farmerDeleteAsk': 'Delete {farmer}’s photos, consent and sealed packet from this phone? Other farmers’ data stays. This cannot be undone.',
+  'set.farmerKeep': 'Keep it',
+  'set.farmerDeleted': '{farmer}’s data was deleted from this phone.',
 };
 export default en;
