@@ -115,7 +115,10 @@
 /* who the team spoke to: real people, so the FIELD chip and a haldi edge, set apart from the simulation */
 .field-people { display: flex; flex-direction: column; gap: var(--s2); margin-top: var(--s3); border-left: 5px solid var(--haldi-edge); }
 .field-people .fe-strip { font-family: var(--font-head); font-weight: var(--weight-head); font-size: var(--fs-h-sm); line-height: var(--lh-head); }
-.fp-more summary { min-height: 48px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.fp-more summary { list-style: none; min-height: 48px; display: flex; align-items: center; gap: var(--s1); cursor: pointer; font-weight: 600; }
+.fp-more summary::-webkit-details-marker { display: none; }
+.fp-more summary .ic { flex: none; transition: transform var(--t-fast); }
+.fp-more[open] summary .ic { transform: rotate(180deg); }
 .fp-more .link-arrow { display: inline-flex; margin-top: var(--s2); }
 .fp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); gap: var(--s1) var(--s3); }
 .fp-list li { display: flex; flex-direction: column; padding: var(--s1) 0; border-top: 1px solid var(--rule); min-width: 0; }

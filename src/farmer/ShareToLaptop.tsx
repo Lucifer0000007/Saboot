@@ -104,7 +104,7 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
           )}
           {/* the data file and the raw code are for the officer's systems, not for the farmer (audit F12) */}
           <details class="k-code">
-            <summary>{tr('k.code')}</summary>
+            <summary><span>{tr('k.code')}</span><Icon name="down" /></summary>
             <p class="hash">{code}</p>
             <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
             <p class="f-help">{tr('k.bundleNote')}</p>

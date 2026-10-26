@@ -110,7 +110,7 @@ function FieldPeople() {
       <p class="fe-strip">{tr('fe.strip', { n: c.interviews, states: c.states, roles: c.roles })}</p>
       {/* one row per role and state is long on a phone: the list opens on request (audit J20) */}
       <details class="fp-more" data-fp-more>
-        <summary>{tr('fe.who')}</summary>
+        <summary><span>{tr('fe.who')}</span><Icon name="down" /></summary>
         <ul class="fp-list" role="list">
           {[...rows.values()].map((r) => (
             <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
