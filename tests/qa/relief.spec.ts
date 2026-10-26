@@ -255,9 +255,11 @@ test('worklist cells: the advice countdown has a clock under 24 h and words unde
   await expect(mix.locator('li')).toHaveCount(3);
   await expect(mix.locator('li svg')).toHaveCount(3);
   await expect(mix.locator('li').first()).toContainText(/supported/);
-  // a week in, a plot that reached the officer is "shown": there is no verdict on timing on the relief rail
+  // a week in, a plot that reached the officer has its evidence in: the time cell gives no time and no verdict on timing
+  // (audit OF-11: it used to repeat the stage, "Shown to the officer")
   await sab(page, `s.seek(168);`);
-  await expect(page.locator('.queue')).toContainText('Shown to the officer');
+  await expect(page.locator('.queue [data-tl-in]').first()).toHaveText('— (evidence in)');
+  expect((await page.locator('.queue .qcell[data-l="Advice left"]').allTextContents()).join(' ')).not.toContain('Shown to the officer');
   await expect(page.locator('.queue')).not.toContainText('Shown in time');
   expect(errors).toEqual([]);
 });

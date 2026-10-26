@@ -20,8 +20,9 @@ export function TimeLeft({ r }: { r: Row }) {
   if (s.stage === 'no-damage') return <span class="muted">Closed (no damage)</span>;
   const done = s.times.fileT !== null && (s.stage === 'filed' || s.stage === 'acknowledged');
   const pm = s.rail === 'pmfby';
-  // the relief window is advice, so a plot that reached the officer is simply "shown": no verdict on timing
-  if (done) return <span class="tl-ok"><Icon name="okShape" size={16} /> {pm ? 'Reported in time' : 'Shown to the officer'}</span>;
+  // the relief window is advice, so once the evidence is in there is no time left to show and no verdict on timing; the
+  // stage says it was shown (audit OF-11). PMFBY keeps "Reported in time", a real timing outcome.
+  if (done) return pm ? <span class="tl-ok"><Icon name="okShape" size={16} /> Reported in time</span> : <span class="muted" data-tl-in>— (evidence in)</span>;
   if (s.timeLeft <= 0) return pm ? <span class="tl-bad"><Icon name="barShape" size={16} /> Window closed</span> : <span class="muted"><Icon name="info" size={16} /> Advice passed</span>;
   // same tones as the farmer's countdown: ink above 24 h, amber with a clock below it, plus a word under 6 h
   const left = s.timeLeft;
