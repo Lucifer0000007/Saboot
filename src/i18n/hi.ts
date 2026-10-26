@@ -430,11 +430,11 @@ const hi: Record<string, string | string[]> = {
   'pk.syncNow': 'अभी भेजें', // needs-native-review
   'pk.prev': 'पिछला', // needs-native-review
 
-  'k.title': 'जजों के लैपटॉप पर दिखाएँ', // needs-native-review
-  'k.body': 'अपने सील किए पैकेट को हस्ताक्षरित कोड में बदलें। केवल फ़िंगरप्रिंट, समय और अनुमानित जगह साझा होती है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
+  'k.title': 'अधिकारी या पटवारी को दिखाएँ', // needs-native-review
+  'k.body': 'आपका सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
   'k.btn': 'QR कोड से साझा करें', // needs-native-review
   'k.sheet': 'हस्ताक्षरित प्रमाण कोड', // needs-native-review
-  'k.lead': 'यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है।', // needs-native-review
+  'k.lead': 'अधिकारी को यह QR कोड अपने फ़ोन या लैपटॉप से स्कैन करने दें, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है।', // needs-native-review
   'k.send': 'लैपटॉप को भेजें', // needs-native-review
   'k.sendHelp': 'केवल यह हस्ताक्षरित कोड उस लैपटॉप को भेजा जाता है जहाँ से यह पेज खोला गया। फ़ोटो फ़ोन में ही रहती हैं।', // needs-native-review
   'k.sending': 'भेजा जा रहा है…', // needs-native-review
