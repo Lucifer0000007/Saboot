@@ -201,6 +201,9 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   // the helper's phone: the signed code, and who captured, marked as not signed
   await page.locator('[data-tour=share] button').click();
   await expect(page.locator('.share-sheet .qr')).toBeVisible({ timeout: 20_000 });
+  // H8: the sheet says whose code it is, and who captured
+  await expect(page.locator('.share-sheet [data-share-farmer]')).toContainText('Mohinder Dhillon · P-05');
+  await expect(page.locator('.share-sheet [data-share-farmer]')).toContainText('Captured by QA helper, Sarpanch');
   await expect(page.locator('.share-sheet')).toContainText('Open format, designed to be ingestible by other systems. It is not an integration with any system.');
   await page.locator('.share-sheet details.k-code summary').click(); // the data file sits in the technical details
   const phone = await grab('.share-sheet [data-export-bundle]');
