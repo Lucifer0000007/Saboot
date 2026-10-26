@@ -1,5 +1,5 @@
 import { computed } from '@preact/signals';
-import { model, demoDet, seek, pause } from './engine';
+import { model, demoDet, seek, pause, activePlotId } from './engine';
 import { full, ensureFocus, SCRIPT } from '../farmer/focus';
 import { screen } from '../farmer/nav';
 import { insurerView } from '../site/layout';
@@ -30,6 +30,8 @@ export const moments = computed<Moment[]>(() => {
 
 export async function jumpTo(id: MomentId) {
   pause();
+  // every moment is the demo farmer's story: a jump never acts for a farmer a helper has open (audit CC-01)
+  activePlotId.value = null;
   if (id === 'capture') await ensureFocus('captured');
   if (id === 'deadline' || id === 'confirm' || id === 'draft') await ensureFocus('filed');
   const mm = moments.value.find((x) => x.id === id);

@@ -483,8 +483,14 @@ export const policyNo = (plotId: string) => `SIM-KSG-26-${plotId.replace('P-', '
 export const SCRIPT = { capture: 3, seal: 3.1, ref: 5.1, ackDue: 48, escalate: 72, ack: 70, survey: 30, objectionResponse: 20 };
 
 let ensuring: Promise<unknown> = Promise.resolve();
-/** One catch-up at a time: two jumps at once (a double tap, a presenter key pressed twice) would each add the same photos. */
-export function ensureFocus(stage: 'captured' | 'sealed' | 'filed'): Promise<void> {
+/**
+ * One catch-up at a time: two jumps at once (a double tap, a presenter key pressed twice) would each add the same photos.
+ * The script only ever writes to the demo farmer's log: a jump or a tour step while a helper is acting for a farmer first
+ * goes back to the demo farmer, so no scripted photo lands in a real farmer's log without their consent (audit CC-01).
+ * `helped` is for the QA helper demo alone, which records each farmer's consent before it catches up for them.
+ */
+export function ensureFocus(stage: 'captured' | 'sealed' | 'filed', helped = false): Promise<void> {
+  if (!helped) activePlotId.value = null;
   const run = ensuring.then(() => catchUp(stage));
   ensuring = run.catch(() => undefined);
   return run;

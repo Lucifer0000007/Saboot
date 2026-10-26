@@ -233,6 +233,21 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   expect(errors).toEqual([]);
 });
 
+test('CC-01: a presenter jump while a helper has a farmer open goes back to the demo farmer and writes nothing into that farmer’s log', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); await s.jump('capture');`);
+  const l = await logs(page);
+  expect(l['P-06'], 'nothing scripted in the helped farmer’s log').toBeUndefined();
+  expect(l.$demo.shotHelpers).toHaveLength(3);
+  await expect(page.locator('[data-helper-bar]')).toHaveCount(0);
+  await expect(page.locator('.farmer .f-who strong')).toHaveText('Harjit Kaur');
+  // a tour step that catches up on its own goes the same way
+  await sab(page, `s.active('P-06'); await s.ensure('sealed');`);
+  expect((await logs(page))['P-06']).toBeUndefined();
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

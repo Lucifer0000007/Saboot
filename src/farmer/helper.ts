@@ -99,7 +99,7 @@ export async function helperDemo(n: number, who = { name: 'QA helper', role: 'Sa
           text: `I, ${q.plot.name}, allow ${who.name} to take photos of my field and send them for my crop loss report.`,
         });
       }
-      await ensureFocus('sealed');
+      await ensureFocus('sealed', true);
     }
   } finally {
     t.value = back;
