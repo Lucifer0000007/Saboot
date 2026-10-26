@@ -47,3 +47,23 @@ test('the objection card shows the farmer their own draft-list entry, labelled s
   await expect(card.getByRole('button', { name: 'Looks wrong: attach my evidence' })).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('with no Hindi voice on the phone, the alert says why it is silent and how to get a voice; no online voice is used', async ({ page }) => {
+  const errors: string[] = [];
+  // the phone offers only an online Hindi voice: it must not be used
+  await page.addInitScript(() => {
+    const remote = { lang: 'hi-IN', localService: false, name: 'Online Hindi', voiceURI: 'x', default: true };
+    const spoken: unknown[] = [];
+    (window as unknown as { __spoken: unknown[] }).__spoken = spoken;
+    speechSynthesis.getVoices = () => [remote as unknown as SpeechSynthesisVoice];
+    speechSynthesis.speak = (u) => { spoken.push(u); };
+  });
+  await open(page, V('360x640'), 'hi', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('home');`);
+  await page.locator('.farmer .voice-btn').first().click();
+  const na = page.locator('.farmer [data-voice-na]').first();
+  await expect(na).toContainText('हिन्दी');
+  await expect(na).toContainText('सिमुलेटेड');
+  expect(await page.evaluate('window.__spoken.length')).toBe(0);
+  expect(errors).toEqual([]);
+});

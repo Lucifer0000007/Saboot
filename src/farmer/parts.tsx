@@ -35,7 +35,8 @@ export function VoiceCaption({ id, text, clip, label, lang }: { id: string; text
           return <span key={i} class={cur ? 'cur' : undefined}>{s}</span>;
         })}
       </p>
-      {voiceNA.value === l && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
+      {/* why it is silent and what to do (audit F7); the alert and registration messages also say they come as a call */}
+      {voiceNA.value === l && <p class="note note-warn" role="status" data-voice-na><Icon name="info" /><span>{tr('f.voiceNA', { lang: tr('lang.name.' + l) })}{clip ? ' ' + tr('f.voiceCall') : ''}</span></p>}
     </div>
   );
 }

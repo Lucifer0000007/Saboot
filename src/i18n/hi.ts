@@ -318,7 +318,8 @@ const hi: Record<string, string | string[]> = {
   'f.read': 'सुनें', // needs-native-review
   'f.stop': 'रोकें', // needs-native-review
   'f.captions': 'कैप्शन', // needs-native-review
-  'f.voiceNA': 'इस फ़ोन पर इस भाषा में आवाज़ उपलब्ध नहीं है। कृपया कैप्शन पढ़ें।', // needs-native-review
+  'f.voiceNA': 'इस फ़ोन में {lang} की अपनी आवाज़ नहीं है, इसलिए कुछ नहीं बजाया गया: सबूत ऐप आपके शब्द किसी ऑनलाइन आवाज़ को कभी नहीं भेजता। कृपया कैप्शन पढ़ें, या फ़ोन की टेक्स्ट-टू-स्पीच सेटिंग में {lang} आवाज़ जोड़ें।', // needs-native-review
+  'f.voiceCall': 'असल इस्तेमाल में यह संदेश फ़ोन कॉल से भी आता है (यहाँ सिमुलेटेड)।', // needs-native-review
   'conn.label': 'फ़ोन नेटवर्क', // needs-native-review
   'conn.online': 'ऑनलाइन', // needs-native-review
   'conn.weak': 'कमज़ोर सिग्नल (2G)', // needs-native-review

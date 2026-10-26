@@ -318,7 +318,8 @@ const pa: Record<string, string | string[]> = {
   'f.read': 'ਸੁਣੋ', // needs-native-review
   'f.stop': 'ਰੋਕੋ', // needs-native-review
   'f.captions': 'ਕੈਪਸ਼ਨ', // needs-native-review
-  'f.voiceNA': 'ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਪਸ਼ਨ ਪੜ੍ਹੋ।', // needs-native-review
+  'f.voiceNA': 'ਇਸ ਫ਼ੋਨ ਵਿੱਚ {lang} ਦੀ ਆਪਣੀ ਆਵਾਜ਼ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਕੁਝ ਨਹੀਂ ਚਲਾਇਆ ਗਿਆ: ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਸ਼ਬਦ ਕਿਸੇ ਔਨਲਾਈਨ ਆਵਾਜ਼ ਨੂੰ ਕਦੇ ਨਹੀਂ ਭੇਜਦੀ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਪਸ਼ਨ ਪੜ੍ਹੋ, ਜਾਂ ਫ਼ੋਨ ਦੀ ਟੈਕਸਟ-ਟੂ-ਸਪੀਚ ਸੈਟਿੰਗ ਵਿੱਚ {lang} ਆਵਾਜ਼ ਜੋੜੋ।', // needs-native-review
+  'f.voiceCall': 'ਅਸਲ ਵਰਤੋਂ ਵਿੱਚ ਇਹ ਸੁਨੇਹਾ ਫ਼ੋਨ ਕਾਲ ਰਾਹੀਂ ਵੀ ਆਉਂਦਾ ਹੈ (ਇੱਥੇ ਸਿਮੂਲੇਟਡ)।', // needs-native-review
   'conn.label': 'ਫ਼ੋਨ ਨੈੱਟਵਰਕ', // needs-native-review
   'conn.online': 'ਆਨਲਾਈਨ', // needs-native-review
   'conn.weak': 'ਕਮਜ਼ੋਰ ਸਿਗਨਲ (2G)', // needs-native-review
