@@ -110,3 +110,16 @@ test('the officer console marks the demo farmer as the demo phone, not as "Your 
   await expect(page.locator('.drawer .tag.you')).toHaveText('Demo phone');
   expect(errors).toEqual([]);
 });
+
+test('the last pipeline step is named after its lane: Department decides on relief, Officer decision on PMFBY', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('1440x900'), 'en', errors);
+  await sab(page, `await s.jump('confirm'); s.tab('insurer');`);
+  const last = page.locator('.pipe .pipe-node.outside').first();
+  await expect(last.locator('.pipe-who')).toHaveText('Department', { timeout: 20_000 });
+  await expect(last.locator('.pipe-pill')).toHaveText('Department decides');
+  await sab(page, `s.rail('pmfby');`);
+  await expect(last.locator('.pipe-who')).toHaveText('Officer');
+  await expect(last.locator('.pipe-pill')).toHaveText('Officer decision');
+  expect(errors).toEqual([]);
+});
