@@ -70,6 +70,12 @@ Graph / Twitter tags, and `npm run qr` encodes it, so the three can never disagr
 `.github/workflows/pages.yml` is a manual backup (it runs only from the Actions tab, never on push). Any static host
 works the same way (Vercel, Cloudflare Pages: publish `dist/`).
 
+**How the live site gets updated.** The live site (`moonlit-pixie-248afc`) is linked to this repository in Netlify:
+**every merge to `main` builds and publishes it to production**, and a pull request gets a deploy preview (which needs a
+Netlify login to open). Netlify runs `npm run build` only; the tests run in CI (`.github/workflows/ci.yml`)
+and locally (`npm run verify`), so run them before merging. `npm run deploy` is a different path: it publishes this clone's
+linked Netlify site by hand, after the full gate.
+
 **HTTP headers** are defined once, in `public/_headers` (`netlify.toml` holds build settings only): a Content
 Security Policy with no `unsafe-inline` scripts (the build hashes the three inline scripts), `nosniff`, no framing,
 `strict-origin-when-cross-origin` referrers, a Permissions-Policy that allows only camera, microphone and
@@ -304,7 +310,7 @@ Playwright + axe QA matrix, and Lighthouse.
 | Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 to 98 / 100 / 100 on all three pages |
 | LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 / 2.1 to 2.5 s on the landing and alert pages; 2.4 to 3.2 s on `?tab=insurer`, depending on machine load (the same reading with and without the newest landing section) |
 | INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 to 200 ms run to run on this machine (the previous build reads the same spread) |
-| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (611 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 246 unit tests; 46 Firefox and WebKit smoke tests |
+| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (613 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 246 unit tests; 46 Firefox and WebKit smoke tests |
 
 QA matrix: 20 states × 7 viewports (360×640 to 1440×900) × English/Hindi/Punjabi, plus pseudo-localisation (+40%), 200% text,
 the in-app 150% text on a 360 px phone, reflow at 320 px, reduced motion, anchors under sticky chrome, offline after first
@@ -374,7 +380,7 @@ local (`npm run verify`). An outside review of the repository is answered point 
   by QR, paste or link, or, when you run the optional demo receiver on the laptop (`scripts/receipt-server.mjs`), by a
   POST of the same signed code to that laptop, which stamps its own clock and verifies nothing. There is no other backend.
 - Feature K proves a packet was not altered after sealing; it cannot prove who sealed it or that the phone clock was right.
-- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: Playwright's WebKit and Firefox builds pass all 46 smoke checks, none skipped, and Firefox hashes and signs a packet like Chrome (the earlier note that its `crypto.subtle` did not work was wrong). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
+- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: Playwright's WebKit and Firefox builds pass all 46 smoke checks, none skipped, and Firefox hashes and signs a packet like Chrome (an earlier note that its `crypto.subtle` failed no longer reproduces). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
   a low-end Android phone are on the manual test list.
 - The tamper test edits the in-memory ledger only; a reload or Restore puts it back.
 - Lighthouse uses simulated throttling against a local server with compression; real devices vary.

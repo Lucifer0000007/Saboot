@@ -1,13 +1,14 @@
 # Security
 
-Saboot is a **prototype**: a front-end-only simulation with synthetic data and a fictional district. It has no backend, no
-accounts and no real personal data, and the only network call it makes beyond its own files is the optional demo receiver on the
-owner's laptop (`scripts/receipt-server.mjs`, off by default). Please read this with that in mind.
+Saboot is a **prototype**: a front-end-only simulation with synthetic data and a fictional district. It has no backend and no
+accounts, the farmers and plots in it are synthetic, photos and a location taken on a phone stay on that phone unless the person
+shares a code, and the only network call it makes beyond its own files is the optional demo receiver on the owner's laptop
+(`scripts/receipt-server.mjs`, off by default). Please read this with that in mind.
 
 ## Report a problem
 
-Use GitHub's private route: the **Security** tab of this repository → **Report a vulnerability**. If that is not available to
-you, open an issue that says only "security report, please contact me" and no details, and the owner will reach out. Please do
+Use GitHub's private route (enabled for this repository): the **Security** tab → **Report a vulnerability**. If that is not
+available to you, open an issue that says only "security report, please contact me" and no details, and the owner will reach out. Please do
 not post exploit details in a public issue.
 
 ## What is most worth reporting

@@ -18,13 +18,15 @@ vectors and both verifiers (`src/k/payload.ts` and the independent `scripts/veri
   packet; per-farmer sub-keys or a signed helper assertion. Also to define: what happens when site data is cleared and the
   non-extractable key is lost (packets already sealed keep verifying, because each carries its public key).
 - **A monotonic clock anchor.** Record `performance.now()` beside `Date.now()` at seal time, so a clock changed on the phone shows
-  as an inconsistency and not only as a phone-versus-receipt gap.
+  as an inconsistency and not only as a phone-versus-receipt gap. It only catches a clock changed while the page is open:
+  `performance.now()` restarts at zero on every load, so a clock that was wrong before the page loaded stays invisible.
 - **Real timestamps** with a stated clock source, a longer plot identifier, and a perceptual photo hash (see below).
 
 ## Detection
 
 - **Per-rule precision and recall in the console.** The consistency check shows the combined result of the rules against the
-  simulator's own truth. A per-rule breakdown would show which rule produces the false alarms. Rule C is the noisy one by design.
+  simulator's own truth. A per-rule breakdown would show which rule produces the false alarms: computed from the model, Rule A
+  fires on 3 plots (all flooded), Rule B on 22 (20 flooded), Rule C on 32 (20 flooded), so every false alarm is Rule C's.
 - **Rule C false alarms.** Rule C alerts every plot in the river's reach, flooded or not; the farmer's "no damage" reply closes
   each at no cost, and the explainer says so. Options once real data exists: two consecutive readings above the danger level, a
   minimum rate of rise, or a reach-and-lag range per plot. Each changes every published count, so it is decided on evidence.
