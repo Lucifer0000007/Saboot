@@ -13,7 +13,7 @@ import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult, type KPayl
 import { scanQr } from '../k/scan';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { download } from '../lib/download';
-import { addImported, importedLabel, imported } from '../k/imported';
+import { addImported, importedLabel, imported, photoReuse } from '../k/imported';
 import { receiver } from '../lib/prefs';
 import { receipts, type Receipt as ReceiptEntry } from '../k/receipt';
 import { GAP_FLAG_H } from '../farmer/focus';
@@ -112,8 +112,12 @@ function Received({ onClose }: { onClose: () => void }) {
 function Details({ res, receivedAt }: { res: KResult; receivedAt: number }) {
   const p = res.payload!;
   const plot = model.value?.plots.find((x) => x.id === p.plot);
+  const reused = photoReuse(p, imported.value);
   return (
     <div class="k-details">
+      {reused.length > 0 && (
+        <p class="note note-warn" data-photo-reuse><Icon name="flag" /><span><strong>Same photo file as another plot.</strong> The {reused.map((r) => `${r.kind} photo matches one in the packet for ${r.plot}`).join('; ')}. A flag to ask the farmer about, not a finding: Saboot decides nothing.</span></p>
+      )}
       <dl class="facts">
         <div><dt>Plot</dt><dd>{p.plot}{plot ? ` · ${plot.name} · ${plot.village}` : ''} <ProvTag prov="sim" english /></dd></div>
         <div><dt>Event began</dt><dd class="num">{fmtT(p.eventT)}</dd></div>
