@@ -3,7 +3,7 @@ import { tr, trr } from '../../lib/i18n';
 import { rail } from '../../lib/prefs';
 import { railHardDeadline } from '../../config';
 import { fmtClock, fmtDur } from '../../lib/time';
-import { t, model, focusPlot, focusDet } from '../../sim/engine';
+import { t, model, focusPlot, focusDet, activePlotId } from '../../sim/engine';
 import { view, reportNoDamage, policyNo } from '../focus';
 import { screen } from '../nav';
 import { backToQueue } from '../helper';
@@ -56,6 +56,7 @@ export function Home() {
   const windowH = d.deadlineT! - d.eventT!;
   const expired = left <= 0;
   const done = v.shotCount >= 3;
+  const needConsent = activePlotId.value !== null && !v.consent;
   // once the relief advice window has passed, the label stops saying "Best to capture within" (audit J16)
   const clockLabel = expired && !hard ? tr('al.passedLabel') : trr('al.clock');
 
@@ -101,14 +102,20 @@ export function Home() {
       ) : (
         <>
           <VoiceCaption id="alert" text={trr('al.voice')} clip={'alert-' + rail.value} label={tr('al.play')} />
-          <div class="f-row2">
+          {needConsent ? (
+            // a helper records nothing for a farmer, not even "no damage", before that farmer agrees (audit CC-02, H3)
+            <div class="stack" data-need-consent>
+              <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: p.name })}</span></p>
+              <button type="button" class="pill pill-ghost" onClick={() => (screen.value = 'assist')}>{tr('cap.askConsent')} <span class="arrow" aria-hidden="true">→</span></button>
+            </div>
+          ) : <div class="f-row2">
             <button type="button" class="pill pill-ghost" onClick={() => reportNoDamage()}>
               <Icon name="check" /> {tr('al.noDamage')}
             </button>
             <button type="button" class="pill pill-ghost" onClick={() => (screen.value = 'assist')}>
               <Icon name="users" /> {tr('al.help')}
             </button>
-          </div>
+          </div>}
         </>
       )}
       <HelperCard />

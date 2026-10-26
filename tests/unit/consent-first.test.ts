@@ -8,7 +8,7 @@ import { rawScenario, seek, activePlotId } from '../../src/sim/engine.ts';
 import { network } from '../../src/lib/prefs.ts';
 import { dbClear } from '../../src/lib/db.ts';
 import { appendLink } from '../../src/lib/hash.ts';
-import { logs, addShot, seal, recordConsent, type FocusEvent, type Link } from '../../src/farmer/focus.ts';
+import { logs, addShot, seal, recordConsent, reportNoDamage, type FocusEvent, type Link } from '../../src/farmer/focus.ts';
 import type { ScenarioRaw } from '../../src/sim/types.ts';
 
 rawScenario.value = JSON.parse(readFileSync(new URL('../../public/data/flood-replay.json', import.meta.url), 'utf8')) as ScenarioRaw;
@@ -53,6 +53,20 @@ test('a seal over real photos is refused without consent', async () => {
   logs.value = { 'P-05': c };
   await assert.rejects(seal(), { name: 'ConsentMissing' });
   assert.deepEqual(types('P-05'), ['shot']);
+});
+
+test('CC-02: "no damage" is refused for a farmer who has not agreed, and recorded once they have', async () => {
+  await assert.rejects(reportNoDamage(), { name: 'ConsentMissing' });
+  assert.deepEqual(types('P-05'), []);
+  await agree('Test Farmer');
+  await reportNoDamage();
+  assert.deepEqual(types('P-05'), ['consent', 'no_damage']);
+});
+
+test('the demo farmer reports "no damage" for themself, with no consent step', async () => {
+  activePlotId.value = null;
+  await reportNoDamage();
+  assert.deepEqual(types('$demo'), ['no_damage']);
 });
 
 test('a photo lands in the log of the farmer whose consent was checked, even if the helper moves on while it is saved', async () => {

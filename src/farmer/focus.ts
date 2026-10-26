@@ -466,7 +466,12 @@ export async function syncOutbox() {
 }
 
 export const recordRef = (ref: string) => append({ type: 'ref', simT: t.value, data: { ref: ref.trim().toUpperCase() } });
-export const reportNoDamage = (undo = false) => append({ type: 'no_damage', simT: t.value, data: { undo } });
+/** A helper records "no damage" for a farmer only once that farmer has agreed, as for photos (audit CC-02). */
+export async function reportNoDamage(undo = false) {
+  const key = activeKey.value;
+  if (!undo) await requireConsent(key);
+  return append({ type: 'no_damage', simT: t.value, data: { undo } }, key);
+}
 export const recordConsent = (c: Consent) => append({ type: 'consent', simT: t.value, data: c });
 /** Attach the sealed packet to the published draft list (relief rail). Saboot never resolves it: the officer does, outside Saboot. */
 export async function fileObjection() {

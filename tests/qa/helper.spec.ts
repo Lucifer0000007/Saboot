@@ -248,6 +248,19 @@ test('CC-01: a presenter jump while a helper has a farmer open goes back to the 
   expect(errors).toEqual([]);
 });
 
+test('CC-02, H3: the Home tab offers no "no damage" for a farmer who has not agreed; it asks for consent instead', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); s.screen('home');`);
+  const need = page.locator('.farmer [data-need-consent]');
+  await expect(need).toContainText('has not agreed yet');
+  await expect(page.getByRole('button', { name: /no damage/i })).toHaveCount(0);
+  await need.getByRole('button', { name: /Ask for consent/ }).click();
+  await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
+  expect((await logs(page))['P-06']).toBeUndefined();
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
