@@ -188,6 +188,8 @@ byte; `verify.sh` reconstruction. Tool disables and pins in `docs/TOOLS.md` rema
 ## 5. Blocked log
 None. Three tasks needed a second attempt (section 4).
 
+Open gate note (workstream W6): `node scripts/lighthouse.mjs` fails one line, `/?tab=insurer interactive` at 3.4 to 3.5 s against 3.0 s, in a full three-URL run on this machine. The same build passes (2.3 s) when that URL runs alone, and commit 3709764, from before W6, gives 3.48 s in the same full run, so it is not a W6 regression. Every other Lighthouse line passes, including CLS on that URL (0.019, after the loading-state fix). Left for the owner to re-run on a quiet machine.
+
 ## 6. Compliance check
 Instruction | met, partly or not | evidence | gap. "Met" is claimed only where a file, test or command shows it. Rows are updated at
 each checkpoint and at the end.
