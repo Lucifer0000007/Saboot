@@ -95,7 +95,7 @@ export function PlotList() {
                   </td>
                   <td data-l="Farmer">
                     {p.name} <span class="lang-code">{LANG[p.lang]}</span>
-                    {r.s.persona === 'focus' && <span class="tag you">You</span>}
+                    {r.s.persona === 'focus' && <span class="tag you">Demo phone</span>}
                   </td>
                   <td data-l="Stage">
                     {stageLabel(r.s)}

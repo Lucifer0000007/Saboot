@@ -136,7 +136,7 @@ export function DraftView() {
                     {e.unconfirmed ? <span class="muted">Unconfirmed</span> : <>{Math.round(e.floodShareLo * 100)}–{Math.round(e.floodShareHi * 100)}%<span class="sub">radar estimate, about {Math.round(e.floodShare * 100)}%</span></>}
                     {e.atOrAboveShareParameter && !e.unconfirmed && <span class="tag tag-share">At or above the share parameter</span>}
                   </td>
-                  <td data-l="Objection"><Objection e={e} />{r.s.persona === 'focus' && <span class="tag you">You</span>}</td>
+                  <td data-l="Objection"><Objection e={e} />{r.s.persona === 'focus' && <span class="tag you">Demo phone</span>}</td>
                 </tr>
               );
             })}

@@ -172,7 +172,7 @@ export function PlotDrawer() {
   const s = r.s, p = s.plot, t = tSlow.value;
   return (
     <Sheet
-      title={<>{p.id} · {p.name}{s.persona === 'focus' && <span class="tag you">Your farmer</span>}</>}
+      title={<>{p.id} · {p.name}{s.persona === 'focus' && <span class="tag you">Demo phone</span>}</>}
       onClose={() => (openPlot.value = null)}
       closeLabel="Close plot details"
       class="drawer"

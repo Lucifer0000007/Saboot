@@ -100,3 +100,13 @@ test('review priority says it is a sort key and points to the evidence band for 
   await expect(page.locator('.triage').first().locator('p.muted').first()).toContainText('Priority is a sort key from fixed rules, not a measurement');
   expect(errors).toEqual([]);
 });
+
+test('the officer console marks the demo farmer as the demo phone, not as "Your farmer" or "You"', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('draft'); s.tab('insurer'); s.insurer('draft');`);
+  await expect(page.locator('.draft .tag.you')).toHaveText('Demo phone', { timeout: 20_000 });
+  await sab(page, `s.plot('P-04');`);
+  await expect(page.locator('.drawer .tag.you')).toHaveText('Demo phone');
+  expect(errors).toEqual([]);
+});
