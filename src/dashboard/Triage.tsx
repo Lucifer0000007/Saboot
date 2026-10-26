@@ -71,7 +71,7 @@ export function Triage() {
           <h3 id="tr-h" class="h-sm">{relief ? 'Assessment worklist' : 'District triage · inspection queue'}</h3>
           <p class="muted">
             {relief ? 'For the officer’s office: where should limited field staff go first?' : 'For the district agriculture office: where should limited field inspectors go first?'}{' '}
-            Priority = {pct(W.ambiguity)}% evidence ambiguity + {pct(W.urgency)}% urgency + {pct(W.area)}% area + {pct(W.flags)}% integrity flags. It ranks review work; it never decides a claim.
+            Priority = {pct(W.ambiguity)}% evidence ambiguity + {pct(W.urgency)}% urgency + {pct(W.area)}% area + {pct(W.flags)}% integrity flags. It ranks review work; it never decides a claim. Priority is a sort key from fixed rules, not a measurement: its uncertainty is the evidence band beside it.
           </p>
           <span class="tag tag-sim" data-sim-label><span class="dot" aria-hidden="true" />Simulated cohort</span>
         </div>

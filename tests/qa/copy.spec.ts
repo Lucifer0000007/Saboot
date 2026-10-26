@@ -90,3 +90,13 @@ test('the draft list and the drawer show the flooded share as a range inside 0-1
   await expect(page.locator('.drawer [data-share]')).toContainText(/flooded share now: \d+–\d+%, about \d+%/);
   expect(errors).toEqual([]);
 });
+
+test('review priority says it is a sort key and points to the evidence band for its uncertainty', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  await expect(page.locator('[data-pri-note]')).toContainText('sort key for review order, not a measurement', { timeout: 20_000 });
+  await sab(page, `s.insurer('triage');`);
+  await expect(page.locator('.triage').first().locator('p.muted').first()).toContainText('Priority is a sort key from fixed rules, not a measurement');
+  expect(errors).toEqual([]);
+});

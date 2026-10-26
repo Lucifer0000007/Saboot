@@ -49,6 +49,7 @@ export function PlotList() {
           </select>
         </label>
       </div>
+      <p class="muted" data-pri-note>Priority is a sort key for review order, not a measurement; the uncertainty is in the evidence band.</p>
       {list.length === 0 && importedRows.value.length === 0 ? (
         <p class="note note-plain"><Icon name="info" /><span>No plots match the filter yet. Play the replay or jump to “Trigger”.</span></p>
       ) : (
