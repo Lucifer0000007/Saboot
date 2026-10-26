@@ -193,3 +193,24 @@ test('the tour has a tamper step: it opens the ledger at a populated moment, run
   await expect(page.locator('[data-lg-restore]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test('the hero starts the tour first and offers to explore; the banner and the menu reach the same actions', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await expect(page.locator('#hero-cta')).toHaveText(/Take the 2-minute tour/);
+  await expect(page.locator('.hero .cta-row a')).toHaveText('Explore it yourself');
+  await page.locator('#hero-cta').click();
+  await expect(page.locator('.tour-card')).toBeVisible({ timeout: 20_000 });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.tour-card')).toHaveCount(0);
+  // the banner's "Skip to demo" plays the replay, as "Explore it yourself" does
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await sab(page, `s.seek(0);`);
+  await page.locator('.ann a').click();
+  await expect.poll(async () => ((await page.evaluate('window.__sab.state()')) as { t: number }).t, { timeout: 10_000 }).toBeGreaterThan(0);
+  await page.locator('.nav-menu').click();
+  await page.locator('.menu-sheet [data-menu-tour]').click();
+  await expect(page.locator('.menu-sheet')).toHaveCount(0);
+  await expect(page.locator('.tour-card')).toBeVisible({ timeout: 20_000 });
+  expect(errors).toEqual([]);
+});

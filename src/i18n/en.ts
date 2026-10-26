@@ -36,8 +36,7 @@ const en: Record<string, string | string[]> = {
   'hero.h': 'The clock starts at the storm.',
   'hero.l1': 'Saboot watches rain, river and satellite signals over registered fields, starts the evidence clock when a flood is likely, and calls the farmer in their language.',
   'hero.l2': 'It guides photos that work offline and seals them so any edit shows. The officer who assesses the loss gets a ranked, checkable trail.',
-  'hero.run': 'Run the simulation',
-  'hero.how': 'How it works',
+  'hero.run': 'Explore it yourself',
   'hero.clockLabel': 'Illustration: a clock that starts counting at the storm',
   'hero.clockCap': 'Illustration: an evidence clock starts at the event, not at the phone call',
   'hero.labels': 'Every value on screen says where it came from:',
@@ -90,6 +89,8 @@ const en: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'The officer console is shown in English.',
   'tour.invite': 'New here? Take the 2-minute judge tour.',
   'tour.start': 'Start tour',
+  'tour.hero': 'Take the 2-minute tour',
+  'tour.menu': 'Guided tour, 2 minutes',
   'tour.loading': 'Loading the tour…',
   'tour.dismiss': 'Dismiss',
 

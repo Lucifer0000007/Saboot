@@ -36,8 +36,7 @@ const pa: Record<string, string | string[]> = {
   'hero.h': 'ਘੜੀ ਤੂਫ਼ਾਨ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।', // needs-native-review
   'hero.l1': 'ਸਬੂਤ ਰਜਿਸਟਰਡ ਖੇਤਾਂ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ, ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੁੰਦੇ ਹੀ ਪ੍ਰਮਾਣ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਕਿਸਾਨ ਨੂੰ ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਫ਼ੋਨ ਕਰਦਾ ਹੈ।', // needs-native-review
   'hero.l2': 'ਇਹ ਆਫ਼ਲਾਈਨ ਵੀ ਚੱਲਣ ਵਾਲੀਆਂ ਫ਼ੋਟੋਆਂ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਸੀਲ ਕਰਦਾ ਹੈ ਕਿ ਕੋਈ ਵੀ ਤਬਦੀਲੀ ਦਿਸ ਜਾਵੇ। ਨੁਕਸਾਨ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਕ੍ਰਮਵਾਰ, ਜਾਂਚਣ ਯੋਗ ਰਿਕਾਰਡ ਮਿਲਦਾ ਹੈ।', // needs-native-review
-  'hero.run': 'ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ', // needs-native-review
-  'hero.how': 'ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ', // needs-native-review
+  'hero.run': 'ਆਪ ਚਲਾ ਕੇ ਵੇਖੋ', // needs-native-review
   'hero.clockLabel': 'ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ', // needs-native-review
   'hero.clockCap': 'ਉਦਾਹਰਨ: ਸਬੂਤ ਦੀ ਘੜੀ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਚੱਲਦੀ ਹੈ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ', // needs-native-review
   'hero.labels': 'ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ:', // needs-native-review
@@ -86,6 +85,8 @@ const pa: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'ਅਧਿਕਾਰੀ ਦਾ ਕੰਸੋਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।', // needs-native-review
   'tour.invite': 'ਪਹਿਲੀ ਵਾਰ? 2 ਮਿੰਟ ਦਾ ਜੱਜ ਟੂਰ ਲਓ।', // needs-native-review
   'tour.start': 'ਟੂਰ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
+  'tour.hero': '2 ਮਿੰਟ ਦਾ ਟੂਰ ਲਓ', // needs-native-review
+  'tour.menu': 'ਗਾਈਡ ਵਾਲਾ ਟੂਰ, 2 ਮਿੰਟ', // needs-native-review
   'tour.loading': 'ਟੂਰ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…', // needs-native-review
   'tour.dismiss': 'ਹਟਾਓ', // needs-native-review
 

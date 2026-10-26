@@ -36,8 +36,7 @@ const hi: Record<string, string | string[]> = {
   'hero.h': 'घड़ी तूफ़ान के साथ शुरू होती है।', // needs-native-review
   'hero.l1': 'सबूत पंजीकृत खेतों पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रखता है, बाढ़ की आशंका होते ही प्रमाण की घड़ी शुरू करता है और किसान को उसकी भाषा में फ़ोन करता है।', // needs-native-review
   'hero.l2': 'यह ऑफ़लाइन भी चलने वाली फ़ोटो में मदद करता है और उन्हें इस तरह सील करता है कि कोई भी बदलाव दिख जाए। नुकसान का आकलन करने वाले अधिकारी को क्रमबद्ध, जाँचने लायक रिकॉर्ड मिलता है।', // needs-native-review
-  'hero.run': 'सिमुलेशन चलाएँ', // needs-native-review
-  'hero.how': 'यह कैसे काम करता है', // needs-native-review
+  'hero.run': 'ख़ुद चलाकर देखें', // needs-native-review
   'hero.clockLabel': 'चित्र: एक घड़ी, जो तूफ़ान के साथ गिनना शुरू करती है', // needs-native-review
   'hero.clockCap': 'उदाहरण: प्रमाण की घड़ी घटना के समय से चलती है, फ़ोन कॉल से नहीं', // needs-native-review
   'hero.labels': 'स्क्रीन पर हर आँकड़ा बताता है कि वह कहाँ से आया:', // needs-native-review
@@ -86,6 +85,8 @@ const hi: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'अधिकारी का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review
   'tour.invite': 'पहली बार? 2 मिनट का जज टूर लें।', // needs-native-review
   'tour.start': 'टूर शुरू करें', // needs-native-review
+  'tour.hero': '2 मिनट का टूर लें', // needs-native-review
+  'tour.menu': 'गाइड वाला टूर, 2 मिनट', // needs-native-review
   'tour.loading': 'टूर लोड हो रहा है…', // needs-native-review
   'tour.dismiss': 'हटाएँ', // needs-native-review
 
