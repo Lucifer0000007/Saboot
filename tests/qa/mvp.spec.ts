@@ -411,3 +411,39 @@ for (const [granted, offline, warned] of [[false, true, true], [false, false, fa
     expect(errors).toEqual([]);
   });
 }
+
+// The console flags the same live photo file sealed for two different plots (src/k/imported.ts, the import sheet). A second
+// packet is made by copying the imported record into the laptop's own store under another plot, then the first code is
+// checked again: another plot is flagged, the same plot sealed again is not.
+test('the same live photo file sealed for another plot is flagged on the laptop, the same plot sealed again is not', async ({ page, browser }) => {
+  const errors: string[] = [];
+  const code = await phoneSeals(page, errors);
+  const { ctx, page: lap } = await laptop(browser, errors, '#k=' + code);
+  await expect(lap.locator('.k-result .note-ok')).toBeVisible({ timeout: 20_000 });
+  await expect(lap.locator('[data-photo-reuse]'), 'nothing else is imported yet').toHaveCount(0);
+  await lap.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
+  await expect(lap.locator('.import-sheet')).toContainText('Imported (live)');
+
+  const FAKE = 'f'.repeat(64);
+  const seedCopy = (plot: string) => lap.evaluate(async ([p, fake]) => {
+    const db = await new Promise<IDBDatabase>((res, rej) => { const r = indexedDB.open('saboot', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const list = await new Promise<any[]>((res) => { const q = db.transaction('kv').objectStore('kv').get('k-imported'); q.onsuccess = () => res(q.result); });
+    const original = list.find((x) => x.head !== fake);
+    await new Promise((res) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put([original, { ...original, plot: p, head: fake }], 'k-imported'); tx.oncomplete = () => res(null); });
+  }, [plot, FAKE]);
+
+  await seedCopy('P-04'); // the same plot sealed again: the same photos are legitimate
+  await lap.reload();
+  await expect(lap.locator('.k-result .note-ok')).toBeVisible({ timeout: 20_000 });
+  await expect(lap.locator('[data-photo-reuse]')).toHaveCount(0);
+
+  await seedCopy('P-09'); // the same live photo files under another plot
+  await lap.reload();
+  const flag = lap.locator('[data-photo-reuse]');
+  await expect(flag).toContainText('Same photo file as another plot', { timeout: 20_000 });
+  await expect(flag).toContainText('wide photo matches one in the packet for P-09');
+  await expect(flag).toContainText('Saboot decides nothing');
+  await ctx.close();
+  expect(errors).toEqual([]);
+});
