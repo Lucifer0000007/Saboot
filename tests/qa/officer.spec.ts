@@ -163,3 +163,38 @@ test('after the tamper test the verdict is on screen, with that plot\'s trail an
     expect(errors).toEqual([]);
   }
 });
+
+/** A sealed packet's code from this browser's own demo farmer (simulated photos), then a fresh load of it as a #k= link. */
+async function importOwnPacket(page: Page) {
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3);`);
+  const code = (await page.evaluate('window.__sab.kcode()')) as string;
+  await page.goto('/?via=w4#k=' + code);
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await expect(page.locator('.k-result .note-ok')).toBeVisible({ timeout: 20_000 });
+  await page.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
+  return code;
+}
+
+test('an imported packet opens its own record, verified again, not the simulated plot; the simulated record is a separate link (OF-01)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await importOwnPacket(page);
+  await page.locator('.import-sheet [data-open-imported]').click();
+  const d = page.locator('.imp-drawer');
+  await expect(d).toContainText('P-04 · imported packet');
+  await expect(d.locator('[data-imp-verdict]')).toContainText('Integrity verified: not altered since sealing.', { timeout: 20_000 });
+  await expect(d.locator('[data-k-shot]')).toHaveCount(3);
+  await expect(d).toContainText('Chain head');
+  await expect(d).toContainText('Simulated cohort record');
+  await expect(d).not.toContainText('Evidence assembled');
+  await page.keyboard.press('Escape');
+  // from the worklist: the imported row and the cohort row have different names and open different records
+  await sab(page, `s.tab('insurer'); s.insurer('claims');`);
+  await page.getByRole('button', { name: 'Open the imported packet for P-04' }).click();
+  await expect(page.locator('.imp-drawer')).toBeVisible();
+  await page.locator('.imp-drawer [data-open-cohort]').click();
+  await expect(page.locator('.imp-drawer')).toHaveCount(0);
+  await expect(page.locator('.drawer')).toContainText('Simulated plot');
+  expect(errors).toEqual([]);
+});

@@ -5,20 +5,19 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
 import { Sheet } from '../ui/Sheet';
 import { ProvTag, Val } from '../ui/ProvTag';
-import { fmtT } from '../lib/time';
 import { announce } from '../lib/announce';
 import { fromOrigin } from '../lib/prov';
-import { model, t, seek, pause } from '../sim/engine';
-import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult, type KPayload } from '../k/payload';
+import { t, seek, pause } from '../sim/engine';
+import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult } from '../k/payload';
 import { scanQr } from '../k/scan';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { download } from '../lib/download';
-import { addImported, importedLabel, imported, photoReuse } from '../k/imported';
+import { addImported, importedLabel, imported } from '../k/imported';
 import { receiver } from '../lib/prefs';
 import { receipts, type Receipt as ReceiptEntry } from '../k/receipt';
-import { GAP_FLAG_H } from '../farmer/focus';
-import { openPlot, importReceived } from '../site/layout';
+import { openImported, importReceived } from '../site/layout';
 import { ConsoleNote } from './ConsoleNote';
+import { Details } from './PacketDetails';
 import { Seal } from '../ui/Seal';
 
 const NO_CRYPTO = 'This page cannot check signatures here. Open it over https, or on localhost.';
@@ -38,22 +37,6 @@ function Checks({ res }: { res: KResult }) {
         </li>
       ))}
     </ol>
-  );
-}
-
-/** When the laptop received the packet, against the phone's own clock at sealing. Large or negative gaps are flagged. */
-function Receipt({ p, receivedAt }: { p: KPayload; receivedAt: number }) {
-  const gapH = (receivedAt - p.deviceMs) / 3.6e6;
-  const note = gapH < -0.1
-    ? `The phone's clock is ${Math.round(-gapH * 60)} min ahead of this laptop's. Treat the phone's time with care.`
-    : gapH > GAP_FLAG_H
-      ? `Received ${gapH.toFixed(1)} h after sealing: flagged for review.`
-      : null;
-  return (
-    <>
-      <div><dt>Received by this console</dt><dd class="num"><Val kind="time" prov="live" english>{new Date(receivedAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'medium' })}</Val></dd></div>
-      {note && <div><dt>Clock check</dt><dd>{note}</dd></div>}
-    </>
   );
 }
 
@@ -97,7 +80,7 @@ function Received({ onClose }: { onClose: () => void }) {
               {res && <Checks res={res} />}
               {res && !res.ok && <p class="note note-bad"><Icon name="barShape" /><span><strong>Changed after sealing. Do not trust this copy. </strong>{res.reason}</span></p>}
               {res?.ok && res.payload && (isIn(res) ? (
-                <p class="note note-plain"><Icon name="check" /><span>Added as <strong>{importedLabel(res.payload)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload.plot}</button></span></p>
+                <p class="note note-plain"><Icon name="check" /><span>Added as <strong>{importedLabel(res.payload)}</strong>. <button type="button" class="link-arrow" data-open-imported onClick={() => { onClose(); openImported.value = res.payload!.head; }}>Open the imported packet for {res.payload.plot}</button></span></p>
               ) : (
                 <button type="button" class="pill pill-dark" data-add-received onClick={() => addOne(r, res)}><Icon name="inbox" /> Add to dashboard</button>
               ))}
@@ -105,43 +88,6 @@ function Received({ onClose }: { onClose: () => void }) {
           );
         })}
       </ul>
-    </div>
-  );
-}
-
-function Details({ res, receivedAt }: { res: KResult; receivedAt: number }) {
-  const p = res.payload!;
-  const plot = model.value?.plots.find((x) => x.id === p.plot);
-  const reused = photoReuse(p, imported.value);
-  return (
-    <div class="k-details">
-      {reused.length > 0 && (
-        <p class="note note-warn" data-photo-reuse><Icon name="flag" /><span><strong>Same photo file as another plot.</strong> The {reused.map((r) => `${r.kind} photo matches one in the packet for ${r.plot}`).join('; ')}. A flag to ask the farmer about, not a finding: Saboot decides nothing.</span></p>
-      )}
-      <dl class="facts">
-        <div><dt>Plot</dt><dd>{p.plot}{plot ? ` · ${plot.name} · ${plot.village}` : ''} <ProvTag prov="sim" english /></dd></div>
-        <div><dt>Event began</dt><dd class="num">{fmtT(p.eventT)}</dd></div>
-        <div><dt>Sealed (replay time)</dt><dd class="num">{fmtT(p.sealT)}</dd></div>
-        <div><dt>Phone clock at sealing</dt><dd class="num"><Val kind="time" prov="live" english>{new Date(p.deviceMs).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</Val></dd></div>
-        <Receipt p={p} receivedAt={receivedAt} />
-        <div><dt>Coarse location (~100 m)</dt><dd class="num"><Val kind="loc" prov={fromOrigin(p.shots[0].loc)} english>{p.lat.toFixed(3)}, {p.lon.toFixed(3)}</Val></dd></div>
-        <div><dt>Chain head</dt><dd class="hash">{p.head.slice(0, 24)}…</dd></div>
-      </dl>
-      <ul class="k-shots" role="list">
-        {p.shots.map((s) => (
-          <li key={s.kind} data-k-shot>
-            <div class="k-ph" role="img" aria-label={`${s.kind} photo: stays on the farmer’s phone`}><Icon name="lock" /><span aria-hidden="true">Stays on the phone</span></div>
-            <span class="cap">{s.kind}</span>
-            <span class="num">{fmtT(s.simT)}</span>
-            <span class="hash">{s.sha.slice(0, 12)}…</span>
-            <span class="k-origins">
-              <Val kind="photo" prov={fromOrigin(s.photo)} english>photo</Val>
-              <Val kind="loc" prov={fromOrigin(s.loc)} english>location</Val>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p class="muted">Photos stay on the farmer’s phone; only their SHA-256 fingerprints travel. The labels say where each photo and location came from: they are what the phone’s software wrote, sealed so they cannot be changed afterwards. The real product would upload the photos with consent.</p>
     </div>
   );
 }
@@ -258,7 +204,7 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
             </button>
           )}
           {res.ok && (added ? (
-            <p class="note note-plain"><Icon name="check" /><span>Added to the dashboard as <strong>{importedLabel(res.payload!)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload!.plot}</button></span></p>
+            <p class="note note-plain"><Icon name="check" /><span>Added to the dashboard as <strong>{importedLabel(res.payload!)}</strong>. <button type="button" class="link-arrow" data-open-imported onClick={() => { onClose(); openImported.value = res.payload!.head; }}>Open the imported packet for {res.payload!.plot}</button></span></p>
           ) : (
             <button type="button" class="pill pill-dark" onClick={add}><Icon name="inbox" /> Add to dashboard</button>
           ))}

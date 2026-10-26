@@ -59,6 +59,8 @@ export const panelTab = computed<Exclude<SimTab, 'farmer'>>(() => (simTab.value 
 export const insurerView = signal<InsurerView>('claims');
 /** Plot open in the insurer drawer. */
 export const openPlot = signal<string | null>(null);
+/** An imported packet open in its own drawer, by its chain head (audit OF-01: it used to open the simulated plot). */
+export const openImported = signal<string | null>(null);
 /** Feature K: a code to import (from a #k= link), or '' to open the import sheet empty. */
 export const importCode = signal<string | null>(null);
 /** Open the import sheet on what the demo receiver holds (only meaningful when prefs.receiver is on). */

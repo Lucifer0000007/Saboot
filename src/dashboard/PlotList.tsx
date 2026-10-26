@@ -6,7 +6,7 @@ import { Icon } from '../ui/Icon';
 import { TierBadge } from '../ui/TierBadge';
 import { fmtDur, fmtT } from '../lib/time';
 const fmtDurEn = (h: number) => fmtDur(h, true);
-import { openPlot, layout } from '../site/layout';
+import { openPlot, openImported, layout } from '../site/layout';
 import { importedLabel } from '../k/imported';
 import { model, tSlow, scenarioHash } from '../sim/engine';
 import { stageLabel, flagLabel } from '../sim/cohort';
@@ -201,7 +201,7 @@ export function PlotList() {
             <li key={r.k.head} class="imported" data-tour="imported">
               <span class="qrank" aria-hidden="true"><Icon name="scan" size={16} /></span>
               <div class="qmain">
-                <button type="button" class="plink" onClick={() => (openPlot.value = r.s.plot.id)}>{r.s.plot.id} · {r.s.plot.village} <Icon name="arrow" size={16} /></button>
+                <button type="button" class="plink" aria-label={`Open the imported packet for ${r.s.plot.id}`} onClick={() => (openImported.value = r.k.head)}>{r.s.plot.id} · imported packet <Icon name="arrow" size={16} /></button>
                 <span class="tag imported-tag"><Icon name="scan" size={16} />{importedLabel(r.k)}</span>
                 <span class="sub">{r.s.plot.name} · signed on the judge’s phone · Evidence received · integrity verified</span>
                 <span class="sub num">{r.k.shots.length} photo fingerprints · chain {r.k.head.slice(0, 10)}…</span>

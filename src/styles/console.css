@@ -306,6 +306,8 @@
 .k-steps .skip { color: var(--kali-2); border-left-style: dashed; }
 .k-try { align-self: flex-start; border-color: var(--bad); color: var(--bad); background: var(--paper); }
 .k-try:hover { background: var(--bad-tint); }
+.imp-drawer .k-verdict p { flex: 1; min-width: 0; }
+.imp-cohort { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .k-details { display: flex; flex-direction: column; gap: 12px; }
 /* columns sized in em so a 12-character fingerprint always fits its column, at any text size */
 .k-shots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9em, 100%), 1fr)); gap: 8px; font-size: 0.8125rem; }

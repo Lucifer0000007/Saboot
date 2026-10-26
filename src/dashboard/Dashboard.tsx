@@ -17,6 +17,7 @@ import { loadAssignments } from './assign';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
 import { PlotList } from './PlotList';
 import { PlotDrawer } from './PlotDrawer';
+import { ImportedDrawer } from './ImportedDrawer';
 import { Pipeline } from './Pipeline';
 import { DraftView } from './DraftView';
 import { Impact } from './Impact';
@@ -119,6 +120,7 @@ export default function Dashboard() {
       {view === 'ledger' && <TamperCheck />}
       {view === 'impact' && <Impact />}
       <PlotDrawer />
+      <ImportedDrawer />
       {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(null, '', location.pathname + location.search); }} />}
     </section>
   );
