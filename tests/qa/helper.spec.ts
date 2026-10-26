@@ -294,6 +294,21 @@ test('H7: a queue opened before any alert offers one jump to the first alert, an
   expect(errors).toEqual([]);
 });
 
+test('H9: offline, the queue row and the strip say which farmer’s evidence still waits for the network', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); s.net('offline'); await s.helper(1); s.tab('farmer'); s.screen('helper');`);
+  const row = page.locator('[data-farmer="P-05"]');
+  await expect(row).toContainText('Evidence sealed');
+  await expect(row.locator('[data-waiting]')).toHaveText(/Waiting for network: 4 queued/);
+  await expect(page.locator('[data-farmer="P-06"] [data-waiting]')).toHaveCount(0);
+  await expect(page.locator('.farmer .f-strip .f-queue')).toHaveText('4 waiting');
+  await sab(page, `s.net('online');`);
+  await expect(row.locator('[data-waiting]')).toHaveCount(0, { timeout: 10_000 });
+  await expect(page.locator('.farmer .f-strip .f-queue')).toHaveText('All sent');
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

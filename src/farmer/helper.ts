@@ -23,6 +23,8 @@ export interface QueueItem {
   /** Who captured for this farmer, from the consent sealed in the farmer's own log. */
   by: { name: string; role: string } | null;
   consentT: number | null;
+  /** Photos and the seal still waiting for the network, from this farmer's own log (audit H9). */
+  waiting: number;
 }
 
 export function stateOf(alertT: number | null, now: number, v: FocusView | null): QueueState {
@@ -47,6 +49,7 @@ export const queue = computed<QueueItem[]>(() => {
       shots: v?.shotCount ?? 0,
       by: v?.consent ? { name: v.consent.helper, role: v.consent.role } : null,
       consentT: v?.consent?.simT ?? null,
+      waiting: v ? v.queued + v.bodyPending : 0,
     };
   });
 });

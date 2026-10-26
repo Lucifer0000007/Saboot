@@ -88,6 +88,7 @@ export function Helper() {
                     {q.by && <span class="sub" data-captured-by>{tr('hm.by', { name: q.by.name, role: q.by.role })}{q.consentT !== null && <> <span class="nb">· <span class="num">{fmtClock(q.consentT, false)}</span></span></>}</span>}
                   </div>
                   <span class={'tag tag-flow ' + m.tone}><Icon name={m.icon} size={16} /> {label}</span>
+                  {q.waiting > 0 && <span class="tag tag-flow" data-waiting><Icon name="clock" size={16} /> {tr('pk.queued', { n: q.waiting })}</span>}
                   {q.state === 'no-alert' && <span class="sub">{tr('hm.wait')}</span>}
                   <button type="button" class="pill pill-ghost" disabled={q.state === 'no-alert'} onClick={() => openFarmer(q.plot.id, q.state)}>
                     {tr(action)}<span class="sr-only"> · {q.plot.name}</span>
