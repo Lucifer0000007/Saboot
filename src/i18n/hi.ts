@@ -39,7 +39,7 @@ const hi: Record<string, string | string[]> = {
   'hero.run': 'सिमुलेशन चलाएँ', // needs-native-review
   'hero.how': 'यह कैसे काम करता है', // needs-native-review
   'hero.clockLabel': 'चित्र: एक घड़ी, जो तूफ़ान के साथ गिनना शुरू करती है', // needs-native-review
-  'hero.clockCap': 'घटना के समय से गिनती, फ़ोन कॉल से नहीं', // needs-native-review
+  'hero.clockCap': 'उदाहरण: प्रमाण की घड़ी घटना के समय से चलती है, फ़ोन कॉल से नहीं', // needs-native-review
   'hero.labels': 'स्क्रीन पर हर आँकड़ा बताता है कि वह कहाँ से आया:', // needs-native-review
 
   'pb.eyebrow': 'समस्या', // needs-native-review

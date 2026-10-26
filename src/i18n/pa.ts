@@ -39,7 +39,7 @@ const pa: Record<string, string | string[]> = {
   'hero.run': 'ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ', // needs-native-review
   'hero.how': 'ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ', // needs-native-review
   'hero.clockLabel': 'ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ', // needs-native-review
-  'hero.clockCap': 'ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਤੀ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ', // needs-native-review
+  'hero.clockCap': 'ਉਦਾਹਰਨ: ਸਬੂਤ ਦੀ ਘੜੀ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਚੱਲਦੀ ਹੈ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ', // needs-native-review
   'hero.labels': 'ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ:', // needs-native-review
 
   'pb.eyebrow': 'ਸਮੱਸਿਆ', // needs-native-review

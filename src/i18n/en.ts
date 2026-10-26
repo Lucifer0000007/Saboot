@@ -39,7 +39,7 @@ const en: Record<string, string | string[]> = {
   'hero.run': 'Run the simulation',
   'hero.how': 'How it works',
   'hero.clockLabel': 'Illustration: a clock that starts counting at the storm',
-  'hero.clockCap': 'Counted from the event, not from the phone call',
+  'hero.clockCap': 'Illustration: an evidence clock starts at the event, not at the phone call',
   'hero.labels': 'Every value on screen says where it came from:',
 
   'pb.eyebrow': 'The problem',
