@@ -105,6 +105,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `ctl.ask.keep` | Keep what was captured | जो लिया गया है उसे रखें | ਜੋ ਲਿਆ ਗਿਆ ਹੈ ਉਸ ਨੂੰ ਰੱਖੋ | needs review / needs review |
 | `ctl.ask.go` | Clear it and start over | मिटाकर फिर से शुरू करें | ਮਿਟਾ ਕੇ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
 | `ctl.more` | More controls | और नियंत्रण | ਹੋਰ ਕੰਟਰੋਲ | needs review / needs review |
+| `ctl.moreShort` | Moments | क्षण | ਪਲ | needs review / needs review |
 | `ctl.moreTitle` | Replay controls | रीप्ले नियंत्रण | ਰੀਪਲੇ ਕੰਟਰੋਲ | needs review / needs review |
 | `ctl.net` | Phone network | फ़ोन नेटवर्क | ਫ਼ੋਨ ਨੈੱਟਵਰਕ | needs review / needs review |
 | `net.online` | Online | ऑनलाइन | ਆਨਲਾਈਨ | needs review / needs review |
@@ -333,6 +334,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `reg.plot` | Plot | खेत | ਖੇਤ | needs review / needs review |
 | `reg.khasra` | Khasra no. | खसरा नं. | ਖਸਰਾ ਨੰ. | needs review / needs review |
 | `reg.season` | Season | मौसम | ਮੌਸਮ | needs review / needs review |
+| `reg.at` | Registered at | पंजीकरण कहाँ हुआ | ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਿੱਥੇ ਹੋਈ | needs review / needs review |
+| `reg.atV` | A CSC camp in the village (simulated) | गाँव में CSC शिविर (सिमुलेशन) | ਪਿੰਡ ਵਿੱਚ CSC ਕੈਂਪ (ਸਿਮੂਲੇਸ਼ਨ) | needs review / needs review |
 | `reg.kharif` | Kharif 2026 | ख़रीफ़ 2026 | ਸਾਉਣੀ 2026 | needs review / needs review |
 | `reg.voice` | Your field is registered. If a flood hits your field, Saboot will call you and ask for three photos. | आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा और तीन फ़ोटो माँगेगा। | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗੀ। | needs review / needs review |
 | `reg.voice.pmfby` | Your field is registered. If a flood hits your field, Saboot will call you. You will then have 72 hours to report. | आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा। फिर आपके पास रिपोर्ट करने के लिए 72 घंटे होंगे। | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ। | needs review / needs review |
@@ -353,6 +356,10 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `al.cta` | Take photos now | अभी फ़ोटो लें | ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ | needs review / needs review |
 | `al.noDamage` | No damage at my field | मेरे खेत में नुकसान नहीं | ਮੇਰੇ ਖੇਤ ਵਿੱਚ ਨੁਕਸਾਨ ਨਹੀਂ | needs review / needs review |
 | `al.help` | Someone will help me | कोई मेरी मदद करेगा | ਕੋਈ ਮੇਰੀ ਮਦਦ ਕਰੇਗਾ | needs review / needs review |
+| `al.how` | How this alert reached you (simulated) | यह चेतावनी आप तक कैसे पहुँची (सिमुलेशन) | ਇਹ ਚੇਤਾਵਨੀ ਤੁਹਾਡੇ ਤੱਕ ਕਿਵੇਂ ਪਹੁੰਚੀ (ਸਿਮੂਲੇਸ਼ਨ) | needs review / needs review |
+| `al.how.d` | A voice call in your language, then an SMS with a link to this screen. Here both are simulated: no call is made and no SMS is sent. | आपकी भाषा में एक वॉइस कॉल, फिर इस स्क्रीन का लिंक वाला एक SMS। यहाँ दोनों सिमुलेशन हैं: कोई कॉल नहीं होती और कोई SMS नहीं भेजा जाता। | ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਇੱਕ ਵੌਇਸ ਕਾਲ, ਫਿਰ ਇਸ ਸਕ੍ਰੀਨ ਦੇ ਲਿੰਕ ਵਾਲਾ ਇੱਕ SMS। ਇੱਥੇ ਦੋਵੇਂ ਸਿਮੂਲੇਸ਼ਨ ਹਨ: ਕੋਈ ਕਾਲ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ SMS ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ। | needs review / needs review |
+| `al.how.sms` | Saboot: flood likely at your field ({plot}). Open the app to take photos while the water is visible. | सबूत ऐप: आपके खेत ({plot}) में बाढ़ की आशंका। पानी दिखते रहते फ़ोटो लेने के लिए ऐप खोलें। | ਸਬੂਤ ਐਪ: ਤੁਹਾਡੇ ਖੇਤ ({plot}) ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ। ਪਾਣੀ ਦਿਸਦੇ ਹੋਏ ਫ਼ੋਟੋ ਲੈਣ ਲਈ ਐਪ ਖੋਲ੍ਹੋ। | needs review / needs review |
+| `al.how.nophone` | No smartphone? A helper in the village can take the photos for you, with your consent. | स्मार्टफ़ोन नहीं है? गाँव का कोई सहायक आपकी सहमति से आपके लिए फ़ोटो ले सकता है। | ਸਮਾਰਟਫ਼ੋਨ ਨਹੀਂ ਹੈ? ਪਿੰਡ ਦਾ ਕੋਈ ਸਹਾਇਕ ਤੁਹਾਡੀ ਸਹਿਮਤੀ ਨਾਲ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋ ਲੈ ਸਕਦਾ ਹੈ। | needs review / needs review |
 | `al.play` | Play voice message | आवाज़ संदेश सुनें | ਆਵਾਜ਼ ਸੁਨੇਹਾ ਸੁਣੋ | needs review / needs review |
 | `al.expired` | Capture-soon advice has passed | जल्दी फ़ोटो लेने की सलाह का समय बीत गया | ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ ਦਾ ਸਮਾਂ ਲੰਘ ਗਿਆ | needs review / needs review |
 | `al.expired.pmfby` | Reporting time is over | रिपोर्ट का समय ख़त्म | ਰਿਪੋਰਟ ਦਾ ਸਮਾਂ ਖ਼ਤਮ | needs review / needs review |
@@ -611,6 +618,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `hm.a.view` | View | देखें | ਵੇਖੋ | needs review / needs review |
 | `hm.note` | Each farmer’s consent and photos are sealed in that farmer’s own log, with your name on every photo. You only capture. Saboot decides nothing. | हर किसान की सहमति और फ़ोटो उसी किसान के अपने लॉग में सील होती हैं, हर फ़ोटो पर आपका नाम रहता है। आप सिर्फ़ फ़ोटो लेते हैं। सबूत कोई फ़ैसला नहीं करता। | ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਫ਼ੋਟੋਆਂ ਉਸੇ ਕਿਸਾਨ ਦੇ ਆਪਣੇ ਲਾਗ ਵਿੱਚ ਸੀਲ ਹੁੰਦੀਆਂ ਹਨ, ਹਰ ਫ਼ੋਟੋ ਉੱਤੇ ਤੁਹਾਡਾ ਨਾਂ ਰਹਿੰਦਾ ਹੈ। ਤੁਸੀਂ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦੇ ਹੋ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। | needs review / needs review |
 | `hm.phoneBtn` | A farmer without a smartphone (design simulation) | बिना स्मार्टफ़ोन वाला किसान (डिज़ाइन सिमुलेशन) | ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ (ਡਿਜ਼ਾਈਨ ਸਿਮੂਲੇਸ਼ਨ) | needs review / needs review |
+| `hm.fpFuture` | Future: a farmer with no smartphone? | आगे: बिना स्मार्टफ़ोन वाला किसान? | ਅੱਗੇ: ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ? | needs review / needs review |
 | `hm.end` | End helper session | सहायक सत्र खत्म करें | ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰੋ | needs review / needs review |
 | `hm.r.sarpanch` | Sarpanch | सरपंच | ਸਰਪੰਚ | needs review / needs review |
 | `hm.r.csc` | CSC operator | सीएससी संचालक | ਸੀਐੱਸਸੀ ਚਲਾਉਣ ਵਾਲਾ | needs review / needs review |
