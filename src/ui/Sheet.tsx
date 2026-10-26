@@ -60,7 +60,8 @@ export function Sheet({
       const i = openSheets.indexOf(top);
       if (i >= 0) openSheets.splice(i, 1);
       root.removeEventListener('keydown', onKey);
-      document.documentElement.classList.remove('sheet-open');
+      // a sheet closed over another one leaves the page locked for the one still open (audit UI-08)
+      if (!openSheets.length) document.documentElement.classList.remove('sheet-open');
       if (prev && document.contains(prev)) prev.focus({ preventScroll: true });
     };
   }, []);

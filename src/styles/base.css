@@ -191,6 +191,9 @@ button:disabled { cursor: not-allowed; }
 .switch input:checked::after { transform: translateX(20px); background: var(--paper); }
 
 /* overlays: drawer (desktop right) / bottom sheet (mobile), focus-trapped by ui/Sheet.tsx */
+/* the page behind an open sheet stays where it was (audit UI-08); the gutter keeps the width, so nothing shifts on desktop */
+html.sheet-open { overflow: hidden; scrollbar-gutter: stable; }
+.sheet { overscroll-behavior: contain; }
 .backdrop { position: fixed; inset: 0; background: var(--scrim); z-index: var(--z-drawer); }
 .sheet {
   position: fixed; z-index: var(--z-drawer); background: var(--paper); box-shadow: var(--shadow-float);
@@ -206,6 +209,8 @@ button:disabled { cursor: not-allowed; }
 .nb { white-space: nowrap; }
 .sheet-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: var(--s3) var(--gutter); display: flex; flex-direction: column; gap: var(--s3); }
 .backdrop.modal { z-index: var(--z-modal); }
+/* a short dialog (a confirm, the key list) is a bottom sheet as tall as its content on a phone, not a full empty screen (audit UI-14) */
+.sheet.center { height: auto; max-height: 90dvh; border-radius: var(--r-sheet) var(--r-sheet) 0 0; border-top: var(--bd); }
 @media (min-width: 1024px) {
   .sheet { inset: 0 0 0 auto; width: min(560px, 100vw); height: 100dvh; border-left: var(--bd); }
   .sheet.center { inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: min(640px, calc(100vw - 48px)); height: auto; max-height: calc(100dvh - 48px); border: var(--bd); border-radius: var(--r-sheet); }

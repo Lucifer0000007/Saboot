@@ -113,6 +113,61 @@ test('on a phone the process and radar switches are only in the dock’s sheet; 
   expect(errors).toEqual([]);
 });
 
+test('an open sheet holds the page still, also when a sheet over it closes; a confirm is a short bottom sheet (UI-08, UI-14)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); s.tab('farmer');`);
+  await page.locator('.ctrl-dock .ctrl-more').click();
+  await expect(page.locator('.ctrl-sheet')).toBeVisible();
+  const y = await page.evaluate(() => scrollY);
+  await page.mouse.move(180, 100);
+  await page.mouse.wheel(0, 600);
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => scrollY), 'the page behind the sheet did not scroll').toBe(y);
+  // Reset with photos on the phone asks first, in a sheet over this one: short, at the bottom
+  await page.locator('.ctrl-sheet button', { hasText: 'Reset' }).click();
+  const ask = page.locator('.reset-ask');
+  await expect(ask).toBeVisible();
+  const a = await box(page, '.reset-ask');
+  expect(a.height).toBeLessThan(640 * 0.75);
+  expect(a.bottom).toBeGreaterThan(638);
+  await ask.getByRole('button', { name: 'Keep what was captured' }).click();
+  await expect(ask).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.classList.contains('sheet-open'))).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('nested sheets: closing the top one keeps the page locked for the one under it (UI-08)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  await page.locator('.ctrl-dock .ctrl-more').click();
+  await expect(page.locator('.ctrl-sheet')).toBeVisible();
+  await sab(page, `s.settings(true);`);
+  await expect(page.locator('.sheet')).toHaveCount(2);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  expect(await page.evaluate(() => document.documentElement.classList.contains('sheet-open'))).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.sheet')).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.classList.contains('sheet-open'))).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test.describe('on a touch screen', () => {
+  test.use({ hasTouch: true, isMobile: true, viewport: { width: 360, height: 640 } });
+  test('a tapped button keeps its own colour, not the hover one (UI-09)', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    expect(await page.evaluate(() => matchMedia('(hover: hover)').matches)).toBe(false);
+    const cta = page.locator('#hero-cta');
+    const before = await cta.evaluate((e) => getComputedStyle(e).backgroundColor);
+    await cta.hover();
+    expect(await cta.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(before);
+    expect(errors).toEqual([]);
+  });
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {
