@@ -361,6 +361,8 @@ const hi: Record<string, string | string[]> = {
   'reg.plot': 'खेत', // needs-native-review
   'reg.khasra': 'खसरा नं.', // needs-native-review
   'reg.season': 'मौसम', // needs-native-review
+  'reg.at': 'पंजीकरण कहाँ हुआ', // needs-native-review
+  'reg.atV': 'गाँव में CSC शिविर (सिमुलेशन)', // needs-native-review
   'reg.kharif': 'ख़रीफ़ 2026', // needs-native-review
   'reg.voice': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा और तीन फ़ोटो माँगेगा।', // needs-native-review
   'reg.voice.pmfby': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा। फिर आपके पास रिपोर्ट करने के लिए 72 घंटे होंगे।', // needs-native-review
@@ -382,6 +384,10 @@ const hi: Record<string, string | string[]> = {
   'al.cta': 'अभी फ़ोटो लें', // needs-native-review
   'al.noDamage': 'मेरे खेत में नुकसान नहीं', // needs-native-review
   'al.help': 'कोई मेरी मदद करेगा', // needs-native-review
+  'al.how': 'यह चेतावनी आप तक कैसे पहुँची (सिमुलेशन)', // needs-native-review
+  'al.how.d': 'आपकी भाषा में एक वॉइस कॉल, फिर इस स्क्रीन का लिंक वाला एक SMS। यहाँ दोनों सिमुलेशन हैं: कोई कॉल नहीं होती और कोई SMS नहीं भेजा जाता।', // needs-native-review
+  'al.how.sms': 'सबूत ऐप: आपके खेत ({plot}) में बाढ़ की आशंका। पानी दिखते रहते फ़ोटो लेने के लिए ऐप खोलें।', // needs-native-review
+  'al.how.nophone': 'स्मार्टफ़ोन नहीं है? गाँव का कोई सहायक आपकी सहमति से आपके लिए फ़ोटो ले सकता है।', // needs-native-review
   'al.play': 'आवाज़ संदेश सुनें', // needs-native-review
   'al.expired': 'जल्दी फ़ोटो लेने की सलाह का समय बीत गया', // needs-native-review
   'al.expired.pmfby': 'रिपोर्ट का समय ख़त्म', // needs-native-review

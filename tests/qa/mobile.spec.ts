@@ -187,8 +187,11 @@ test('turning a phone on its side keeps the farmer’s alert on screen, and the 
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  await page.bringToFront();
   await page.evaluate(() => document.querySelector('[data-tour=alert] .countdown')!.scrollIntoView({ block: 'center' }));
   await page.mouse.wheel(0, 1);
+  // the page notes what is on screen once the scrolling has settled (a scroll event comes with a rendered frame)
+  await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
   await page.waitForTimeout(400);
   await page.setViewportSize({ width: 844, height: 390 });
   await expect.poll(async () => { const r = await box(page, '[data-tour=alert]'); return r.bottom > 0 && r.top < 390; }, { timeout: 5_000 }).toBe(true);
@@ -221,6 +224,36 @@ test('a helper capturing for a farmer keeps the farmer’s name in view: under t
   await page.getByRole('button', { name: /Start photos/ }).click();
   await expect(page.locator('.farmer .shotcard .eyebrow')).toHaveText(/^Photo 1 of 3 · \S+/);
   expect(await page.locator('.farmer .f-top').evaluate((e) => getComputedStyle(e).position)).toBe('static');
+  expect(errors).toEqual([]);
+});
+
+test('the feature-phone design and the pilot metrics are off the main path: folded in the helper screen, under the draft list in the console (S-11)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); s.tab('farmer'); s.screen('helper');`);
+  await expect(page.locator('[data-fp-open]')).toHaveCount(1);
+  await expect(page.locator('[data-fp-open]')).toBeHidden();
+  await expect(page.locator('[data-fp-future] summary')).toHaveText('Future: a farmer with no smartphone?');
+  await sab(page, `await s.jump('draft'); s.tab('insurer'); s.insurer('draft');`);
+  await expect(page.locator('.draft')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.view-seg [role=radio]')).toHaveCount(3);
+  await expect(page.locator('.impactp')).toBeAttached();
+  expect(await page.evaluate(() => !!(document.querySelector('.draft')!.compareDocumentPosition(document.querySelector('.impactp')!) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test('the farmer can see how the alert reached them and who registered the plot, both labelled simulated, under the main button (F11)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.tab('farmer');`);
+  await expect(page.locator('.farmer .facts')).toContainText('A CSC camp in the village (simulated)');
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  const how = page.locator('[data-alert-how]');
+  await expect(how).not.toHaveAttribute('open', '');
+  expect((await box(page, '[data-alert-how]')).top).toBeGreaterThan((await box(page, '[data-tour=cta]')).bottom);
+  await how.locator('summary').click();
+  await expect(how).toContainText('no call is made and no SMS is sent');
+  await expect(how).toContainText('(P-');
   expect(errors).toEqual([]);
 });
 

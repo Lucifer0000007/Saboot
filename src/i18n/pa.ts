@@ -361,6 +361,8 @@ const pa: Record<string, string | string[]> = {
   'reg.plot': 'ਖੇਤ', // needs-native-review
   'reg.khasra': 'ਖਸਰਾ ਨੰ.', // needs-native-review
   'reg.season': 'ਮੌਸਮ', // needs-native-review
+  'reg.at': 'ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਿੱਥੇ ਹੋਈ', // needs-native-review
+  'reg.atV': 'ਪਿੰਡ ਵਿੱਚ CSC ਕੈਂਪ (ਸਿਮੂਲੇਸ਼ਨ)', // needs-native-review
   'reg.kharif': 'ਸਾਉਣੀ 2026', // needs-native-review
   'reg.voice': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗੀ।', // needs-native-review
   'reg.voice.pmfby': 'ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ।', // needs-native-review
@@ -382,6 +384,10 @@ const pa: Record<string, string | string[]> = {
   'al.cta': 'ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ', // needs-native-review
   'al.noDamage': 'ਮੇਰੇ ਖੇਤ ਵਿੱਚ ਨੁਕਸਾਨ ਨਹੀਂ', // needs-native-review
   'al.help': 'ਕੋਈ ਮੇਰੀ ਮਦਦ ਕਰੇਗਾ', // needs-native-review
+  'al.how': 'ਇਹ ਚੇਤਾਵਨੀ ਤੁਹਾਡੇ ਤੱਕ ਕਿਵੇਂ ਪਹੁੰਚੀ (ਸਿਮੂਲੇਸ਼ਨ)', // needs-native-review
+  'al.how.d': 'ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਇੱਕ ਵੌਇਸ ਕਾਲ, ਫਿਰ ਇਸ ਸਕ੍ਰੀਨ ਦੇ ਲਿੰਕ ਵਾਲਾ ਇੱਕ SMS। ਇੱਥੇ ਦੋਵੇਂ ਸਿਮੂਲੇਸ਼ਨ ਹਨ: ਕੋਈ ਕਾਲ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ SMS ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ।', // needs-native-review
+  'al.how.sms': 'ਸਬੂਤ ਐਪ: ਤੁਹਾਡੇ ਖੇਤ ({plot}) ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ। ਪਾਣੀ ਦਿਸਦੇ ਹੋਏ ਫ਼ੋਟੋ ਲੈਣ ਲਈ ਐਪ ਖੋਲ੍ਹੋ।', // needs-native-review
+  'al.how.nophone': 'ਸਮਾਰਟਫ਼ੋਨ ਨਹੀਂ ਹੈ? ਪਿੰਡ ਦਾ ਕੋਈ ਸਹਾਇਕ ਤੁਹਾਡੀ ਸਹਿਮਤੀ ਨਾਲ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋ ਲੈ ਸਕਦਾ ਹੈ।', // needs-native-review
   'al.play': 'ਆਵਾਜ਼ ਸੁਨੇਹਾ ਸੁਣੋ', // needs-native-review
   'al.expired': 'ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ ਦਾ ਸਮਾਂ ਲੰਘ ਗਿਆ', // needs-native-review
   'al.expired.pmfby': 'ਰਿਪੋਰਟ ਦਾ ਸਮਾਂ ਖ਼ਤਮ', // needs-native-review

@@ -44,6 +44,8 @@ export function Home() {
           <div><dt>{trr('reg.policy')}</dt><dd class="num id">{policyNo(p.id)}</dd></div>
           <div><dt>{tr('reg.khasra')}</dt><dd>{p.khasra}</dd></div>
           <div><dt>{tr('reg.season')}</dt><dd>{tr('reg.kharif')}</dd></div>
+          {/* who registered the plot: the farmer did not find Saboot alone (audit F11) */}
+          <div><dt>{tr('reg.at')}</dt><dd>{tr('reg.atV')}</dd></div>
         </dl>
         <p class="f-lead"><Icon name="satellite" /><span>{tr('reg.watching')}</span></p>
         <VoiceCaption id="reg" text={trr('reg.voice')} clip={'reg-' + rail.value} label={tr('reg.listen')} />
@@ -123,6 +125,15 @@ export function Home() {
             )}
           </div>}
         </>
+      )}
+      {/* how a farmer, even one with a cheap phone, gets here: folded, under the main button (audit F11) */}
+      {!helped && (
+        <details class="k-code al-how" data-alert-how>
+          <summary><Icon name="phone" size={18} /> <span>{tr('al.how')}</span> <Icon name="down" /></summary>
+          <p>{tr('al.how.d')}</p>
+          <p class="captions">{tr('al.how.sms', { plot: p.id })}</p>
+          <p>{tr('al.how.nophone')}</p>
+        </details>
       )}
       {!helped && <HelperCard />}
     </div>
