@@ -10,7 +10,7 @@ photos sealed on a real phone and checked on a laptop with no server; a real pas
 rules, shown as raw counts under a REPLAY label; and a label on every value saying whether it is live, replayed, simulated or
 typed by hand. Along the way the audit found 80 problems; every blocker and every major one on the demo path is fixed, each
 with a test that was red before the fix. The quick gate (`npm run verify -- --quick`), the full QA matrix and Lighthouse
-pass: 613 Playwright tests (24 of them in the dark theme), 564 captures, 246 unit tests, 46 Firefox and WebKit smoke tests, Lighthouse 97 to 98 / 100 / 100 on all
+pass: 619 Playwright tests (24 of them in the dark theme), 564 captures, 249 unit tests, 46 Firefox and WebKit smoke tests, Lighthouse 97 to 98 / 100 / 100 on all
 three pages with LCP 2.11 s. Since then: a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and seven real
 conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`).
 
@@ -121,7 +121,7 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 6. Deploy from this branch when you are ready: `npm run deploy` (it runs the full gate first). Not before the demo starts.
 8. For the receiver: install mkcert, make the certificate for the laptop's address, put the root on the demo phone, start
    `scripts/receipt-server.mjs`, rehearse both paths (`docs/SETUP.md`, "The demo receiver"). Have the two reviewers work
-   through `translation/hi.md` and `translation/pa.md` (regenerated: 624 rows each). Add the raw interview notes to
+   through `translation/hi.md` and `translation/pa.md` (regenerated: 628 rows each). Add the raw interview notes to
    `docs/interviews/raw/`, then the themes to `src/data/fieldEvidence.ts`, and rerun `scripts/interviews-doc.mjs`; a Haryana
    farmer or patwari conversation closes the biggest gap. The receiver certificate is already in `.cache/demo.pem`.
 7. Optional: a Copernicus Global Flood Monitoring login if you ever want an Indian-side replay (R-2).
