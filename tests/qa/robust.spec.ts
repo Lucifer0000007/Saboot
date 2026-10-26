@@ -50,3 +50,46 @@ test('CC-11: a saved Hindi choice whose dictionary cannot load leaves the page w
   await page.evaluate(() => dispatchEvent(new Event('online')));
   await expect.poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 20_000 }).toBe('hi');
 });
+
+test('UI-04: a panel whose chunk never arrives says so after a while, with Reload, instead of spinning for ever', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.route(/\/assets\/LedgerPanel-[^/]*\.js/, () => { /* never answers */ });
+  await open(page, PHONE, 'en', []);
+  await sab(page, `s.tab('ledger');`);
+  const failed = page.locator('.load-failed');
+  await expect(failed).toBeVisible({ timeout: 20_000 });
+  await expect(failed.getByRole('button')).toHaveText('Reload the page');
+});
+
+test('UI-04: starting the tour while its chunk is slow shows a loading card on screen', async ({ page }) => {
+  const held: (() => void)[] = [];
+  await page.route(/\/assets\/Tour-[^/]*\.js/, (r) => { held.push(() => void r.continue()); });
+  await open(page, PHONE, 'en', []);
+  await sab(page, `s.tour(0);`);
+  const card = page.locator('.lazy-card');
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('Loading the tour');
+  await expect(card).toBeInViewport();
+  held.forEach((go) => go());
+  await expect(card).toHaveCount(0, { timeout: 15_000 });
+});
+
+test('R4: one dropped shared chunk does not leave the officer console broken: the page reloads once, back on that tab', async ({ page }) => {
+  let n = 0;
+  await page.route(/\/assets\/photos-[^/?]*\.js(\?.*)?$/, (r) => (++n === 1 ? r.abort('failed') : r.continue()));
+  await open(page, PHONE, 'en', []);
+  await sab(page, `s.tab('insurer');`);
+  await expect(page.locator('.dash')).toBeVisible({ timeout: 30_000 });
+  expect(new URL(page.url()).searchParams.get('tab')).toBe('insurer');
+  expect(n).toBeGreaterThan(1);
+});
+
+test('R4: a chunk that keeps failing reloads only once, then shows Reload', async ({ page }) => {
+  let navs = 0;
+  page.on('request', (r) => { if (r.isNavigationRequest()) navs++; });
+  await page.route(/\/assets\/photos-[^/?]*\.js(\?.*)?$/, (r) => r.abort('failed'));
+  await open(page, PHONE, 'en', []);
+  await sab(page, `s.tab('insurer');`);
+  await expect(page.locator('.load-failed')).toBeVisible({ timeout: 30_000 });
+  expect(navs, 'one automatic reload, no loop').toBe(2);
+});

@@ -87,6 +87,7 @@ const hi: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'अधिकारी का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review
   'tour.invite': 'पहली बार? 2 मिनट का जज टूर लें।', // needs-native-review
   'tour.start': 'टूर शुरू करें', // needs-native-review
+  'tour.loading': 'टूर लोड हो रहा है…', // needs-native-review
   'tour.dismiss': 'हटाएँ', // needs-native-review
 
   'ctl.label': 'सिमुलेशन नियंत्रण', // needs-native-review

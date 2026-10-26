@@ -90,6 +90,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `sim.consoleNote.relief` | The officer console is shown in English. | अधिकारी का कंसोल अंग्रेज़ी में दिखाया गया है। | ਅਧਿਕਾਰੀ ਦਾ ਕੰਸੋਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ। | needs review / needs review |
 | `tour.invite` | New here? Take the 2-minute judge tour. | पहली बार? 2 मिनट का जज टूर लें। | ਪਹਿਲੀ ਵਾਰ? 2 ਮਿੰਟ ਦਾ ਜੱਜ ਟੂਰ ਲਓ। | needs review / needs review |
 | `tour.start` | Start tour | टूर शुरू करें | ਟੂਰ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
+| `tour.loading` | Loading the tour… | टूर लोड हो रहा है… | ਟੂਰ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… | needs review / needs review |
 | `tour.dismiss` | Dismiss | हटाएँ | ਹਟਾਓ | needs review / needs review |
 | `ctl.label` | Simulation controls | सिमुलेशन नियंत्रण | ਸਿਮੂਲੇਸ਼ਨ ਕੰਟਰੋਲ | needs review / needs review |
 | `ctl.play` | Play replay | रीप्ले चलाएँ | ਰੀਪਲੇ ਚਲਾਓ | needs review / needs review |

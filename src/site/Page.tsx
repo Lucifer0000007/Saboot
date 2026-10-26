@@ -17,7 +17,7 @@ import { Simulation, SimHead } from './Simulation';
 import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
 
-const Tour = lazy(() => import('../tour/Tour'), 0);
+const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
 
 function SimPlaceholder() {

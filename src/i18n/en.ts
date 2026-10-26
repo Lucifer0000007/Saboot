@@ -91,6 +91,7 @@ const en: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'The officer console is shown in English.',
   'tour.invite': 'New here? Take the 2-minute judge tour.',
   'tour.start': 'Start tour',
+  'tour.loading': 'Loading the tour…',
   'tour.dismiss': 'Dismiss',
 
   'ctl.label': 'Simulation controls',

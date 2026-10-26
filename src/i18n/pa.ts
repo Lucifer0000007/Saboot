@@ -87,6 +87,7 @@ const pa: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'ਅਧਿਕਾਰੀ ਦਾ ਕੰਸੋਲ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।', // needs-native-review
   'tour.invite': 'ਪਹਿਲੀ ਵਾਰ? 2 ਮਿੰਟ ਦਾ ਜੱਜ ਟੂਰ ਲਓ।', // needs-native-review
   'tour.start': 'ਟੂਰ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
+  'tour.loading': 'ਟੂਰ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…', // needs-native-review
   'tour.dismiss': 'ਹਟਾਓ', // needs-native-review
 
   'ctl.label': 'ਸਿਮੂਲੇਸ਼ਨ ਕੰਟਰੋਲ', // needs-native-review
