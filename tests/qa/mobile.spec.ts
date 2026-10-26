@@ -32,3 +32,31 @@ test('Run the simulation on a phone goes to the farmer’s phone and stops once 
   await expect.poll(() => t(page), { timeout: 5_000 }).toBeGreaterThan(at + 0.5);
   expect(errors).toEqual([]);
 });
+
+/** The screen title sits between the sticky nav and the bottom of the screen. */
+async function titleOnScreen(page: Page) {
+  await expect.poll(async () => {
+    const r = await box(page, '.farmer .f-title');
+    const nav = await box(page, 'header.nav');
+    return r.top >= nav.bottom - 1 && r.bottom <= 640;
+  }, { timeout: 5_000 }).toBe(true);
+}
+
+test('a new farmer screen opens at its top, not where the last one was scrolled to (H1, UI-02)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3); s.tab('farmer'); s.screen('packet');`);
+  const next = page.locator('.farmer .pill-primary', { hasText: 'Next: report the loss' });
+  await next.scrollIntoViewIfNeeded();
+  await next.click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Report the loss');
+  await titleOnScreen(page);
+  // the helper: from the queue's last row to a farmer's consent screen
+  await sab(page, `s.seek(20); await s.helper(1); s.screen('helper');`);
+  const start = page.locator('.hq li').last().getByRole('button', { name: /Start|Continue/ });
+  await start.scrollIntoViewIfNeeded();
+  await start.click();
+  await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
+  await titleOnScreen(page);
+  expect(errors).toEqual([]);
+});

@@ -18,6 +18,8 @@ import { Assist } from './screens/Assist';
 import { Helper } from './screens/Helper';
 import { backToQueue } from './helper';
 import { nm } from '../lib/names';
+import { tourStep } from '../tour/state';
+import { scrollToPhone } from '../site/layout';
 
 const autoScreen = computed<Screen>(() => {
   const d = focusDet.value, v = view.value;
@@ -86,8 +88,15 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
 
   useEffect(() => {
     if (first.current) { first.current = false; return; }
-    if (framed) body.current?.scrollTo({ top: 0 });
     const h = body.current?.querySelector('h2');
+    if (framed) body.current?.scrollTo({ top: 0 });
+    // unframed (a phone): the new screen opens at its top when its title is off screen, not wherever the last screen was
+    // scrolled to (audit H1, UI-02). The tour scrolls to its own targets.
+    else if (h && tourStep.value === null) {
+      const r = h.getBoundingClientRect();
+      const navB = document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0;
+      if (r.top < navB || r.top > innerHeight * 0.6) scrollToPhone();
+    }
     if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
     if (voiceMode.value) {
       const sp = screenSpeech(s);
