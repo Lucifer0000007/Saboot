@@ -407,6 +407,8 @@ const pa: Record<string, string | string[]> = {
   'cap.locating': 'ਥਾਂ ਲੱਭ ਰਹੇ ਹਾਂ…', // needs-native-review
   'cap.gps': 'GPS ±{acc} ਮੀ', // needs-native-review
   'cap.simGps': 'ਸਿਮੂਲੇਟਡ ਥਾਂ', // needs-native-review
+  'cap.geoOff': 'ਇਸ ਫ਼ੋਨ ਨੇ ਫ਼ੋਟੋ ਦੀ ਥਾਂ ਨਹੀਂ ਦਿੱਤੀ। ਲੋਕੇਸ਼ਨ ਚਾਲੂ ਕਰੋ, ਅਤੇ ਇਸ ਪੰਨੇ ਨੂੰ ਇਜਾਜ਼ਤ ਦਿਓ, ਤਾਂ ਜੋ ਅਧਿਕਾਰੀ ਵੇਖ ਸਕਣ ਕਿ ਫ਼ੋਟੋ ਕਿੱਥੇ ਖਿੱਚੀ ਗਈ। ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
+  'cap.geoSim': 'ਸਿਮੂਲੇਟਡ ਥਾਂ ਨਾਲ ਸੰਭਾਲੋ', // needs-native-review
   'cap.hashing': 'ਫ਼ੋਟੋ ਸੁਰੱਖਿਅਤ ਕਰ ਰਹੇ ਹਾਂ…', // needs-native-review
   'cap.old': 'ਇਹ ਫ਼ੋਟੋ ਇਸ ਸੈਸ਼ਨ ਤੋਂ ਪੁਰਾਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਮਰੇ ਨਾਲ ਨਵੀਂ ਫ਼ੋਟੋ ਖਿੱਚੋ।', // needs-native-review
   'cap.queued': 'ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਨੈੱਟਵਰਕ ਆਉਣ ਉੱਤੇ ਭੇਜੀ ਜਾਵੇਗੀ।', // needs-native-review

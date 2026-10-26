@@ -256,6 +256,27 @@ test('Reset, by the key or the button, asks before it clears what the phone capt
   expect(errors).toEqual([]);
 });
 
+test.describe('location refused', () => {
+  test.use({ permissions: [] });
+  test('F6: a real photo with no location asks the person to turn location on; a simulated location is used only when they choose it, and is labelled', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+    await page.locator('[data-tour=cta]').click();
+    await page.setInputFiles('input[type=file][capture]', { name: 'shot1.jpg', mimeType: 'image/jpeg', buffer: await jpeg(page, 'a photo with no location') });
+    const ask = page.locator('[data-geo-off]');
+    await expect(ask).toContainText('Turn on location', { timeout: 20_000 });
+    // nothing is stored with a made-up location behind the person's back
+    expect((await state(page)).shots).toBe(0);
+    await ask.getByRole('button', { name: 'Save it with a simulated location' }).click();
+    await expect.poll(async () => (await state(page)).shots, { timeout: 20_000 }).toBe(1);
+    const shot = page.locator('.shots li').first();
+    await expect(shot.locator('[data-v="photo"][data-prov="live"]')).toBeVisible();
+    await expect(shot.locator('[data-v="loc"][data-prov="sim"]')).toContainText('Simulated location');
+    expect(errors).toEqual([]);
+  });
+});
+
 test('the empty Proof screen offers a way to take photos instead of a dead end', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

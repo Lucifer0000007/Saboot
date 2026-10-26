@@ -419,6 +419,8 @@ const en: Record<string, string | string[]> = {
   'cap.locating': 'Finding location…',
   'cap.gps': 'GPS ±{acc} m',
   'cap.simGps': 'Simulated location',
+  'cap.geoOff': 'This phone gave no location for the photo. Turn on location, and allow it for this page, so the officer can see where the photo was taken. Then try again.',
+  'cap.geoSim': 'Save it with a simulated location',
   'cap.hashing': 'Securing photo…',
   'cap.old': 'This photo is older than this session. Please take a new photo with the camera.',
   'cap.queued': 'Saved on phone. Will send when network returns.',

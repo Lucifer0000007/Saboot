@@ -5,7 +5,7 @@ import { fmtClock } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { announce } from '../../lib/announce';
 import { lowData } from '../../lib/prefs';
-import { view, addShot, addSyntheticShot, getGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
+import { view, addShot, addSyntheticShot, getGeo, simGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
@@ -85,6 +85,8 @@ export function Capture() {
   const [finder, setFinder] = useState(false);
   /** The camera is blocked or missing: say so and let the person choose, never swap in a simulated photo on their behalf. */
   const [camBlocked, setCamBlocked] = useState(false);
+  /** A real photo the phone gave no location for, waiting for the person to turn location on or choose a simulated one. */
+  const [noGeo, setNoGeo] = useState<{ blob: Blob; w: number; h: number } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   // listen for the location while the screen is open, so the first photo does not wait for a cold GPS fix
   useEffect(() => watchGeo(), []);
@@ -94,13 +96,17 @@ export function Capture() {
   const needConsent = activePlotId.value !== null && !v.consent;
   const n = kind ? SHOTS.indexOf(kind) + 1 : 3;
 
-  async function take(blob: Blob, w: number, h: number) {
+  /** Save a real photo. `sim`: the person chose a simulated location after the phone gave none (labelled Simulated). */
+  async function take(blob: Blob, w: number, h: number, sim = false) {
     if (!kind) return;
     setMsg(null);
     setCamBlocked(false);
+    setNoGeo(null);
     try {
       setPhase('locating');
-      const geo = await getGeo();
+      const geo = sim ? simGeo(2) : await getGeo();
+      // no location from the phone: ask the person to turn it on, and keep the photo until they choose (audit F6)
+      if (!geo) { setNoGeo({ blob, w, h }); return; }
       setPhase('hashing');
       await addShot(kind, blob, w, h, geo, false, helper);
       setSel(null);
@@ -115,6 +121,7 @@ export function Capture() {
   async function simulated() {
     if (!kind) return;
     setCamBlocked(false);
+    setNoGeo(null);
     try {
       setPhase('hashing');
       await addSyntheticShot(kind, helper);
@@ -130,6 +137,7 @@ export function Capture() {
   function openCamera() {
     setMsg(null);
     setCamBlocked(false);
+    setNoGeo(null);
     const coarse = matchMedia('(pointer: coarse)').matches;
     if (!coarse && typeof navigator.mediaDevices?.getUserMedia === 'function') setFinder(true);
     else fileRef.current?.click();
@@ -195,6 +203,16 @@ export function Capture() {
             </>
           )}
           {camBlocked && <p class="note note-warn" role="alert" data-cam-blocked><Icon name="info" /><span>{tr('cap.camDenied')}</span></p>}
+          {noGeo && phase === 'idle' && (
+            <div class="note note-warn" role="alert" data-geo-off>
+              <Icon name="info" />
+              <span>{tr('cap.geoOff')}</span>
+              <div class="row">
+                <button type="button" class="pill pill-dark" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h)}>{tr('sim.retry')}</button>
+                <button type="button" class="pill pill-ghost" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h, true)}>{tr('cap.geoSim')}</button>
+              </div>
+            </div>
+          )}
           {msg && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{msg}</span></p>}
           <input ref={fileRef} type="file" accept="image/*" capture="environment" class="sr-only" tabIndex={-1} aria-hidden="true" onChange={onFile} />
         </div>

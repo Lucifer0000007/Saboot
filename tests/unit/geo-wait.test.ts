@@ -1,6 +1,6 @@
 // A real photo on a real phone gets the phone's location (October audit CC-08). A cold GPS fix, or a permission prompt still on
 // screen, takes longer than a photo can wait: the camera screen now listens for the location while it is open, and a photo
-// falls back to a coarse (network) fix before it says "simulated location". A refused location is still labelled simulated.
+// falls back to a coarse (network) fix. With no fix at all it gives none, and the camera screen asks the person (audit F6).
 import { test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -27,12 +27,12 @@ test('CC-08: a fix the phone found while the camera screen was open is used for 
   const stop = watchGeo();
   const g = await getGeo();
   stop();
-  assert.equal(g.src, 'gps');
-  assert.equal(g.lat, 30.91);
+  assert.equal(g?.src, 'gps');
+  assert.equal(g?.lat, 30.91);
   assert.ok(cleared, 'leaving the screen stops the watch');
 });
 
-test('CC-08: when the precise fix times out, a coarse (network) fix is used before "simulated location"', async () => {
+test('CC-08: when the precise fix times out, a coarse (network) fix is used before giving up', async () => {
   // the fix from the test above is now old
   mock.timers.enable({ apis: ['Date'], now: Date.now() + 5 * 60_000 });
   try {
@@ -40,19 +40,29 @@ test('CC-08: when the precise fix times out, a coarse (network) fix is used befo
       getCurrentPosition: (ok, fail, o) => (o?.enableHighAccuracy ? fail!(timeout) : ok(pos(30.92, 75.82))),
     });
     const g = await getGeo();
-    assert.equal(g.src, 'gps');
-    assert.equal(g.lat, 30.92);
+    assert.equal(g?.src, 'gps');
+    assert.equal(g?.lat, 30.92);
   } finally {
     mock.timers.reset();
   }
 });
 
-test('CC-08: a refused location is labelled simulated, honestly', async () => {
+test('F6: a refused location gives no location, so the camera screen can ask: a real photo is never given a made-up one', async () => {
   mock.timers.enable({ apis: ['Date'], now: Date.now() + 10 * 60_000 });
   try {
     stubGeo({ getCurrentPosition: (_ok, fail) => fail!({ ...timeout, code: 1 }) });
-    const g = await getGeo();
-    assert.equal(g.src, 'sim');
+    assert.equal(await getGeo(), null);
+  } finally {
+    mock.timers.reset();
+  }
+});
+
+test('F6: a phone with no location service gives no location either', async () => {
+  mock.timers.enable({ apis: ['Date'], now: Date.now() + 20 * 60_000 });
+  try {
+    // the property must be absent, as on a page without location
+    delete (globalThis.navigator as { geolocation?: unknown }).geolocation;
+    assert.equal(await getGeo(), null);
   } finally {
     mock.timers.reset();
   }

@@ -407,6 +407,8 @@ const hi: Record<string, string | string[]> = {
   'cap.locating': 'जगह ढूँढ रहे हैं…', // needs-native-review
   'cap.gps': 'GPS ±{acc} मी', // needs-native-review
   'cap.simGps': 'सिमुलेटेड जगह', // needs-native-review
+  'cap.geoOff': 'इस फ़ोन ने फ़ोटो की जगह नहीं दी। लोकेशन चालू करें, और इस पेज को अनुमति दें, ताकि अधिकारी देख सकें कि फ़ोटो कहाँ ली गई। फिर दोबारा कोशिश करें।', // needs-native-review
+  'cap.geoSim': 'सिमुलेटेड जगह के साथ सहेजें', // needs-native-review
   'cap.hashing': 'फ़ोटो सुरक्षित कर रहे हैं…', // needs-native-review
   'cap.old': 'यह फ़ोटो इस सत्र से पुरानी है। कृपया कैमरे से नई फ़ोटो लें।', // needs-native-review
   'cap.queued': 'फ़ोन में सहेजी गई। नेटवर्क आने पर भेजी जाएगी।', // needs-native-review
