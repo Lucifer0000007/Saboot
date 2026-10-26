@@ -103,6 +103,7 @@ const hi: Record<string, string | string[]> = {
   'ctl.ask.keep': 'जो लिया गया है उसे रखें', // needs-native-review
   'ctl.ask.go': 'मिटाकर फिर से शुरू करें', // needs-native-review
   'ctl.more': 'और नियंत्रण', // needs-native-review
+  'ctl.moreShort': 'क्षण', // needs-native-review
   'ctl.moreTitle': 'रीप्ले नियंत्रण', // needs-native-review
   'ctl.net': 'फ़ोन नेटवर्क', // needs-native-review
   'net.online': 'ऑनलाइन', // needs-native-review

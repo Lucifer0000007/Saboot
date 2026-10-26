@@ -103,6 +103,7 @@ const pa: Record<string, string | string[]> = {
   'ctl.ask.keep': 'ਜੋ ਲਿਆ ਗਿਆ ਹੈ ਉਸ ਨੂੰ ਰੱਖੋ', // needs-native-review
   'ctl.ask.go': 'ਮਿਟਾ ਕੇ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ', // needs-native-review
   'ctl.more': 'ਹੋਰ ਕੰਟਰੋਲ', // needs-native-review
+  'ctl.moreShort': 'ਪਲ', // needs-native-review
   'ctl.moreTitle': 'ਰੀਪਲੇ ਕੰਟਰੋਲ', // needs-native-review
   'ctl.net': 'ਫ਼ੋਨ ਨੈੱਟਵਰਕ', // needs-native-review
   'net.online': 'ਆਨਲਾਈਨ', // needs-native-review

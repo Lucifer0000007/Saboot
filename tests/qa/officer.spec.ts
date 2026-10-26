@@ -256,7 +256,8 @@ test('an officer link lands on a moment with something to show, on the console i
   await expect(page.locator('.kpis li').first().locator('strong')).not.toHaveText('0', { timeout: 20_000 });
   const landed = ((await page.evaluate('window.__sab.state()')) as { t: number }).t;
   expect(landed).toBeGreaterThan(0);
-  await expect.poll(async () => (await page.locator('.sim-tabs').boundingBox())!.y, { timeout: 5_000 }).toBeLessThan(200);
+  // the console itself at the top (on a phone the view switch now rides in the bottom dock, audit UI-07)
+  await expect.poll(async () => (await page.locator('#st-panel').boundingBox())!.y, { timeout: 5_000 }).toBeLessThan(200);
   // a visitor whose stored log set the clock keeps it (the clock goes to their last event, before that moment)
   await page.goto('/?tab=insurer&via=again');
   await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });

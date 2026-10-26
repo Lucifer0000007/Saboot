@@ -78,6 +78,26 @@ test.describe('the first-visit toast', () => {
   });
 });
 
+test('the view switch rides in the dock: from the bottom of the console one tap opens the farmer at the top; the dock’s Moments button says so (J3, UI-07, UI-16)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  await expect(page.locator('.dash')).toBeVisible({ timeout: 20_000 });
+  const tabs = page.locator('.ctrl-dock .sim-tabs [role=tab]');
+  await expect(tabs).toHaveText(['Farmer', 'Officer', 'Explainer']);
+  // far down the officer console, the switch is still on screen
+  await page.evaluate(() => { const p = document.getElementById('st-panel')!; scrollTo(0, p.getBoundingClientRect().bottom + scrollY - 700); });
+  await expect(tabs.first()).toBeInViewport();
+  await tabs.first().click();
+  await expect(tabs.first()).toHaveAttribute('aria-selected', 'true');
+  await titleOnScreen(page);
+  const more = page.locator('.ctrl-dock .ctrl-more');
+  await expect(more).toContainText('Moments');
+  await more.click();
+  await expect(page.locator('.ctrl-sheet')).toContainText('Jump to a moment');
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {

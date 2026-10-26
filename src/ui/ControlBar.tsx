@@ -1,6 +1,7 @@
 // Simulation control bar (feature A). Desktop: one sticky row under the nav. Below 1024px: a compact
 // bottom dock (play, time, scrubber) whose "More" button opens a sheet with speed, moments, network, reset.
 import { signal } from '@preact/signals';
+import type { ComponentChildren } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Icon, type IconName } from './Icon';
 import { Sheet } from './Sheet';
@@ -100,7 +101,12 @@ function Reset() {
   );
 }
 
-export function ControlBar() {
+/** Open the replay controls sheet (the dock's "Moments" button), for example from the process chip above the phone. */
+export const openControls = () => (more.value = true);
+
+/** `views`: below the desktop layout, the simulation's view switch rides in the dock, so it is one tap away anywhere in the
+ *  simulation instead of thousands of pixels up the page (audit J3, UI-07). */
+export function ControlBar({ views }: { views?: ComponentChildren }) {
   const now = t.value;
   const desk = layout.value === 'desktop';
   const bar = useRef<HTMLDivElement>(null);
@@ -108,6 +114,7 @@ export function ControlBar() {
   useEffect(() => (bar.current ? measureInto(bar.current, desk ? '--ctrl-real' : '--dock-real') : undefined), [desk]);
   return (
     <div class={'ctrl ' + (desk ? 'ctrl-top' : 'ctrl-dock')} role="region" aria-label={tr('ctl.label')} data-tour="ctrl" data-sticky ref={bar}>
+      {views && <div class="wrap ctrl-views">{views}</div>}
       <div class="wrap ctrl-in">
         <button type="button" class="iconbtn solid" onClick={toggle} aria-label={playing.value ? tr('ctl.pause') : tr('ctl.play')}>
           <Icon name={playing.value ? 'pause' : 'play'} />
@@ -137,8 +144,11 @@ export function ControlBar() {
             <Reset />
           </>
         ) : (
-          <button type="button" class="iconbtn ctrl-more" aria-label={tr('ctl.more')} aria-expanded={more.value} onClick={() => (more.value = true)}>
+          // a visible word: the jumps, the network switch and the speed are behind it (audit UI-16)
+          <button type="button" class="pill pill-ghost pill-sm ctrl-more" aria-expanded={more.value} onClick={() => (more.value = true)}>
             <Icon name="layers" />
+            <span class="ctrl-more-l">{tr('ctl.moreShort')}</span>
+            <span class="sr-only">: {tr('ctl.more')}</span>
           </button>
         )}
       </div>

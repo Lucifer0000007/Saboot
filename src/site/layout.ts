@@ -82,9 +82,10 @@ export function scrollToId(id: string, focus = true) {
   }
 }
 
-/** Bring the simulation's tabs and the open panel (the console) to the top of the view, not the section heading above them. */
+/** Bring the open panel (the console) to the top of the view, not the section heading above it: on a desktop with its tabs,
+ *  below that the panel itself (the view switch rides in the bottom dock there). */
 export function scrollToPanel() {
-  const el = document.querySelector<HTMLElement>('.sim-tabs');
+  const el = document.querySelector<HTMLElement>('.sim-grid .panel-tabs, .sim-body > .sim-tabs, #st-panel');
   if (!el) return scrollToId('simulation', false);
   el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }

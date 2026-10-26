@@ -190,7 +190,14 @@ html:not(.lay-mobile) .farmer-solo { border: 2px solid var(--kali); border-radiu
 /* moment ticks cross the track, so they read as marks on the timeline */
 .ticks { position: absolute; left: 10px; right: 10px; top: 50%; height: 14px; transform: translateY(-50%); pointer-events: none; }
 .tick { position: absolute; top: 0; width: 2px; height: 14px; background: var(--kali); transform: translateX(-1px); border-radius: 1px; }
-.ctrl-more { flex: none; }
+.ctrl-more { flex: none; gap: 6px; padding-inline: 10px; }
+.ctrl-dock .scrub { min-width: 56px; }
+/* the dock's two rows: the view switch, then play / time / scrubber / Moments, each row kept short */
+.ctrl-dock .ctrl-in { min-height: 0; padding-block: 4px; }
+.ctrl-views { padding-top: 4px; }
+.ctrl-views .sim-tabs { margin: 0; padding: 0; border: 0; gap: 4px; }
+.ctrl-views .sim-tabs button { flex-direction: row; gap: 6px; min-height: 44px; padding: 4px 6px; }
+@container ctrl (max-width: 23em) { .ctrl-views .sim-tabs .ic, .ctrl-more .ic { display: none; } }
 .ctrl-row2 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s1); padding-bottom: 12px; }
 .ctrl-sheet .seg { align-self: flex-start; }
 /* narrow desktop: moment chips go icon-only (they keep their accessible names) so the bar stays two rows */

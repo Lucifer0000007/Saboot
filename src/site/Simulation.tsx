@@ -12,7 +12,7 @@ import { FarmerApp } from '../farmer/FarmerApp';
 import { ControlBar } from '../ui/ControlBar';
 import { Icon, type IconName } from '../ui/Icon';
 import { tourStep, startTour } from '../tour/state';
-import { layout, simTab, panelTab, bigText, type SimTab } from './layout';
+import { layout, simTab, panelTab, bigText, scrollToPhone, scrollToPanel, type SimTab } from './layout';
 
 export const Dashboard = lazy(() => import('../dashboard/Dashboard'), 900);
 export const Explainer = lazy(() => import('../explainer/Explainer'), 900);
@@ -35,7 +35,14 @@ function Tabs({ tabs, active, label, idPrefix }: { tabs: typeof TABS; active: Si
           aria-selected={active === id}
           aria-controls={idPrefix + 'panel'}
           tabIndex={active === id ? 0 : -1}
-          onClick={() => (simTab.value = id)}
+          onClick={() => {
+            simTab.value = id;
+            // from the dock: a view opened while the page is scrolled past its top starts at its top
+            if (idPrefix === 'st-') requestAnimationFrame(() => {
+              const top = document.getElementById('st-panel')?.getBoundingClientRect().top ?? 0;
+              if (top < (document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0)) (id === 'farmer' ? scrollToPhone : scrollToPanel)();
+            });
+          }}
           onKeyDown={(e) => {
             const i = tabs.findIndex((x) => x[0] === active);
             const n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
@@ -100,6 +107,9 @@ export function Simulation() {
     const idle = (window as Window & { requestIdleCallback?: (f: () => void) => number }).requestIdleCallback ?? ((f: () => void) => setTimeout(f, 1500));
     idle(() => { Dashboard.preload(); });
   }, []);
+  // the view switch rides in the bottom dock, except with large text, where a taller dock would take too much of the screen
+  const tabs = <Tabs tabs={TABS} active={simTab.value} label={tr('sim.tabs')} idPrefix="st-" />;
+  const dockTabs = !bigText.value;
   const body = !m ? (
     loadError.value ? (
       <div class="stack">
@@ -123,7 +133,7 @@ export function Simulation() {
     </div>
   ) : (
     <>
-      <Tabs tabs={TABS} active={simTab.value} label={tr('sim.tabs')} idPrefix="st-" />
+      {!dockTabs && tabs}
       <div id="st-panel" role="tabpanel" aria-labelledby={'st-' + simTab.value}>
         {simTab.value === 'farmer' ? (
           L === 'tablet' && !bigText.value ? (
@@ -151,7 +161,7 @@ export function Simulation() {
       </div>
       {L === 'desktop' && m && <ControlBar />}
       <div class={'wrap sim-body' + (bleed ? ' sim-bleed' : '')}>{body}</div>
-      {L !== 'desktop' && m && <ControlBar />}
+      {L !== 'desktop' && m && <ControlBar views={dockTabs ? tabs : undefined} />}
     </section>
   );
 }

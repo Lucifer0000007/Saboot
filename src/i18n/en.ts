@@ -107,6 +107,7 @@ const en: Record<string, string | string[]> = {
   'ctl.ask.keep': 'Keep what was captured',
   'ctl.ask.go': 'Clear it and start over',
   'ctl.more': 'More controls',
+  'ctl.moreShort': 'Moments',
   'ctl.moreTitle': 'Replay controls',
   'ctl.net': 'Phone network',
   'net.online': 'Online',
