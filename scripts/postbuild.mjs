@@ -42,10 +42,11 @@ try {
   // if that fails too, or nothing has started after 25 s, the placeholder says so in the visitor's language, with a Reload
   // button and the browser's own error text (so a phone with no developer tools can still show what went wrong). The words
   // come from the dictionaries (boot.*). main.tsx sets data-booted once the app is running, and the watch stands down.
+  // Once "could not start" is on screen (f=1), the 25 s "taking longer" message never replaces it.
   const BOOT = Object.fromEntries([['en', en], ['hi', hi], ['pa', pa]].map(([l, dict]) => [l, ['boot.slow', 'boot.failed', 'boot.reload'].map((k) => String(dict[k]))]));
-  const boot = `const P=${JSON.stringify([entry[1], ...deps])},M=${JSON.stringify(BOOT)},H=document.documentElement;let d=0,e="";` +
+  const boot = `const P=${JSON.stringify([entry[1], ...deps])},M=${JSON.stringify(BOOT)},H=document.documentElement;let d=0,e="",f=0;` +
     `addEventListener("error",(x)=>{e=e||String(x.message||"error")});addEventListener("unhandledrejection",(x)=>{e=e||String((x.reason&&x.reason.message)||x.reason||"rejected")});` +
-    `const show=(k)=>{const h=document.querySelector(".sim-ph");if(!h||H.dataset.booted)return;const m=M[H.classList.contains("l-hi")?"hi":H.classList.contains("l-pa")?"pa":"en"],p=document.createElement("p"),b=document.createElement("button");p.textContent=m[k];b.type="button";b.className="pill pill-primary";b.textContent=m[2];b.onclick=()=>location.reload();h.textContent="";h.append(p,b);if(k&&e){const s=document.createElement("small");s.textContent=e.slice(0,140);h.append(s)}};` +
+    `const show=(k)=>{const h=document.querySelector(".sim-ph");if(!h||H.dataset.booted||f>k)return;f=k;const m=M[H.classList.contains("l-hi")?"hi":H.classList.contains("l-pa")?"pa":"en"],p=document.createElement("p"),b=document.createElement("button");p.textContent=m[k];b.type="button";b.className="pill pill-primary";b.textContent=m[2];b.onclick=()=>location.reload();h.textContent="";h.append(p,b);if(k&&e){const s=document.createElement("small");s.textContent=e.slice(0,140);h.append(s)}};` +
     `const add=(h,a)=>{const e=document.createElement("link");e.rel=a?"preload":"modulepreload";if(a)e.as=a;e.href=h;e.crossOrigin="";document.head.appendChild(e)};` +
     `const go=()=>{if(!d){d=1;add("data/flood-replay.json","fetch");P.concat(self.__dl||[]).forEach((h)=>add(h));import("${entry[1]}").catch((x)=>{e=e||String((x&&x.message)||x);try{if(!sessionStorage.getItem("saboot.bootRetry")){sessionStorage.setItem("saboot.bootRetry","1");return location.reload()}}catch(_){}show(1)})}};` +
     `if(document.visibilityState==="hidden"||H.classList.contains("lang-pending")||!(self.PerformanceObserver&&(PerformanceObserver.supportedEntryTypes||[]).includes("paint")))go();` +

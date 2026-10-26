@@ -93,3 +93,15 @@ test('R4: a chunk that keeps failing reloads only once, then shows Reload', asyn
   await expect(page.locator('.load-failed')).toBeVisible({ timeout: 30_000 });
   expect(navs, 'one automatic reload, no loop').toBe(2);
 });
+
+test('R5: once the start has failed, the 25 s "taking longer" message does not replace the error', async ({ page }) => {
+  test.setTimeout(90_000);
+  await page.route('**/assets/index-*.js', (r) => r.abort('connectionreset'));
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const dict = (await import('../../src/i18n/en')).default as Record<string, string>;
+  const ph = page.locator('.sim-ph');
+  await expect(ph).toContainText(dict['boot.failed'], { timeout: 20_000 });
+  await page.waitForTimeout(27_000);
+  await expect(ph).toContainText(dict['boot.failed']);
+  await expect(ph.locator('small')).toContainText('index-');
+});
