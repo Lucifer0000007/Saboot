@@ -10,7 +10,7 @@ import { view, syncOutbox, busy, isOffline, GAP_FLAG_H, type Link, type FocusEve
 import { SHOTS } from '../photo';
 import { screen } from '../nav';
 import { activePlotId, focusPlot } from '../../sim/engine';
-import { backToQueue } from '../helper';
+import { nextFarmer } from '../helper';
 import { SyncLog } from '../SyncLog';
 import { Thumb, sealOrSay, sealLabel } from './Capture';
 import { Seal } from '../../ui/Seal';
@@ -131,7 +131,7 @@ export function Packet() {
       </details>
 
       {v.seal && activePlotId.value !== null ? (
-        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={backToQueue}>
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={nextFarmer}>
           <Icon name="users" /> {tr('hm.next')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : v.seal ? (

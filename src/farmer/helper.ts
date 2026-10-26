@@ -85,6 +85,13 @@ export function openFarmer(id: string, state: QueueState) {
   screen.value = nextScreen(state);
 }
 
+/** After a farmer is done: straight to the next farmer the helper still has work for, else the queue (audit H13). */
+export function nextFarmer() {
+  const q = queue.value.find((x) => x.state === 'consent' || x.state === 'ready' || x.state === 'photos');
+  if (q) openFarmer(q.plot.id, q.state);
+  else backToQueue();
+}
+
 /** Back to the queue. The app stops acting for any single farmer until the helper picks the next one. */
 export function backToQueue() {
   activePlotId.value = null;

@@ -62,7 +62,10 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await page.getByRole('button', { name: /Seal Mohinder Dhillon’s evidence/ }).click();
   await expect(page.locator('.farmer .f-title')).toHaveText('Mohinder Dhillon’s evidence');
   await expect(page.locator('[data-captured-by]')).toContainText('Test Helper, Sarpanch', { timeout: 10_000 });
+  // H13: "Next farmer" opens the next farmer still waiting, not the top of the queue
   await page.getByRole('button', { name: /Next farmer/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Avtar Sharma');
+  await page.getByRole('button', { name: /Back to the queue/ }).click();
   const first = page.locator('[data-farmer="P-05"]');
   await expect(first).toContainText('Evidence sealed');
   await expect(first.locator('[data-captured-by]')).toContainText('Captured by Test Helper, Sarpanch');

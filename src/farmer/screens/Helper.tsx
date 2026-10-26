@@ -60,7 +60,8 @@ export function Helper() {
   return (
     <div class="stack f-stack" data-helper-screen>
       <h2 class="f-title">{tr('hm.title')}</h2>
-      <p>{tr('hm.intro')}</p>
+      {/* once the session runs, the queue comes first: the introduction has done its job (audit H13) */}
+      {!session && <p>{tr('hm.intro')}</p>}
       {!session ? (
         <Start />
       ) : (
