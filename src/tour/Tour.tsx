@@ -81,6 +81,9 @@ function tourVars(): Record<string, string> {
   };
 }
 
+/** A sheet or the camera viewfinder is open: it sits above the tour. */
+const layerOnTop = () => !!document.querySelector('.sheet, .finder');
+
 interface Box { x: number; y: number; w: number; h: number }
 
 /** Wide screens: the card sits bottom-right; when that would cover the spotlight, it moves to the free space on the
@@ -121,20 +124,20 @@ export default function Tour() {
     return () => { alive = false; };
   }, [i]);
 
-  // Track the spotlight target (tabs and lazy chunks render asynchronously).
+  // Track the spotlight target for the whole step (tabs and lazy chunks render asynchronously, and the page can scroll or
+  // reflow at any time, audit UI-06). A step whose target changes scrolls once more, to the new one.
   useLayoutEffect(() => {
     let raf = 0;
-    let n = 0;
-    let scrolled = false;
+    let scrolled: string | null = null;
     const tick = () => {
       const sel = step.target();
       const el = sel ? document.querySelector(sel) : null;
       if (el) {
-        if (!scrolled) {
+        if (scrolled !== sel) {
           // a target inside a closed <details> (the Proof screen's technical details) is opened first
           for (let d = el.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true;
           el.scrollIntoView({ block: desk() ? 'center' : 'start', behavior: reducedMotion.value ? 'auto' : 'smooth' });
-          scrolled = true;
+          scrolled = sel;
         }
         const r = el.getBoundingClientRect();
         const b = { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 };
@@ -144,7 +147,7 @@ export default function Tour() {
         setBox(null);
         setDock(null);
       }
-      if (++n < 600) raf = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
@@ -153,6 +156,8 @@ export default function Tour() {
   useEffect(() => {
     if (paused) return;
     const id = setInterval(() => setElapsed((e) => {
+      // a sheet or the camera open on top of the tour holds it, as a pause would (audit UI-10)
+      if (layerOnTop()) return e;
       if (e + 250 >= STEP_MS) { next(); return 0; }
       return e + 250;
     }), 250);
@@ -161,6 +166,8 @@ export default function Tour() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // keys belong to the topmost layer: a sheet or the camera opened over the tour handles its own Escape (audit UI-10)
+      if (layerOnTop()) return;
       const tag = (e.target as HTMLElement).tagName;
       if (e.key === 'Escape') { e.stopPropagation(); close(); }
       else if (e.key === 'ArrowRight' && tag !== 'INPUT') next();

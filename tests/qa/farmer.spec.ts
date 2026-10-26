@@ -98,3 +98,36 @@ test('How it works on a phone is the five steps, two notes and the replay; the d
   await expect(arch.locator('[data-node=pk]')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('the tour spotlight keeps tracking its target after ten seconds and a scroll', async ({ page }) => {
+  test.setTimeout(60_000);
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.tour(2);`);
+  await page.locator('.tour-card').waitFor();
+  await page.locator('.tour-actions button[aria-pressed]').click(); // pause
+  await page.waitForTimeout(11_000);
+  await page.mouse.wheel(0, 300);
+  await page.waitForTimeout(600);
+  const [spot, target] = await page.evaluate(() => [
+    document.querySelector('.spot')!.getBoundingClientRect().top,
+    document.querySelector('[data-tour=alert] .countdown')!.getBoundingClientRect().top,
+  ]);
+  expect(Math.abs(spot + 6 - target)).toBeLessThan(3);
+  expect(errors).toEqual([]);
+});
+
+test('with the menu open over the tour, Escape closes the menu and the tour stays and holds its step', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.tour(0);`);
+  await page.locator('.tour-card').waitFor();
+  await page.evaluate(() => (document.querySelector('.nav-menu') as HTMLButtonElement).click());
+  await expect(page.locator('.menu-sheet')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.menu-sheet')).toHaveCount(0);
+  await expect(page.locator('.tour-card')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.tour-card')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
