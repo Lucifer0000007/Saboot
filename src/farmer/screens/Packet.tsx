@@ -14,6 +14,7 @@ import { nextFarmer } from '../helper';
 import { SyncLog } from '../SyncLog';
 import { Thumb, sealOrSay, sealLabel } from './Capture';
 import { Seal } from '../../ui/Seal';
+import { nm } from '../../lib/names';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
 
@@ -43,7 +44,7 @@ export function Packet() {
   const v = view.value;
   const [msg, setMsg] = useState<string | null>(null);
   // a helper looks at the farmer's evidence, not "your evidence" (audit H11)
-  const title = activePlotId.value !== null ? tr('hm.pkTitle', { farmer: focusPlot.value!.name }) : tr('pk.title');
+  const title = activePlotId.value !== null ? tr('hm.pkTitle', { farmer: nm(focusPlot.value!.name) }) : tr('pk.title');
   if (!v.shotCount) {
     return (
       <div class="stack f-stack">

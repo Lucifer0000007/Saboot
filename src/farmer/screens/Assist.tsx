@@ -10,6 +10,7 @@ import { view, recordConsent, helperSession, reportNoDamage, activeKey } from '.
 import { screen } from '../nav';
 import { backToQueue } from '../helper';
 import { VoiceCaption } from '../parts';
+import { nm, nameIn } from '../../lib/names';
 
 const ROLES = ['as.family', 'as.volunteer', 'as.bank'];
 const HOLD_MS = 2000;
@@ -76,7 +77,7 @@ export function Assist() {
   }
 
   const helper = name.trim();
-  const text = trIn(cl, 'as.consentText', { farmer: p.name, helper: helper || '…' });
+  const text = trIn(cl, 'as.consentText', { farmer: nameIn(p.name, cl), helper: helper || '…' });
   // the same words in the phone's language, for a helper who does not read the farmer's script
   const other = cl !== langReady.value;
 
@@ -147,8 +148,8 @@ export function Assist() {
 
   return (
     <div class="stack f-stack">
-      <h2 class="f-title">{inHelper ? tr('hm.consentTitle', { farmer: p.name.replace(/ /g, '\u00a0') }) : tr('as.title')}</h2>
-      <p>{inHelper ? tr('hm.consentIntro', { farmer: p.name }) : tr('as.intro')}</p>
+      <h2 class="f-title">{inHelper ? tr('hm.consentTitle', { farmer: nm(p.name).replace(/ /g, '\u00a0') }) : tr('as.title')}</h2>
+      <p>{inHelper ? tr('hm.consentIntro', { farmer: nm(p.name) }) : tr('as.intro')}</p>
       {session ? (
         <p class="tag tag-flow" data-helper-name><Icon name="users" size={16} /> {tr('hm.session', { name: session.name, role: session.role })}</p>
       ) : (
@@ -182,7 +183,7 @@ export function Assist() {
         {other && (
           <details class="k-code" data-consent-ui>
             <summary><span>{tr('as.uiCopy', { lang: tr('lang.name.' + langReady.value) })}</span><Icon name="down" /></summary>
-            <p>{tr('as.consentText', { farmer: p.name, helper: helper || '…' })}</p>
+            <p>{tr('as.consentText', { farmer: nm(p.name), helper: helper || '…' })}</p>
             <ul class="means">
               <li>{tr('as.means1')}</li>
               <li>{trr('as.means2')}</li>

@@ -11,6 +11,7 @@ import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
 import { ShotPicto } from '../parts';
 import { Val } from '../../ui/ProvTag';
+import { nm } from '../../lib/names';
 
 export function Thumb({ id, alt }: { id: string; alt: string }) {
   const [url, setUrl] = useState<string | null>(null);
@@ -63,7 +64,7 @@ function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, 
 }
 
 /** A helper seals a farmer's evidence, not "my evidence" (audit H11). */
-export const sealLabel = () => (activePlotId.value !== null ? tr('hm.seal', { farmer: focusPlot.value!.name }) : tr('cap.done'));
+export const sealLabel = () => (activePlotId.value !== null ? tr('hm.seal', { farmer: nm(focusPlot.value!.name) }) : tr('cap.done'));
 
 /** Seal, or say on screen why it did not happen (storage failed, or the farmer has not agreed). True once sealed. */
 export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boolean> {
@@ -72,7 +73,7 @@ export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boo
     await seal();
     return true;
   } catch (e) {
-    setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: focusPlot.value!.name }) : tr('cap.sealFail'));
+    setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) }) : tr('cap.sealFail'));
     return false;
   }
 }
@@ -112,7 +113,7 @@ export function Capture() {
       setSel(null);
       announce(tr('cap.taken') + ': ' + tr('shot.' + kind));
     } catch (e) {
-      setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: focusPlot.value!.name }) : tr('cap.saveFail'));
+      setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) }) : tr('cap.saveFail'));
     } finally {
       setPhase('idle');
     }
@@ -181,7 +182,7 @@ export function Capture() {
 
       {needConsent ? (
         <div class="shotcard" data-need-consent>
-          <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: focusPlot.value!.name })}</span></p>
+          <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) })}</span></p>
           <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'assist')}>
             {tr('cap.askConsent')} <span class="arrow" aria-hidden="true">→</span>
           </button>

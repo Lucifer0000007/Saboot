@@ -14,6 +14,7 @@ import { pause, seek, t, model, demoPlot, demoDet } from '../sim/engine';
 import { jumpTo } from '../sim/moments';
 import { screen } from '../farmer/nav';
 import { ensureFocus, full } from '../farmer/focus';
+import { nm } from '../lib/names';
 
 interface Step {
   key: string;
@@ -70,7 +71,7 @@ function tourVars(): Record<string, string> {
   if (!m || !p || !d || d.alertT === null || d.eventT === null) return {};
   const e = eventToCall(m);
   return {
-    name: p.name,
+    name: nm(p.name),
     language: tr('lang.name.' + p.lang),
     gauge: m.stations[p.station].name.replace(/ gauge$/, ''),
     focus: fmtDur(d.alertT - d.eventT),

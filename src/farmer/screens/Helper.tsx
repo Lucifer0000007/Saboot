@@ -8,6 +8,7 @@ import { fmtClock } from '../../lib/time';
 import { helperSession, startHelperSession } from '../focus';
 import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, jumpToFirstAlert, type QueueState } from '../helper';
 import { cropName } from '../parts';
+import { nm } from '../../lib/names';
 
 const FeaturePhone = lazy(() => import('../FeaturePhone'), 0);
 
@@ -84,8 +85,8 @@ export function Helper() {
               return (
                 <li key={q.plot.id} class={'hq-' + q.state} data-farmer={q.plot.id}>
                   <div class="hq-main">
-                    <strong>{q.plot.name}</strong>
-                    <span class="sub">{q.plot.id} · {q.plot.village} · {cropName(q.plot.crop)} · <span class="nb">{q.plot.areaHa.toFixed(1)} ha</span></span>
+                    <strong>{nm(q.plot.name)}</strong>
+                    <span class="sub">{q.plot.id} · {nm(q.plot.village)} · {cropName(q.plot.crop)} · <span class="nb">{q.plot.areaHa.toFixed(1)} ha</span></span>
                     <span class="sub">{tr('hm.speaks', { lang: tr('lang.name.' + q.plot.lang) })}</span>
                     {q.by && <span class="sub" data-captured-by>{tr('hm.by', { name: q.by.name, role: q.by.role })}{q.consentT !== null && <> <span class="nb">· <span class="num">{fmtClock(q.consentT, false)}</span></span></>}</span>}
                   </div>
@@ -93,7 +94,7 @@ export function Helper() {
                   {q.waiting > 0 && <span class="tag tag-flow" data-waiting><Icon name="clock" size={16} /> {tr('pk.queued', { n: q.waiting })}</span>}
                   {q.state === 'no-alert' && <span class="sub">{tr('hm.wait')}</span>}
                   <button type="button" class="pill pill-ghost" disabled={q.state === 'no-alert'} onClick={() => openFarmer(q.plot.id, q.state)}>
-                    {tr(action)}<span class="sr-only"> · {q.plot.name}</span>
+                    {tr(action)}<span class="sr-only"> · {nm(q.plot.name)}</span>
                   </button>
                 </li>
               );

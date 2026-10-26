@@ -16,6 +16,7 @@ import { SHOTS } from './photo';
 import { makeCode, newDeviceKey, qrTextOf, verifyCode } from '../k/payload';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { qrPath } from '../k/qr';
+import { nm } from '../lib/names';
 
 async function deviceKey(): Promise<CryptoKeyPair> {
   const k = await dbGet<CryptoKeyPair>('kv', 'k-device-key');
@@ -80,7 +81,7 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
   return (
     <Sheet title={tr('k.sheet')} onClose={onClose} closeLabel={tr('set.close')} class="share-sheet">
       {/* whose code this is, so an officer shown several farmers' codes on one helper's phone can tell them apart (audit H8) */}
-      <p data-share-farmer><strong>{plot.name}</strong> · <span class="nb">{plot.id}</span>{consent && <><br /><span class="f-help">{tr('hm.by', { name: consent.helper, role: consent.role })}</span></>}</p>
+      <p data-share-farmer><strong>{nm(plot.name)}</strong> · <span class="nb">{plot.id}</span>{consent && <><br /><span class="f-help">{tr('hm.by', { name: consent.helper, role: consent.role })}</span></>}</p>
       <p>{tr('k.lead')}</p>
       {qr ? (
         <svg class="qr" width="320" height="320" viewBox={`0 0 ${qr.size} ${qr.size}`} role="img" aria-label={tr('k.qr')} shape-rendering="crispEdges">

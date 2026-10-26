@@ -17,6 +17,7 @@ import { Status } from './screens/Status';
 import { Assist } from './screens/Assist';
 import { Helper } from './screens/Helper';
 import { backToQueue } from './helper';
+import { nm } from '../lib/names';
 
 const autoScreen = computed<Screen>(() => {
   const d = focusDet.value, v = view.value;
@@ -113,8 +114,8 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
       {storageOk.value && storagePersistent.value === false && view.value.queued > 0 && <p class="note note-warn" role="status" data-persist-warning><Icon name="info" /><span>{tr('db.notPersistent')}</span></p>}
       <header class="f-top">
         <div class="f-who">
-          <strong>{s === 'helper' ? tr('hm.title') : p.name}</strong>
-          <span>{s === 'helper' ? tr('hm.sub') : `${p.id} · ${p.village}`}</span>
+          <strong>{s === 'helper' ? tr('hm.title') : nm(p.name)}</strong>
+          <span>{s === 'helper' ? tr('hm.sub') : `${p.id} · ${nm(p.village)}`}</span>
         </div>
         <button type="button" class="iconbtn" aria-label={tr('nav.settings')} onClick={() => (settingsOpen.value = true)} data-tour="settings">
           <Icon name="gear" />
@@ -123,7 +124,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
       {!framed && nav && <FarmerNav />}
       {activePlotId.value !== null && s !== 'helper' && (
         <div class="hbar" role="group" aria-label={tr('hm.title')} data-helper-bar>
-          <span class="hbar-t"><Icon name="users" size={18} /> {tr('hm.bar', { farmer: p.name, plot: p.id })}</span>
+          <span class="hbar-t"><Icon name="users" size={18} /> {tr('hm.bar', { farmer: nm(p.name), plot: p.id })}</span>
           <button type="button" class="pill pill-ghost pill-sm" onClick={backToQueue}>{tr('hm.back')}</button>
         </div>
       )}

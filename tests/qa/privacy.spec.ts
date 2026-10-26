@@ -80,7 +80,9 @@ for (const [lang, dict] of [['en', en], ['hi', hi], ['pa', pa]] as const) {
     const errors: string[] = [];
     await open(page, V('1280x800'), lang, errors);
     await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); s.screen('assist');`);
-    const sentence = (d: typeof dict) => String(d['as.consentText']).replace('{farmer}', 'Avtar Sharma').replace('{helper}', 'QA helper');
+    // the farmer's name is written in the script of each copy (audit F15)
+    const AVTAR = { en: 'Avtar Sharma', hi: 'अवतार शर्मा', pa: 'ਅਵਤਾਰ ਸ਼ਰਮਾ' } as const;
+    const sentence = (d: typeof dict) => String(d['as.consentText']).replace('{farmer}', AVTAR[d === hi ? 'hi' : d === pa ? 'pa' : 'en']).replace('{helper}', 'QA helper');
     const farmer = page.locator('[data-consent-farmer]');
     await expect(farmer).toHaveAttribute('lang', 'hi');
     await expect(farmer.locator('.captions')).toContainText(sentence(hi), { timeout: 20_000 });

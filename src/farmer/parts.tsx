@@ -7,6 +7,7 @@ import { fmtCountdown, fmtCountdownWords } from '../lib/time';
 import { model, focusPlot } from '../sim/engine';
 import type { ShotKind } from './photo';
 import type { Lang } from '../sim/types';
+import { nm } from '../lib/names';
 
 /** Captions are always visible; the current sentence is highlighted while voice plays. */
 /** `lang`: the language of `text` when it is not the page's (a farmer's consent, read in the farmer's language). */
@@ -73,7 +74,7 @@ export function PlotMini() {
   const vb = `${p.cx - 70} ${p.cy - 48} 140 96`;
   const near = m.plots.filter((q) => q.v === p.v && q.id !== p.id);
   return (
-    <svg class="mini decor" viewBox={vb} role="img" aria-label={`${tr('reg.plot')} ${p.id}, ${p.village}`}>
+    <svg class="mini decor" viewBox={vb} role="img" aria-label={`${tr('reg.plot')} ${p.id}, ${nm(p.village)}`}>
       <rect x={p.cx - 70} y={p.cy - 48} width="140" height="96" fill="var(--sunk)" />
       <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="7" stroke-linecap="round" />
       {near.map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="var(--silt)" stroke="var(--rule-strong)" stroke-width=".6" />)}

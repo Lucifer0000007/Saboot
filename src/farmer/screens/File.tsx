@@ -8,6 +8,7 @@ import { focusPlot, focusDet, model, activePlotId } from '../../sim/engine';
 import { view, recordRef, policyNo } from '../focus';
 import { screen } from '../nav';
 import { cropName } from '../parts';
+import { nm } from '../../lib/names';
 
 const STEPS: [string, IconName][] = [['fl.s1', 'phone'], ['fl.s2', 'volume'], ['fl.s3', 'shield'], ['fl.s4', 'file']];
 
@@ -17,9 +18,10 @@ export function ReportDetails() {
   const p = focusPlot.value!, d = focusDet.value!, m = model.value!;
   const v = view.value;
   const rows: [string, string][] = [
-    [tr('fl.farmer'), p.name],
+    // the farmer's name in their script, with the Latin spelling the officer's records use
+    [tr('fl.farmer'), nm(p.name) === p.name ? p.name : `${nm(p.name)} (${p.name})`],
     [trr('reg.policy'), policyNo(p.id)],
-    [tr('reg.plot'), `${p.id} · ${tr('reg.khasra')} ${p.khasra} · ${p.village}`],
+    [tr('reg.plot'), `${p.id} · ${tr('reg.khasra')} ${p.khasra} · ${nm(p.village)}`],
     [tr('reg.crop'), `${cropName(p.crop)} · ${p.areaHa.toFixed(1)} ha`],
     [tr('fl.cause'), tr('fl.flood')],
     [tr('fl.event'), fmtClock(d.eventT!)],
@@ -78,7 +80,7 @@ export function FileClaim() {
 
   return (
     <>
-      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: p.name }) : trr('fl.title')}</h2>
+      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: nm(p.name) }) : trr('fl.title')}</h2>
       <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
       <ReportDetails />
       <form class="stack f-stack" onSubmit={save} noValidate>
