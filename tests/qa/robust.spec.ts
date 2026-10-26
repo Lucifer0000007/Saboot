@@ -51,6 +51,23 @@ test('CC-11: a saved Hindi choice whose dictionary cannot load leaves the page w
   await expect.poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 20_000 }).toBe('hi');
 });
 
+test('R6: a saved Hindi choice fetches its dictionary and fonts with the main script, not after it', async ({ page }) => {
+  await saved(page, 'hi');
+  await page.goto('/');
+  await page.waitForFunction(() => document.documentElement.lang === 'hi', null, { timeout: 20_000 });
+  const links = await page.evaluate(() => [...document.querySelectorAll('link[rel=modulepreload], link[rel=preload][as=font]')].map((l) => l.getAttribute('href')));
+  expect(links.some((h) => /assets\/hi-/.test(h ?? ''))).toBe(true);
+  expect(links).toEqual(expect.arrayContaining(['fonts/deva-sans.woff2', 'fonts/deva-display.woff2']));
+});
+
+test('R6: an English visit fetches no other language', async ({ page }) => {
+  await saved(page, 'en');
+  await page.goto('/');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  const links = await page.evaluate(() => [...document.querySelectorAll('link')].map((l) => l.getAttribute('href') ?? ''));
+  expect(links.filter((h) => /assets\/(hi|pa)-|deva|guru/.test(h))).toEqual([]);
+});
+
 test('UI-04: a panel whose chunk never arrives says so after a while, with Reload, instead of spinning for ever', async ({ page }) => {
   test.setTimeout(60_000);
   await page.route(/\/assets\/LedgerPanel-[^/]*\.js/, () => { /* never answers */ });
