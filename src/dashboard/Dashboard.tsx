@@ -6,6 +6,7 @@ const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 import { lazy } from '../lib/lazy';
 import { insurerView, importCode, importReceived, type InsurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
+import { moments, jumpTo } from '../sim/moments';
 import { rail } from '../lib/prefs';
 import { kpis } from './state';
 import { effect } from '@preact/signals';
@@ -102,6 +103,20 @@ export default function Dashboard() {
           </button>
         ))}
       </div>
+      {kpis.value.events === 0 && (
+        // before the flood the console is empty: say so, and offer the moments where it has something to show (audit OF-07)
+        <div class="note note-plain" data-t0>
+          <Icon name="info" />
+          <div class="stack">
+            <p><strong>No plot has been alerted yet at <span class="num">{fmtT(tSlow.value)}</span>.</strong> Play the replay, or jump to a moment:</p>
+            <div class="row">
+              {moments.value.filter((x) => x.id === 'deadline' || x.id === 'draft').map((x) => (
+                <button key={x.id} type="button" class="pill pill-ghost pill-sm" data-t0-jump={x.id} onClick={() => void jumpTo(x.id)}>{x.label}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       {/* the figures and the pipeline belong to the worklist; the other views have their own (the draft list's steps,
           the pilot metrics), so on a phone they open on their content */}
       {view === 'claims' && (

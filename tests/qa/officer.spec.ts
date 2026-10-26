@@ -236,3 +236,32 @@ test('objections: the Draft list moment already shows one, a filter lists them o
   await expect(page.locator('.draft')).not.toContainText(/approved|accepted|rejected|upheld|resolved|granted|dismissed/i);
   expect(errors).toEqual([]);
 });
+
+test('an officer link lands on a moment with something to show, on the console itself; ?at=draft works; an empty console offers moments (OF-07, J5)', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/?tab=insurer');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await expect(page.locator('.kpis li').first().locator('strong')).not.toHaveText('0', { timeout: 20_000 });
+  const landed = ((await page.evaluate('window.__sab.state()')) as { t: number }).t;
+  expect(landed).toBeGreaterThan(0);
+  await expect.poll(async () => (await page.locator('.sim-tabs').boundingBox())!.y, { timeout: 5_000 }).toBeLessThan(200);
+  // a visitor whose stored log set the clock keeps it (the clock goes to their last event, before that moment)
+  await page.goto('/?tab=insurer&via=again');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  expect(((await page.evaluate('window.__sab.state()')) as { t: number }).t).toBeLessThan(landed);
+  await page.goto('/?at=draft');
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await expect(page.locator('.ctrl .ctrl-time strong').first()).not.toHaveText('T+0h');
+  await page.evaluate(`(async () => { const s = window.__sab; s.seek(0); s.tab('insurer'); s.insurer('claims'); })()`);
+  const card = page.locator('[data-t0]');
+  await expect(card).toContainText('No plot has been alerted yet');
+  await card.locator('[data-t0-jump=deadline]').click();
+  await expect(card).toHaveCount(0);
+  await expect(page.locator('.queue > li').first()).toBeVisible();
+  expect(errors).toEqual([]);
+});

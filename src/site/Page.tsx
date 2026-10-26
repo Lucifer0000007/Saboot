@@ -4,7 +4,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
 import { liveMsg, toast, updateReady } from '../lib/announce';
 import { tr } from '../lib/i18n';
-import { loadScenario, model } from '../sim/engine';
+import { loadScenario, model, t } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
 import { Settings } from '../ui/Settings';
@@ -14,7 +14,7 @@ import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, scrollToPhone, simTab, insurerView, importCode, deepLinkDone } from './layout';
+import { readDeepLink, scrollToId, scrollToPhone, scrollToPanel, simTab, insurerView, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
 
 const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
@@ -77,9 +77,13 @@ async function applyDeepLink() {
       await jumpTo(d.at as MomentId);
     }
     if (d.at) requestAnimationFrame(() => scrollToPhone());
+    else if (d.tab && d.tab !== 'farmer') requestAnimationFrame(() => scrollToPanel());
     else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
     restoreClock();
+    // an officer link with no moment lands where the console has something to show, but only for a visitor whose replay
+    // has not started: it never moves a clock that a stored log has already set (audit OF-07, J5)
+    if (d.tab === 'insurer' && !d.at && !d.k && t.value === 0) await jumpTo('deadline');
   } finally {
     deepLinkDone.value = true;
   }

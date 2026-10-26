@@ -82,6 +82,13 @@ export function scrollToId(id: string, focus = true) {
   }
 }
 
+/** Bring the simulation's tabs and the open panel (the console) to the top of the view, not the section heading above them. */
+export function scrollToPanel() {
+  const el = document.querySelector<HTMLElement>('.sim-tabs');
+  if (!el) return scrollToId('simulation', false);
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}
+
 /** Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin). */
 export function scrollToPhone() {
   const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
@@ -97,7 +104,7 @@ export function readDeepLink(): DeepLink {
   const q = new URLSearchParams(location.search);
   const out: DeepLink = {};
   const at = q.get('at');
-  if (at && /^(trigger|alert|capture|deadline|confirm)$/.test(at)) out.at = at;
+  if (at && /^(trigger|alert|capture|deadline|confirm|draft)$/.test(at)) out.at = at;
   const rail = q.get('rail');
   if (rail === 'relief' || rail === 'pmfby') out.rail = rail;
   const cad = q.get('cadence');
