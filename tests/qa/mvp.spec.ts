@@ -427,8 +427,7 @@ test('the same live photo file sealed for another plot is flagged on the laptop,
   const FAKE = 'f'.repeat(64);
   const seedCopy = (plot: string) => lap.evaluate(async ([p, fake]) => {
     const db = await new Promise<IDBDatabase>((res, rej) => { const r = indexedDB.open('saboot', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const list = await new Promise<any[]>((res) => { const q = db.transaction('kv').objectStore('kv').get('k-imported'); q.onsuccess = () => res(q.result); });
+    const list = await new Promise<{ head: string; plot: string }[]>((res) => { const q = db.transaction('kv').objectStore('kv').get('k-imported'); q.onsuccess = () => res(q.result); });
     const original = list.find((x) => x.head !== fake);
     await new Promise((res) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put([original, { ...original, plot: p, head: fake }], 'k-imported'); tx.oncomplete = () => res(null); });
   }, [plot, FAKE]);
