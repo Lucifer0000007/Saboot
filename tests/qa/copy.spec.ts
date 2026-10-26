@@ -152,3 +152,13 @@ test('the landing interview card shows the strip, folds the list away, links the
   await expect(card.locator('[data-fp-more] a')).toHaveAttribute('href', /\/blob\/main\/docs\/INTERVIEWS\.md$/);
   expect(errors).toEqual([]);
 });
+
+test('after attaching evidence to the draft list, the Proof chain names that step in words, not the raw key', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('draft'); await s.objection(); s.tab('farmer'); s.screen('packet');`);
+  const evs = page.locator('.chain .ev');
+  await expect(evs.last()).toHaveText('Evidence attached to the draft list', { timeout: 20_000 });
+  expect(await evs.allTextContents()).not.toContain('objection');
+  expect(errors).toEqual([]);
+});

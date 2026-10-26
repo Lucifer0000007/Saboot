@@ -6,7 +6,7 @@ import { tr, trr } from '../../lib/i18n';
 import { fmtClock, fmtDur } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { network } from '../../lib/prefs';
-import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link } from '../focus';
+import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link, type FocusEvent } from '../focus';
 import { SHOTS } from '../photo';
 import { screen } from '../nav';
 import { activePlotId, focusPlot } from '../../sim/engine';
@@ -29,8 +29,10 @@ function ShareCard() {
   );
 }
 
-const EV_LABEL: Record<string, string> = {
+// typed by event type, so a new kind of event cannot reach the screen as a raw key (audit CC-04: 'objection' did)
+const EV_LABEL: Record<FocusEvent['type'], string> = {
   shot: 'cap.taken', seal: 'pk.sealed', sync: 'pk.server', ref: 'fl.ref', no_damage: 'al.noDamage', consent: 'as.consent',
+  objection: 'pk.evObjection',
 };
 
 function groups(h: string) {

@@ -435,6 +435,7 @@ const hi: Record<string, string | string[]> = {
   'pk.server': 'सर्वर का समय', // needs-native-review
   'pk.syncNow': 'अभी भेजें', // needs-native-review
   'pk.prev': 'पिछला', // needs-native-review
+  'pk.evObjection': 'मसौदा सूची में सबूत जोड़ा गया', // needs-native-review
 
   'k.title': 'अधिकारी या पटवारी को दिखाएँ', // needs-native-review
   'k.body': 'आपका सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review

@@ -447,6 +447,7 @@ const en: Record<string, string | string[]> = {
   'pk.server': 'Server time',
   'pk.syncNow': 'Send now',
   'pk.prev': 'previous',
+  'pk.evObjection': 'Evidence attached to the draft list',
 
   'k.title': 'Show it to the officer or patwari',
   'k.body': 'Your proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone.',

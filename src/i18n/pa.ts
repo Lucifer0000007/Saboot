@@ -435,6 +435,7 @@ const pa: Record<string, string | string[]> = {
   'pk.server': 'ਸਰਵਰ ਦਾ ਸਮਾਂ', // needs-native-review
   'pk.syncNow': 'ਹੁਣੇ ਭੇਜੋ', // needs-native-review
   'pk.prev': 'ਪਿਛਲਾ', // needs-native-review
+  'pk.evObjection': 'ਖਰੜਾ ਸੂਚੀ ਨਾਲ ਸਬੂਤ ਜੋੜਿਆ ਗਿਆ', // needs-native-review
 
   'k.title': 'ਅਧਿਕਾਰੀ ਜਾਂ ਪਟਵਾਰੀ ਨੂੰ ਵਿਖਾਓ', // needs-native-review
   'k.body': 'ਤੁਹਾਡਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ।', // needs-native-review
