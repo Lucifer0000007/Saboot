@@ -4,7 +4,7 @@ import '../styles/tour.css';
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
 import { tourStep } from './state';
-import { tourSeen, reducedMotion } from '../lib/prefs';
+import { tourSeen, reducedMotion, network } from '../lib/prefs';
 import { announce } from '../lib/announce';
 import { tr, trr } from '../lib/i18n';
 import { fmtDur } from '../lib/time';
@@ -29,12 +29,13 @@ const desk = () => layout.value === 'desktop';
 export const STEPS: Step[] = [
   {
     key: 's1',
-    target: () => '#problem .cards3',
+    // on a phone the spotlight holds one thing the free space above the card can show (audit UI-05)
+    target: () => (desk() ? '#problem .cards3' : '#problem .cards3 > li:first-child'),
     setup: () => { pause(); openPlot.value = null; seek(0); screen.value = null; go('farmer'); scrollToId('problem', false); },
   },
   {
     key: 's2',
-    target: () => '[data-tour=rules] .rules',
+    target: () => (desk() ? '[data-tour=rules] .rules' : '[data-tour=rules] .rules-short'),
     setup: async () => { openPlot.value = null; go('explainer'); await jumpTo('trigger'); },
   },
   {
@@ -104,6 +105,8 @@ export default function Tour() {
   const [box, setBox] = useState<Box | null>(null);
   const [dock, setDock] = useState<number | null>(null);
   const card = useRef<HTMLDivElement>(null);
+  const body = useRef<HTMLDivElement>(null);
+  const [more, setMore] = useState(false);
   const [paused, setPaused] = useState(manual);
   const [elapsed, setElapsed] = useState(0);
   const head = useRef<HTMLHeadingElement>(null);
@@ -113,11 +116,14 @@ export default function Tour() {
   const next = () => (i < STEPS.length - 1 ? (tourStep.value = i + 1) : close());
   const back = () => i > 0 && (tourStep.value = i - 1);
 
+  // the spotlight scrolls only once the step's setup is done, or the setup's own scrolling would undo it
+  const ready = useRef(-1);
   useEffect(() => {
     let alive = true;
     setElapsed(0);
     Promise.resolve(step.setup()).then(() => {
       if (!alive) return;
+      ready.current = i;
       head.current?.focus({ preventScroll: true });
       announce(`${tr('tour.step', { n: i + 1, total: STEPS.length })}: ${title}`);
     });
@@ -133,7 +139,7 @@ export default function Tour() {
       const sel = step.target();
       const el = sel ? document.querySelector(sel) : null;
       if (el) {
-        if (scrolled !== sel) {
+        if (scrolled !== sel && ready.current === i) {
           // a target inside a closed <details> (the Proof screen's technical details) is opened first
           for (let d = el.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true;
           el.scrollIntoView({ block: desk() ? 'center' : 'start', behavior: reducedMotion.value ? 'auto' : 'smooth' });
@@ -141,12 +147,19 @@ export default function Tour() {
         }
         const r = el.getBoundingClientRect();
         const b = { x: r.left - 6, y: r.top - 6, w: r.width + 12, h: r.height + 12 };
-        setBox(b);
+        // a phone's card sits across the bottom: the spotlight ends above it instead of running underneath (audit UI-05)
+        const ct = card.current && innerWidth < 768 ? card.current.getBoundingClientRect().top : null;
+        if (ct !== null) b.h = Math.max(24, Math.min(b.h, ct - 8 - b.y));
+        // a new box only when it moved: the loop runs for the whole step and must not re-render the card every frame
+        setBox((o) => (o && o.x === b.x && o.y === b.y && o.w === b.w && o.h === b.h ? o : b));
         setDock(dockLeft(b, card.current));
       } else {
         setBox(null);
         setDock(null);
       }
+      // the step text scrolls inside a short card; a fade says there is more (audit J10)
+      const bd = body.current;
+      setMore(!!bd && bd.scrollHeight - bd.scrollTop - bd.clientHeight > 2);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -186,10 +199,18 @@ export default function Tour() {
           <button type="button" class="link-arrow" onClick={close}>{tr('tour.skip')}</button>
         </div>
         <h2 id="tour-h" class="h-sm" tabIndex={-1} ref={head}>{title}</h2>
-        <p id="tour-b">{trr(`tour.${step.key}.b`, tourVars())}</p>
-        {manual && <p class="muted tour-manual">{tr('tour.manual')}</p>}
+        <div class={'tour-body' + (more ? ' more' : '')} ref={body} tabIndex={more ? 0 : undefined}>
+          <p id="tour-b">{trr(`tour.${step.key}.b`, tourVars())}</p>
+          {manual && <p class="muted tour-manual">{tr('tour.manual')}</p>}
+        </div>
+        {/* the network switch lives in the closed dock sheet; the step that asks for it carries it (audit J10) */}
+        {step.key === 's4' && (
+          <button type="button" class="pill pill-ghost pill-sm tour-try" data-tour-net aria-pressed={network.value === 'offline'} onClick={() => (network.value = network.value === 'offline' ? 'online' : 'offline')}>
+            <Icon name={network.value === 'offline' ? 'wifi' : 'wifiOff'} size={16} /> {network.value === 'offline' ? tr('tour.online') : tr('tour.offline')}
+          </button>
+        )}
         <div class="tour-foot">
-          <div class="tour-progress" aria-hidden="true">
+          <div class="tour-progress" aria-hidden="true" style={{ '--n': STEPS.length } as Record<string, number>}>
             {STEPS.map((_, k) => <i key={k} style={{ '--k': k < i ? 1 : k === i ? (manual ? 1 : elapsed / STEP_MS) : 0 } as Record<string, number>} />)}
           </div>
           <div class="tour-actions">

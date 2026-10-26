@@ -131,3 +131,44 @@ test('with the menu open over the tour, Escape closes the menu and the tour stay
   await expect(page.locator('.tour-card')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test('on a 360 px phone every tour step shows its spotlight above the card, and the card keeps its buttons in view', async ({ page }) => {
+  test.setTimeout(90_000);
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.tour(0);`);
+  const card = page.locator('.tour-card');
+  await card.waitFor();
+  const total = Number((await page.locator('.tour-top .eyebrow').textContent())!.match(/\/ (\d+)/)![1]);
+  for (let i = 0; i < total; i++) {
+    await sab(page, `s.tour(${i});`);
+    await expect(page.locator('.tour-top .eyebrow')).toContainText(`${i + 1} / ${total}`);
+    await page.waitForTimeout(2200);
+    const m = await page.evaluate(() => {
+      const s = document.querySelector('.spot')?.getBoundingClientRect();
+      const c = document.querySelector('.tour-card')!.getBoundingClientRect();
+      const next = document.querySelector('.tour-actions .pill-dark')!.getBoundingClientRect();
+      return { spot: s ? { top: s.top, bottom: s.bottom, h: s.height } : null, cardTop: c.top, cardH: c.height, nextBottom: next.bottom };
+    });
+    expect(m.spot, `step ${i + 1} has a spotlight`).not.toBeNull();
+    expect(m.spot!.bottom, `step ${i + 1}: spotlight ends above the card`).toBeLessThanOrEqual(m.cardTop);
+    expect(m.spot!.top, `step ${i + 1}: spotlight is on screen`).toBeGreaterThanOrEqual(0);
+    expect(m.spot!.h, `step ${i + 1}: spotlight is not a sliver`).toBeGreaterThan(40);
+    expect(m.cardH, `step ${i + 1}: card leaves room`).toBeLessThanOrEqual(640 * 0.47);
+    expect(m.nextBottom).toBeLessThanOrEqual(640);
+  }
+  expect(errors).toEqual([]);
+});
+
+test('the tour step that asks for offline carries its own Go offline button', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.tour(3);`);
+  const b = page.locator('.tour-card [data-tour-net]');
+  await expect(b).toHaveText(/Go offline/);
+  await b.click();
+  await expect(b).toHaveText(/Back online/);
+  await expect(page.locator('.farmer')).toContainText(/Offline/);
+  await b.click();
+  expect(errors).toEqual([]);
+});
