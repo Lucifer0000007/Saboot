@@ -73,18 +73,29 @@ test('the share code and the bundle carry a position rounded to about 100 m, nev
   expect(errors).toEqual([]);
 });
 
+// The farmer is read the consent in the language they speak (Avtar Sharma speaks Hindi), whatever the phone is set to; the
+// helper gets the same words in the phone's language underneath (audit H5).
 for (const [lang, dict] of [['en', en], ['hi', hi], ['pa', pa]] as const) {
-  test(`consent screen in ${lang}: the sentence and the three plain lines are the ones in the privacy document`, async ({ page }) => {
+  test(`consent screen in ${lang}: the farmer's sentence and three plain lines are in Hindi, the helper's copy in ${lang}, all as in the privacy document`, async ({ page }) => {
     const errors: string[] = [];
     await open(page, V('1280x800'), lang, errors);
     await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); s.screen('assist');`);
-    const sentence = String(dict['as.consentText']).replace('{farmer}', 'Avtar Sharma').replace('{helper}', 'QA helper');
-    await expect(page.locator('.farmer .captions')).toContainText(sentence, { timeout: 20_000 });
-    const lines = page.locator('[data-consent-means] li');
+    const sentence = (d: typeof dict) => String(d['as.consentText']).replace('{farmer}', 'Avtar Sharma').replace('{helper}', 'QA helper');
+    const farmer = page.locator('[data-consent-farmer]');
+    await expect(farmer).toHaveAttribute('lang', 'hi');
+    await expect(farmer.locator('.captions')).toContainText(sentence(hi), { timeout: 20_000 });
+    const lines = farmer.locator('[data-consent-means] li');
     await expect(lines).toHaveCount(3);
-    await expect(lines.nth(0)).toHaveText(String(dict['as.means1']));
-    await expect(lines.nth(1)).toHaveText(String(dict['as.means2']));
-    await expect(lines.nth(2)).toHaveText(String(dict['as.means3']));
+    await expect(lines.nth(0)).toHaveText(String(hi['as.means1']));
+    await expect(lines.nth(1)).toHaveText(String(hi['as.means2']));
+    await expect(lines.nth(2)).toHaveText(String(hi['as.means3']));
+    const copy = page.locator('[data-consent-ui]');
+    if (lang === 'hi') await expect(copy).toHaveCount(0);
+    else {
+      await copy.locator('summary').click();
+      await expect(copy).toContainText(sentence(dict));
+      for (const k of ['as.means1', 'as.means2', 'as.means3']) await expect(copy).toContainText(String(dict[k]));
+    }
     // the document carries the same words
     const doc = readFileSync('docs/PRIVACY-AND-CONSENT.md', 'utf8');
     for (const k of ['as.consentText', 'as.means1', 'as.means2', 'as.means3']) expect(doc.includes(String(dict[k])), `${lang} ${k} in the document`).toBe(true);

@@ -6,10 +6,13 @@ import { say, stopVoice, speakingId, progress, voiceNA } from '../lib/voice';
 import { fmtCountdown, fmtCountdownWords } from '../lib/time';
 import { model, focusPlot } from '../sim/engine';
 import type { ShotKind } from './photo';
+import type { Lang } from '../sim/types';
 
 /** Captions are always visible; the current sentence is highlighted while voice plays. */
-export function VoiceCaption({ id, text, clip, label }: { id: string; text: string; clip?: string; label?: string }) {
+/** `lang`: the language of `text` when it is not the page's (a farmer's consent, read in the farmer's language). */
+export function VoiceCaption({ id, text, clip, label, lang }: { id: string; text: string; clip?: string; label?: string; lang?: Lang }) {
   const active = speakingId.value === id;
+  const l = lang ?? langReady.value;
   const parts = useMemo(() => text.match(/[^.!?।]+[.!?।]?\s*/g) ?? [text], [text]);
   let acc = 0;
   const at = progress.value * text.length;
@@ -19,7 +22,7 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
         type="button"
         class={'pill pill-ghost voice-btn' + (active ? ' on' : '')}
         aria-pressed={active}
-        onClick={() => (active ? stopVoice() : say(id, text, langReady.value, clip))}
+        onClick={() => (active ? stopVoice() : say(id, text, l, clip))}
       >
         <Icon name={active ? 'mute' : 'volume'} />
         {active ? tr('f.stop') : label ?? tr('f.read')}
@@ -32,7 +35,7 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
           return <span key={i} class={cur ? 'cur' : undefined}>{s}</span>;
         })}
       </p>
-      {voiceNA.value === langReady.value && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
+      {voiceNA.value === l && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
     </div>
   );
 }

@@ -28,6 +28,7 @@ const logInfo = (c: Link[]) => {
     head: c[c.length - 1]?.hash ?? null,
     consentFarmer: consent?.data.farmer ?? null,
     consentHelper: consent?.data.helper ?? null,
+    consentLang: consent?.data.lang ?? null,
     packetHash: seal?.data.packetHash ?? null,
     shotHelpers: shots,
     shotShas: c.filter((l) => l.body.type === 'shot').map((l) => (l.body as Of<'shot'>).data.sha),

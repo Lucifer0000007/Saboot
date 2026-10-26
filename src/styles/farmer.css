@@ -261,6 +261,9 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .farmer .card h4 { font-size: 1.125rem; margin-top: 4px; }
 .consent-card { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-card); }
 .consent-card h3 { font-size: 1.5rem; }
+/* the consent in the farmer's own script on a phone set to another language (audit H5); the fonts come with the dictionary */
+.in-hi { --font-head: 'Saboot Deva Display', 'Saboot Display', 'Saboot Deva Display Fallback', 'Saboot Display Fallback', sans-serif; --font-body: 'Saboot Deva Sans', 'Saboot Sans', 'Saboot Deva Fallback', 'Saboot Sans Fallback', sans-serif; font-family: var(--font-body); }
+.in-pa { --font-head: 'Saboot Guru Display', 'Saboot Display', 'Saboot Guru Display Fallback', 'Saboot Display Fallback', sans-serif; --font-body: 'Saboot Guru Sans', 'Saboot Sans', 'Saboot Guru Fallback', 'Saboot Sans Fallback', sans-serif; font-family: var(--font-body); }
 
 /* review pass: the helper bar sits clear of the tab bar; Indic labels keep their own leading */
 .hbar { margin-top: 8px; }

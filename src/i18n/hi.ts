@@ -591,6 +591,7 @@ const hi: Record<string, string | string[]> = {
   'as.means2': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
   'as.means2.pmfby': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला बीमा कंपनी करती है। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
   'as.means3': 'आप कभी भी अपनी कॉपी माँग सकते हैं, या इस फ़ोन से सब कुछ मिटवा सकते हैं।', // needs-native-review
+  'as.uiCopy': 'यही शब्द {lang} में, आपके लिए', // needs-native-review
   'hm.consentTitle': 'किसान {farmer} की सहमति', // needs-native-review
   'hm.consentIntro': '{farmer} को यह पढ़कर सुनाइए। {farmer} बटन को दबाकर रखकर, या बोलकर सहमति देते हैं। इसके बिना कुछ भी दर्ज नहीं होता।', // needs-native-review
   'hm.title': 'सहायक मोड', // needs-native-review

@@ -607,6 +607,7 @@ const en: Record<string, string | string[]> = {
   'as.means2': 'The helper only takes the photos. The officer decides. Saboot decides nothing.',
   'as.means2.pmfby': 'The helper only takes the photos. The insurer decides. Saboot decides nothing.',
   'as.means3': 'You can ask for a copy, or for everything to be deleted from this phone, at any time.',
+  'as.uiCopy': 'The same words in {lang}, for you',
   'hm.consentTitle': 'Consent from {farmer}',
   'hm.consentIntro': 'Read this out to {farmer}. {farmer} agrees by pressing and holding the button, or by speaking. Nothing is captured without it.',
   'hm.title': 'Helper mode',

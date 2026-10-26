@@ -9,6 +9,7 @@ import { network, browserOnline } from '../lib/prefs';
 import { t, seek, pause, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
 import { imported } from '../k/imported';
+import type { Lang } from '../sim/types';
 
 export interface Geo { lat: number; lon: number; acc: number; src: 'gps' | 'sim' }
 export interface ShotData {
@@ -23,7 +24,8 @@ export interface ShotData {
   helper?: string;
   queued: boolean;
 }
-export interface Consent { farmer: string; helper: string; role: string; method: 'hold' | 'voice'; audioSha?: string; text: string }
+/** `lang`: the language of `text`, the one the farmer was read the consent in (older logs have none). */
+export interface Consent { farmer: string; helper: string; role: string; method: 'hold' | 'voice'; audioSha?: string; text: string; lang?: Lang }
 
 /** 'hash' = only the tiny fingerprint message reached the server (weak 2G network): it fixes the
  *  server receipt time. 'full' = the photo bodies arrived too. Old logs without a stage count as 'full'. */

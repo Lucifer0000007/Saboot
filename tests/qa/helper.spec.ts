@@ -6,11 +6,13 @@ import { ALL_VIEWPORTS, open } from './harness';
 
 const V = (name: string) => ALL_VIEWPORTS.find((v) => v.name === name)!;
 const sab = (page: Page, js: string) => page.evaluate(`(async () => { const s = window.__sab; ${js} })()`);
-type LogInfo = { events: number; head: string | null; consentFarmer: string | null; consentHelper: string | null; packetHash: string | null; shotHelpers: (string | null)[] };
+type LogInfo = { events: number; head: string | null; consentFarmer: string | null; consentHelper: string | null; consentLang: string | null; packetHash: string | null; shotHelpers: (string | null)[] };
 const logs = (page: Page) => page.evaluate('window.__sab.logs()') as Promise<Record<string, LogInfo>>;
 
 /** Press and hold the consent button for longer than it asks (2 s). */
 async function giveConsent(page: Page) {
+  // the consent is read in the farmer's language (H5): wait until it is on screen, as a helper reading it out would
+  await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
   const hold = page.locator('button.hold');
   await hold.scrollIntoViewIfNeeded();
   const box = (await hold.boundingBox())!;
@@ -86,6 +88,9 @@ test('helper mode is a card on the farmer home, and a session serves several far
   expect(l['P-05'].consentFarmer).toBe('Mohinder Dhillon');
   expect(l['P-09'].consentFarmer).toBe('Rekha Rana');
   expect(l['P-05'].consentHelper).toBe('Test Helper');
+  // H5: each farmer was read the consent in the language they speak (both speak Punjabi), on a phone set to English
+  expect(l['P-05'].consentLang).toBe('pa');
+  expect(l['P-09'].consentLang).toBe('pa');
   expect(l['P-09'].consentHelper).toBe('Test Helper');
   expect(l['P-05'].shotHelpers).toEqual(['Test Helper', 'Test Helper', 'Test Helper']);
   expect(l['P-09'].shotHelpers).toEqual(['Test Helper']);

@@ -28,7 +28,8 @@ const pending: Partial<Record<Lang, Promise<unknown>>> = {};
 export function prefetchLang(l: Lang): Promise<unknown> {
   if (pending[l]) return pending[l]!;
   const tasks: Promise<unknown>[] = [];
-  if (!dicts[l]) tasks.push(loaders[l]().then((m) => { dicts[l] = m.default; }));
+  // readers of another language than the page's (trIn) re-render when it arrives
+  if (!dicts[l]) tasks.push(loaders[l]().then((m) => { dicts[l] = m.default; ver.value++; }));
   if (typeof document !== 'undefined' && document.fonts) {
     for (const [font, probe] of FONTS[l]) tasks.push(document.fonts.load(font, probe).catch(() => {}));
   }
@@ -112,6 +113,23 @@ export const trrList = (key: string): string[] => {
   const k = key + '.' + rail.value;
   return tList(has(k) ? k : key);
 };
+
+/**
+ * Text in a given language whatever the page is in: a farmer's consent in the language the farmer speaks (audit H5). Call
+ * prefetchLang(l) first; until that dictionary is here, `langIn(l)` is 'en' and the text is English, never a mix.
+ */
+export function langIn(l: Lang): Lang {
+  void ver.value;
+  return dicts[l] ? l : 'en';
+}
+export function trIn(l: Lang, key: string, vars?: Vars): string {
+  void ver.value;
+  const d = dicts[langIn(l)];
+  // rail-aware like trr: the PMFBY rail's variant where there is one
+  const k = d?.[key + '.' + rail.value] !== undefined ? key + '.' + rail.value : key;
+  const s = d?.[k] ?? en[k] ?? key;
+  return fill(Array.isArray(s) ? s.join(' ') : s, vars);
+}
 
 export const LANGS: { id: Lang; label: string; short: string; bcp: string }[] = [
   { id: 'en', label: 'English', short: 'EN', bcp: 'en' },

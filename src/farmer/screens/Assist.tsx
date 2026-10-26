@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Icon } from '../../ui/Icon';
-import { tr, trr } from '../../lib/i18n';
+import { tr, trr, trIn, langIn, langReady, prefetchLang } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { sha256 } from '../../lib/hash';
 import { dbSet } from '../../lib/db';
@@ -29,6 +29,10 @@ export function Assist() {
   const start = useRef(0);
   const mic = useRef<{ r: MediaRecorder; stream: MediaStream } | null>(null);
   const gone = useRef(false);
+  // A helper reads the consent to the farmer in the language the farmer speaks, whatever the phone's language (audit H5).
+  // On the farmer's own phone the page is already in the farmer's language.
+  useEffect(() => { if (inHelper) void prefetchLang(p.lang); }, [inHelper, p.lang]);
+  const cl = inHelper ? langIn(p.lang) : langReady.value;
   // Leaving the screen ends the hold and the recording, and switches the microphone off. A recording the person walked away
   // from is not consent, so it is dropped, not saved.
   useEffect(() => () => {
@@ -48,7 +52,7 @@ export function Assist() {
       <div class="stack f-stack">
         <h2 class="f-title">{tr('as.title')}</h2>
         <p class="note note-ok" role="status"><Icon name="okShape" /><span>{tr('as.done', { time: fmtClock(v.consent.simT) })}</span></p>
-        <blockquote class="consent">{v.consent.text}</blockquote>
+        <blockquote class={'consent in-' + (v.consent.lang ?? 'en')} lang={v.consent.lang}>{v.consent.text}</blockquote>
         <p class="f-help">{v.consent.method === 'voice' ? tr('as.voiceSha', { h: (v.consent.audioSha ?? '').slice(0, 12) + '…' }) : tr('as.holdMethod')}</p>
         {v.noDamage !== null ? (
           <>
@@ -72,7 +76,9 @@ export function Assist() {
   }
 
   const helper = name.trim();
-  const text = tr('as.consentText', { farmer: p.name, helper: helper || '…' });
+  const text = trIn(cl, 'as.consentText', { farmer: p.name, helper: helper || '…' });
+  // the same words in the phone's language, for a helper who does not read the farmer's script
+  const other = cl !== langReady.value;
 
   function ready() {
     if (!helper) { setErr(tr('as.needName')); return false; }
@@ -83,7 +89,7 @@ export function Assist() {
   // the farmer whose consent it is is fixed when the hold or the recording starts: moving on to another farmer while it
   // is saved must not put this farmer's words in that farmer's log (audit CC-05)
   async function commit(key: string, method: 'hold' | 'voice', audioSha?: string) {
-    await recordConsent({ farmer: p.name, helper, role: session ? session.role : tr(role), method, audioSha, text }, key);
+    await recordConsent({ farmer: p.name, helper, role: session ? session.role : tr(role), method, audioSha, text, lang: cl }, key);
     showToast(tr('as.doneToast'), 'ok');
   }
 
@@ -163,14 +169,27 @@ export function Assist() {
         </div>
       </fieldset>}
       <section class="card consent-card" aria-labelledby="cons-h">
-        <h3 id="cons-h">{tr('as.consent')}</h3>
-        <VoiceCaption id="consent" text={text} />
-        <h4>{tr('as.means')}</h4>
-        <ul class="means" data-consent-means>
-          <li>{tr('as.means1')}</li>
-          <li>{trr('as.means2')}</li>
-          <li>{tr('as.means3')}</li>
-        </ul>
+        <h3 id="cons-h">{tr('as.consent')}{other && <> · {tr('lang.name.' + cl)}</>}</h3>
+        <div class={'stack in-' + cl} lang={cl} data-consent-farmer>
+          <VoiceCaption id="consent" text={text} lang={cl} />
+          <h4>{trIn(cl, 'as.means')}</h4>
+          <ul class="means" data-consent-means>
+            <li>{trIn(cl, 'as.means1')}</li>
+            <li>{trIn(cl, 'as.means2')}</li>
+            <li>{trIn(cl, 'as.means3')}</li>
+          </ul>
+        </div>
+        {other && (
+          <details class="k-code" data-consent-ui>
+            <summary><span>{tr('as.uiCopy', { lang: tr('lang.name.' + langReady.value) })}</span><Icon name="down" /></summary>
+            <p>{tr('as.consentText', { farmer: p.name, helper: helper || '…' })}</p>
+            <ul class="means">
+              <li>{tr('as.means1')}</li>
+              <li>{trr('as.means2')}</li>
+              <li>{tr('as.means3')}</li>
+            </ul>
+          </details>
+        )}
       </section>
       {err && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{err}</span></p>}
       <button

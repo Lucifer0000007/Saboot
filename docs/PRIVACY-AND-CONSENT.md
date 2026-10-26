@@ -43,7 +43,9 @@ helper must be named first. The farmer agrees by pressing and holding a button f
 sentence they agreed to is stored with the method and the time. The record is part of the farmer's packet body and is in the
 hash chain, so a change to it breaks the chain.
 
-The consent sentence, shown and read aloud in the farmer's language. `{farmer}` and `{helper}` are replaced by the names:
+The consent sentence, shown and read aloud in the farmer's language (the language the scenario lists for that farmer, whatever
+the helper's phone is set to; the helper gets the same words in the phone's language underneath, and the log records which
+language the farmer was read). `{farmer}` and `{helper}` are replaced by the names:
 
 | Language | Sentence |
 |---|---|

@@ -591,6 +591,7 @@ const pa: Record<string, string | string[]> = {
   'as.means2': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
   'as.means2.pmfby': 'ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ।', // needs-native-review
   'as.means3': 'ਤੁਸੀਂ ਕਦੇ ਵੀ ਆਪਣੀ ਕਾਪੀ ਮੰਗ ਸਕਦੇ ਹੋ, ਜਾਂ ਇਸ ਫ਼ੋਨ ਤੋਂ ਸਭ ਕੁਝ ਮਿਟਵਾ ਸਕਦੇ ਹੋ।', // needs-native-review
+  'as.uiCopy': 'ਇਹੀ ਸ਼ਬਦ {lang} ਵਿੱਚ, ਤੁਹਾਡੇ ਲਈ', // needs-native-review
   'hm.consentTitle': 'ਕਿਸਾਨ {farmer} ਦੀ ਸਹਿਮਤੀ', // needs-native-review
   'hm.consentIntro': '{farmer} ਨੂੰ ਇਹ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। {farmer} ਬਟਨ ਦਬਾ ਕੇ ਰੱਖ ਕੇ, ਜਾਂ ਬੋਲ ਕੇ ਸਹਿਮਤੀ ਦਿੰਦੇ ਹਨ। ਇਸ ਤੋਂ ਬਿਨਾਂ ਕੁਝ ਵੀ ਦਰਜ ਨਹੀਂ ਹੁੰਦਾ।', // needs-native-review
   'hm.title': 'ਸਹਾਇਕ ਮੋਡ', // needs-native-review
