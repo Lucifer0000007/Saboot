@@ -134,7 +134,7 @@ export function Page({ ssr }: { ssr?: boolean }) {
           )}
           {toast.value && (
             <div class={'toast' + (toast.value.tone === 'warn' ? ' warn' : '')} key={toast.value.id} aria-hidden="true">
-              {toast.value.text}
+              {typeof toast.value.text === 'function' ? toast.value.text() : toast.value.text}
             </div>
           )}
           <div class="sr-only" aria-live="polite" aria-atomic="true">{liveMsg.value}</div>

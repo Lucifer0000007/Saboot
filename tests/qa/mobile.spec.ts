@@ -58,6 +58,26 @@ test('the bottom dock passes under the top nav when the end of the simulation sc
   expect(errors).toEqual([]);
 });
 
+test.describe('the first-visit toast', () => {
+  test.use({ serviceWorkers: 'allow' });
+  test('sits under the nav, clear of the farmer’s button, lets taps through, and follows a language switch (F2, H14, UI-15, S-16, J19)', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+    await page.evaluate(() => document.querySelector('[data-tour=cta]')!.scrollIntoView({ block: 'end' }));
+    const toast = page.locator('.toast');
+    await expect(toast).toContainText('Ready to work offline', { timeout: 40_000 });
+    expect(await toast.evaluate((e) => getComputedStyle(e).pointerEvents)).toBe('none');
+    const tb = await box(page, '.toast'), cta = await box(page, '[data-tour=cta]'), nav = await box(page, 'header.nav');
+    expect(tb.top).toBeGreaterThanOrEqual(nav.bottom);
+    expect(tb.bottom <= cta.top || tb.top >= cta.bottom, 'the toast does not cover the main button').toBe(true);
+    const hi = (await import('../../src/i18n/hi')).default as Record<string, string>;
+    await sab(page, `await s.lang('hi');`);
+    await expect(toast).toHaveText(hi['app.offlineReady']);
+    expect(errors).toEqual([]);
+  });
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {

@@ -29,7 +29,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   // so and offer a reload, instead of leaving the old build on screen until the next visit.
   const hadWorker = !!navigator.serviceWorker.controller;
   // the first-visit note waits while a sheet is open, so it never covers a verdict being read (audit OF-16)
-  const offlineReady = () => (document.documentElement.classList.contains('sheet-open') ? void setTimeout(offlineReady, 1500) : showToast(tr('app.offlineReady'), 'ok'));
+  const offlineReady = () => (document.documentElement.classList.contains('sheet-open') ? void setTimeout(offlineReady, 1500) : showToast(() => tr('app.offlineReady'), 'ok'));
   navigator.serviceWorker.addEventListener('controllerchange', () => (hadWorker ? (updateReady.value = true) : offlineReady()), { once: true });
   const register = () => navigator.serviceWorker.register('./sw.js').then((r) => r.update()).catch(() => {});
   if (document.readyState === 'complete') register();

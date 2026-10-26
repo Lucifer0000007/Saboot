@@ -213,9 +213,15 @@ button:disabled { cursor: not-allowed; }
 
 .toast {
   position: fixed; left: 50%; bottom: calc(var(--dock-real, 0px) + 16px); transform: translateX(-50%);
-  z-index: var(--z-toast); max-width: min(520px, calc(100vw - 32px)); padding: 12px 18px; border-radius: var(--r-btn);
+  z-index: var(--z-toast); width: max-content; max-width: min(520px, calc(100vw - 32px)); padding: 12px 18px; border-radius: var(--r-btn);
   background: var(--kali); color: var(--silt); font-size: var(--fs-sm); font-weight: 600; text-align: center; box-shadow: var(--shadow-float);
+  /* a note, not a control: a tap goes through to whatever is under it (its words are in the live region too, audit H14, UI-15) */
+  pointer-events: none;
 }
+/* below the desktop layout it sits under the nav, away from the farmer's main button and the dock (audit F2, S-16); over a sheet,
+   whose title and close button are at the top, it goes back to the bottom */
+html:not(.lay-desktop) .toast { bottom: auto; top: calc(var(--nav-real, var(--nav-h)) + 8px); }
+html:not(.lay-desktop).sheet-open .toast { top: auto; bottom: calc(16px + var(--safe-b)); }
 .toast.warn { background: var(--warn); color: var(--on-fill); }
 /* a new build took over this page (src/main.tsx): say so until the person reloads */
 .update-bar {
