@@ -2,7 +2,7 @@ import { Icon } from '../../ui/Icon';
 import { tr, trr } from '../../lib/i18n';
 import { rail } from '../../lib/prefs';
 import { railHardDeadline } from '../../config';
-import { fmtClock } from '../../lib/time';
+import { fmtClock, officeHours } from '../../lib/time';
 import { t, focusDet, model } from '../../sim/engine';
 import { view, SCRIPT, fileObjection, type FocusView } from '../focus';
 import type { Detection } from '../../sim/model';
@@ -18,7 +18,7 @@ export function focusTimeline(d: Detection, v: FocusView, now: number, hard = tr
   const synced = v.queued === 0 && v.shotCount ? v.syncedT : null;
   const ackT = v.ref ? v.ref.simT + SCRIPT.ack : null;
   const ackDue = v.ref ? v.ref.simT + SCRIPT.ackDue : undefined;
-  const surveyT = ackT !== null ? ackT + SCRIPT.survey : null;
+  const surveyT = ackT !== null ? officeHours(ackT + SCRIPT.survey) : null;
   return [
     { key: 'st.detected', at: d.detectT, st: s(d.detectT) },
     { key: 'st.alerted', at: d.alertT, st: s(d.alertT) },
