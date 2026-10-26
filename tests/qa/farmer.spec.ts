@@ -201,6 +201,8 @@ test('the hero starts the tour first and offers to explore; the banner and the m
   await expect(page.locator('.hero .cta-row a')).toHaveText('Explore it yourself');
   await page.locator('#hero-cta').click();
   await expect(page.locator('.tour-card')).toBeVisible({ timeout: 20_000 });
+  // the step is ready (its keys are listened for) once its heading has focus; a key pressed in the frame before is lost
+  await expect(page.locator('.tour-card h2')).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(page.locator('.tour-card')).toHaveCount(0);
   // the banner's "Skip to demo" plays the replay, as "Explore it yourself" does
