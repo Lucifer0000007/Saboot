@@ -117,3 +117,49 @@ test('one tamper check in the console: the real packet and the audit ledger in o
   await expect(page.locator('.dash .kpis')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test('ledger on a phone: no scroll box inside the page, the latest 20 then older ones, a plot and a kind filter; the chain is still verified whole (OF-14, UI-12)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('ledger');`);
+  const rows = page.locator('.lg-table tbody tr');
+  await expect(rows.first()).toBeVisible({ timeout: 20_000 });
+  const box = await page.locator('.lg-scroll').evaluate((e) => ({ oy: getComputedStyle(e).overflowY, mh: getComputedStyle(e).maxHeight }));
+  expect(box).toEqual({ oy: 'visible', mh: 'none' });
+  await expect(rows).toHaveCount(20);
+  const total = Number((await page.locator('#lg-h .cnt').textContent()) ?? 0);
+  expect(total).toBeGreaterThan(40);
+  await page.locator('[data-lg-older]').click();
+  await expect(rows).toHaveCount(40);
+  // one plot's trail, then one kind of record
+  await page.locator('[data-lg-plot]').selectOption('P-04');
+  expect((await rows.locator('td[data-l=Record]').allTextContents()).every((x) => x.includes('P-04'))).toBe(true);
+  await page.locator('[data-lg-plot]').selectOption('');
+  await page.locator('[data-lg-type]').selectOption('VOICE_ALERT_DELIVERED');
+  expect((await rows.locator('td[data-l=Record] strong').allTextContents()).every((x) => x === 'VOICE_ALERT_DELIVERED')).toBe(true);
+  await page.getByRole('button', { name: /Verify integrity/ }).click();
+  await expect(page.locator('.lg-status .note-ok')).toContainText(`Chain intact — ${total} records`);
+  // the drawer's link opens the ledger on that plot
+  await sab(page, `s.insurer('claims'); s.plot('P-04');`);
+  await page.locator('.drawer [data-plot-ledger]').click();
+  await expect(page.locator('[data-lg-plot]')).toHaveValue('P-04');
+  await expect(page.locator('.ledger')).toBeInViewport();
+  expect(errors).toEqual([]);
+});
+
+test('after the tamper test the verdict is on screen, with that plot\'s trail and the changed record under it (OF-02)', async ({ page }) => {
+  for (const v of [V('390x844'), V('1440x900')]) {
+    const errors: string[] = [];
+    await open(page, v, 'en', errors);
+    await sab(page, `await s.jump('deadline'); s.tab('ledger');`);
+    await expect(page.locator('.lg-table tbody tr').first()).toBeVisible({ timeout: 20_000 });
+    await page.waitForTimeout(400);
+    await page.locator('button.tamper-btn').click();
+    const verdict = page.locator('.lg-status .note-bad');
+    await expect(verdict).toContainText(/Integrity failure at record #\d+/, { timeout: 10_000 });
+    await expect(verdict).toBeInViewport({ ratio: 1, timeout: 5_000 });
+    await page.locator('[data-show-changed]').click();
+    await expect(page.locator('.lg-table tr.tampered')).toBeInViewport({ timeout: 5_000 });
+    expect(errors).toEqual([]);
+  }
+});

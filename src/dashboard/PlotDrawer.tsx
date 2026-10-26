@@ -6,7 +6,7 @@ const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 const fmtDurEn = (h: number) => fmtDur(h, true);
 import { sha256, short, checkCode } from '../lib/hash';
 import { dbGet } from '../lib/db';
-import { openPlot } from '../site/layout';
+import { openPlot, insurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
 import { floodPath } from '../sim/model';
 import { stageLabel, flagLabel, type PlotState } from '../sim/cohort';
@@ -22,6 +22,7 @@ import { Pipeline } from './Pipeline';
 import { ConsoleNote } from './ConsoleNote';
 import { cohortPhotoSvg, svgUrl } from './photos';
 import { INSPECTORS, assigned } from './assign';
+import { ledgerPlot } from './Ledger';
 
 interface Ev { t: number; label: string; tone?: 'warn' | 'bad' | 'ok' }
 
@@ -217,6 +218,12 @@ export function PlotDrawer() {
           ))}
           {s.timeLeft !== null && s.timeLeft > 0 && s.stage === 'alerted' && <li class="warn"><time>now</time><span>{fmtDurEn(s.timeLeft)} left {s.rail === 'relief' ? 'of the capture-soon advice (not a deadline)' : `in the ${m.opts.windowHours}-hour window`}</span></li>}
         </ol>
+        <button type="button" class="link-arrow dr-ledger" data-plot-ledger onClick={() => {
+          ledgerPlot.value = p.id;
+          insurerView.value = 'ledger';
+          openPlot.value = null;
+          requestAnimationFrame(() => document.querySelector('.ledger')?.scrollIntoView({ block: 'start' }));
+        }}>Ledger for this plot: every record, hash-chained <Icon name="arrow" size={16} /></button>
       </section>
       <section aria-labelledby="dr-rain">
         <h3 id="dr-rain">Rainfall vs threshold</h3>
