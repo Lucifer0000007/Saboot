@@ -67,3 +67,17 @@ test('with no Hindi voice on the phone, the alert says why it is silent and how 
   expect(await page.evaluate('window.__spoken.length')).toBe(0);
   expect(errors).toEqual([]);
 });
+
+test('on a phone the explainer gives one line per rule and reaches the rain chart within its first screen; the full rules fold away', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.tab('explainer'); await s.jump('trigger');`);
+  await expect(page.locator('.explainer .rules-short li')).toHaveCount(4);
+  const more = page.locator('.explainer [data-rules-more]');
+  await expect(more).not.toHaveAttribute('open', '');
+  const gap = await page.evaluate(() => document.querySelector('#x-rain')!.getBoundingClientRect().top - document.querySelector('.explainer')!.getBoundingClientRect().top);
+  expect(gap).toBeLessThan(640);
+  await more.locator('summary').click();
+  await expect(more).toContainText('Rule A, rain + terrain');
+  expect(errors).toEqual([]);
+});
