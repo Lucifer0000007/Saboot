@@ -241,3 +241,61 @@ test('field evidence strip · pilot-metrics · 1440x900', async ({ page }) => {
   await expect(page.locator('[data-field-quote]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+// The page must never be left on "Loading the flood replay…" with no way out (the inline boot script, scripts/postbuild.mjs;
+// loadScenario, src/sim/engine.ts). Each case below was a silent, permanent hang before: a main script that failed to download
+// once, a stalled one, and a replay-data request that never answered.
+test.describe('a start that fails or stalls says so and offers a way out', () => {
+  test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const SIM = '.sim-tabs, .sim-grid, .panel-tabs';
+
+  test('the main script fails to download once: the page reloads itself and starts', async ({ page }) => {
+    let navs = 0;
+    page.on('request', (r) => { if (r.isNavigationRequest()) navs++; });
+    await page.route('**/assets/index-*.js', (r) => (navs === 1 ? r.abort('connectionreset') : r.continue()));
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator(SIM).first()).toBeVisible({ timeout: 20_000 });
+    expect(navs, 'one automatic reload').toBe(2);
+    expect(await page.evaluate(() => sessionStorage.getItem('saboot.bootRetry')), 'the retry flag is cleared once started').toBeNull();
+  });
+
+  for (const lang of ['en', 'hi', 'pa'] as const) {
+    test(`the main script never downloads: after one reload the placeholder says so in ${lang}, with Reload and the browser's error`, async ({ page }) => {
+      const dict = (await import(`../../src/i18n/${lang}`)).default as Record<string, string | string[]>;
+      await page.addInitScript((l) => { try { localStorage.setItem('saboot.lang', JSON.stringify(l)); } catch { /* storage unavailable */ } }, lang);
+      let navs = 0;
+      page.on('request', (r) => { if (r.isNavigationRequest()) navs++; });
+      await page.route('**/assets/index-*.js', (r) => r.abort('connectionreset'));
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
+      const ph = page.locator('.sim-ph');
+      await expect(ph).toContainText(String(dict['boot.failed']), { timeout: 20_000 });
+      await expect(ph.getByRole('button')).toHaveText(String(dict['boot.reload']));
+      await expect(ph.locator('small'), 'the browser\u2019s own error text, so a phone can show what went wrong').toContainText('index-');
+      expect(navs, 'it reloaded once and then stopped').toBe(2);
+    });
+  }
+
+  test('the main script stalls: after 25 s the placeholder says it is slow, and the app still starts if it then arrives', async ({ page }) => {
+    test.setTimeout(90_000);
+    const held: (() => void)[] = [];
+    await page.route('**/assets/index-*.js', (r) => { held.push(() => void r.continue()); });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const dict = (await import('../../src/i18n/en')).default as Record<string, string>;
+    await expect(page.locator('.sim-ph')).toContainText(dict['boot.slow'], { timeout: 40_000 });
+    await expect(page.locator('.sim-ph').getByRole('button')).toHaveText(dict['boot.reload']);
+    held.forEach((go) => go());
+    await expect(page.locator(SIM).first()).toBeVisible({ timeout: 20_000 });
+    await expect(page.locator('.sim-ph button'), 'the slow message goes away once the app starts').toHaveCount(0);
+  });
+
+  test('the replay data stalls: the page shows the error and Try again, not an endless Loading, and Try again works', async ({ page }) => {
+    test.setTimeout(120_000);
+    let stall = true;
+    await page.route('**/data/flood-replay.json', (r) => { if (!stall) void r.continue(); });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#simulation .note-bad')).toContainText('did not load', { timeout: 60_000 });
+    stall = false;
+    await page.getByRole('button', { name: 'Try again' }).click();
+    await expect(page.locator(SIM).first()).toBeVisible({ timeout: 20_000 });
+  });
+});

@@ -67,14 +67,18 @@ export function seek(h: number) {
 
 /** Waits before each try: at once, then after 1 s, then after 3 s. One dropped request on a weak link must not be final. */
 const LOAD_TRIES_MS = [0, 1000, 3000];
+/** A request that neither answers nor fails (a stalled mobile link) would leave the page on "Loading" for ever: each try gives up after this. */
+export const LOAD_TIMEOUT_MS = 8000;
 
 export async function loadScenario() {
   loadError.value = null;
   let last: unknown = null;
   for (const wait of LOAD_TRIES_MS) {
     if (wait) await new Promise((r) => setTimeout(r, wait));
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), LOAD_TIMEOUT_MS);
     try {
-      const res = await fetch('data/flood-replay.json');
+      const res = await fetch('data/flood-replay.json', { signal: ctl.signal });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const text = await res.text();
       const raw = JSON.parse(text) as ScenarioRaw;
@@ -82,7 +86,9 @@ export async function loadScenario() {
       void sha256(text).then((h) => (scenarioHash.value = h));
       return;
     } catch (e) {
-      last = e;
+      last = ctl.signal.aborted ? new Error(`no answer after ${LOAD_TIMEOUT_MS / 1000} s`) : e;
+    } finally {
+      clearTimeout(timer);
     }
   }
   loadError.value = String(last);

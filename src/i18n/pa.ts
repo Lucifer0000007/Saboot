@@ -74,6 +74,9 @@ const pa: Record<string, string | string[]> = {
   'sim.loading': 'ਹੜ੍ਹ ਦਾ ਰੀਪਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…', // needs-native-review
   'sim.loadError': 'ਸਿਮੂਲੇਸ਼ਨ ਦਾ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋਇਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'sim.retry': 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ', // needs-native-review
+  'boot.slow': 'ਆਮ ਨਾਲੋਂ ਵੱਧ ਸਮਾਂ ਲੱਗ ਰਿਹਾ ਹੈ। ਜੇ ਛੇਤੀ ਕੁਝ ਨਾ ਦਿਸੇ, ਤਾਂ ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ।', // needs-native-review
+  'boot.failed': 'ਸਿਮੂਲੇਸ਼ਨ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ।', // needs-native-review
+  'boot.reload': 'ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ', // needs-native-review
   'lang.fail': '{lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
   'app.offlineReady': 'ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ।', // needs-native-review
   'app.updated': 'ਸਬੂਤ ਦਾ ਨਵਾਂ ਸੰਸਕਰਣ ਤਿਆਰ ਹੈ।', // needs-native-review

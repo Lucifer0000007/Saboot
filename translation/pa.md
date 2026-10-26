@@ -541,6 +541,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `cad.demo` | Every {n} h (demo) | ਹਰ {n} ਘੰਟੇ (ਡੈਮੋ) |  |
 | `cad.slow` | Every {n} h (slower) | ਹਰ {n} ਘੰਟੇ (ਹੌਲੀ) |  |
 | `cad.d` | Both cadences are simulated. The slower one shows what a late radar pass does. | ਦੋਵੇਂ ਚੱਕਰ ਸਿਮੂਲੇਟ ਕੀਤੇ ਹਨ। ਹੌਲੀ ਚੱਕਰ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਦੇਰ ਨਾਲ ਆਉਣ ਵਾਲਾ ਰਡਾਰ ਪਾਸ ਕੀ ਕਰਦਾ ਹੈ। |  |
+| `boot.slow` | This is taking longer than usual. If nothing appears soon, check your connection and reload. | ਆਮ ਨਾਲੋਂ ਵੱਧ ਸਮਾਂ ਲੱਗ ਰਿਹਾ ਹੈ। ਜੇ ਛੇਤੀ ਕੁਝ ਨਾ ਦਿਸੇ, ਤਾਂ ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। |  |
+| `boot.failed` | The simulation could not start. Check your connection, then reload. | ਸਿਮੂਲੇਸ਼ਨ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। |  |
+| `boot.reload` | Reload | ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ |  |
 | `lang.fail` | Could not load {lang}. Check your connection and try again. | {lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
 | `app.offlineReady` | Ready to work offline. | ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ। |  |
 | `app.updated` | A new version of Saboot is ready. | ਸਬੂਤ ਦਾ ਨਵਾਂ ਸੰਸਕਰਣ ਤਿਆਰ ਹੈ। |  |

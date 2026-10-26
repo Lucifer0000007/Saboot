@@ -74,6 +74,9 @@ const hi: Record<string, string | string[]> = {
   'sim.loading': 'बाढ़ का रीप्ले लोड हो रहा है…', // needs-native-review
   'sim.loadError': 'सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'sim.retry': 'फिर कोशिश करें', // needs-native-review
+  'boot.slow': 'सामान्य से ज़्यादा समय लग रहा है। अगर जल्दी कुछ न दिखे, तो अपना कनेक्शन जाँचें और पेज फिर से लोड करें।', // needs-native-review
+  'boot.failed': 'सिमुलेशन शुरू नहीं हो सका। अपना कनेक्शन जाँचें, फिर पेज फिर से लोड करें।', // needs-native-review
+  'boot.reload': 'फिर से लोड करें', // needs-native-review
   'lang.fail': '{lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'app.offlineReady': 'ऑफ़लाइन चलने के लिए तैयार।', // needs-native-review
   'app.updated': 'सबूत का नया संस्करण तैयार है।', // needs-native-review

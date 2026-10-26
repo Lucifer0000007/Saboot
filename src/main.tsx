@@ -13,6 +13,9 @@ import { tr } from './lib/i18n';
 // index.html already holds the prerendered shell; render() adopts those DOM nodes (no flash, no shift). This module
 // is evaluated after the first paint (scripts/postbuild.mjs), so hydration never holds that paint back.
 render(<Page />, document.getElementById('app')!);
+// The inline boot script in index.html (scripts/postbuild.mjs) watches for a start that never comes; this tells it to stand down.
+document.documentElement.dataset.booted = '1';
+try { sessionStorage.removeItem('saboot.bootRetry'); } catch { /* storage unavailable */ }
 installQaHooks();
 
 // The service worker installs after the page has loaded. This module boots after the first paint, which on a fast

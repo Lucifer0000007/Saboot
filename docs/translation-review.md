@@ -77,6 +77,9 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `sim.loading` | Loading the flood replay… | बाढ़ का रीप्ले लोड हो रहा है… | ਹੜ੍ਹ ਦਾ ਰੀਪਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… | needs review / needs review |
 | `sim.loadError` | The simulation data did not load. Check your connection and try again. | सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें। | ਸਿਮੂਲੇਸ਼ਨ ਦਾ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋਇਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
 | `sim.retry` | Try again | फिर कोशिश करें | ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ | needs review / needs review |
+| `boot.slow` | This is taking longer than usual. If nothing appears soon, check your connection and reload. | सामान्य से ज़्यादा समय लग रहा है। अगर जल्दी कुछ न दिखे, तो अपना कनेक्शन जाँचें और पेज फिर से लोड करें। | ਆਮ ਨਾਲੋਂ ਵੱਧ ਸਮਾਂ ਲੱਗ ਰਿਹਾ ਹੈ। ਜੇ ਛੇਤੀ ਕੁਝ ਨਾ ਦਿਸੇ, ਤਾਂ ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। | needs review / needs review |
+| `boot.failed` | The simulation could not start. Check your connection, then reload. | सिमुलेशन शुरू नहीं हो सका। अपना कनेक्शन जाँचें, फिर पेज फिर से लोड करें। | ਸਿਮੂਲੇਸ਼ਨ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ, ਫਿਰ ਪੰਨਾ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ। | needs review / needs review |
+| `boot.reload` | Reload | फिर से लोड करें | ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ | needs review / needs review |
 | `lang.fail` | Could not load {lang}. Check your connection and try again. | {lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें। | {lang} ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਵੇਖੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
 | `app.offlineReady` | Ready to work offline. | ऑफ़लाइन चलने के लिए तैयार। | ਆਫ਼ਲਾਈਨ ਚੱਲਣ ਲਈ ਤਿਆਰ। | needs review / needs review |
 | `app.updated` | A new version of Saboot is ready. | सबूत का नया संस्करण तैयार है। | ਸਬੂਤ ਦਾ ਨਵਾਂ ਸੰਸਕਰਣ ਤਿਆਰ ਹੈ। | needs review / needs review |
