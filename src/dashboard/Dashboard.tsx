@@ -4,7 +4,7 @@ import { Icon, type IconName } from '../ui/Icon';
 import { fmtClock, fmtT } from '../lib/time';
 const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 import { lazy } from '../lib/lazy';
-import { insurerView, importCode, importReceived, type InsurerView } from '../site/layout';
+import { insurerView, importCode, importReceived, deepLinkDone, type InsurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
 import { moments, jumpTo } from '../sim/moments';
 import { rail } from '../lib/prefs';
@@ -76,6 +76,9 @@ export default function Dashboard() {
     });
     return () => { dispose(); stop?.(); };
   }, []);
+  // an officer link moves the replay to its moment after the page starts; until then the console waits in its loading
+  // state, so the figures do not render at T+0 and then jump down the page (Lighthouse layout shift on ?tab=insurer)
+  if (!deepLinkDone.value) return <div class="loading" style={{ minHeight: '480px' }} role="status" aria-busy="true"><span class="spin" aria-hidden="true" /></div>;
   return (
     <section class="dash" aria-labelledby="dash-h" data-tour="dash" data-sim-numbers>
       <MapDefs />
