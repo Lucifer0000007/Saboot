@@ -33,16 +33,22 @@ export const speed = signal<Speed>(10);
 let raf = 0;
 let last = 0;
 let lastSlow = 0;
+/** One pause the replay makes by itself when it first reaches this time (the farmer's alert, audit F1); a seek drops it. */
+let stop: { at: number; then?: () => void } | null = null;
+export function stopOnceAt(at: number, then?: () => void) { stop = { at, then }; }
 
 function frame(now: number) {
   // rAF timestamps are frame-start times and can precede the performance.now() taken in play().
   const dt = Math.max(0, Math.min(0.25, (now - last) / 1000));
   last = now;
   let nt = t.value + dt * RATE[speed.value];
+  const s = stop && t.value < stop.at && nt >= stop.at ? stop : null;
+  if (s) { nt = s.at; stop = null; playing.value = false; }
   if (nt >= HOURS) { nt = HOURS; playing.value = false; }
   t.value = nt;
   if (now - lastSlow > 160 || !playing.value) { tSlow.value = nt; lastSlow = now; }
   if (playing.value) raf = requestAnimationFrame(frame);
+  s?.then?.();
 }
 
 export function play() {
@@ -60,6 +66,7 @@ export function pause() {
 export const toggle = () => (playing.value ? pause() : play());
 
 export function seek(h: number) {
+  stop = null;
   const v = Math.max(0, Math.min(HOURS, h));
   t.value = v;
   tSlow.value = v;

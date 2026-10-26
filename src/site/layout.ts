@@ -89,11 +89,31 @@ export function scrollToPanel() {
   el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
-/** Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin). */
+/**
+ * Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin).
+ * Unframed (a phone), the app starts right under the nav, and if the farmer's main button would then sit under the bottom
+ * dock (a small screen, a two-line Hindi title) the page scrolls only as far as that button needs (audit F2, J12).
+ */
 export function scrollToPhone() {
   const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
   if (!el) return scrollToId('simulation', false);
-  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  if (el.classList.contains('phone')) return el.scrollIntoView({ behavior, block: 'start' });
+  const nav = document.querySelector('header.nav');
+  const navH = nav && getComputedStyle(nav).position === 'sticky' ? nav.getBoundingClientRect().height : 0;
+  let top = el.getBoundingClientRect().top + scrollY - navH;
+  const cta = el.querySelector('[data-tour="cta"]');
+  if (cta) {
+    const dock = document.querySelector('.ctrl-dock')?.getBoundingClientRect().height ?? 0;
+    top = Math.max(top, cta.getBoundingClientRect().bottom + scrollY - (innerHeight - dock - 16));
+  }
+  scrollTo({ top, behavior });
+}
+
+/** The phone is on screen at all (the person has not scrolled on to another section). */
+export function phoneInView() {
+  const r = document.querySelector('[data-tour="phone"]')?.getBoundingClientRect();
+  return !!r && r.bottom > 0 && r.top < innerHeight;
 }
 
 export interface DeepLink { at?: string; tab?: SimTab; view?: InsurerView; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
