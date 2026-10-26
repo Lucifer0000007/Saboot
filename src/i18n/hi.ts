@@ -31,7 +31,7 @@ const hi: Record<string, string | string[]> = {
   'lang.name.hi': 'हिन्दी', // needs-native-review
   'lang.name.pa': 'पंजाबी', // needs-native-review
   'sim.tag': 'सिमुलेशन', // needs-native-review
-  'sim.tagShort': 'SIM', // needs-native-review
+  'sim.tagShort': 'सिम.', // needs-native-review
   'hero.eyebrow': 'आपदा में फ़सल-नुकसान के प्रमाण की परत', // needs-native-review
   'hero.h': 'घड़ी तूफ़ान के साथ शुरू होती है।', // needs-native-review
   'hero.l1': 'सबूत पंजीकृत खेतों पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रखता है, बाढ़ की आशंका होते ही प्रमाण की घड़ी शुरू करता है और किसान को उसकी भाषा में फ़ोन करता है।', // needs-native-review

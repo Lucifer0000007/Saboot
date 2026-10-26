@@ -31,7 +31,7 @@ const pa: Record<string, string | string[]> = {
   'lang.name.hi': 'ਹਿੰਦੀ', // needs-native-review
   'lang.name.pa': 'ਪੰਜਾਬੀ', // needs-native-review
   'sim.tag': 'ਸਿਮੂਲੇਸ਼ਨ', // needs-native-review
-  'sim.tagShort': 'SIM', // needs-native-review
+  'sim.tagShort': 'ਸਿਮ.', // needs-native-review
   'hero.eyebrow': 'ਆਫ਼ਤ ਵਿੱਚ ਫ਼ਸਲ-ਨੁਕਸਾਨ ਦੇ ਪ੍ਰਮਾਣ ਦੀ ਪਰਤ', // needs-native-review
   'hero.h': 'ਘੜੀ ਤੂਫ਼ਾਨ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।', // needs-native-review
   'hero.l1': 'ਸਬੂਤ ਰਜਿਸਟਰਡ ਖੇਤਾਂ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ, ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੁੰਦੇ ਹੀ ਪ੍ਰਮਾਣ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਕਿਸਾਨ ਨੂੰ ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਫ਼ੋਨ ਕਰਦਾ ਹੈ।', // needs-native-review
