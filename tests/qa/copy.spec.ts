@@ -30,3 +30,20 @@ test('after the relief advice window passes, the alert says when it ended, not "
   await expect(page.locator('[data-tour=alert]')).not.toContainText('the advice window has passed');
   expect(errors).toEqual([]);
 });
+
+test('the Proof screen names the plot in words, keeps coordinates and the data file in the technical details', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.tab('farmer'); s.seek(s.state().t + 0.2); s.screen('packet');`);
+  const loc = page.locator('[data-pk-loc] dd');
+  await expect(loc).toContainText(/At plot P-\d+ · Simulated location/);
+  await expect(loc).not.toContainText(/\d+\.\d{4}/);
+  await expect(page.locator('[data-pk-coords]')).toBeHidden();
+  await expect(page.locator('[data-pk-coords] dd')).toHaveText(/^\d+\.\d{5}, \d+\.\d{5}$/);
+  await page.locator('[data-tour=share] button').click();
+  await expect(page.locator('.share-sheet .qr')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.share-sheet [data-export-bundle]')).toBeHidden();
+  await page.locator('.share-sheet details.k-code summary').click();
+  await expect(page.locator('.share-sheet [data-export-bundle]')).toBeVisible();
+  expect(errors).toEqual([]);
+});

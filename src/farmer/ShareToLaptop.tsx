@@ -102,11 +102,12 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
               <p class="f-help" data-send-state role="status">{sendState}</p>
             </>
           )}
-          <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
-          <p class="f-help">{tr('k.bundleNote')}</p>
+          {/* the data file and the raw code are for the officer's systems, not for the farmer (audit F12) */}
           <details class="k-code">
             <summary>{tr('k.code')}</summary>
             <p class="hash">{code}</p>
+            <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
+            <p class="f-help">{tr('k.bundleNote')}</p>
           </details>
         </>
       )}

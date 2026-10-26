@@ -417,6 +417,9 @@ const hi: Record<string, string | string[]> = {
   'pk.sealed': 'सील किया गया', // needs-native-review
   'pk.unsealed': 'अभी सील नहीं', // needs-native-review
   'pk.location': 'जगह', // needs-native-review
+  'pk.atPlot': 'प्लॉट {plot} पर', // needs-native-review
+  'pk.notChecked': 'प्लॉट से मिलाकर नहीं देखा गया', // needs-native-review
+  'pk.coords': 'जगह (निर्देशांक)', // needs-native-review
   'pk.hash': 'फ़िंगरप्रिंट', // needs-native-review
   'pk.tech': 'तकनीकी विवरण: फ़िंगरप्रिंट, सिंक लॉग और छेड़छाड़-सूचक लॉग', // needs-native-review
   'pk.chain': 'छेड़छाड़-रोधी रिकॉर्ड', // needs-native-review
@@ -450,7 +453,7 @@ const hi: Record<string, string | string[]> = {
   'k.bundleNote': 'खुला प्रारूप, जिसे दूसरे सिस्टम पढ़ सकें। यह किसी सिस्टम से जुड़ा हुआ नहीं है। फ़ोटो फ़ोन में ही रहती हैं।', // needs-native-review
   'k.share': 'लिंक साझा करें', // needs-native-review
   'k.copied': 'कॉपी हो गया', // needs-native-review
-  'k.code': 'कोड', // needs-native-review
+  'k.code': 'तकनीकी विवरण: कोड और डेटा फ़ाइल', // needs-native-review
   'k.making': 'आपके पैकेट पर हस्ताक्षर हो रहे हैं…', // needs-native-review
   'k.stay': 'फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं।', // needs-native-review
   'k.fail': 'कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें।', // needs-native-review

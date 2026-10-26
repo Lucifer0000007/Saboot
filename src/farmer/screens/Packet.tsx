@@ -9,7 +9,7 @@ import { network } from '../../lib/prefs';
 import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link } from '../focus';
 import { SHOTS } from '../photo';
 import { screen } from '../nav';
-import { activePlotId } from '../../sim/engine';
+import { activePlotId, focusPlot } from '../../sim/engine';
 import { backToQueue } from '../helper';
 import { SyncLog } from '../SyncLog';
 import { Thumb } from './Capture';
@@ -79,7 +79,9 @@ export function Packet() {
 
       <dl class="facts">
         <div><dt>{tr('f.nav.photos')}</dt><dd>{photoOrigins.map(([o, n]) => <Val key={o} kind="photo" prov={o}><span class="num">{n}</span></Val>)}</dd></div>
-        <div><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</Val></dd></div>
+        {/* plain words for the farmer; the coordinates are in the technical details (audit F12). A real GPS fix is not
+            compared with the fictional plot, so it does not claim to be at the plot. */}
+        <div data-pk-loc><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}>{first.geo.src === 'gps' ? <>{tr('cap.gps', { acc: first.geo.acc })} · {tr('pk.notChecked')}</> : <>{tr('pk.atPlot', { plot: focusPlot.value!.id })} · {tr('cap.simGps')}</>}</Val></dd></div>
         {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
         <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
         <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>
@@ -100,9 +102,10 @@ export function Packet() {
       <details class="pk-tech" data-pk-tech>
         <summary><Icon name="link" /> <span>{tr('pk.tech')}</span></summary>
         <div class="stack">
-        {v.seal && (
-          <dl class="facts"><div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div></dl>
-        )}
+        <dl class="facts">
+          {v.seal && <div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>}
+          <div class="full" data-pk-coords><dt>{tr('pk.coords')}</dt><dd class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</dd></div>
+        </dl>
         <SyncLog />
         <section class="chain" aria-labelledby="chain-h">
         <h3 id="chain-h"><Icon name="link" /> {tr('pk.chain')}</h3>

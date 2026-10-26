@@ -417,6 +417,9 @@ const pa: Record<string, string | string[]> = {
   'pk.sealed': 'ਸੀਲ ਕੀਤਾ', // needs-native-review
   'pk.unsealed': 'ਅਜੇ ਸੀਲ ਨਹੀਂ', // needs-native-review
   'pk.location': 'ਥਾਂ', // needs-native-review
+  'pk.atPlot': 'ਪਲਾਟ {plot} ਉੱਤੇ', // needs-native-review
+  'pk.notChecked': 'ਪਲਾਟ ਨਾਲ ਮਿਲਾ ਕੇ ਨਹੀਂ ਵੇਖਿਆ ਗਿਆ', // needs-native-review
+  'pk.coords': 'ਥਾਂ (ਨਿਰਦੇਸ਼ਾਂਕ)', // needs-native-review
   'pk.hash': 'ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ', // needs-native-review
   'pk.tech': 'ਤਕਨੀਕੀ ਵੇਰਵੇ: ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਿੰਕ ਲੌਗ ਅਤੇ ਛੇੜਛਾੜ-ਸੂਚਕ ਲੌਗ', // needs-native-review
   'pk.chain': 'ਛੇੜਛਾੜ-ਰੋਧੀ ਰਿਕਾਰਡ', // needs-native-review
@@ -450,7 +453,7 @@ const pa: Record<string, string | string[]> = {
   'k.bundleNote': 'ਖੁੱਲ੍ਹਾ ਫਾਰਮੈਟ, ਜਿਸ ਨੂੰ ਹੋਰ ਸਿਸਟਮ ਪੜ੍ਹ ਸਕਣ। ਇਹ ਕਿਸੇ ਸਿਸਟਮ ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਨਹੀਂ ਹੈ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ।', // needs-native-review
   'k.share': 'ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ', // needs-native-review
   'k.copied': 'ਕਾਪੀ ਹੋ ਗਿਆ', // needs-native-review
-  'k.code': 'ਕੋਡ', // needs-native-review
+  'k.code': 'ਤਕਨੀਕੀ ਵੇਰਵੇ: ਕੋਡ ਅਤੇ ਡਾਟਾ ਫ਼ਾਈਲ', // needs-native-review
   'k.making': 'ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ…', // needs-native-review
   'k.stay': 'ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ।', // needs-native-review
   'k.fail': 'ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।', // needs-native-review
