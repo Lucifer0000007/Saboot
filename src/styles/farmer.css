@@ -52,13 +52,11 @@
 .f-row2 .pill { padding-inline: 16px; }
 
 /* farmer nav: bottom bar in the frame, a plain row above the screen when full-bleed */
-.f-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--sp3); padding: var(--sp2); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.f-nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp3); padding: var(--sp2); background: var(--paper); border-bottom: 1px solid var(--rule); }
 .farmer.framed .f-nav { border-bottom: 0; border-top: 2px solid var(--kali); padding-top: var(--sp3); padding-bottom: 10px; }
-/* narrow phones and large text: the five tabs go 3 + 2 instead of squeezing their labels */
+/* narrow phones and large text: the four tabs go 2 + 2 instead of squeezing their labels */
 @container farmer (max-width: 19.5em) {
-  .f-nav { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .f-nav > button { grid-column: span 2; }
-  .f-nav > button:nth-child(n + 4) { grid-column: span 3; }
+  .f-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .f-nav button {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; min-width: 0;
@@ -172,6 +170,7 @@
 .howto .ic { margin-top: 6px; margin-top: calc((1lh - 20px) / 2); }
 .summary { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-card); }
 .summary h3 { font-size: 1.5rem; }
+.st-h { margin-top: var(--sp4); padding-top: var(--sp5); border-top: var(--bd); }
 .tl { list-style: none; padding: 0; display: flex; flex-direction: column; }
 .tl li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: var(--bd); }
 .tl li > div { display: flex; flex-direction: column; min-width: 0; }

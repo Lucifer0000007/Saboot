@@ -13,7 +13,6 @@ import { ConnStrip } from './ConnStrip';
 import { Home } from './screens/Home';
 import { Capture } from './screens/Capture';
 import { Packet } from './screens/Packet';
-import { FileClaim } from './screens/File';
 import { Status } from './screens/Status';
 import { Assist } from './screens/Assist';
 import { Helper } from './screens/Helper';
@@ -33,8 +32,8 @@ const NAV: [Screen, IconName, string][] = [
   ['home', 'home', 'f.nav.home'],
   ['capture', 'camera', 'f.nav.photos'],
   ['packet', 'shield', 'f.nav.packet'],
-  ['file', 'file', 'f.nav.file'],
-  ['status', 'list', 'f.nav.status'],
+  // reporting and what follows share one tab (audit S-06); the 'file' screen id opens it too
+  ['status', 'file', 'f.nav.report'],
 ];
 
 // Coming back online (simulated or real) flushes the IndexedDB outbox automatically; network changes are announced.
@@ -57,15 +56,14 @@ function screenSpeech(s: Screen): [string, string, string | undefined] | null {
   }
   if (s === 'capture') return ['cap', tr('cap.title') + '. ' + tr('shot.wide.d'), undefined];
   if (s === 'packet') return ['pk', tr('pk.title') + '. ' + tr('pk.chainHelp'), undefined];
-  if (s === 'file') return ['fl', trr('fl.intro'), undefined];
-  if (s === 'status') return ['st', trr('st.note'), undefined];
+  if (s === 'file' || s === 'status') return view.value.ref ? ['st', trr('st.note'), undefined] : ['fl', trr('fl.intro'), undefined];
   if (s === 'assist') return ['as', tr('as.intro'), undefined];
   if (s === 'helper') return ['hm', tr('hm.intro'), undefined];
   return null;
 }
 
 function FarmerNav() {
-  const s = current.value;
+  const s = current.value === 'file' ? 'status' : current.value;
   return (
     <nav class="f-nav" aria-label={tr('nav.farmer')}>
       {NAV.map(([id, icon, label]) => (
@@ -141,8 +139,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
           {s === 'home' && <Home />}
           {s === 'capture' && <Capture />}
           {s === 'packet' && <Packet />}
-          {s === 'file' && <FileClaim />}
-          {s === 'status' && <Status />}
+          {(s === 'file' || s === 'status') && <Status />}
           {s === 'assist' && <Assist />}
           {s === 'helper' && <Helper />}
         </div>

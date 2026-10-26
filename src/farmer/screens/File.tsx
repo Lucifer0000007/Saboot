@@ -11,11 +11,11 @@ import { cropName } from '../parts';
 
 const STEPS: [string, IconName][] = [['fl.s1', 'phone'], ['fl.s2', 'volume'], ['fl.s3', 'shield'], ['fl.s4', 'file']];
 
-export function FileClaim() {
+/** The farmer's details for the officer, with Copy, and the steps to report. Shown before the receipt number is saved, and
+ *  folded under the status once it is (one Report tab, audit S-06). */
+export function ReportDetails() {
   const p = focusPlot.value!, d = focusDet.value!, m = model.value!;
   const v = view.value;
-  const [ref, setRef] = useState('');
-  const [err, setErr] = useState<string | null>(null);
   const rows: [string, string][] = [
     [tr('fl.farmer'), p.name],
     [trr('reg.policy'), policyNo(p.id)],
@@ -37,20 +37,8 @@ export function FileClaim() {
     }
   }
 
-  async function save(e: Event) {
-    e.preventDefault();
-    const clean = ref.trim();
-    if (!/^[A-Za-z0-9/-]{4,32}$/.test(clean)) { setErr(tr('fl.bad')); return; }
-    setErr(null);
-    await recordRef(clean);
-    showToast(tr('fl.saved', { ref: clean.toUpperCase() }), 'ok');
-    screen.value = 'status';
-  }
-
   return (
-    <div class="stack f-stack">
-      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: p.name }) : trr('fl.title')}</h2>
-      <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
+    <>
       <section class="card summary" aria-labelledby="sum-h">
         <div class="row-between">
           <h3 id="sum-h">{tr('fl.summary')}</h3>
@@ -68,30 +56,51 @@ export function FileClaim() {
           ))}
         </ol>
       </section>
-      {v.ref ? (
-        <p class="note note-ok"><Icon name="okShape" /><span>{tr('fl.saved', { ref: v.ref.ref })} · <span class="num">{fmtClock(v.ref.simT)}</span></span></p>
-      ) : (
-        <form class="stack f-stack" onSubmit={save} noValidate>
-          <label class="field">
-            <span>{trr('fl.ref')}</span>
-            <input
-              type="text"
-              inputMode="text"
-              autoComplete="off"
-              autoCapitalize="characters"
-              value={ref}
-              onInput={(e) => setRef((e.currentTarget as HTMLInputElement).value)}
-              aria-describedby="ref-help"
-              aria-invalid={!!err}
-              class="input"
-              placeholder="KR-2026-55821"
-            />
-            <small id="ref-help" class="f-help">{tr('fl.refHelp')}</small>
-          </label>
-          {err && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{err}</span></p>}
-          <button type="submit" class="pill pill-primary pill-lg pill-block"><Icon name="check" /> {trr('fl.save')} <span class="arrow" aria-hidden="true">→</span></button>
-        </form>
-      )}
-    </div>
+    </>
+  );
+}
+
+/** Before the receipt number is saved: how to report, then the field for the number. */
+export function FileClaim() {
+  const p = focusPlot.value!;
+  const [ref, setRef] = useState('');
+  const [err, setErr] = useState<string | null>(null);
+
+  async function save(e: Event) {
+    e.preventDefault();
+    const clean = ref.trim();
+    if (!/^[A-Za-z0-9/-]{4,32}$/.test(clean)) { setErr(tr('fl.bad')); return; }
+    setErr(null);
+    await recordRef(clean);
+    showToast(tr('fl.saved', { ref: clean.toUpperCase() }), 'ok');
+    screen.value = 'status';
+  }
+
+  return (
+    <>
+      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: p.name }) : trr('fl.title')}</h2>
+      <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
+      <ReportDetails />
+      <form class="stack f-stack" onSubmit={save} noValidate>
+        <label class="field">
+          <span>{trr('fl.ref')}</span>
+          <input
+            type="text"
+            inputMode="text"
+            autoComplete="off"
+            autoCapitalize="characters"
+            value={ref}
+            onInput={(e) => setRef((e.currentTarget as HTMLInputElement).value)}
+            aria-describedby="ref-help"
+            aria-invalid={!!err}
+            class="input"
+            placeholder="KR-2026-55821"
+          />
+          <small id="ref-help" class="f-help">{tr('fl.refHelp')}</small>
+        </label>
+        {err && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{err}</span></p>}
+        <button type="submit" class="pill pill-primary pill-lg pill-block"><Icon name="check" /> {trr('fl.save')} <span class="arrow" aria-hidden="true">→</span></button>
+      </form>
+    </>
   );
 }

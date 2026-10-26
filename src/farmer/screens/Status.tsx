@@ -6,6 +6,7 @@ import { fmtClock, officeHours } from '../../lib/time';
 import { t, focusDet, model } from '../../sim/engine';
 import { view, SCRIPT, fileObjection, type FocusView } from '../focus';
 import type { Detection } from '../../sim/model';
+import { FileClaim, ReportDetails } from './File';
 
 type St = 'done' | 'wait' | 'overdue' | 'info';
 interface Item { key: string; at: number | null; due?: number; st: St; note?: string }
@@ -89,14 +90,21 @@ function ObjectionCard() {
   );
 }
 
+/**
+ * The Report tab (audit S-06): one place for reporting and for what happens after. Before the receipt or reference number is
+ * saved it starts with how to report and the field for the number, and the status follows; once it is saved the status comes
+ * first and the details fold away underneath. The 'file' screen id still opens it.
+ */
 export function Status() {
   const d = focusDet.value!, v = view.value, now = t.value;
   const hard = railHardDeadline(rail.value);
   const items = focusTimeline(d, v, now, hard);
   const rem = focusReminders(d, v, now);
-  return (
-    <div class="stack f-stack">
-      <h2 class="f-title">{trr('st.title')}</h2>
+  const filed = !!v.ref;
+  const track = (
+    <>
+      {filed ? <h2 class="f-title">{trr('st.title')}</h2> : <h3 class="st-h">{trr('st.title')}</h3>}
+      {v.ref && <p class="note note-ok"><Icon name="okShape" /><span>{tr('fl.saved', { ref: v.ref.ref })} · <span class="num">{fmtClock(v.ref.simT)}</span></span></p>}
       <p class="note note-plain"><Icon name="scale" /><span>{trr('st.note')}</span></p>
       <ol class="tl" role="list">
         {items.map((it) => (
@@ -132,6 +140,24 @@ export function Status() {
           <p class="f-help">{tr('st.none')}</p>
         )}
       </section>
+    </>
+  );
+  return (
+    <div class="stack f-stack">
+      {filed ? (
+        <>
+          {track}
+          <details class="pk-tech" data-report-details>
+            <summary><Icon name="file" /> <span>{tr('fl.again')}</span></summary>
+            <div class="stack"><ReportDetails /></div>
+          </details>
+        </>
+      ) : (
+        <>
+          <FileClaim />
+          {track}
+        </>
+      )}
     </div>
   );
 }

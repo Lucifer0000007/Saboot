@@ -82,6 +82,9 @@ export function Packet() {
         ))}
       </ul>
 
+      {/* the sealed evidence and the way to show it live together on Proof (audit S-06, F4) */}
+      {v.seal && <ShareCard />}
+
       <dl class="facts">
         <div><dt>{tr('f.nav.photos')}</dt><dd>{photoOrigins.map(([o, n]) => <Val key={o} kind="photo" prov={o}><span class="num">{n}</span></Val>)}</dd></div>
         {/* plain words for the farmer; the coordinates are in the technical details (audit F12). A real GPS fix is not
@@ -101,8 +104,6 @@ export function Packet() {
         v.syncedT !== null && <p class="note note-ok"><Icon name="okShape" /><span>{tr('pk.synced', { time: fmtClock(v.syncedT) })}</span></p>
       )}
       {gaps.length > 0 && <p class="note note-warn"><Icon name="flag" /><span>{tr('pk.gap', { gap: fmtDur(maxGap) })}</span></p>}
-
-      {v.seal && <ShareCard />}
 
       <details class="pk-tech" data-pk-tech>
         <summary><Icon name="link" /> <span>{tr('pk.tech')}</span></summary>
@@ -135,7 +136,7 @@ export function Packet() {
           <Icon name="users" /> {tr('hm.next')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : v.seal ? (
-        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'file')}>
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'status')}>
           <Icon name="file" /> {trr('pk.cta')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : (

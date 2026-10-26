@@ -313,10 +313,8 @@ const hi: Record<string, string | string[]> = {
 
   'f.nav.home': 'होम', // needs-native-review
   'f.nav.photos': 'फ़ोटो', // needs-native-review
-  'f.nav.packet': 'सबूत', // needs-native-review
-  'f.nav.file': 'साझा करें', // needs-native-review
-  'f.nav.file.pmfby': 'रिपोर्ट', // needs-native-review
-  'f.nav.status': 'स्थिति', // needs-native-review
+  'f.nav.packet': 'मेरा सबूत', // needs-native-review
+  'f.nav.report': 'रिपोर्ट', // needs-native-review
   'f.read': 'सुनें', // needs-native-review
   'f.stop': 'रोकें', // needs-native-review
   'f.captions': 'कैप्शन', // needs-native-review
@@ -436,7 +434,7 @@ const hi: Record<string, string | string[]> = {
   'pk.queued': 'नेटवर्क का इंतज़ार: {n} कतार में', // needs-native-review
   'pk.synced': 'सर्वर को {time} पर मिला', // needs-native-review
   'pk.gap': 'फ़ोटो के समय और सर्वर के समय में {gap} का अंतर — जाँच के लिए चिह्नित।', // needs-native-review
-  'pk.cta': 'आगे: अपना प्रमाण साझा करें', // needs-native-review
+  'pk.cta': 'आगे: नुकसान की रिपोर्ट करें', // needs-native-review
   'pk.cta.pmfby': 'अगला: नुकसान की रिपोर्ट करें', // needs-native-review
   'pk.empty': 'अभी कोई फ़ोटो नहीं।', // needs-native-review
   'pk.device': 'फ़ोन का समय', // needs-native-review
@@ -500,14 +498,15 @@ const hi: Record<string, string | string[]> = {
   'fe.role.assessor': 'बीमा कंपनी के नुक़सान आकलनकर्ता', // needs-native-review
   'fe.role.farmer': 'किसान', // needs-native-review
   'fe.role.csc': 'सीएससी संचालक', // needs-native-review
-  'fl.title': 'अपना प्रमाण साझा करें', // needs-native-review
+  'fl.title': 'नुकसान की रिपोर्ट करें', // needs-native-review
   'fl.title.pmfby': 'नुकसान की रिपोर्ट करें', // needs-native-review
-  'fl.intro': 'सबूत कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को अपना सील किया हुआ प्रमाण दिखाएँ। आपका ब्योरा तैयार है।', // needs-native-review
+  'fl.intro': 'सबूत ऐप कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को बताएँ और अपना सील किया हुआ प्रमाण दिखाएँ: उसका QR कोड “मेरा सबूत” टैब पर है। आपका ब्योरा तैयार है।', // needs-native-review
   'fl.intro.pmfby': 'सबूत आपकी ओर से दावा दर्ज नहीं करता। आधिकारिक माध्यम से रिपोर्ट करें। आपकी जानकारी तैयार है।', // needs-native-review
   'fl.summary': 'आपकी जानकारी', // needs-native-review
   'fl.copy': 'जानकारी कॉपी करें', // needs-native-review
   'fl.copied': 'कॉपी हो गया', // needs-native-review
   'fl.copyFail': 'कॉपी नहीं हो सका। कृपया जानकारी पढ़कर सुनाएँ।', // needs-native-review
+  'fl.again': 'आपका ब्योरा और रिपोर्ट करने का तरीका', // needs-native-review
   'fl.steps': 'रिपोर्ट कैसे करें', // needs-native-review
   'fl.s1': 'अपने गाँव का आकलन करने वाले अधिकारी को बताएँ कि आपके पास बाढ़ की सील की हुई फ़ोटो हैं।', // needs-native-review
   'fl.s1.pmfby': 'Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, पर फ़ोन करें, या Crop Insurance App खोलें।', // needs-native-review {{TRANSLATE}}: official names kept in English
@@ -642,7 +641,7 @@ const hi: Record<string, string | string[]> = {
   'hm.endNo': 'काम जारी रखें', // needs-native-review
   'hm.seal': '{farmer} का सबूत सील करें', // needs-native-review
   'hm.pkTitle': '{farmer} का सबूत', // needs-native-review
-  'hm.flTitle': '{farmer} का प्रमाण साझा करें', // needs-native-review
+  'hm.flTitle': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
   'hm.flTitle.pmfby': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
   'hm.noDamageDone': '{farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए।', // needs-native-review
   'hm.jumpAlert': 'पहली चेतावनी पर जाएँ (रीप्ले)', // needs-native-review
