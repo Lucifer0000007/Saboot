@@ -565,7 +565,19 @@ const pa: Record<string, string | string[]> = {
   'ob.title': 'ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ', // needs-native-review
   'ob.soon': 'ਅੱਗੇ ਚੱਲ ਕੇ ਅਧਿਕਾਰੀ ਇੱਕ ਖਰੜਾ ਸੂਚੀ ਜਾਰੀ ਕਰਨਗੇ। ਇਹ ਸਿਮੂਲੇਸ਼ਨ ਹੈ: ਲਗਭਗ {time}। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ।', // needs-native-review
   'ob.open': 'ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ ਆ ਗਈ ਹੈ (ਸਿਮੂਲੇਟਿਡ)। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜੋ। ਇਹ {until} ਤੱਕ ਖੁੱਲ੍ਹਾ ਹੈ।', // needs-native-review
-  'ob.attach': 'ਮੇਰਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜੋ', // needs-native-review
+  'ob.attach': 'ਗ਼ਲਤ ਲੱਗਦੀ ਹੈ: ਮੇਰਾ ਸਬੂਤ ਜੋੜੋ', // needs-native-review
+  'ob.right': 'ਸਹੀ ਲੱਗਦੀ ਹੈ', // needs-native-review
+  'ob.rightNote': 'ਠੀਕ ਹੈ। ਤੁਹਾਨੂੰ ਕੁਝ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਜੇ ਤੁਹਾਡੀ ਰਾਇ ਬਦਲੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ।', // needs-native-review
+  'ob.mine': 'ਖਰੜਾ ਸੂਚੀ ਵਿੱਚ ਤੁਹਾਡੀ ਐਂਟਰੀ', // needs-native-review
+  'ob.listed': 'ਪਲਾਟ {plot} ਸੂਚੀ ਵਿੱਚ ਹੈ।', // needs-native-review
+  'ob.notListed': 'ਪਲਾਟ {plot} ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਹੈ।', // needs-native-review
+  'ob.tier': 'ਸਬੂਤ: {tier}। ਇਹ ਸਿਰਫ਼ ਅਧਿਕਾਰੀ ਦੀ ਜਾਂਚ ਦਾ ਕ੍ਰਮ ਤੈਅ ਕਰਦਾ ਹੈ; ਇਹ ਫ਼ੈਸਲਾ ਨਹੀਂ ਹੈ।', // needs-native-review
+  'ob.tier.supported': 'ਸਮਰਥਿਤ', // needs-native-review
+  'ob.tier.partial': 'ਅੰਸ਼ਕ', // needs-native-review
+  'ob.tier.insufficient': 'ਹਾਲੇ ਕਾਫ਼ੀ ਨਹੀਂ', // needs-native-review
+  'ob.share': 'ਰਡਾਰ ਦਾ ਅੰਦਾਜ਼ਾ: ਪਲਾਟ ਦਾ {lo}–{hi}% ਪਾਣੀ ਹੇਠ। ਇਹ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ।', // needs-native-review
+  'ob.photos': 'ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ {time} ਵਜੇ ਅਧਿਕਾਰੀ ਤੱਕ ਪਹੁੰਚੀਆਂ।', // needs-native-review
+  'ob.noPhotos': 'ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਹਾਲੇ ਅਧਿਕਾਰੀ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚੀਆਂ।', // needs-native-review
   'ob.needSeal': 'ਪਹਿਲਾਂ ਆਪਣੀਆਂ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸੀਲ ਕਰੋ। ਫਿਰ ਇੱਥੇ ਜੋੜ ਸਕਦੇ ਹੋ।', // needs-native-review
   'ob.filed': 'ਤੁਹਾਡਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਤੁਹਾਡੀ ਐਂਟਰੀ ਨਾਲ ਜੁੜ ਗਿਆ ({time})। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, Saboot ਤੋਂ ਬਾਹਰ।', // needs-native-review
   'ob.answered': 'ਅਧਿਕਾਰੀ ਨੇ ਜਵਾਬ ਦਿੱਤਾ ({time}), Saboot ਤੋਂ ਬਾਹਰ। Saboot ਸਿਰਫ਼ ਇੰਨਾ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਜਵਾਬ ਆਇਆ।', // needs-native-review

@@ -1,4 +1,6 @@
+import { useState } from 'preact/hooks';
 import { Icon } from '../../ui/Icon';
+import { lazy } from '../../lib/lazy';
 import { tr, trr } from '../../lib/i18n';
 import { rail } from '../../lib/prefs';
 import { railHardDeadline } from '../../config';
@@ -7,6 +9,8 @@ import { t, focusDet, model } from '../../sim/engine';
 import { view, SCRIPT, fileObjection, type FocusView } from '../focus';
 import type { Detection } from '../../sim/model';
 import { FileClaim, ReportDetails } from './File';
+
+const MyEntry = lazy(() => import('./MyEntry'), 120);
 
 type St = 'done' | 'wait' | 'overdue' | 'info';
 interface Item { key: string; at: number | null; due?: number; st: St; note?: string }
@@ -64,6 +68,8 @@ function ObjectionCard() {
   const pub = m.opts.publishAtHour, end = pub + m.opts.objectionWindowHours;
   const obj = v.objection;
   const respT = obj ? obj.simT + SCRIPT.objectionResponse : null;
+  // "Looks right" is the farmer's own reading; nothing is recorded or sent, and the evidence can still be attached
+  const [right, setRight] = useState(false);
   return (
     <section class="ob-card stack f-stack" aria-labelledby="ob-h" data-objection={obj ? 'filed' : now < pub ? 'soon' : now < end ? 'open' : 'closed'}>
       <h3 id="ob-h">{tr('ob.title')}</h3>
@@ -77,8 +83,14 @@ function ObjectionCard() {
       ) : now < end ? (
         <>
           <p>{tr('ob.open', { until: fmtClock(end) })}</p>
+          <MyEntry />
+          {right ? (
+            <p class="note note-ok" role="status" data-ob-right><Icon name="okShape" /><span>{tr('ob.rightNote', { until: fmtClock(end) })}</span></p>
+          ) : (
+            <button type="button" class="pill pill-ghost pill-lg pill-block" onClick={() => setRight(true)}><Icon name="check" /> {tr('ob.right')}</button>
+          )}
           {v.seal ? (
-            <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => void fileObjection()}><Icon name="shield" /> {tr('ob.attach')}</button>
+            <button type="button" class={'pill pill-lg pill-block ' + (right ? 'pill-ghost' : 'pill-primary')} onClick={() => void fileObjection()}><Icon name="shield" /> {tr('ob.attach')}</button>
           ) : (
             <p class="f-help">{tr('ob.needSeal')}</p>
           )}

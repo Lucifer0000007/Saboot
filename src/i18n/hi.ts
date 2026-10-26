@@ -565,7 +565,19 @@ const hi: Record<string, string | string[]> = {
   'ob.title': 'अधिकारी की मसौदा सूची', // needs-native-review
   'ob.soon': 'आगे चलकर अधिकारी एक मसौदा सूची जारी करेंगे। यह सिमुलेशन है: लगभग {time}। अगर आपकी प्रविष्टि ग़लत लगे, तो {until} तक अपना सील किया हुआ सबूत जोड़ सकते हैं।', // needs-native-review
   'ob.open': 'अधिकारी की मसौदा सूची आ गई है (सिमुलेटेड)। अगर आपकी प्रविष्टि ग़लत लगे, तो अपना सील किया हुआ सबूत जोड़ें। यह {until} तक खुला है।', // needs-native-review
-  'ob.attach': 'मेरा सील किया हुआ सबूत जोड़ें', // needs-native-review
+  'ob.attach': 'ग़लत लगती है: मेरा सबूत जोड़ें', // needs-native-review
+  'ob.right': 'सही लगती है', // needs-native-review
+  'ob.rightNote': 'ठीक है। आपको कुछ करने की ज़रूरत नहीं। अगर आपकी राय बदले, तो {until} तक अपना सबूत जोड़ सकते हैं।', // needs-native-review
+  'ob.mine': 'मसौदा सूची में आपकी प्रविष्टि', // needs-native-review
+  'ob.listed': 'प्लॉट {plot} सूची में है।', // needs-native-review
+  'ob.notListed': 'प्लॉट {plot} सूची में नहीं है।', // needs-native-review
+  'ob.tier': 'सबूत: {tier}। यह सिर्फ़ अधिकारी की जाँच का क्रम तय करता है; यह फ़ैसला नहीं है।', // needs-native-review
+  'ob.tier.supported': 'समर्थित', // needs-native-review
+  'ob.tier.partial': 'आंशिक', // needs-native-review
+  'ob.tier.insufficient': 'अभी पर्याप्त नहीं', // needs-native-review
+  'ob.share': 'रडार का अनुमान: प्लॉट का {lo}–{hi}% पानी में। यह फ़सल का नुकसान नहीं है।', // needs-native-review
+  'ob.photos': 'आपकी फ़ोटो {time} पर अधिकारी तक पहुँचीं।', // needs-native-review
+  'ob.noPhotos': 'आपकी फ़ोटो अभी अधिकारी तक नहीं पहुँचीं।', // needs-native-review
   'ob.needSeal': 'पहले अपनी फ़ोटो लें और उन्हें सील करें। फिर यहाँ जोड़ सकते हैं।', // needs-native-review
   'ob.filed': 'आपका सील किया हुआ सबूत आपकी प्रविष्टि से जुड़ गया ({time})। फ़ैसला अधिकारी करता है, Saboot के बाहर।', // needs-native-review
   'ob.answered': 'अधिकारी ने जवाब दिया ({time}), Saboot के बाहर। Saboot सिर्फ़ इतना दिखाता है कि जवाब आया।', // needs-native-review

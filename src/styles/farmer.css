@@ -170,6 +170,10 @@
 .howto .ic { margin-top: 6px; margin-top: calc((1lh - 20px) / 2); }
 .summary { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-card); }
 .summary h3 { font-size: 1.5rem; }
+.ob-entry { display: flex; flex-direction: column; gap: var(--sp2); padding: var(--sp4); border: var(--bd); border-radius: var(--r-card); background: var(--paper); }
+.ob-facts { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 1rem; }
+.ob-facts li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; align-items: start; }
+.ob-facts .ic { margin-top: calc((1lh - 18px) / 2); }
 .st-h { margin-top: var(--sp4); padding-top: var(--sp5); border-top: var(--bd); }
 .tl { list-style: none; padding: 0; display: flex; flex-direction: column; }
 .tl li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: var(--bd); }

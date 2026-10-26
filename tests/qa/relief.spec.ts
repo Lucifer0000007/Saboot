@@ -100,13 +100,13 @@ test('objection: the farmer attaches sealed evidence once, it is a sealed event 
   await page.locator('.chips .chip-btn', { hasText: 'Draft list' }).first().click();
   await expect(card).toHaveAttribute('data-objection', 'open', { timeout: 20_000 });
   const before = (await page.evaluate('window.__sab.logs()')) as Record<string, { events: number; head: string }>;
-  await card.getByRole('button', { name: 'Attach my sealed evidence' }).click();
+  await card.getByRole('button', { name: 'Looks wrong: attach my evidence' }).click();
   await expect(card).toHaveAttribute('data-objection', 'filed');
   await expect(card).toContainText('The officer decides, outside Saboot.');
   const after = (await page.evaluate('window.__sab.logs()')) as Record<string, { events: number; head: string }>;
   expect(after.$demo.events).toBe(before.$demo.events + 1);
   expect(after.$demo.head).not.toBe(before.$demo.head);
-  await expect(card.getByRole('button', { name: 'Attach my sealed evidence' })).toHaveCount(0);
+  await expect(card.getByRole('button', { name: 'Looks wrong: attach my evidence' })).toHaveCount(0);
   // the officer sees it on the draft list, next to the entry that is the judge's own
   await sab(page, `s.tab('insurer'); s.insurer('draft');`);
   const mine = page.locator('.dtable tr', { has: page.locator('.tag.you') });

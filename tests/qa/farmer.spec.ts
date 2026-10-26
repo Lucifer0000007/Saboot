@@ -27,3 +27,23 @@ test('the farmer app has four tabs: Proof holds the QR code, Report holds the st
   await expect(page.locator('.farmer [data-report-details]')).not.toHaveAttribute('open', '');
   expect(errors).toEqual([]);
 });
+
+test('the objection card shows the farmer their own draft-list entry, labelled simulated, before asking right or wrong', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('draft'); s.tab('farmer'); s.screen('status');`);
+  const card = page.locator('.ob-card');
+  await expect(card).toHaveAttribute('data-objection', 'open', { timeout: 20_000 });
+  const entry = card.locator('[data-my-entry]');
+  await expect(entry).toBeVisible({ timeout: 20_000 });
+  await expect(entry.locator('[data-prov=sim]')).toBeVisible();
+  await expect(entry).toContainText(/Plot P-\d+ is (not )?on the list\./);
+  await expect(entry).not.toContainText(/₹|Rs\.?\s?\d|rupee|amount|eligib|approved|rejected/i);
+  // "Looks right" records nothing and leaves the evidence one tap away
+  const before = await page.evaluate('JSON.stringify(window.__sab.logs())');
+  await card.getByRole('button', { name: 'Looks right' }).click();
+  await expect(card.locator('[data-ob-right]')).toContainText('You do not need to do anything');
+  expect(await page.evaluate('JSON.stringify(window.__sab.logs())')).toBe(before);
+  await expect(card.getByRole('button', { name: 'Looks wrong: attach my evidence' })).toBeVisible();
+  expect(errors).toEqual([]);
+});
