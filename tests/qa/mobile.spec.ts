@@ -98,6 +98,21 @@ test('the view switch rides in the dock: from the bottom of the console one tap 
   expect(errors).toEqual([]);
 });
 
+test('on a phone the process and radar switches are only in the dock’s sheet; a line above the phone says which are on and opens it (J9, S-10)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await expect(page.locator('.sim-head .rails')).toBeHidden();
+  const chip = page.locator('.sim-head .rail-chip');
+  await expect(chip).toHaveText('Process: Relief assessment · Radar passes: Every 12 h (demo)');
+  await chip.click();
+  const sheet = page.locator('.ctrl-sheet');
+  await expect(sheet).toContainText('No state is named.');
+  await sheet.getByRole('radio', { name: 'PMFBY intimation' }).click();
+  await page.keyboard.press('Escape');
+  await expect(chip).toContainText('Process: PMFBY intimation');
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {

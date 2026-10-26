@@ -9,7 +9,8 @@ import { ConsoleNote } from '../dashboard/ConsoleNote';
 import { tourSeen } from '../lib/prefs';
 import { model, loadError, loadScenario } from '../sim/engine';
 import { FarmerApp } from '../farmer/FarmerApp';
-import { ControlBar } from '../ui/ControlBar';
+import { ControlBar, openControls } from '../ui/ControlBar';
+import { rail, cadence } from '../lib/prefs';
 import { Icon, type IconName } from '../ui/Icon';
 import { tourStep, startTour } from '../tour/state';
 import { layout, simTab, panelTab, bigText, scrollToPhone, scrollToPanel, type SimTab } from './layout';
@@ -93,6 +94,12 @@ export function SimHead() {
         <RailSwitch />
         <CadenceSwitch />
       </div>
+      {/* below the desktop layout the two switches live in the dock's sheet only; this line says which are on and opens it
+          (audit J9, S-10). CSS shows one or the other by layout. */}
+      <button type="button" class="tag rail-chip" aria-haspopup="dialog" onClick={openControls}>
+        <Icon name="layers" size={16} />
+        <span>{tr('rail.label')}: {tr('rail.' + rail.value)} · {tr('cad.label')}: {tr('cad.' + cadence.value, { n: cadence.value === 'demo' ? SCENARIO.radarCadenceHours : SCENARIO.radarSlowCadenceHours })}</span>
+      </button>
     </div>
   );
 }

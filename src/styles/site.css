@@ -137,6 +137,10 @@
 .rail-l { font-size: var(--fs-ui); font-weight: 600; color: var(--kali-2); }
 .rail-d { margin: 0; max-width: 62ch; font-size: 1rem; color: var(--kali-2); }
 .rail-seg > button { padding-inline: 14px; }
+.rail-chip { display: none; align-self: flex-start; flex-wrap: nowrap; align-items: flex-start; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: var(--r-ctl); text-align: start; cursor: pointer; }
+.rail-chip > .ic { margin-top: calc((1lh - 16px) / 2); }
+html.lay-mobile .sim-head .rails, html.lay-tablet .sim-head .rails { display: none; }
+html.lay-mobile .rail-chip, html.lay-tablet .rail-chip { display: inline-flex; }
 .sim-ph { min-height: 900px; }
 .sim-body { min-width: 0; padding-bottom: var(--s5); }
 /* anything scrolled to inside the simulation clears the sticky control bar too */

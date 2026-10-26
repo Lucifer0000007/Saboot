@@ -172,7 +172,8 @@ export function ControlBar({ views }: { views?: ComponentChildren }) {
             <h3 class="eyebrow">{tr('ctl.net')}</h3>
             <NetSwitch />
           </div>
-          <RailSwitch compact />
+          {/* with its description: on a phone this sheet is the only place the process is chosen (audit S-10) */}
+          <RailSwitch />
           <CadenceSwitch compact />
           <Reset />
         </Sheet>
