@@ -15,6 +15,12 @@
 .kpis .warn strong, .kpis .warn .kpi-l { color: var(--warn); }
 .kpis .bad { background: var(--bad-tint); border-color: var(--bad); }
 .kpis .bad strong, .kpis .bad .kpi-l { color: var(--bad); }
+/* a phone: smaller tiles, every label and description still on screen */
+@container panel (max-width: 36em) {
+  .kpis li { gap: 2px; padding: 10px 12px; }
+  .kpis strong { font-size: 1.75rem; }
+  .kpi-d { font-size: 0.75rem; }
+}
 @container panel (min-width: 36em) { .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @container panel (min-width: 58em) { .kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 
@@ -40,14 +46,27 @@
   .pipe-node .pipe-pill { justify-self: start; }
   .pipe-node.outside { border-left: 0; border-top-style: dashed; }
 }
+/* a phone: two stages to a row, so the cohort pipeline is half as tall */
+@container panel (min-width: 20em) and (max-width: 36em) {
+  .pipe { padding: 16px; }
+  .pipe-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }
+  .pipe-node { padding-left: 10px; }
+}
 .drawer .pipe-row { grid-template-columns: minmax(0, 1fr); }
 @container drawer (min-width: 26em) { .drawer .pipe-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .pipe-pill { max-width: 100%; }
 
-.view-seg { align-self: stretch; display: grid; grid-template-columns: minmax(0, 1fr); }
-.view-seg button { display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px; text-align: start; }
-@container panel (min-width: 30em) { .view-seg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@container panel (min-width: 64em) { .view-seg { align-self: flex-start; display: inline-flex; } }
+/* the console's views: one row that sticks under the nav and the laptop's control bar, scrolling sideways when narrow
+   (audit OF-03: it used to be a stacked list that scrolled away with the page) */
+.view-seg {
+  position: sticky; top: calc(var(--nav-real, var(--nav-h)) + var(--ctrl-real, 0px)); z-index: calc(var(--z-sticky) - 1);
+  align-self: stretch; display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.view-seg::-webkit-scrollbar { display: none; }
+/* anything scrolled to inside the console also clears that bar */
+.dash .view-seg ~ * * { scroll-margin-top: calc(var(--ctrl-real, 0px) + 72px); }
+.view-seg button { flex: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+@container panel (min-width: 64em) { .view-seg { align-self: flex-start; } }
 
 .claims { display: grid; gap: var(--s3); grid-template-columns: minmax(0, 1fr); align-items: start; }
 .claims-map { display: flex; flex-direction: column; gap: 12px; min-width: 0; }

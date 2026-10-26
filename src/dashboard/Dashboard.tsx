@@ -84,15 +84,16 @@ export default function Dashboard() {
           )}
         </div>
       </header>
-      <Kpis />
-      <Pipeline />
-      <div class="seg view-seg" role="radiogroup" aria-label="Console view">
+      {/* the views stay in reach: a bar that sticks under the nav (and the control bar on a laptop) while the console scrolls */}
+      <div class="seg view-seg" role="radiogroup" data-view-bar aria-label="Console view">
         {VIEWS[rail.value].map(([id, label, icon]) => (
           <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => (insurerView.value = id)}>
             <Icon name={icon} size={16} /> {label}
           </button>
         ))}
       </div>
+      <Kpis />
+      <Pipeline />
       {view === 'claims' && (
         <div class="claims">
           <div class="claims-map">

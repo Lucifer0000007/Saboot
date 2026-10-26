@@ -45,3 +45,22 @@ test('one ranked worklist under the map: no second list view, compact rows on a 
   await expect(page.locator('.claims .queue')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('the console views stay in reach: the view bar sticks under the nav while the list scrolls, on a phone and a laptop (OF-03)', async ({ page }) => {
+  for (const v of [V('360x640'), V('1440x900')]) {
+    const errors: string[] = [];
+    await open(page, v, 'en', errors);
+    await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+    const bar = page.locator('[data-view-bar]');
+    await expect(bar).toBeVisible({ timeout: 20_000 });
+    await page.locator('.queue > li').nth(6).scrollIntoViewIfNeeded();
+    await page.evaluate(() => scrollBy(0, 200));
+    const box = (await bar.boundingBox())!;
+    const nav = (await page.locator('header.nav').boundingBox())!;
+    expect(box.y, v.name).toBeGreaterThanOrEqual(nav.y + nav.height - 1);
+    expect(box.y + box.height, v.name).toBeLessThan(v.height / 2);
+    await bar.getByRole('radio', { name: /Draft list/ }).click();
+    await expect(page.locator('.draft')).toBeVisible();
+    expect(errors).toEqual([]);
+  }
+});
