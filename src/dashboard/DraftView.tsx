@@ -6,7 +6,7 @@ import { Icon, type IconName } from '../ui/Icon';
 import { ProvTag } from '../ui/ProvTag';
 import { TierBadge } from '../ui/TierBadge';
 import { fmtT } from '../lib/time';
-import { openPlot } from '../site/layout';
+import { openPlot, layout } from '../site/layout';
 import { model, tSlow, scenarioHash } from '../sim/engine';
 import { RELIEF } from '../config';
 import { rows } from './state';
@@ -72,7 +72,10 @@ export function DraftView() {
   const [onlyObj, setOnlyObj] = useState(false);
   const withObj = d.entries.filter((e) => e.objection).sort((a, b) => a.objection!.filedAtHour - b.objection!.filedAtHour);
   const open = withObj.filter((e) => e.objection!.answeredAtHour === null).length;
-  const entries = onlyObj ? withObj : d.entries;
+  // a phone starts with the first ten entries, the rest one tap away (each is a tall card there: audit S-03)
+  const [all, setAll] = useState(false);
+  const cut = !onlyObj && !all && layout.value === 'mobile' && d.entries.length > 10;
+  const entries = onlyObj ? withObj : cut ? d.entries.slice(0, 10) : d.entries;
   const stamp = fmtT(t).replace(/\W+/g, '');
   const p = d.provenance;
   return (
@@ -169,6 +172,7 @@ export function DraftView() {
             })}
           </tbody>
         </table>
+        {cut && <button type="button" class="pill pill-ghost pill-block" data-draft-all onClick={() => setAll(true)}>Show all {d.entries.length} entries</button>}
         </div>
       )}
 

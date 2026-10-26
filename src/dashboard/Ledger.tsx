@@ -5,6 +5,7 @@ import { fmtT } from '../lib/time';
 import { short } from '../lib/hash';
 import { announce } from '../lib/announce';
 import { tSlow, model } from '../sim/engine';
+import { layout } from '../site/layout';
 import { liveViews, type FocusView } from '../farmer/focus';
 import { ledger, statuses, tamper, building, verifyMs, rebuild, verifyLedger, tamperTest, restore, type LedgerLink } from '../sim/ledger';
 import { rows } from './state';
@@ -21,8 +22,9 @@ function fmtData(l: LedgerLink) {
 /** The plot the ledger is narrowed to ('' = every plot). The plot drawer's "Ledger for this plot" sets it (audit OF-14). */
 export const ledgerPlot = signal('');
 const ledgerType = signal('');
-/** Records a page shows at first, the latest ones; older ones come 20 at a time (audit UI-12: no scroll box in the page). */
-const PAGE = 20;
+/** Records shown at first, the latest ones, and how many more each tap brings: 10 on a phone (each is a tall card there),
+ *  20 on wider screens (audit UI-12: no scroll box inside the page). */
+const pageSize = () => (layout.value === 'mobile' ? 10 : 20);
 
 function download(name: string, text: string, type = 'application/json') {
   const a = document.createElement('a');
@@ -60,6 +62,7 @@ export function Ledger() {
   // the filters narrow what is shown; the chain is always verified whole, from genesis
   const fp = ledgerPlot.value, ft = ledgerType.value;
   const match = c.flatMap((l, i) => ((!fp || l.body.plot === fp) && (!ft || l.body.type === ft) ? [i] : []));
+  const PAGE = pageSize();
   const shown = match.slice(Math.max(0, match.length - PAGE - more));
   const plots = [...new Set(c.map((l) => l.body.plot))].sort();
   const types = [...new Set(c.map((l) => l.body.type))].sort();
@@ -76,7 +79,14 @@ export function Ledger() {
     announce(`Tamper test: record ${i + 1} edited without re-hashing. Verification fails at that record.`);
     // show that plot's own trail, where the changed record sits, and bring the verdict to the top of the screen
     // (audit OF-02: the record used to be centred and the explanation scrolled away above it)
-    if (i >= 0) { ledgerPlot.value = ledger.value[i].body.plot; ledgerType.value = ''; setMore(0); }
+    if (i >= 0) {
+      const plot = ledger.value[i].body.plot;
+      ledgerPlot.value = plot;
+      ledgerType.value = '';
+      // that plot's latest records, reaching back far enough to include the changed one
+      const own = ledger.value.flatMap((l, k) => (l.body.plot === plot ? [k] : []));
+      setMore(Math.max(0, own.length - own.indexOf(i) - pageSize()));
+    }
     requestAnimationFrame(() => document.querySelector('.lg-status')?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   }
 

@@ -119,7 +119,7 @@ test('one tamper check in the console: the real packet and the audit ledger in o
   expect(errors).toEqual([]);
 });
 
-test('ledger on a phone: no scroll box inside the page, the latest 20 then older ones, a plot and a kind filter; the chain is still verified whole (OF-14, UI-12)', async ({ page }) => {
+test('ledger on a phone: no scroll box inside the page, the latest 10 then older ones, a plot and a kind filter; the chain is still verified whole (OF-14, UI-12)', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
   await sab(page, `await s.jump('deadline'); s.tab('ledger');`);
@@ -127,11 +127,12 @@ test('ledger on a phone: no scroll box inside the page, the latest 20 then older
   await expect(rows.first()).toBeVisible({ timeout: 20_000 });
   const box = await page.locator('.lg-scroll').evaluate((e) => ({ oy: getComputedStyle(e).overflowY, mh: getComputedStyle(e).maxHeight }));
   expect(box).toEqual({ oy: 'visible', mh: 'none' });
-  await expect(rows).toHaveCount(20);
+  // a phone: ten at a time (each record is a tall card there)
+  await expect(rows).toHaveCount(10);
   const total = Number((await page.locator('#lg-h .cnt').textContent()) ?? 0);
   expect(total).toBeGreaterThan(40);
   await page.locator('[data-lg-older]').click();
-  await expect(rows).toHaveCount(40);
+  await expect(rows).toHaveCount(20);
   // one plot's trail, then one kind of record
   await page.locator('[data-lg-plot]').selectOption('P-04');
   expect((await rows.locator('td[data-l=Record]').allTextContents()).every((x) => x.includes('P-04'))).toBe(true);
@@ -207,6 +208,12 @@ test('objections: the Draft list moment already shows one, a filter lists them o
   const filter = page.locator('[data-obj-filter]');
   await expect(filter).toContainText('Objections (1)', { timeout: 20_000 });
   await expect(page.locator('[data-list-state]')).toHaveAttribute('data-list-state', 'published');
+  // a phone starts with ten entries; the rest are one tap away
+  const all = page.locator('[data-draft-all]');
+  await expect(page.locator('.dtable tbody tr')).toHaveCount(10);
+  const total = Number(((await all.textContent()) ?? '').replace(/\D+/g, ''));
+  await all.click();
+  await expect(page.locator('.dtable tbody tr')).toHaveCount(total);
   // after the window: every scripted objection, oldest first; the unanswered ones are flagged
   await sab(page, `s.seek(150);`);
   await filter.click();
@@ -232,6 +239,7 @@ test('objections: the Draft list moment already shows one, a filter lists them o
   await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
   await page.evaluate('window.__sab.ready()');
   await sab(page, `s.seek(150); s.tab('insurer'); s.insurer('draft');`);
+  await page.locator('[data-obj-filter]').click({ timeout: 20_000 });
   const again = page.locator('.dtable tbody tr', { has: page.getByRole('button', { name: new RegExp(`Open ${plot} details`) }) });
   await expect(again.locator('[data-prov=hand]')).toBeVisible({ timeout: 20_000 });
   await expect(page.locator('.draft')).not.toContainText(/approved|accepted|rejected|upheld|resolved|granted|dismissed/i);
