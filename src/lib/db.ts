@@ -7,7 +7,8 @@ import { signal } from '@preact/signals';
 export const storageOk = signal(true);
 
 /** True once the browser has promised to keep what is stored, false when it refused (it may clear photos if the phone runs
- * low on space), null until asked or when the browser cannot say. The person is told when it is false. */
+ * low on space), null until asked or when the browser cannot say. The person is told when it is false and photos are still
+ * waiting to be sent (FarmerApp); once they are sent, it no longer matters. */
 export const storagePersistent = signal<boolean | null>(null);
 
 /** Ask the browser to keep the stored photos (no prompt on most browsers) and remember its answer. */

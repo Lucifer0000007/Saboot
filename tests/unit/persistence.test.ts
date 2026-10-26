@@ -38,8 +38,8 @@ test('a browser that cannot say, or that throws, leaves the answer unknown: no f
   assert.equal(storagePersistent.value, null);
 });
 
-test('the warning exists in all three languages and the screen shows it only for a refusal with working storage', () => {
+test('the warning exists in all three languages and the screen shows it only for a refusal, with working storage, while photos wait to be sent', () => {
   for (const [lang, d] of [['en', en], ['hi', hi], ['pa', pa]] as const) assert.ok(String(d['db.notPersistent']).length > 10, `${lang} db.notPersistent`);
   const app = readFileSync('src/farmer/FarmerApp.tsx', 'utf8');
-  assert.match(app, /storageOk\.value && storagePersistent\.value === false/);
+  assert.match(app, /storageOk\.value && storagePersistent\.value === false && view\.value\.queued > 0/);
 });

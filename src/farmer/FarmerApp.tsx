@@ -109,7 +109,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
     <section class={'farmer' + (framed ? ' framed' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
       <ConnStrip />
       {!storageOk.value && <p class="note note-warn" role="status" data-storage-warning><Icon name="info" /><span>{tr('db.memory')}</span></p>}
-      {storageOk.value && storagePersistent.value === false && <p class="note note-warn" role="status" data-persist-warning><Icon name="info" /><span>{tr('db.notPersistent')}</span></p>}
+      {storageOk.value && storagePersistent.value === false && view.value.queued > 0 && <p class="note note-warn" role="status" data-persist-warning><Icon name="info" /><span>{tr('db.notPersistent')}</span></p>}
       <header class="f-top">
         <div class="f-who">
           <strong>{s === 'helper' ? tr('hm.title') : p.name}</strong>

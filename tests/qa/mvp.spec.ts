@@ -389,14 +389,16 @@ test.describe('the voice alert offline', () => {
 });
 
 // The browser may clear stored photos when the phone runs low on space unless it agrees to keep them. The app asks when a real
-// photo is taken (src/lib/db.ts) and tells the farmer when the answer is no: a refusal is a warning, a grant is silence.
-for (const [answer, warned] of [[false, true], [true, false]] as const) {
-  test(`persistent storage ${answer ? 'granted: no warning' : 'refused: the farmer is told'}`, async ({ page }) => {
+// photo is taken (src/lib/db.ts) and tells the farmer when the answer is no AND photos are still waiting to be sent. Online the
+// photos are sent at once, and a warning would only alarm: a fresh Chrome profile refuses, so it would show for nearly everyone.
+for (const [granted, offline, warned] of [[false, true, true], [false, false, false], [true, true, false]] as const) {
+  test(`persistent storage ${granted ? 'granted' : 'refused'}, ${offline ? 'offline' : 'online'}: ${warned ? 'the farmer is told' : 'no warning'}`, async ({ page }) => {
     const errors: string[] = [];
-    await page.addInitScript((granted) => {
-      Object.defineProperty(navigator, 'storage', { value: { persisted: async () => false, persist: async () => granted }, configurable: true });
-    }, answer);
+    await page.addInitScript((g) => {
+      Object.defineProperty(navigator, 'storage', { value: { persisted: async () => false, persist: async () => g }, configurable: true });
+    }, granted);
     await open(page, V('390x844'), 'en', errors);
+    if (offline) await sab(page, `s.net('offline');`);
     await sab(page, `await s.jump('alert'); s.tab('farmer');`);
     await expect(page.locator('[data-persist-warning]')).toHaveCount(0);
     await page.locator('[data-tour=cta]').click();
