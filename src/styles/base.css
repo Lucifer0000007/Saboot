@@ -191,8 +191,9 @@ button:disabled { cursor: not-allowed; }
 .switch input:checked::after { transform: translateX(20px); background: var(--paper); }
 
 /* overlays: drawer (desktop right) / bottom sheet (mobile), focus-trapped by ui/Sheet.tsx */
-/* the page behind an open sheet stays where it was (audit UI-08); the gutter keeps the width, so nothing shifts on desktop */
-html.sheet-open { overflow: hidden; scrollbar-gutter: stable; }
+/* the page behind an open sheet stays where it was (audit UI-08). Not on a desktop, where hiding the scrollbar would shift the
+   page sideways under the drawer (phones draw their scrollbars over the page) */
+html.sheet-open:not(.lay-desktop) { overflow: hidden; }
 .sheet { overscroll-behavior: contain; }
 .backdrop { position: fixed; inset: 0; background: var(--scrim); z-index: var(--z-drawer); }
 .sheet {
