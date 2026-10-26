@@ -100,7 +100,7 @@ const ROW_VARS: Record<number, Record<string, number>> = {
   4: { n: SCENARIO.plots },
   14: { n: SCENARIO.riverGauges },
 };
-const statusIcon = (s: Status) => (s === 'real' ? 'okShape' : s === 'sim' ? 'target' : s === 'none' ? 'barShape' : 'halfShape');
+const statusIcon = (s: Status) => (s === 'real' ? 'okShape' : s === 'sim' ? 'layers' : s === 'none' ? 'barShape' : 'halfShape');
 
 export default function HowItWorks() {
   useEffect(() => {
@@ -134,6 +134,7 @@ export default function HowItWorks() {
       </section>
       <section aria-labelledby="rs-h" class="how-block">
         <h3 id="rs-h" class="h-sm">{tr('rs.h')}</h3>
+        <p class="muted" data-rs-key>{tr('rs.key')}</p>
         <table class="rtable rs-table">
           <caption class="sr-only">{tr('rs.h')}</caption>
           <thead>

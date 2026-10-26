@@ -244,6 +244,7 @@ const hi: Record<string, string | string[]> = {
   'wf.5.b': 'किसान सील किया हुआ प्रमाण अधिकारी को दिखाता है। सबूत ऑडिट रिकॉर्ड रखता है और अधिकारी की पुष्टि पर नज़र रखता है; फ़ैसला अधिकारी करता है, Saboot के बाहर।', // needs-native-review
   'wf.5.b.pmfby': 'जानकारी आधिकारिक माध्यम के लिए तैयार रहती है (भारत में, उदाहरण के लिए, Crop Insurance App, या Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, जो हेल्पलाइन और शिकायत का माध्यम है)। सबूत पुष्टि पर नज़र रखता है और देर होने पर शिकायत आगे बढ़ाता है।', // needs-native-review {{TRANSLATE}}: official names kept in English until a native speaker confirms the Hindi/Punjabi terms
   'rs.h': 'क्या असली है और क्या सिमुलेटेड', // needs-native-review
+  'rs.key': 'असली: वह कोड जो इसी पेज पर आपके ब्राउज़र में चलता है। सिमुलेटेड: गढ़ा हुआ डेटा या पहले से तय नकली हिस्सा। आंशिक रूप से असली: असली कोड, जो सिमुलेटेड इनपुट या सेवाओं पर चलता है।', // needs-native-review
   'rs.c': 'हिस्सा', // needs-native-review
   'rs.demo': 'इस डेमो में', // needs-native-review
   'rs.status': 'स्थिति', // needs-native-review

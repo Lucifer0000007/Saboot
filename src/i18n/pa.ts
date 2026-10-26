@@ -244,6 +244,7 @@ const pa: Record<string, string | string[]> = {
   'wf.5.b': 'ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ। ਸਬੂਤ ਆਡਿਟ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ ਅਤੇ ਅਧਿਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ; ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, ਸਬੂਤ ਦੇ ਬਾਹਰ।', // needs-native-review
   'wf.5.b.pmfby': 'ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, Crop Insurance App, ਜਾਂ Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਜੋ ਹੈਲਪਲਾਈਨ ਅਤੇ ਸ਼ਿਕਾਇਤ ਦਾ ਰਾਹ ਹੈ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।', // needs-native-review {{TRANSLATE}}: official names kept in English until a native speaker confirms the Hindi/Punjabi terms
   'rs.h': 'ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ', // needs-native-review
+  'rs.key': 'ਅਸਲੀ: ਉਹ ਕੋਡ ਜੋ ਇਸੇ ਪੰਨੇ ਉੱਤੇ ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਸਿਮੂਲੇਟਡ: ਘੜਿਆ ਹੋਇਆ ਡਾਟਾ ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਤੈਅ ਨਕਲੀ ਹਿੱਸਾ। ਅੰਸ਼ਕ ਤੌਰ ਉੱਤੇ ਅਸਲੀ: ਅਸਲੀ ਕੋਡ, ਜੋ ਸਿਮੂਲੇਟਡ ਇਨਪੁੱਟ ਜਾਂ ਸੇਵਾਵਾਂ ਉੱਤੇ ਚੱਲਦਾ ਹੈ।', // needs-native-review
   'rs.c': 'ਹਿੱਸਾ', // needs-native-review
   'rs.demo': 'ਇਸ ਡੈਮੋ ਵਿੱਚ', // needs-native-review
   'rs.status': 'ਸਥਿਤੀ', // needs-native-review

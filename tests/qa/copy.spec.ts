@@ -123,3 +123,17 @@ test('the last pipeline step is named after its lane: Department decides on reli
   await expect(last.locator('.pipe-pill')).toHaveText('Officer decision');
   expect(errors).toEqual([]);
 });
+
+test('How it works: simulated rows use the Simulated icon, and the status words are defined above the table', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await page.locator('#how').scrollIntoViewIfNeeded();
+  const key = page.locator('[data-rs-key]');
+  await expect(key).toContainText('Real: code that runs in your browser', { timeout: 20_000 });
+  // the Simulated icon in the table is the one the Simulated provenance tag uses
+  const tagIcon = await page.locator('.hero-labels .tag-prov-sim svg').first().innerHTML();
+  const simCells = page.locator('.rs-table td', { hasText: /^Simulated$/ });
+  expect(await simCells.count()).toBeGreaterThan(3);
+  expect(await simCells.first().locator('svg').innerHTML()).toBe(tagIcon);
+  expect(errors).toEqual([]);
+});

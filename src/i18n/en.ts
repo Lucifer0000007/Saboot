@@ -252,6 +252,7 @@ const en: Record<string, string | string[]> = {
   // Official names confirmed by the owner: the Crop Insurance App, and the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel.
   'wf.5.b.pmfby': 'Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips.',
   'rs.h': 'What is real and what is simulated',
+  'rs.key': 'Real: code that runs in your browser on this page. Simulated: invented data or a scripted stand-in. Partly real: real code working on simulated inputs or services.',
   'rs.c': 'Part',
   'rs.demo': 'In this demo',
   'rs.status': 'Status',
