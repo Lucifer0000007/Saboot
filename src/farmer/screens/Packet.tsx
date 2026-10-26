@@ -104,7 +104,7 @@ export function Packet() {
         <div class="stack">
         <dl class="facts">
           {v.seal && <div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>}
-          <div class="full" data-pk-coords><dt>{tr('pk.coords')}</dt><dd class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</dd></div>
+          <div class="full" data-pk-coords><dt>{tr('pk.coords')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span></Val></dd></div>
         </dl>
         <SyncLog />
         <section class="chain" aria-labelledby="chain-h">

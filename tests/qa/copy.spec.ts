@@ -39,7 +39,8 @@ test('the Proof screen names the plot in words, keeps coordinates and the data f
   await expect(loc).toContainText(/At plot P-\d+ · Simulated location/);
   await expect(loc).not.toContainText(/\d+\.\d{4}/);
   await expect(page.locator('[data-pk-coords]')).toBeHidden();
-  await expect(page.locator('[data-pk-coords] dd')).toHaveText(/^\d+\.\d{5}, \d+\.\d{5}$/);
+  await expect(page.locator('[data-pk-coords] .num')).toHaveText(/^\d+\.\d{5}, \d+\.\d{5}$/);
+  await expect(page.locator('[data-pk-coords] [data-v="loc"][data-prov="sim"]')).toHaveCount(1);
   await page.locator('[data-tour=share] button').click();
   await expect(page.locator('.share-sheet .qr')).toBeVisible({ timeout: 20_000 });
   await expect(page.locator('.share-sheet [data-export-bundle]')).toBeHidden();
