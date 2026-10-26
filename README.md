@@ -91,8 +91,9 @@ the hero text.
 
 ## On the day (venue checklist)
 
-- **Before the pitch**, open the live URL on the presenting laptop once and click through the Farmer, Officer, Ledger
-  and Explainer tabs: the service worker caches everything, so the demo then works with no network.
+- **Before the pitch**, open the live URL on the presenting laptop once and click through the Farmer, Officer and
+  Explainer tabs (and the Officer tab's Tamper check view): the service worker caches everything, so the demo then works
+  with no network.
 - Keep a local copy ready: `npm run build && npm run preview` (localhost counts as a secure context, so camera,
   location and WebCrypto all work).
 - Judges' phones need the site once over mobile data (about 90 KB to the first screen). Backup slide text:
@@ -132,7 +133,7 @@ Say the **median**, not only the demo farmer's number: the demo farmer is one pl
 | 0:45 | "Take photos now" → camera, or "Use simulated photo" | "Three guided photos, real camera and GPS, fingerprinted with SHA-256 on the phone." |
 | 1:00 | `A` (airplane), take a photo, open Proof | "No signal: it waits on the phone. The sync log shows phone time against server time." |
 | 1:10 | Helper card on the farmer home → start a session | "A sarpanch or CSC operator captures for several farmers. Each farmer gives their own consent, sealed in their own log." |
-| 1:25 | Officer tab → Assessment worklist → Draft list | "The officer sees why each plot is ranked where it is. The draft list is for review. The decision happens outside Saboot." |
+| 1:25 | Officer tab → Map & worklist → Draft list | "The officer sees why each plot is ranked where it is. The draft list is for review. The decision happens outside Saboot." |
 | 1:40 | `6` (Draft list) → farmer Status → "Attach my sealed evidence" | "If a farmer disagrees, they attach their sealed evidence. Saboot never resolves it." |
 | 1:50 | Pilot metrics | "These are simulated, with their definitions. Real-data validation: not run. We say so." |
 
@@ -153,12 +154,15 @@ detections and event times on both.
 
 The **relief workflow** (all simulated and labelled so):
 
-1. **Assessment worklist.** The priority formula is unchanged since the first build (35% evidence ambiguity, 30% urgency,
-   15% area, 20% integrity flags). Each row says why it is ranked there, and villages are ranked by review load.
+1. **Assessment worklist**, one ranked list under the map. The priority formula is unchanged since the first build (35%
+   evidence ambiguity, 30% urgency, 15% area, 20% integrity flags). Each row says why it is ranked there and who is assigned
+   to visit; villages by review load fold above the list.
 2. **Draft assessment list**, marked "draft, for officer review", village by village, with JSON and CSV export that carry their
    provenance: rule versions, parameters, scenario fingerprint, rail, time. No farmer name, no coordinates, no amount.
 3. **Objections.** After the officer publishes the draft (a simulated time, outside Saboot), a farmer can attach their sealed
    packet to their entry. Saboot shows that an officer's response came, never what it said, and never resolves anything.
+   The officer can list the objections oldest first, sees a flag once the window closes with no response noted, and can
+   note by hand that one came (labelled HAND).
 4. **Pilot metrics**, each with its definition: median event to call (the headline), flooded plots with evidence on file, event to
    evidence, objection rate. The slower, more realistic radar cadence is shown beside the demo one, with the flooded plots it never
    alerts. "Visits avoided" is omitted on purpose: there is no honest baseline for it.
