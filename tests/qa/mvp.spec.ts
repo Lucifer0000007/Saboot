@@ -387,3 +387,25 @@ test.describe('the voice alert offline', () => {
     expect(errors.filter((e) => !/Failed to load resource|net::ERR/.test(e))).toEqual([]);
   });
 });
+
+// The browser may clear stored photos when the phone runs low on space unless it agrees to keep them. The app asks when a real
+// photo is taken (src/lib/db.ts) and tells the farmer when the answer is no: a refusal is a warning, a grant is silence.
+for (const [answer, warned] of [[false, true], [true, false]] as const) {
+  test(`persistent storage ${answer ? 'granted: no warning' : 'refused: the farmer is told'}`, async ({ page }) => {
+    const errors: string[] = [];
+    await page.addInitScript((granted) => {
+      Object.defineProperty(navigator, 'storage', { value: { persisted: async () => false, persist: async () => granted }, configurable: true });
+    }, answer);
+    await open(page, V('390x844'), 'en', errors);
+    await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+    await expect(page.locator('[data-persist-warning]')).toHaveCount(0);
+    await page.locator('[data-tour=cta]').click();
+    await takePhoto(page, 1);
+    if (warned) await expect(page.locator('[data-persist-warning]')).toContainText('may clear these photos', { timeout: 10_000 });
+    else {
+      await page.waitForTimeout(600);
+      await expect(page.locator('[data-persist-warning]')).toHaveCount(0);
+    }
+    expect(errors).toEqual([]);
+  });
+}

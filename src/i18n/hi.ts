@@ -455,6 +455,7 @@ const hi: Record<string, string | string[]> = {
   'cap.needConsent': '{farmer} ने अभी सहमति नहीं दी है। कोई भी फ़ोटो लेने से पहले उनकी सहमति लें।', // needs-native-review
   'cap.askConsent': 'सहमति लें', // needs-native-review
   'db.memory': 'यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें।', // needs-native-review
+  'db.notPersistent': 'फ़ोन में जगह कम होने पर ब्राउज़र ये फ़ोटो हटा सकता है। इन्हें जल्दी अधिकारी को भेजें।', // needs-native-review
   'prov.live': 'लाइव', // needs-native-review
   'prov.replay': 'रीप्ले', // needs-native-review
   'prov.sim': 'सिमुलेटेड', // needs-native-review

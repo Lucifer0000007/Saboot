@@ -4,7 +4,7 @@
 // simT <= t, so scrubbing the replay backwards "un-happens" actions.
 import { signal, computed } from '@preact/signals';
 import { appendLink, canonical, sha256, type ChainLink } from '../lib/hash';
-import { dbGet, dbSet, dbDel, dbClear, dbKeys } from '../lib/db';
+import { dbGet, dbSet, dbDel, dbClear, dbKeys, requestPersistence } from '../lib/db';
 import { network, browserOnline } from '../lib/prefs';
 import { t, seek, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
@@ -310,8 +310,9 @@ export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, 
   const key = activeKey.value;
   if (!synthetic) await requireConsent(key);
   busy.value = true;
-  // ask the browser to keep what is captured when storage runs low (no prompt; the answer is not needed)
-  void navigator.storage?.persist?.().catch(() => undefined);
+  // ask the browser to keep what is captured when storage runs low; if it refuses, the farmer is told (FarmerApp). A
+  // simulated photo stores nothing that matters, so it never asks.
+  if (!synthetic) void requestPersistence();
   try {
     const sha = await sha256(blob);
     const photoId = 'ph-' + sha.slice(0, 16);

@@ -467,6 +467,7 @@ const en: Record<string, string | string[]> = {
   'cap.needConsent': '{farmer} has not agreed yet. Ask for their consent before you take any photo.',
   'cap.askConsent': 'Ask for consent',
   'db.memory': 'This phone is not saving your photos. Keep this page open until they are sent.',
+  'db.notPersistent': 'Your browser may clear these photos if this phone runs low on space. Send them to the officer soon.',
   'prov.live': 'Live',
   'prov.replay': 'Replay',
   'prov.sim': 'Simulated',

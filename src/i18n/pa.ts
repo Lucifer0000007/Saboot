@@ -455,6 +455,7 @@ const pa: Record<string, string | string[]> = {
   'cap.needConsent': '{farmer} ਨੇ ਹਾਲੇ ਸਹਿਮਤੀ ਨਹੀਂ ਦਿੱਤੀ। ਕੋਈ ਵੀ ਫ਼ੋਟੋ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ ਲਓ।', // needs-native-review
   'cap.askConsent': 'ਸਹਿਮਤੀ ਲਓ', // needs-native-review
   'db.memory': 'ਇਹ ਫ਼ੋਨ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਰਿਹਾ। ਭੇਜੇ ਜਾਣ ਤੱਕ ਇਹ ਪੇਜ ਖੁੱਲ੍ਹਾ ਰੱਖੋ।', // needs-native-review
+  'db.notPersistent': 'ਫ਼ੋਨ ਵਿੱਚ ਥਾਂ ਘੱਟ ਹੋਣ ਉੱਤੇ ਬ੍ਰਾਊਜ਼ਰ ਇਹ ਫ਼ੋਟੋਆਂ ਹਟਾ ਸਕਦਾ ਹੈ। ਇਨ੍ਹਾਂ ਨੂੰ ਜਲਦੀ ਅਧਿਕਾਰੀ ਨੂੰ ਭੇਜੋ।', // needs-native-review
   'prov.live': 'ਲਾਈਵ', // needs-native-review
   'prov.replay': 'ਰੀਪਲੇ', // needs-native-review
   'prov.sim': 'ਸਿਮੂਲੇਟਡ', // needs-native-review
