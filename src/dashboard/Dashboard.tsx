@@ -13,6 +13,7 @@ import { receiver } from '../lib/prefs';
 import { receipts } from '../k/receipt';
 import { useEffect } from 'preact/hooks';
 import { loadImported } from '../k/imported';
+import { loadAssignments } from './assign';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
 import { PlotList } from './PlotList';
 import { PlotDrawer } from './PlotDrawer';
@@ -55,7 +56,7 @@ export default function Dashboard() {
   const m = model.value!;
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
   const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
-  useEffect(() => { void loadImported(); }, []);
+  useEffect(() => { void loadImported(); void loadAssignments(); }, []);
   // the demo receiver's list, polled only when this laptop is the receiver (the preference is off by default). An effect,
   // not a mount-time check: on a laptop the console can mount before the deep link has set the preference.
   useEffect(() => {

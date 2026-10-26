@@ -17,10 +17,9 @@ import { rail } from '../lib/prefs';
 import { buildDraft } from './draftList';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { download } from '../lib/download';
+import { INSPECTORS, assigned, assign } from './assign';
 
 const LANG: Record<string, string> = { en: 'EN', hi: 'HI', pa: 'PA' };
-const INSPECTORS = ['Inspector A (Kesarpur–Neelkot)', 'Inspector B (Dhanpura–Sarangwal)', 'Inspector C (Ambwali)'];
-const assigned = signal<Record<string, number>>({});
 /** Rows a phone shows before "Show all": the console stays a few screens tall (audit J7). */
 const PHONE_ROWS = 10;
 const showAll = signal(false);
@@ -155,9 +154,7 @@ function Item({ r, rank, relief }: { r: Row; rank: number; relief: boolean }) {
           <span>Assign {relief ? 'field staff' : 'an inspector'} for {p.id}</span>
           <select class="input" value={a ?? ''} onChange={(e) => {
             const v = (e.currentTarget as HTMLSelectElement).value;
-            const next = { ...assigned.value };
-            if (v === '') delete next[p.id]; else next[p.id] = +v;
-            assigned.value = next;
+            void assign(p.id, v === '' ? null : +v);
           }}>
             <option value="">Not assigned</option>
             {INSPECTORS.map((n, k) => <option key={n} value={k}>{n}</option>)}

@@ -21,6 +21,7 @@ import { RowTier } from './PlotList';
 import { Pipeline } from './Pipeline';
 import { ConsoleNote } from './ConsoleNote';
 import { cohortPhotoSvg, svgUrl } from './photos';
+import { INSPECTORS, assigned } from './assign';
 
 interface Ev { t: number; label: string; tone?: 'warn' | 'bad' | 'ok' }
 
@@ -187,6 +188,7 @@ export function PlotDrawer() {
         ) : s.times.consentT !== null ? (
           <p class="muted" data-captured-by>Assisted capture: the farmer’s consent is recorded. The scripted scenario does not name the helper.</p>
         ) : null}
+        {assigned.value[p.id] !== undefined && <span class="tag assigned-tag" data-assigned><Icon name="users" size={14} />Field visit: {INSPECTORS[assigned.value[p.id]]}</span>}
         <span class="tag tag-sim"><span class="dot" aria-hidden="true" />Simulated plot</span>
       </div>
       <div class="dr-tier" data-sim-numbers>

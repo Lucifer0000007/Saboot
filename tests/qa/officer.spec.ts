@@ -64,3 +64,30 @@ test('the console views stay in reach: the view bar sticks under the nav while t
     expect(errors).toEqual([]);
   }
 });
+
+test('field-staff assignments survive a reload, show on the row and in the drawer, and the replay reset clears them (OF-13)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('1280x800'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  const row = page.locator('.queue > li').first();
+  await expect(row).toBeVisible({ timeout: 20_000 });
+  const id = ((await row.locator('.plink').textContent()) ?? '').split(' ')[0];
+  await row.locator('summary').click();
+  await row.locator('.assign select').selectOption({ label: 'Inspector B (Dhanpura–Sarangwal)' });
+  await expect(row.locator('[data-assigned]')).toHaveText(/Inspector B/);
+  await page.reload();
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  const again = page.locator('.queue > li', { has: page.getByRole('button', { name: new RegExp('^' + id + ' ') }) });
+  await expect(again.locator('[data-assigned]')).toHaveText(/Inspector B/, { timeout: 20_000 });
+  await sab(page, `s.plot('${id}');`);
+  await expect(page.locator('.drawer [data-assigned]')).toContainText('Field visit: Inspector B');
+  await sab(page, `s.plot(null);`);
+  await page.getByRole('button', { name: /^Reset/ }).first().click();
+  // the demo farmer's log holds the jump's evidence, so the reset asks first
+  await page.locator('[data-reset-yes]').click();
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  await expect(page.locator('.queue [data-assigned]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
