@@ -8,7 +8,7 @@
   "file": {
     "name": "public/data/flood-replay.json",
     "bytes": 25896,
-    "sha256": "7e3d2f239ab04a21fecad2cb70b4d91181be8dd90dda00fc51facde5c14eff8f"
+    "sha256": "c9fb25db8c0719e5d8f886d86147c607797fed871d96ffcce03c188c07f37c31"
   },
   "scenario": {
     "name": "Flood replay",
@@ -36,8 +36,8 @@
     },
     "languages": {
       "hi": 18,
-      "pa": 23,
-      "en": 9
+      "pa": 24,
+      "en": 8
     },
     "personas": {
       "partial": 2,

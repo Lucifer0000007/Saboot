@@ -162,3 +162,13 @@ test('after attaching evidence to the draft list, the Proof chain names that ste
   expect(await evs.allTextContents()).not.toContain('objection');
   expect(errors).toEqual([]);
 });
+
+test('no farmer in the helper queue is listed as speaking English', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.tab('farmer'); s.screen('helper');`);
+  const screen = page.locator('[data-helper-screen]');
+  await expect(screen).toContainText('Speaks', { timeout: 20_000 });
+  await expect(screen).not.toContainText('Speaks English');
+  expect(errors).toEqual([]);
+});

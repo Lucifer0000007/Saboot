@@ -318,6 +318,9 @@ const inVillage = m.plots.filter((p) => p.v === focus.v && p.idx !== focus.idx &
 const flooded = inVillage.filter((p) => raw.plots[p.idx].b[0] === 'normal' && m.truth[p.idx]).slice(0, 2);
 const falseAlarms = inVillage.filter((p) => raw.plots[p.idx].b[0] === 'nodamage' && !m.truth[p.idx]).slice(0, 2);
 raw.helperQueue = [...flooded, ...falseAlarms].sort((x, y) => x.idx - y.idx).map((p) => p.id);
+// a farmer in a Punjab village the helper visits does not speak English (audit H18): set after the draws, like the
+// focus farmer's language above, so no other number in the scenario moves
+for (const p of [...flooded, ...falseAlarms]) if (raw.plots[p.idx].lang === 'en') raw.plots[p.idx].lang = 'pa';
 
 // Relief rail, simulated objection window: a few farmers whose entry on the published draft list looks weak attach
 // their sealed evidence. [hours after the officer publishes the list, hours the officer then takes to respond (-1: no
