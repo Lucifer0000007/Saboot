@@ -6,7 +6,7 @@ import { signal, computed } from '@preact/signals';
 import { appendLink, canonical, sha256, type ChainLink } from '../lib/hash';
 import { dbGet, dbSet, dbDel, dbClear, dbKeys, requestPersistence } from '../lib/db';
 import { network, browserOnline } from '../lib/prefs';
-import { t, seek, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
+import { t, seek, pause, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
 import { imported } from '../k/imported';
 
@@ -81,8 +81,9 @@ async function save(key: string) {
   await dbSet('kv', IDS, ids);
 }
 
-/** Remember who the helper is for this session (name and role only; nothing else about them is kept). */
+/** Remember who the helper is for this session (name and role only; nothing else about them is kept). The replay pauses (H6). */
 export async function startHelperSession(s: HelperSession) {
+  pause();
   helperSession.value = s;
   await dbSet('kv', SESSION, s);
 }

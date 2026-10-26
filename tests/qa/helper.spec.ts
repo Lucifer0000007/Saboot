@@ -264,6 +264,21 @@ test('CC-02, H3: the Home tab offers no "no damage" for a farmer who has not agr
   expect(errors).toEqual([]);
 });
 
+test('H6: opening a farmer pauses the replay, so the consent time is the replay time when the helper acted', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.tab('farmer'); s.screen('helper');`);
+  await expect(page.locator('[data-replay-paused]')).toBeVisible();
+  await page.getByRole('button', { name: 'Play replay' }).first().click();
+  await page.waitForTimeout(300);
+  await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
+  await expect(page.getByRole('button', { name: 'Play replay' }).first()).toBeVisible();
+  const t0 = ((await page.evaluate('window.__sab.state()')) as { t: number }).t;
+  await page.waitForTimeout(1500);
+  expect(((await page.evaluate('window.__sab.state()')) as { t: number }).t).toBe(t0);
+  expect(errors).toEqual([]);
+});
+
 test('a helper cannot take photos for a farmer who has not agreed: the capture screen asks for consent first', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);

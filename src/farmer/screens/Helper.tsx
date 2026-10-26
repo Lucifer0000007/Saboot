@@ -92,6 +92,7 @@ export function Helper() {
             })}
           </ol>
           <p class="note note-plain"><Icon name="shield" /><span>{tr('hm.note')}</span></p>
+          <p class="note note-plain" data-replay-paused><Icon name="clock" /><span>{tr('hm.paused')}</span></p>
           <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
           <button type="button" class="pill pill-ghost" onClick={() => void leaveHelperMode()}>{tr('hm.end')}</button>
         </>

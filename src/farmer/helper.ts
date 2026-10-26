@@ -2,7 +2,7 @@
 // phone. This module holds the queue and each farmer's status. Every farmer keeps their own consent, photos and sealed
 // packet in their own device log (focus.ts), so "who captured what" is a property of the evidence, not a note on the side.
 import { computed } from '@preact/signals';
-import { model, t, activePlotId } from '../sim/engine';
+import { model, t, activePlotId, pause } from '../sim/engine';
 import type { Plot } from '../sim/model';
 import { logs, reduce, recordConsent, ensureFocus, endHelperSession, startHelperSession, type FocusView } from './focus';
 import { screen } from './nav';
@@ -59,8 +59,12 @@ export function nextScreen(state: QueueState): 'assist' | 'capture' | 'packet' {
   return state === 'ready' || state === 'photos' ? 'capture' : state === 'sealed' ? 'packet' : 'assist';
 }
 
-/** Start or resume work for one farmer: the app switches to that farmer's plot and device log. */
+/**
+ * Start or resume work for one farmer: the app switches to that farmer's plot and device log. The replay pauses, so the
+ * consent, photo and seal times are the replay time when the helper acted, not hours later at playback speed (audit H6).
+ */
 export function openFarmer(id: string, state: QueueState) {
+  pause();
   activePlotId.value = id;
   screen.value = nextScreen(state);
 }
