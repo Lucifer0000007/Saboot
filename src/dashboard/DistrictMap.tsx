@@ -195,15 +195,19 @@ export function Legend() {
       {importedRows.value.length > 0 && (
         <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="var(--kali)" stroke-width="2" /></svg><span>Imported from a judge’s phone</span></p>
       )}
-      <fieldset>
-        <legend>Layers</legend>
-        {(['flood', 'terrain', 'gauges'] as const).map((k) => (
-          <label key={k} class="lg-item">
-            <input type="checkbox" checked={lay[k]} onChange={() => (layers.value = { ...lay, [k]: !lay[k] })} />
-            <span>{k === 'flood' ? 'Flood extent (simulated radar)' : k === 'terrain' ? 'Low-lying terrain' : `Rain gauges (${m.stations.map((s) => s.id).join(', ')})`}</span>
-          </label>
-        ))}
-      </fieldset>
+      {/* the layer switches are rarely needed: folded on a phone, open on wider screens (audit J7) */}
+      <details class="lg-layers" open={layout.value !== 'mobile'}>
+        <summary>Map layers</summary>
+        <fieldset>
+          <legend class="sr-only">Layers</legend>
+          {(['flood', 'terrain', 'gauges'] as const).map((k) => (
+            <label key={k} class="lg-item">
+              <input type="checkbox" checked={lay[k]} onChange={() => (layers.value = { ...lay, [k]: !lay[k] })} />
+              <span>{k === 'flood' ? 'Flood extent (simulated radar)' : k === 'terrain' ? 'Low-lying terrain' : `Rain gauges (${m.stations.map((s) => s.id).join(', ')})`}</span>
+            </label>
+          ))}
+        </fieldset>
+      </details>
     </div>
   );
 }
