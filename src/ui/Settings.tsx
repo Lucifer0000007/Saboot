@@ -85,10 +85,12 @@ function FarmerData({ id, name }: { id: string; name: string }) {
       ) : (
         <div class="note note-warn" role="alert" data-farmer-delete-ask>
           <Icon name="alert" />
-          <span>{tr('set.farmerDeleteAsk', { farmer: name })}</span>
-          <div class="row">
-            <button type="button" class="pill pill-dark" data-farmer-delete-yes onClick={del}>{tr('set.deleteYes')}</button>
-            <button type="button" class="pill pill-ghost" onClick={() => setAsk(false)}>{tr('set.farmerKeep')}</button>
+          <div class="stack">
+            <span>{tr('set.farmerDeleteAsk', { farmer: name })}</span>
+            <div class="row">
+              <button type="button" class="pill pill-dark" data-farmer-delete-yes onClick={del}>{tr('set.deleteYes')}</button>
+              <button type="button" class="pill pill-ghost" onClick={() => setAsk(false)}>{tr('set.farmerKeep')}</button>
+            </div>
           </div>
         </div>
       )}

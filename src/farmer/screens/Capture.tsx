@@ -206,10 +206,12 @@ export function Capture() {
           {noGeo && phase === 'idle' && (
             <div class="note note-warn" role="alert" data-geo-off>
               <Icon name="info" />
-              <span>{tr('cap.geoOff')}</span>
-              <div class="row">
-                <button type="button" class="pill pill-dark" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h)}>{tr('sim.retry')}</button>
-                <button type="button" class="pill pill-ghost" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h, true)}>{tr('cap.geoSim')}</button>
+              <div class="stack">
+                <span>{tr('cap.geoOff')}</span>
+                <div class="row">
+                  <button type="button" class="pill pill-dark" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h)}>{tr('sim.retry')}</button>
+                  <button type="button" class="pill pill-ghost" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h, true)}>{tr('cap.geoSim')}</button>
+                </div>
               </div>
             </div>
           )}

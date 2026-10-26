@@ -108,10 +108,12 @@ export function Helper() {
           ) : (
             <div class="note note-warn" role="alert" data-end-ask>
               <Icon name="info" />
-              <span>{tr('hm.endAsk')}</span>
-              <div class="row">
-                <button type="button" class="pill pill-dark" data-end-yes onClick={() => void leaveHelperMode()}>{tr('hm.endYes')}</button>
-                <button type="button" class="pill pill-ghost" onClick={() => setEnding(false)}>{tr('hm.endNo')}</button>
+              <div class="stack">
+                <span>{tr('hm.endAsk')}</span>
+                <div class="row">
+                  <button type="button" class="pill pill-dark" data-end-yes onClick={() => void leaveHelperMode()}>{tr('hm.endYes')}</button>
+                  <button type="button" class="pill pill-ghost" onClick={() => setEnding(false)}>{tr('hm.endNo')}</button>
+                </div>
               </div>
             </div>
           )}
