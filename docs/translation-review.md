@@ -378,6 +378,8 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `cap.locating` | Finding location… | जगह ढूँढ रहे हैं… | ਥਾਂ ਲੱਭ ਰਹੇ ਹਾਂ… | needs review / needs review |
 | `cap.gps` | GPS ±{acc} m | GPS ±{acc} मी | GPS ±{acc} ਮੀ | needs review / needs review |
 | `cap.simGps` | Simulated location | सिमुलेटेड जगह | ਸਿਮੂਲੇਟਡ ਥਾਂ | needs review / needs review |
+| `cap.geoOff` | This phone gave no location for the photo. Turn on location, and allow it for this page, so the officer can see where the photo was taken. Then try again. | इस फ़ोन ने फ़ोटो की जगह नहीं दी। लोकेशन चालू करें, और इस पेज को अनुमति दें, ताकि अधिकारी देख सकें कि फ़ोटो कहाँ ली गई। फिर दोबारा कोशिश करें। | ਇਸ ਫ਼ੋਨ ਨੇ ਫ਼ੋਟੋ ਦੀ ਥਾਂ ਨਹੀਂ ਦਿੱਤੀ। ਲੋਕੇਸ਼ਨ ਚਾਲੂ ਕਰੋ, ਅਤੇ ਇਸ ਪੰਨੇ ਨੂੰ ਇਜਾਜ਼ਤ ਦਿਓ, ਤਾਂ ਜੋ ਅਧਿਕਾਰੀ ਵੇਖ ਸਕਣ ਕਿ ਫ਼ੋਟੋ ਕਿੱਥੇ ਖਿੱਚੀ ਗਈ। ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। | needs review / needs review |
+| `cap.geoSim` | Save it with a simulated location | सिमुलेटेड जगह के साथ सहेजें | ਸਿਮੂਲੇਟਡ ਥਾਂ ਨਾਲ ਸੰਭਾਲੋ | needs review / needs review |
 | `cap.hashing` | Securing photo… | फ़ोटो सुरक्षित कर रहे हैं… | ਫ਼ੋਟੋ ਸੁਰੱਖਿਅਤ ਕਰ ਰਹੇ ਹਾਂ… | needs review / needs review |
 | `cap.old` | This photo is older than this session. Please take a new photo with the camera. | यह फ़ोटो इस सत्र से पुरानी है। कृपया कैमरे से नई फ़ोटो लें। | ਇਹ ਫ਼ੋਟੋ ਇਸ ਸੈਸ਼ਨ ਤੋਂ ਪੁਰਾਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਮਰੇ ਨਾਲ ਨਵੀਂ ਫ਼ੋਟੋ ਖਿੱਚੋ। | needs review / needs review |
 | `cap.queued` | Saved on phone. Will send when network returns. | फ़ोन में सहेजी गई। नेटवर्क आने पर भेजी जाएगी। | ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਨੈੱਟਵਰਕ ਆਉਣ ਉੱਤੇ ਭੇਜੀ ਜਾਵੇਗੀ। | needs review / needs review |
@@ -558,6 +560,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `as.means2` | The helper only takes the photos. The officer decides. Saboot decides nothing. | सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत कोई फ़ैसला नहीं करता। | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। | needs review / needs review |
 | `as.means2.pmfby` | The helper only takes the photos. The insurer decides. Saboot decides nothing. | सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला बीमा कंपनी करती है। सबूत कोई फ़ैसला नहीं करता। | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। | needs review / needs review |
 | `as.means3` | You can ask for a copy, or for everything to be deleted from this phone, at any time. | आप कभी भी अपनी कॉपी माँग सकते हैं, या इस फ़ोन से सब कुछ मिटवा सकते हैं। | ਤੁਸੀਂ ਕਦੇ ਵੀ ਆਪਣੀ ਕਾਪੀ ਮੰਗ ਸਕਦੇ ਹੋ, ਜਾਂ ਇਸ ਫ਼ੋਨ ਤੋਂ ਸਭ ਕੁਝ ਮਿਟਵਾ ਸਕਦੇ ਹੋ। | needs review / needs review |
+| `as.uiCopy` | The same words in {lang}, for you | यही शब्द {lang} में, आपके लिए | ਇਹੀ ਸ਼ਬਦ {lang} ਵਿੱਚ, ਤੁਹਾਡੇ ਲਈ | needs review / needs review |
 | `hm.consentTitle` | Consent from {farmer} | किसान {farmer} की सहमति | ਕਿਸਾਨ {farmer} ਦੀ ਸਹਿਮਤੀ | needs review / needs review |
 | `hm.consentIntro` | Read this out to {farmer}. {farmer} agrees by pressing and holding the button, or by speaking. Nothing is captured without it. | {farmer} को यह पढ़कर सुनाइए। {farmer} बटन को दबाकर रखकर, या बोलकर सहमति देते हैं। इसके बिना कुछ भी दर्ज नहीं होता। | {farmer} ਨੂੰ ਇਹ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। {farmer} ਬਟਨ ਦਬਾ ਕੇ ਰੱਖ ਕੇ, ਜਾਂ ਬੋਲ ਕੇ ਸਹਿਮਤੀ ਦਿੰਦੇ ਹਨ। ਇਸ ਤੋਂ ਬਿਨਾਂ ਕੁਝ ਵੀ ਦਰਜ ਨਹੀਂ ਹੁੰਦਾ। | needs review / needs review |
 | `hm.title` | Helper mode | सहायक मोड | ਸਹਾਇਕ ਮੋਡ | needs review / needs review |
@@ -596,6 +599,16 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `hm.card.btn` | Open helper mode | सहायक मोड खोलें | ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ | needs review / needs review |
 | `hm.noDamage` | The farmer reports no damage | किसान ने बताया: कोई नुकसान नहीं | ਕਿਸਾਨ ਨੇ ਦੱਸਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ | needs review / needs review |
 | `hm.next` | Next farmer | अगला किसान | ਅਗਲਾ ਕਿਸਾਨ | needs review / needs review |
+| `hm.endAsk` | End the helper session? Each farmer’s consent and sealed evidence stays on this phone. | सहायक सत्र खत्म करें? हर किसान की सहमति और सील किया गया सबूत इसी फ़ोन पर रहेगा। | ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰਨਾ ਹੈ? ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਇਸੇ ਫ਼ੋਨ ਉੱਤੇ ਰਹੇਗਾ। | needs review / needs review |
+| `hm.endYes` | Yes, end it | हाँ, खत्म करें | ਹਾਂ, ਖ਼ਤਮ ਕਰੋ | needs review / needs review |
+| `hm.endNo` | Keep working | काम जारी रखें | ਕੰਮ ਜਾਰੀ ਰੱਖੋ | needs review / needs review |
+| `hm.seal` | Seal {farmer}’s evidence | {farmer} का सबूत सील करें | {farmer} ਦਾ ਸਬੂਤ ਸੀਲ ਕਰੋ | needs review / needs review |
+| `hm.pkTitle` | {farmer}’s evidence | {farmer} का सबूत | {farmer} ਦਾ ਸਬੂਤ | needs review / needs review |
+| `hm.flTitle` | Share {farmer}’s evidence | {farmer} का प्रमाण साझा करें | {farmer} ਦਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ | needs review / needs review |
+| `hm.flTitle.pmfby` | Report {farmer}’s loss | {farmer} के नुकसान की रिपोर्ट करें | {farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ | needs review / needs review |
+| `hm.noDamageDone` | Recorded for {farmer}: no damage. Nothing more is needed. | {farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए। | {farmer} ਲਈ ਦਰਜ ਕੀਤਾ ਗਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। | needs review / needs review |
+| `hm.jumpAlert` | Jump to the first alert (replay) | पहली चेतावनी पर जाएँ (रीप्ले) | ਪਹਿਲੀ ਚੇਤਾਵਨੀ ਉੱਤੇ ਜਾਓ (ਰੀਪਲੇ) | needs review / needs review |
+| `hm.paused` | The replay pauses when you open a farmer, so their consent, photos and seal carry the replay time at which you did them. | किसी किसान को खोलते ही रीप्ले रुक जाता है, ताकि उनकी सहमति, फ़ोटो और सील पर रीप्ले का वही समय दर्ज हो जब आपने ये किए। | ਕਿਸੇ ਕਿਸਾਨ ਨੂੰ ਖੋਲ੍ਹਦੇ ਹੀ ਰੀਪਲੇ ਰੁਕ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਜੋ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਉੱਤੇ ਰੀਪਲੇ ਦਾ ਉਹੀ ਸਮਾਂ ਦਰਜ ਹੋਵੇ ਜਦੋਂ ਤੁਸੀਂ ਇਹ ਕੀਤੇ। | needs review / needs review |
 | `pk.by` | Captured by | फ़ोटो किसने लीं | ਫ਼ੋਟੋਆਂ ਕਿਸ ਨੇ ਖਿੱਚੀਆਂ | needs review / needs review |
 | `pk.byValue` | {name}, {role} | {name}, {role} | {name}, {role} | needs review / needs review |
 | `fp.title` | A farmer without a smartphone | बिना स्मार्टफ़ोन वाला किसान | ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ | needs review / needs review |
@@ -650,3 +663,10 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `set.deleteYes` | Yes, delete | हाँ, मिटाएँ | ਹਾਂ, ਮਿਟਾਓ | needs review / needs review |
 | `set.deleteNo` | Keep my data | मेरा डेटा रहने दें | ਮੇਰਾ ਡਾਟਾ ਰਹਿਣ ਦਿਓ | needs review / needs review |
 | `set.deleted` | Your data was deleted from this phone. | आपका डेटा इस फ़ोन से मिटा दिया गया। | ਤੁਹਾਡਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ। | needs review / needs review |
+| `set.farmerData` | {farmer}’s data on this phone | इस फ़ोन पर {farmer} का डेटा | ਇਸ ਫ਼ੋਨ ਉੱਤੇ {farmer} ਦਾ ਡਾਟਾ | needs review / needs review |
+| `set.farmerDataHelp` | Only {farmer}’s consent, photos and sealed packet. No other farmer’s data is touched. | सिर्फ़ {farmer} की सहमति, फ़ोटो और सील किया गया पैकेट। किसी दूसरे किसान का डेटा नहीं छुआ जाता। | ਸਿਰਫ਼ {farmer} ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ। ਕਿਸੇ ਦੂਜੇ ਕਿਸਾਨ ਦਾ ਡਾਟਾ ਨਹੀਂ ਛੂਹਿਆ ਜਾਂਦਾ। | needs review / needs review |
+| `set.farmerExport` | Copy of {farmer}’s data (JSON) | {farmer} के डेटा की कॉपी (JSON) | {farmer} ਦੇ ਡਾਟੇ ਦੀ ਕਾਪੀ (JSON) | needs review / needs review |
+| `set.farmerDelete` | Delete {farmer}’s data from this phone | इस फ़ोन से {farmer} का डेटा मिटाएँ | ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦਾ ਡਾਟਾ ਮਿਟਾਓ | needs review / needs review |
+| `set.farmerDeleteAsk` | Delete {farmer}’s photos, consent and sealed packet from this phone? Other farmers’ data stays. This cannot be undone. | इस फ़ोन से {farmer} की फ़ोटो, सहमति और सील किया गया पैकेट मिटाएँ? दूसरे किसानों का डेटा रहेगा। इसे वापस नहीं किया जा सकता। | ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ ਮਿਟਾਉਣਾ ਹੈ? ਦੂਜੇ ਕਿਸਾਨਾਂ ਦਾ ਡਾਟਾ ਰਹੇਗਾ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ। | needs review / needs review |
+| `set.farmerKeep` | Keep it | रहने दें | ਰਹਿਣ ਦਿਓ | needs review / needs review |
+| `set.farmerDeleted` | {farmer}’s data was deleted from this phone. | {farmer} का डेटा इस फ़ोन से मिटा दिया गया। | {farmer} ਦਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ। | needs review / needs review |
