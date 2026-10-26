@@ -71,3 +71,22 @@ test('each photo row tags its replay-clock time as simulated', async ({ page }) 
   await expect(rows.locator('[data-v="time"][data-prov="sim"]')).toHaveCount(3);
   expect(errors).toEqual([]);
 });
+
+test('the draft list and the drawer show the flooded share as a range inside 0-100%', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('draft'); s.tab('insurer'); s.insurer('draft');`);
+  const cells = page.locator('.draft td[data-l="Flooded share"]');
+  await expect(cells.first()).toBeVisible({ timeout: 20_000 });
+  const texts = await cells.allTextContents();
+  expect(texts.join(' ')).not.toContain('±');
+  for (const m of texts.join(' ').matchAll(/(\d+)–(\d+)%/g)) {
+    expect(Number(m[1])).toBeGreaterThanOrEqual(0);
+    expect(Number(m[2])).toBeLessThanOrEqual(100);
+    expect(Number(m[1])).toBeLessThanOrEqual(Number(m[2]));
+  }
+  expect(texts.join(' ')).toMatch(/\d+–100%/);
+  await sab(page, `s.plot('P-04');`);
+  await expect(page.locator('.drawer [data-share]')).toContainText(/flooded share now: \d+–\d+%, about \d+%/);
+  expect(errors).toEqual([]);
+});

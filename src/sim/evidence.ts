@@ -42,6 +42,9 @@ export interface Evidence {
   /** Estimated share of the plot under water above what the crop shows anyway (radar, 0..1) and its ±. Not crop damage. */
   floodShare: number;
   floodShareUnc: number;
+  /** floodShare ± floodShareUnc, held to 0..1: a share cannot be above 100% or below 0% (audit OF-06). */
+  floodShareLo: number;
+  floodShareHi: number;
 }
 
 export const TIER_RULE = { supportedLo: 0.6, insufficientHi: 0.45 };
@@ -181,7 +184,11 @@ export function evidenceFor(m: Model, s: PlotState, t: number): Evidence {
     if (s.times.hail && tier === 'supported') tier = 'partial'; // honest limit: hail never auto-"supported"
     tier = capHand(tier, factors);
   }
-  return { factors, score, lo, hi, tier, notes: p.baselineWet ? [PADDY_NOTE] : [], floodShare: s.times.hail ? 0 : obs, floodShareUnc: flood.unc * 0.5 };
+  const floodShare = s.times.hail ? 0 : obs, floodShareUnc = flood.unc * 0.5;
+  return {
+    factors, score, lo, hi, tier, notes: p.baselineWet ? [PADDY_NOTE] : [],
+    floodShare, floodShareUnc, floodShareLo: clamp(floodShare - floodShareUnc), floodShareHi: clamp(floodShare + floodShareUnc),
+  };
 }
 
 export const TIER_LABEL: Record<Tier, string> = {

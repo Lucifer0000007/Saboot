@@ -235,7 +235,7 @@ export function PlotDrawer() {
             <SarSpark m={m} p={p} t={t} />
             {!s.times.hail && (
               <p class="muted" data-share>
-                Radar estimate of the flooded share now: <strong class="num">{Math.round(r.e.floodShare * 100)}%</strong> ± <span class="num">{Math.round(r.e.floodShareUnc * 100)}</span> points. This is not crop damage, which only the officer assesses.
+                Radar estimate of the flooded share now: <strong class="num">{Math.round(r.e.floodShareLo * 100)}–{Math.round(r.e.floodShareHi * 100)}%</strong>, about <span class="num">{Math.round(r.e.floodShare * 100)}%</span>. This is not crop damage, which only the officer assesses.
                 {s.rail === 'relief' && r.e.floodShare >= RELIEF.damageShareThreshold && <> It is at or above the scenario’s share parameter (<span class="num">{RELIEF.damageShareThreshold}</span>, a labelled assumption), so the plot is listed first in its village.</>}
               </p>
             )}

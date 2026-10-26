@@ -25,6 +25,9 @@ export interface DraftEntry {
   /** Radar estimate of the share of the plot under water above what the crop shows anyway. Not crop damage. */
   floodShare: number;
   floodShareUnc: number;
+  /** The estimate's range, held to 0..1. */
+  floodShareLo: number;
+  floodShareHi: number;
   atOrAboveShareParameter: boolean;
   flags: string[];
   priority: number;
@@ -95,6 +98,8 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
     scoreHi: bandPct(r.e.hi) / 100,
     floodShare: r2(r.e.floodShare),
     floodShareUnc: r2(r.e.floodShareUnc),
+    floodShareLo: r2(r.e.floodShareLo),
+    floodShareHi: r2(r.e.floodShareHi),
     atOrAboveShareParameter: r.e.floodShare >= share,
     flags: r.s.flags.filter((f) => f !== 'tall-crop').map((f) => flagLabel(f, r.s.rail)),
     priority: r.pri,
@@ -187,14 +192,14 @@ export function draftCsv(d: Draft): string {
   const p = d.provenance;
   const head = [
     'village_rank', 'village', 'plot', 'crop', 'area_ha', 'stage', 'evidence_tier', 'score_lo', 'score_hi',
-    'flooded_share_estimate', 'flooded_share_plus_minus', 'at_or_above_share_parameter', 'review_priority', 'flags',
+    'flooded_share_estimate', 'flooded_share_plus_minus', 'flooded_share_lo', 'flooded_share_hi', 'at_or_above_share_parameter', 'review_priority', 'flags',
     'objection_filed_at_hour', 'officer_response_noted_at_hour',
   ];
   const rank = new Map(d.villages.map((v) => [v.name, v.rank]));
   const lines = d.entries.map((e) =>
     [
       rank.get(e.village) ?? '', e.village, e.plot, e.crop, e.areaHa, e.stage, e.tierLabel, e.scoreLo, e.scoreHi,
-      e.floodShare, e.floodShareUnc, e.atOrAboveShareParameter ? 'yes' : 'no', e.priority, e.flags.join('; '),
+      e.floodShare, e.floodShareUnc, e.floodShareLo, e.floodShareHi, e.atOrAboveShareParameter ? 'yes' : 'no', e.priority, e.flags.join('; '),
       e.objection?.filedAtHour ?? '', e.objection?.answeredAtHour ?? '',
     ].map(cell).join(','),
   );

@@ -133,7 +133,7 @@ export function DraftView() {
                   <td data-l="Stage">{e.stage}{e.flags.length > 0 && <span class="flags">{e.flags.map((f) => <span key={f} class="flag"><Icon name="flag" size={14} />{f}</span>)}</span>}</td>
                   <td data-l="Evidence">{e.unconfirmed ? <span class="tag"><Icon name="info" size={16} />No evidence yet</span> : <TierBadge tier={e.tier} range={[e.scoreLo, e.scoreHi]} />}</td>
                   <td data-l="Flooded share" class="num">
-                    {e.unconfirmed ? <span class="muted">Unconfirmed</span> : <>{Math.round(e.floodShare * 100)}%<span class="sub">radar estimate, ± {Math.round(e.floodShareUnc * 100)} points</span></>}
+                    {e.unconfirmed ? <span class="muted">Unconfirmed</span> : <>{Math.round(e.floodShareLo * 100)}–{Math.round(e.floodShareHi * 100)}%<span class="sub">radar estimate, about {Math.round(e.floodShare * 100)}%</span></>}
                     {e.atOrAboveShareParameter && !e.unconfirmed && <span class="tag tag-share">At or above the share parameter</span>}
                   </td>
                   <td data-l="Objection"><Objection e={e} />{r.s.persona === 'focus' && <span class="tag you">You</span>}</td>
