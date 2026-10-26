@@ -1,5 +1,7 @@
 # Saboot — the clock starts at the storm
 
+[![ci](https://github.com/Lucifer0000007/Saboot/actions/workflows/ci.yml/badge.svg)](https://github.com/Lucifer0000007/Saboot/actions/workflows/ci.yml)
+
 **SIMULATION · synthetic data · fictional district.** Saboot is a front-end-only simulation of a **disaster crop-loss
 evidence layer**. After a flood, evidence of crop loss fades as the water recedes, while assessment depends on officers
 reaching every field. Saboot watches (simulated) rain, river and satellite signals, starts an evidence clock at the
@@ -16,7 +18,7 @@ language; every score shows its uncertainty; every number on screen comes from t
 claim, places a real call, or connects to any government system. The decision happens outside Saboot.
 
 Built for the Code Yudh Hackathon, Chandigarh University · Track: AgriTech & Rural Transformation · Agri-FinTech.
-Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · rules for contributors:
+Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · design: [`docs/DESIGN.md`](docs/DESIGN.md) · what is not built: [`docs/ROADMAP.md`](docs/ROADMAP.md) · rules for contributors: [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CLAUDE.md`](CLAUDE.md) · security: [`SECURITY.md`](SECURITY.md).
 
 **Live site:** https://moonlit-pixie-248afc.netlify.app (this is the `PUBLIC_URL` in
 [`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code).
@@ -302,7 +304,7 @@ Playwright + axe QA matrix, and Lighthouse.
 | Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 to 98 / 100 / 100 on all three pages |
 | LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 / 2.1 to 2.5 s on the landing and alert pages; 2.4 to 3.2 s on `?tab=insurer`, depending on machine load (the same reading with and without the newest landing section) |
 | INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 to 200 ms run to run on this machine (the previous build reads the same spread) |
-| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (609 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 229 unit tests |
+| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (611 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 246 unit tests; 46 Firefox and WebKit smoke tests |
 
 QA matrix: 20 states × 7 viewports (360×640 to 1440×900) × English/Hindi/Punjabi, plus pseudo-localisation (+40%), 200% text,
 the in-app 150% text on a 360 px phone, reflow at 320 px, reduced motion, anchors under sticky chrome, offline after first
@@ -322,7 +324,9 @@ session with per-farmer consent that survives a reload; the feature-phone flow l
 of the test's own, that a full capture, seal, share and import flow makes only plain GETs with no body and no fingerprint or
 code in any URL or header. `npm run sw:update-check` proves a cached visitor gets the next build on their second load, with the
 old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a Firefox and WebKit smoke run (not a gate; see
-[Known limitations](#known-limitations)).
+[Known limitations](#known-limitations)). CI (`.github/workflows/ci.yml`) runs the fast checks on every push; the full gate stays
+local (`npm run verify`). An outside review of the repository is answered point by point in
+[`docs/REVIEW-RESPONSE.md`](docs/REVIEW-RESPONSE.md).
 
 ## Assumptions
 
@@ -370,8 +374,8 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
   by QR, paste or link, or, when you run the optional demo receiver on the laptop (`scripts/receipt-server.mjs`), by a
   POST of the same signed code to that laptop, which stamps its own clock and verifies nothing. There is no other backend.
 - Feature K proves a packet was not altered after sealing; it cannot prove who sealed it or that the phone clock was right.
-- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: in this session Playwright's WebKit and Firefox builds passed 43 smoke checks and skipped 3 (Playwright's Firefox build has no working crypto.subtle, so it cannot sign a packet). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
-  real Firefox are on the manual test list.
+- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: Playwright's WebKit and Firefox builds pass all 46 smoke checks, none skipped, and Firefox hashes and signs a packet like Chrome (the earlier note that its `crypto.subtle` did not work was wrong). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
+  a low-end Android phone are on the manual test list.
 - The tamper test edits the in-memory ledger only; a reload or Restore puts it back.
 - Lighthouse uses simulated throttling against a local server with compression; real devices vary.
 

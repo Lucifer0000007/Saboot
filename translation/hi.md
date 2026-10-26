@@ -582,6 +582,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `crop.Vegetables` | Vegetables | सब्ज़ियाँ |  |
 | `sec.http` | Opened over plain HTTP. The camera, location and signing are off here. Open the HTTPS link from the QR code. Simulated photos still get a fingerprint. | यह पेज सादे HTTP पर खुला है। यहाँ कैमरा, लोकेशन और साइनिंग बंद हैं। QR कोड वाला HTTPS लिंक खोलें। नकली फ़ोटो को फिर भी फ़िंगरप्रिंट मिलता है। |  |
 | `db.memory` | This phone is not saving your photos. Keep this page open until they are sent. | यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें। |  |
+| `db.notPersistent` | Your browser may clear these photos if this phone runs low on space. Send them to the officer soon. | फ़ोन में जगह कम होने पर ब्राउज़र ये फ़ोटो हटा सकता है। इन्हें जल्दी अधिकारी को भेजें। |  |
 | `fe.h` | Field evidence | फ़ील्ड से मिले सबूत |  |
 | `fe.note` | Not simulated: anonymous conversations with verbal consent, listed in docs/INTERVIEWS.md. What people said is their own account, not a finding. | सिमुलेटेड नहीं: मौखिक सहमति से की गई गुमनाम बातचीत, docs/INTERVIEWS.md में दर्ज। लोगों ने जो कहा वह उनका अपना अनुभव है, कोई निष्कर्ष नहीं। |  |
 | `fe.strip` | {n} interviews · {states} states · {roles} roles | {n} इंटरव्यू · {states} राज्य · {roles} भूमिकाएँ |  |

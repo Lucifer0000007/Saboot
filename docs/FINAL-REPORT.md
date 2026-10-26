@@ -10,7 +10,7 @@ photos sealed on a real phone and checked on a laptop with no server; a real pas
 rules, shown as raw counts under a REPLAY label; and a label on every value saying whether it is live, replayed, simulated or
 typed by hand. Along the way the audit found 80 problems; every blocker and every major one on the demo path is fixed, each
 with a test that was red before the fix. The quick gate (`npm run verify -- --quick`), the full QA matrix and Lighthouse
-pass: 609 Playwright tests (24 of them in the dark theme), 564 captures, 229 unit tests, Lighthouse 97 to 98 / 100 / 100 on all
+pass: 611 Playwright tests (24 of them in the dark theme), 564 captures, 246 unit tests, 46 Firefox and WebKit smoke tests, Lighthouse 97 to 98 / 100 / 100 on all
 three pages with LCP 2.11 s. Since then: a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and seven real
 conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`).
 

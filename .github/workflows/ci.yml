@@ -1,0 +1,27 @@
+# The fast checks on every push and pull request (about 2 minutes). The full gate (the Playwright matrix in three
+# languages, axe, Lighthouse) takes about 15 minutes and runs locally: `npm run verify` (see README, "Quality gates").
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency: { group: 'ci-${{ github.ref }}', cancel-in-progress: true }
+jobs:
+  quick:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: node scripts/i18n-check.mjs
+      - run: node scripts/contrast.mjs
+      - run: npm run facts:check
+      - run: npm run validate:fixture
+      - run: node scripts/markers.mjs --strict
+      - run: npm run build
+      - run: node scripts/budgets.mjs

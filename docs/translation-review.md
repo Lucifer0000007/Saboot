@@ -424,6 +424,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `cap.needConsent` | {farmer} has not agreed yet. Ask for their consent before you take any photo. | {farmer} ने अभी सहमति नहीं दी है। कोई भी फ़ोटो लेने से पहले उनकी सहमति लें। | {farmer} ਨੇ ਹਾਲੇ ਸਹਿਮਤੀ ਨਹੀਂ ਦਿੱਤੀ। ਕੋਈ ਵੀ ਫ਼ੋਟੋ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ ਲਓ। | needs review / needs review |
 | `cap.askConsent` | Ask for consent | सहमति लें | ਸਹਿਮਤੀ ਲਓ | needs review / needs review |
 | `db.memory` | This phone is not saving your photos. Keep this page open until they are sent. | यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें। | ਇਹ ਫ਼ੋਨ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਰਿਹਾ। ਭੇਜੇ ਜਾਣ ਤੱਕ ਇਹ ਪੇਜ ਖੁੱਲ੍ਹਾ ਰੱਖੋ। | needs review / needs review |
+| `db.notPersistent` | Your browser may clear these photos if this phone runs low on space. Send them to the officer soon. | फ़ोन में जगह कम होने पर ब्राउज़र ये फ़ोटो हटा सकता है। इन्हें जल्दी अधिकारी को भेजें। | ਫ਼ੋਨ ਵਿੱਚ ਥਾਂ ਘੱਟ ਹੋਣ ਉੱਤੇ ਬ੍ਰਾਊਜ਼ਰ ਇਹ ਫ਼ੋਟੋਆਂ ਹਟਾ ਸਕਦਾ ਹੈ। ਇਨ੍ਹਾਂ ਨੂੰ ਜਲਦੀ ਅਧਿਕਾਰੀ ਨੂੰ ਭੇਜੋ। | needs review / needs review |
 | `prov.live` | Live | लाइव | ਲਾਈਵ | needs review / needs review |
 | `prov.replay` | Replay | रीप्ले | ਰੀਪਲੇ | needs review / needs review |
 | `prov.sim` | Simulated | सिमुलेटेड | ਸਿਮੂਲੇਟਡ | needs review / needs review |
