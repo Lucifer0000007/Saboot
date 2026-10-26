@@ -629,6 +629,9 @@ const hi: Record<string, string | string[]> = {
   'hm.card.btn': 'सहायक मोड खोलें', // needs-native-review
   'hm.noDamage': 'किसान ने बताया: कोई नुकसान नहीं', // needs-native-review
   'hm.next': 'अगला किसान', // needs-native-review
+  'hm.endAsk': 'सहायक सत्र खत्म करें? हर किसान की सहमति और सील किया गया सबूत इसी फ़ोन पर रहेगा।', // needs-native-review
+  'hm.endYes': 'हाँ, खत्म करें', // needs-native-review
+  'hm.endNo': 'काम जारी रखें', // needs-native-review
   'hm.seal': '{farmer} का सबूत सील करें', // needs-native-review
   'hm.pkTitle': '{farmer} का सबूत', // needs-native-review
   'hm.flTitle': '{farmer} का प्रमाण साझा करें', // needs-native-review

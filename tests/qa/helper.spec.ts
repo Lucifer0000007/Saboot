@@ -126,7 +126,13 @@ test('the helper session and every farmer log survive a reload; ending the sessi
   await sab(page, `s.seek(10);`);
   await expect(page.locator('[data-farmer="P-05"]')).toContainText('No alert yet');
   await sab(page, `s.seek(20);`);
+  // H16: ending asks first; "keep working" keeps the session
   await page.getByRole('button', { name: /End helper session/ }).click();
+  await expect(page.locator('[data-end-ask]')).toContainText('stays on this phone');
+  await page.getByRole('button', { name: 'Keep working' }).click();
+  await expect(page.locator('[data-helper-name]')).toBeVisible();
+  await page.getByRole('button', { name: /End helper session/ }).click();
+  await page.locator('[data-end-yes]').click();
   await expect(page.locator('[data-helper-screen]')).toHaveCount(0);
   await expect(page.locator('.farmer .f-who strong')).toHaveText('Harjit Kaur');
   expect(errors).toEqual([]);

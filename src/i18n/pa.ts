@@ -629,6 +629,9 @@ const pa: Record<string, string | string[]> = {
   'hm.card.btn': 'ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ', // needs-native-review
   'hm.noDamage': 'ਕਿਸਾਨ ਨੇ ਦੱਸਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ', // needs-native-review
   'hm.next': 'ਅਗਲਾ ਕਿਸਾਨ', // needs-native-review
+  'hm.endAsk': 'ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰਨਾ ਹੈ? ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਇਸੇ ਫ਼ੋਨ ਉੱਤੇ ਰਹੇਗਾ।', // needs-native-review
+  'hm.endYes': 'ਹਾਂ, ਖ਼ਤਮ ਕਰੋ', // needs-native-review
+  'hm.endNo': 'ਕੰਮ ਜਾਰੀ ਰੱਖੋ', // needs-native-review
   'hm.seal': '{farmer} ਦਾ ਸਬੂਤ ਸੀਲ ਕਰੋ', // needs-native-review
   'hm.pkTitle': '{farmer} ਦਾ ਸਬੂਤ', // needs-native-review
   'hm.flTitle': '{farmer} ਦਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ', // needs-native-review

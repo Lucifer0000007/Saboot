@@ -57,6 +57,7 @@ export function Helper() {
   const session = helperSession.value;
   const list = queue.value;
   const [phone, setPhone] = useState(false);
+  const [ending, setEnding] = useState(false);
   return (
     <div class="stack f-stack" data-helper-screen>
       <h2 class="f-title">{tr('hm.title')}</h2>
@@ -101,7 +102,19 @@ export function Helper() {
           <p class="note note-plain"><Icon name="shield" /><span>{tr('hm.note')}</span></p>
           <p class="note note-plain" data-replay-paused><Icon name="clock" /><span>{tr('hm.paused')}</span></p>
           <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
-          <button type="button" class="pill pill-ghost" onClick={() => void leaveHelperMode()}>{tr('hm.end')}</button>
+          {/* one tap away from the feature-phone link: ending asks first (audit H16) */}
+          {!ending ? (
+            <button type="button" class="pill pill-ghost" data-end-session onClick={() => setEnding(true)}>{tr('hm.end')}</button>
+          ) : (
+            <div class="note note-warn" role="alert" data-end-ask>
+              <Icon name="info" />
+              <span>{tr('hm.endAsk')}</span>
+              <div class="row">
+                <button type="button" class="pill pill-dark" data-end-yes onClick={() => void leaveHelperMode()}>{tr('hm.endYes')}</button>
+                <button type="button" class="pill pill-ghost" onClick={() => setEnding(false)}>{tr('hm.endNo')}</button>
+              </div>
+            </div>
+          )}
         </>
       )}
       {!session && <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>}
