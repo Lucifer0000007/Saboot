@@ -81,26 +81,27 @@
 .rtable thead th { font-weight: 600; color: var(--kali-2); border-bottom: 2px solid var(--kali); }
 .rtable tbody tr:hover { background: var(--sunk); }
 .rtable .sub { display: block; color: var(--kali-2); font-size: 0.8125rem; overflow-wrap: anywhere; }
-/* stacked cards: the label sits in a padded gutter (absolute ::before), so cells with several children stay together */
+/* stacked cards: the label floats in a padded gutter, so cells with several children stay together, and the cell (a flow
+   root) grows to hold a label that wraps to two lines instead of letting it run into the next row (audit OF-08) */
 @container panel (max-width: 40em) {
   .rtable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .rtable, .rtable tbody, .rtable tfoot, .rtable tr { display: block; }
   .rtable tr { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 8px 16px; margin-bottom: 8px; }
-  .rtable td, .rtable th[scope='row'] { display: block; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
+  .rtable td, .rtable th[scope='row'] { display: flow-root; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
   .rtable th[scope='row'] { padding-left: 0; }
-  .rtable td[data-l]::before { content: attr(data-l); position: absolute; left: 0; top: 8px; width: 6.5rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
+  .rtable td[data-l]::before { content: attr(data-l); float: left; width: 6.5rem; margin: 2px 0 0 -7rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
 }
 /* very narrow cards: labels sit above their values */
 @container panel (max-width: 22em) {
   .rtable td, .lg-table td { padding-left: 0; }
-  .rtable td[data-l]::before, .lg-table td[data-l]::before { position: static; display: block; width: auto; }
+  .rtable td[data-l]::before, .lg-table td[data-l]::before { position: static; float: none; display: block; width: auto; margin: 0; }
 }
 @container panel (max-width: 52em) {
   .lg-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .lg-table, .lg-table tbody, .lg-table tr { display: block; }
   .lg-table tr { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 8px 16px; margin-bottom: 8px; }
-  .lg-table td { display: block; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
-  .lg-table td[data-l]::before { content: attr(data-l); position: absolute; left: 0; top: 8px; width: 6.5rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
+  .lg-table td { display: flow-root; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
+  .lg-table td[data-l]::before { content: attr(data-l); float: left; width: 6.5rem; margin: 2px 0 0 -7rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
 }
 .lg-table td.num, .lg-table .hash, .lg-table .tag { white-space: nowrap; }
 .sortby { display: inline-flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 600; }
