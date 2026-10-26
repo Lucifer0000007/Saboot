@@ -1,7 +1,9 @@
 // Relief rail: the draft assessment list. What the officer's office would review, with the evidence Saboot holds for each
 // plot. The officer publishes it and decides, outside Saboot. Farmers can attach sealed evidence during the objection
 // window. SIMULATED: the publication time, the objections and the officer's responses are scripted.
+import { useState } from 'preact/hooks';
 import { Icon, type IconName } from '../ui/Icon';
+import { ProvTag } from '../ui/ProvTag';
 import { TierBadge } from '../ui/TierBadge';
 import { fmtT } from '../lib/time';
 import { openPlot } from '../site/layout';
@@ -10,6 +12,7 @@ import { RELIEF } from '../config';
 import { rows } from './state';
 import { buildDraft, draftCsv, draftJson, type Draft as DraftData, type DraftEntry } from './draftList';
 import { download } from '../lib/download';
+import { noted, noteResponse } from './responses';
 
 type StepState = 'Running' | 'Done' | 'Open' | 'Closed' | 'Not yet' | 'Outside Saboot';
 interface Step { who: string; text: string; note: string; state: StepState; icon: IconName; outside?: boolean }
@@ -38,15 +41,23 @@ function Steps({ d, t }: { d: DraftData; t: number }) {
   );
 }
 
-function Objection({ e }: { e: DraftEntry }) {
+/** An objection: when the farmer attached evidence, and whether a response was noted. Once the window has closed with none
+ *  noted, a flag says so (audit OF-05). The officer may note THAT a response was given, by hand; never what it said. */
+function Objection({ e, t, closed }: { e: DraftEntry; t: number; closed: boolean }) {
   const o = e.objection;
   if (!o) return <span class="muted">None</span>;
   return (
     <span class="obj">
       <span class="obj-l"><Icon name="file" size={16} /><span>Evidence attached <span class="nb num">{fmtT(o.filedAtHour)}</span></span></span>
-      {o.answeredAtHour !== null
-        ? <span class="obj-l sub"><Icon name="check" size={16} /><span>Response noted <span class="nb num">{fmtT(o.answeredAtHour)}</span>, outside Saboot</span></span>
-        : <span class="obj-l sub"><Icon name="clock" size={16} /><span>No response noted yet</span></span>}
+      {o.answeredAtHour !== null ? (
+        <span class="obj-l sub"><Icon name="check" size={16} /><span>Response noted <span class="nb num">{fmtT(o.answeredAtHour)}</span>, outside Saboot{o.responseBy === 'hand' && <> <ProvTag prov="hand" english /></>}</span></span>
+      ) : (
+        <>
+          <span class="obj-l sub"><Icon name="clock" size={16} /><span>No response noted yet</span></span>
+          {closed && <span class="tag tag-warn" data-obj-overdue><Icon name="flag" size={14} />Window closed, no response noted</span>}
+          <button type="button" class="pill pill-ghost pill-sm" data-note-response onClick={() => void noteResponse(e.plot, t)}>Note that a response was given</button>
+        </>
+      )}
     </span>
   );
 }
@@ -54,8 +65,14 @@ function Objection({ e }: { e: DraftEntry }) {
 export function DraftView() {
   const m = model.value!;
   const t = tSlow.value;
-  const d = buildDraft(m, rows.value, t, scenarioHash.value);
+  const d = buildDraft(m, rows.value, t, scenarioHash.value, noted.value);
   const st = d.provenance.publication.state;
+  const closed = st === 'objections closed';
+  // objections first, oldest first, when the officer asks for them (audit OF-05)
+  const [onlyObj, setOnlyObj] = useState(false);
+  const withObj = d.entries.filter((e) => e.objection).sort((a, b) => a.objection!.filedAtHour - b.objection!.filedAtHour);
+  const open = withObj.filter((e) => e.objection!.answeredAtHour === null).length;
+  const entries = onlyObj ? withObj : d.entries;
   const stamp = fmtT(t).replace(/\W+/g, '');
   const p = d.provenance;
   return (
@@ -112,7 +129,17 @@ export function DraftView() {
         <p class="note note-plain"><Icon name="info" /><span>The list is empty at {fmtT(t)}. Play the replay or jump to “Trigger”.</span></p>
       ) : (
         <div class="card stack">
-        <h4>Entries, by village</h4>
+        <div class="row-between">
+          <h4>{onlyObj ? 'Objections, oldest first' : 'Entries, by village'}</h4>
+          <button type="button" class="chip-btn" aria-pressed={onlyObj} data-obj-filter onClick={() => setOnlyObj(!onlyObj)} disabled={!withObj.length && !onlyObj}>
+            <Icon name="file" size={16} /> Objections <span class="num">({withObj.length})</span>
+          </button>
+        </div>
+        {withObj.length > 0 && (
+          <p class="muted" data-obj-summary>
+            <span class="num">{withObj.length}</span> {withObj.length === 1 ? 'farmer has' : 'farmers have'} attached sealed evidence; <span class="num">{open}</span> with no response noted{closed && open > 0 ? ', and the window has closed' : ''}. Saboot shows that a response came, never what it said; the officer decides, outside Saboot.
+          </p>
+        )}
         <table class="rtable dtable">
           <caption class="sr-only">Draft assessment list entries, by village</caption>
           <thead>
@@ -122,7 +149,7 @@ export function DraftView() {
             </tr>
           </thead>
           <tbody>
-            {d.entries.map((e) => {
+            {entries.map((e) => {
               const r = rows.value.find((x) => x.s.plot.id === e.plot)!;
               return (
                 <tr key={e.plot}>
@@ -136,7 +163,7 @@ export function DraftView() {
                     {e.unconfirmed ? <span class="muted">Unconfirmed</span> : <>{Math.round(e.floodShareLo * 100)}–{Math.round(e.floodShareHi * 100)}%<span class="sub">radar estimate, about {Math.round(e.floodShare * 100)}%</span></>}
                     {e.atOrAboveShareParameter && !e.unconfirmed && <span class="tag tag-share">At or above the share parameter</span>}
                   </td>
-                  <td data-l="Objection"><Objection e={e} />{r.s.persona === 'focus' && <span class="tag you">Demo phone</span>}</td>
+                  <td data-l="Objection"><Objection e={e} t={t} closed={closed} />{r.s.persona === 'focus' && <span class="tag you">Demo phone</span>}</td>
                 </tr>
               );
             })}

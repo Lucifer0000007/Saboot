@@ -23,8 +23,10 @@ export const moments = computed<Moment[]>(() => {
       : { id: 'deadline', t: d.deadlineT!, label: 'Advice ends', hint: `End of the capture-soon advice, ${m.opts.windowHours} h after the event began (not a deadline)` },
     { id: 'confirm', t: refT + SCRIPT.ack + 0.1, label: 'Confirmation', hint: 'Insurer acknowledges; inspection scheduled' },
   ];
-  // relief rail only: the officer publishes the draft list (outside Saboot, simulated) and objections open
-  if (m.opts.rail === 'relief') list.push({ id: 'draft', t: m.opts.publishAtHour + 0.5, label: 'Draft list', hint: 'The officer publishes the draft list (simulated); farmers may attach sealed evidence' });
+  // relief rail only: the officer has published the draft list (outside Saboot, simulated) and the first scripted farmer has
+  // attached sealed evidence, so the moment shows an objection (audit OF-05), while the window is still open
+  const firstObj = Math.min(...m.plots.flatMap((p) => (p.obj ? [p.obj[0]] : [])));
+  if (m.opts.rail === 'relief') list.push({ id: 'draft', t: m.opts.publishAtHour + (Number.isFinite(firstObj) ? firstObj : 0) + 0.5, label: 'Draft list', hint: 'The draft list is published (simulated) and the first farmer has attached sealed evidence' });
   return list;
 });
 

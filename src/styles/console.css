@@ -335,6 +335,8 @@
 .obj .obj-l { display: flex; align-items: flex-start; gap: 6px; min-width: 0; }
 .obj .obj-l > .ic { margin-top: 0.2em; }
 .obj .obj-l > span { min-width: 0; }
+.obj .tag, .obj .pill { align-self: flex-start; margin-top: 4px; }
+.draft .chip-btn[aria-pressed='true'] { background: var(--kali); color: var(--silt); border-color: var(--kali); }
 .tag-share { margin-top: 4px; border-color: var(--kali); }
 .dtable td.num { white-space: normal; }
 .dprov { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 0 16px; }

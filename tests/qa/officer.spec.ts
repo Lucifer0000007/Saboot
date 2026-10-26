@@ -198,3 +198,41 @@ test('an imported packet opens its own record, verified again, not the simulated
   await expect(page.locator('.drawer')).toContainText('Simulated plot');
   expect(errors).toEqual([]);
 });
+
+test('objections: the Draft list moment already shows one, a filter lists them oldest first, a closed window with no response is flagged, and the officer can note that a response came (OF-05)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('draft'); s.tab('insurer'); s.insurer('draft');`);
+  const filter = page.locator('[data-obj-filter]');
+  await expect(filter).toContainText('Objections (1)', { timeout: 20_000 });
+  await expect(page.locator('[data-list-state]')).toHaveAttribute('data-list-state', 'published');
+  // after the window: every scripted objection, oldest first; the unanswered ones are flagged
+  await sab(page, `s.seek(150);`);
+  await filter.click();
+  await expect(filter).toHaveAttribute('aria-pressed', 'true');
+  const rows = page.locator('.dtable tbody tr');
+  const n = await rows.count();
+  expect(n).toBeGreaterThan(2);
+  const filed = await rows.locator('td[data-l=Objection] .obj-l:first-child .num').allTextContents();
+  expect(filed.length).toBe(n);
+  const flagged = page.locator('.dtable [data-obj-overdue]');
+  const k = await flagged.count();
+  expect(k).toBeGreaterThan(0);
+  await expect(flagged.first()).toHaveText('Window closed, no response noted');
+  // noting a response records only that it came, labelled as entered by hand, and it survives a reload
+  const first = rows.filter({ has: page.locator('[data-obj-overdue]') }).first();
+  const plot = ((await first.locator('.plink').textContent()) ?? '').trim().split(' ')[0];
+  const row = rows.filter({ has: page.getByRole('button', { name: new RegExp(`Open ${plot} details`) }) });
+  await row.locator('[data-note-response]').click();
+  await expect(row).toContainText('Response noted');
+  await expect(row.locator('[data-prov=hand]')).toBeVisible();
+  await expect(page.locator('.dtable [data-obj-overdue]')).toHaveCount(k - 1);
+  await page.reload();
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await sab(page, `s.seek(150); s.tab('insurer'); s.insurer('draft');`);
+  const again = page.locator('.dtable tbody tr', { has: page.getByRole('button', { name: new RegExp(`Open ${plot} details`) }) });
+  await expect(again.locator('[data-prov=hand]')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.draft')).not.toContainText(/approved|accepted|rejected|upheld|resolved|granted|dismissed/i);
+  expect(errors).toEqual([]);
+});

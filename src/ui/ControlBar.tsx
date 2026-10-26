@@ -13,6 +13,7 @@ import { t, playing, speed, toggle, seek, pause, HOURS, type Speed } from '../si
 import { moments, jumpTo, type MomentId } from '../sim/moments';
 import { resetFocus, logs } from '../farmer/focus';
 import { clearAssignments } from '../dashboard/assign';
+import { clearNoted } from '../dashboard/responses';
 import { screen } from '../farmer/nav';
 import { layout, measureInto } from '../site/layout';
 
@@ -23,7 +24,7 @@ const NETS: [Net, IconName][] = [['online', 'signal'], ['weak', 'signalWeak'], [
 export async function resetAll() {
   pause();
   seek(0);
-  await Promise.all([resetFocus(), clearAssignments()]);
+  await Promise.all([resetFocus(), clearAssignments(), clearNoted()]);
   screen.value = null;
   network.value = 'online';
   showToast(tr('ctl.resetDone'));

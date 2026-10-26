@@ -14,6 +14,7 @@ import { receipts } from '../k/receipt';
 import { useEffect, useRef } from 'preact/hooks';
 import { loadImported } from '../k/imported';
 import { loadAssignments } from './assign';
+import { loadNoted } from './responses';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
 import { PlotList } from './PlotList';
 import { PlotDrawer } from './PlotDrawer';
@@ -58,7 +59,7 @@ export default function Dashboard() {
   const m = model.value!;
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
   const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
-  useEffect(() => { void loadImported(); void loadAssignments(); }, []);
+  useEffect(() => { void loadImported(); void loadAssignments(); void loadNoted(); }, []);
   // the chosen view stays visible in the bar when it scrolls sideways on a phone (the page itself does not move)
   const bar = useRef<HTMLDivElement>(null);
   useEffect(() => {

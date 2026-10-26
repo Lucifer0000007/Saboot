@@ -112,8 +112,9 @@ test('objection: the farmer attaches sealed evidence once, it is a sealed event 
   const mine = page.locator('.dtable tr', { has: page.locator('.tag.you') });
   await expect(mine).toContainText('Evidence attached', { timeout: 20_000 });
   await expect(mine).toContainText('No response noted yet');
-  // twenty hours later a response is noted: that it came, never what it said
-  await sab(page, `s.seek(122);`);
+  // twenty hours later a response is noted: that it came, never what it said (relative to the moment, which now waits for
+  // the first scripted objection, audit OF-05)
+  await sab(page, `s.seek(s.state().t + 21);`);
   await expect(mine).toContainText('Response noted');
   await expect(mine).toContainText('outside Saboot');
   await expect(card).toContainText('The officer has responded');
