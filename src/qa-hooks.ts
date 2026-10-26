@@ -43,7 +43,8 @@ export function installQaHooks() {
     ensure: (stage: 'captured' | 'sealed' | 'filed') => ensureFocus(stage),
     screen: (s: Screen | null) => (screen.value = s),
     tab: (tab: SimTab) => (simTab.value = tab),
-    insurer: (v: InsurerView) => (insurerView.value = v),
+    // 'triage' was the separate worklist, merged into the map's ranked list (audit OF-04): the old name still opens it
+    insurer: (v: InsurerView | 'triage') => (insurerView.value = v === 'triage' ? 'claims' : v),
     plot: (id: string | null) => (openPlot.value = id),
     rail: (r: 'relief' | 'pmfby') => (rail.value = r),
     cadence: (c: 'demo' | 'slow') => (cadence.value = c),

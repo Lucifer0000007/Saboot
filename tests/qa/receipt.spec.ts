@@ -135,7 +135,7 @@ test('the laptop lists what it received, checks it in the browser, and imports i
   await row.locator('[data-add-received]').click();
   await expect(row).toContainText('Added as Imported (simulated)');
   await lap.locator('.import-sheet button[aria-label="Close import"]').click();
-  await expect(lap.locator('tr.imported')).toContainText('Imported (simulated)');
+  await expect(lap.locator('li.imported')).toContainText('Imported (simulated)');
   const rows = (await lap.evaluate('window.__sab.imported()')) as { plot: string; importedAt: number }[];
   expect(rows.find((r) => r.plot === 'P-04')?.importedAt, 'the row carries the laptop server\'s receipt time').toBe(receipt.receivedAt);
   expect(errors).toEqual([]);

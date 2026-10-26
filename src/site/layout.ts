@@ -5,7 +5,7 @@ import { PUBLIC_URL } from '../config';
 
 export type Layout = 'mobile' | 'tablet' | 'desktop';
 export type SimTab = 'farmer' | 'insurer' | 'ledger' | 'explainer';
-export type InsurerView = 'claims' | 'triage' | 'draft' | 'impact';
+export type InsurerView = 'claims' | 'draft' | 'impact';
 export type SectionId = 'problem' | 'simulation' | 'how' | 'limits';
 
 const hasDom = typeof window !== 'undefined';

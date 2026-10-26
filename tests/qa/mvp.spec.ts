@@ -96,7 +96,7 @@ test('the live flow: three real photos are sealed on the phone, the laptop check
 
   // the ledger shows the import straight away and the tamper test works: the replay moved to the packet's time
   await lap.locator('.import-sheet button[aria-label="Close import"]').click();
-  await expect(lap.locator('tr.imported')).toContainText('Imported (live)');
+  await expect(lap.locator('li.imported')).toContainText('Imported (live)');
   await sab(lap, `s.tab('ledger');`);
   await expect(lap.locator('.ledger').first()).toContainText('IMPORTED_PACKET', { timeout: 20_000 });
   await expect(lap.getByRole('button', { name: /Tamper test/ })).toBeEnabled();
@@ -110,7 +110,7 @@ test('the live flow: three real photos are sealed on the phone, the laptop check
   await expect(lap.locator('.k-result .note-ok')).toBeVisible();
   await lap.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
   await lap.locator('.import-sheet button[aria-label="Close import"]').click();
-  await expect(lap.locator('tr.imported')).toHaveCount(1);
+  await expect(lap.locator('li.imported')).toHaveCount(1);
 
   // editing the box clears the verdict at once: it must never stay green over different text
   await lap.getByRole('button', { name: /Import evidence/ }).click();

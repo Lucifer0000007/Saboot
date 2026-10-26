@@ -17,15 +17,14 @@ import { DistrictMap, Legend, MapDefs } from './DistrictMap';
 import { PlotList } from './PlotList';
 import { PlotDrawer } from './PlotDrawer';
 import { Pipeline } from './Pipeline';
-import { Triage } from './Triage';
 import { DraftView } from './DraftView';
 import { Impact } from './Impact';
 
 const ImportSheet = lazy(() => import('./Import'), 0);
 
 const VIEWS: Record<'relief' | 'pmfby', [InsurerView, string, IconName][]> = {
-  pmfby: [['claims', 'Claims map & ranking', 'map'], ['triage', 'District triage', 'list'], ['impact', 'Impact (simulated)', 'scale']],
-  relief: [['claims', 'Map & ranking', 'map'], ['triage', 'Assessment worklist', 'list'], ['draft', 'Draft list', 'file'], ['impact', 'Pilot metrics (simulated)', 'scale']],
+  pmfby: [['claims', 'Map & worklist', 'map'], ['impact', 'Impact (simulated)', 'scale']],
+  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['impact', 'Pilot metrics (simulated)', 'scale']],
 };
 
 function Kpis() {
@@ -103,7 +102,6 @@ export default function Dashboard() {
           <PlotList />
         </div>
       )}
-      {view === 'triage' && <Triage />}
       {view === 'draft' && <DraftView />}
       {view === 'impact' && <Impact />}
       <PlotDrawer />

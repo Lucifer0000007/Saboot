@@ -107,8 +107,8 @@
 .sortby { display: inline-flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 600; }
 .sortby select { min-height: 44px; width: auto; font-family: var(--font-body); }
 .plink { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--neel); font-family: var(--font-num); font-weight: 600; font-size: 1rem; text-decoration: underline; text-underline-offset: 4px; }
-.ptable tr.sel { background: var(--paper); box-shadow: inset 5px 0 0 var(--kali); }
-.ptable tr.focus td:first-child .plink { font-weight: 700; }
+.queue li.sel { box-shadow: inset 5px 0 0 var(--kali); }
+.queue li.focus .plink { font-weight: 700; }
 .tag.you { border-color: var(--kali); background: var(--kali); color: var(--silt); margin-left: 6px; }
 .lang-code { font-size: 0.75rem; padding: 1px 6px; border: var(--bd-ctl); border-radius: var(--r-chip); font-weight: 600; }
 .flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
@@ -191,25 +191,41 @@
 .vmix .p { color: var(--warn); }
 .vmix .i { color: var(--bad); }
 .vmix b { font-weight: 600; color: var(--kali); }
-.queue { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.queue li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 8px 12px; align-items: center; padding: 12px 16px; background: var(--paper); border: var(--bd); border-radius: var(--r-card); font-size: 0.875rem; }
-.queue li > :nth-child(n + 3) { grid-column: 2; }
-.qfig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 24px; min-width: 0; }
-.qcell { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
-.qcell::before { content: attr(data-l); font-size: 0.8125rem; font-weight: 600; color: var(--kali-2); }
-.qrank { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--kali); color: var(--silt); font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; align-self: start; }
-.qmain { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.qmain .sub { font-size: 0.875rem; color: var(--kali-2); }
+/* the worklist: one compact row per plot (rank, plot and village, one line of facts, three captioned figures), the reasons
+   and the assignment folded under "Why this rank" (audit J7, S-03) */
+.queue, .imp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.queue li, .imp-list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 4px 10px; align-items: start; padding: 8px 12px; background: var(--paper); border: var(--bd); border-radius: var(--r-card); font-size: 0.875rem; }
+.queue li > :nth-child(n + 3), .imp-list li > :nth-child(n + 3) { grid-column: 2; }
+.imp-list li.imported { box-shadow: inset 5px 0 0 var(--khet); }
+.qfig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 20px; min-width: 0; }
+.qcell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.qcell::before { content: attr(data-l); font-size: 0.75rem; font-weight: 600; color: var(--kali-2); }
+.qrank { display: grid; place-items: center; width: 2rem; height: 2rem; margin-top: 6px; border-radius: 50%; background: var(--kali); color: var(--silt); font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+.qmain { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.qmain .plink { min-height: 44px; }
+.qmain .sub { font-size: 0.8125rem; color: var(--kali-2); }
+.qwhy summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 0.875rem; font-weight: 600; color: var(--neel); }
+.qwhy[open] { display: flex; flex-direction: column; gap: 8px; padding-bottom: 4px; }
+.assigned-tag { border-color: var(--khet); color: var(--khet); margin-top: 2px; }
+.assign { display: flex; flex-direction: column; gap: 4px; font-size: 0.8125rem; font-weight: 600; color: var(--kali-2); }
 .assign select { min-height: 44px; width: 100%; max-width: 320px; font-family: var(--font-body); font-size: 0.875rem; }
-/* middle width (a console beside the phone): the figures sit in a row, the assignment under the text */
-@container panel (min-width: 46em) {
-  .queue li { grid-template-columns: 2.5rem minmax(0, 1fr) auto; }
-  .queue li > :nth-child(n + 3) { grid-column: auto; }
-  .queue li > .assign { grid-column: 2 / -1; }
+.vsum { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 0 16px; }
+.vsum summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 600; }
+.vsum[open] { display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px; }
+.plist-ctl { justify-content: space-between; }
+/* a phone: the priority sits top right beside the plot; evidence and time left share the next line while they fit */
+@container panel (max-width: 46em) {
+  .queue li, .imp-list li { position: relative; }
+  .qmain .plink { max-width: calc(100% - 3.5rem); }
+  .qfig > .qcell:nth-child(3) { position: absolute; top: 8px; right: 12px; align-items: flex-end; }
+  .qfig .tl { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .plist > p.muted { font-size: 0.875rem; }
 }
-@container panel (min-width: 52em) {
-  .queue li { grid-template-columns: 2.5rem minmax(0, 1fr) auto minmax(160px, 220px); }
-  .queue li > .assign { grid-column: auto; }
+/* a console beside the phone: the figures sit beside the text, the reasons under it */
+@container panel (min-width: 46em) {
+  .queue li, .imp-list li { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .queue li > :nth-child(n + 3), .imp-list li > :nth-child(n + 3) { grid-column: auto; }
+  .queue li > .qwhy { grid-column: 2 / -1; }
 }
 
 /* impact */
@@ -248,8 +264,7 @@
 .lg-table .sub { font-size: 0.8125rem; }
 
 /* feature K: import a signed packet from a phone. The verdict leads with the seal. */
-.ptable tr.imported { background: var(--paper); box-shadow: inset 5px 0 0 var(--khet); }
-.imported-tag { margin-top: 6px; border-color: var(--kali); }
+.imported-tag { border-color: var(--kali); }
 .lg-imp { margin: 0; }
 .k-scan { display: flex; flex-direction: column; gap: 8px; }
 .k-scan video { width: 100%; aspect-ratio: 4 / 3; background: #000; border-radius: var(--r-card); object-fit: cover; }

@@ -249,7 +249,7 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   await page.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
   await page.keyboard.press('Escape');
   await sab(page, `s.tab('insurer'); s.insurer('claims');`);
-  const row = await grab('tr.imported [data-export-bundle]');
+  const row = await grab('li.imported [data-export-bundle]');
   expect(row.json.decoded.chainHead).toBe(b.decoded.chainHead);
   expect(verified(row.file).status).toBe(0);
   expect(errors).toEqual([]);
