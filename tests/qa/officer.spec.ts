@@ -265,3 +265,37 @@ test('an officer link lands on a moment with something to show, on the console i
   await expect(page.locator('.queue > li').first()).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('map on a phone: opens a step in on the demo village so plots are at least 20 px, a tap just outside a plot still opens it, and a hint points to the list (OF-10, UI-11)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  const svg = page.locator('.map .map-frame > svg');
+  await expect(svg).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('.map figcaption')).toContainText('every plot is also in the list below');
+  await svg.scrollIntoViewIfNeeded();
+  const sizes = await page.evaluate(() => {
+    const f = document.querySelector('.map .map-frame > svg')!.getBoundingClientRect();
+    return [...document.querySelectorAll('.map .plot polygon')].map((p) => p.getBoundingClientRect())
+      .filter((r) => r.left >= f.left && r.right <= f.right && r.top >= f.top && r.bottom <= f.bottom)
+      .map((r) => Math.min(r.width, r.height));
+  });
+  expect(sizes.length).toBeGreaterThan(3);
+  // the drawn plot is at least 20 px; its invisible edge adds 14 px on every side that no other plot covers
+  expect(Math.min(...sizes)).toBeGreaterThanOrEqual(20);
+  // a point 6 px outside some plot that no plot covers lands on that plot's wider edge
+  const spot = await page.evaluate(() => {
+    for (const p of document.querySelectorAll<SVGPolygonElement>('.map .plot polygon')) {
+      const r = p.getBoundingClientRect();
+      for (const [x, y] of [[r.left - 6, r.top + r.height / 2], [r.right + 6, r.top + r.height / 2], [r.left + r.width / 2, r.bottom + 6]]) {
+        const hit = document.elementFromPoint(x, y);
+        if (hit?.classList.contains('plot-hit')) return { x, y, id: hit.getAttribute('data-plot') };
+      }
+    }
+    return null;
+  });
+  expect(spot).not.toBeNull();
+  await page.mouse.click(spot!.x, spot!.y);
+  await expect(page.locator('.drawer .sheet-head')).toContainText(spot!.id!);
+  expect(errors).toEqual([]);
+});
