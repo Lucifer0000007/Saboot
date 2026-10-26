@@ -197,7 +197,8 @@ export function Capture() {
               <Thumb id={s.photoId} alt={tr('shot.' + k)} />
               <div class="shot-meta">
                 <Val kind="photo" prov={s.synthetic ? 'sim' : 'live'}><strong>{tr('shot.' + k)}</strong></Val>
-                <span class="num">{fmtClock(s.simT)}</span>
+                {/* the replay clock, also for a live photo: the phone's own time is in the sync log (audit F14) */}
+                <Val kind="time" prov="sim"><span class="num">{fmtClock(s.simT)}</span></Val>
                 <Val kind="loc" prov={s.geo.src === 'gps' ? 'live' : 'sim'}>{s.geo.src === 'gps' ? tr('cap.gps', { acc: s.geo.acc }) : tr('cap.simGps')}</Val>
                 <span class="hash">{short(s.sha, 12)}</span>
                 <span class={s.recvT === null ? 'tag' : 'tag tag-ok'}>

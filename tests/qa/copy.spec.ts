@@ -60,3 +60,13 @@ test('the farmer reads out an 8-digit check code, and the officer drawer shows t
   await expect(page.locator('.drawer [data-check-code] strong')).toHaveText(code, { timeout: 20_000 });
   expect(errors).toEqual([]);
 });
+
+test('each photo row tags its replay-clock time as simulated', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); s.tab('farmer'); s.screen('capture');`);
+  const rows = page.locator('.shots li');
+  await expect(rows).toHaveCount(3, { timeout: 20_000 });
+  await expect(rows.locator('[data-v="time"][data-prov="sim"]')).toHaveCount(3);
+  expect(errors).toEqual([]);
+});
