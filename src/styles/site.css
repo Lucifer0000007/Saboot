@@ -181,6 +181,17 @@ html:not(.lay-mobile) .farmer-solo { border: 2px solid var(--kali); border-radiu
 /* control bar: two compact rows stuck under the nav (desktop), or a bottom dock (tablet/phone) */
 .ctrl { position: sticky; z-index: var(--z-sticky); background: var(--paper); container: ctrl / inline-size; font-size: 1rem; }
 .ctrl-dock { bottom: 0; border-top: 2px solid var(--kali); padding-bottom: var(--safe-b); }
+/* a text field has focus (src/site/layout.ts): the keyboard is up, the dock would cover the field's button (audit R8) */
+html.typing .ctrl-dock { display: none; }
+/* a phone on its side: the nav scrolls away with the page and drops the CTA the person is already inside, so the two bars do
+   not take a third of the screen (audit R7) */
+@media (max-height: 480px) {
+  .nav { position: static; }
+  .nav-cta { display: none; }
+  .ctrl-top { top: 0; }
+  html { scroll-padding-top: 16px; }
+  html:not(.lay-desktop) .toast { top: 8px; }
+}
 .ctrl-top { top: var(--nav-real, var(--nav-h)); border-top: 1px solid var(--rule); border-bottom: 2px solid var(--kali); margin-bottom: var(--s4); }
 .ctrl-in { display: flex; align-items: center; gap: var(--s1); min-height: var(--dock-h); padding-block: 8px; }
 .ctrl-top .ctrl-in { min-height: 64px; flex-wrap: nowrap; gap: var(--s2); }

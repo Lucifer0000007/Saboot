@@ -43,6 +43,35 @@ if (hasDom) {
   addEventListener('resize', sync);
   // text-size changes (in-app 125/150%) toggle classes on <html>
   new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
+
+  // A text field has focus, so a phone's keyboard is probably up: the bottom dock steps aside instead of covering the
+  // field's button (audit R8). Any text-like input counts, not only type=text.
+  const NOT_TEXT = /^(button|checkbox|radio|range|submit|reset|file|image|color|hidden)$/;
+  const isText = (el: EventTarget | null) => el instanceof HTMLTextAreaElement || (el instanceof HTMLInputElement && !NOT_TEXT.test(el.type)) || (el instanceof HTMLElement && el.isContentEditable);
+  addEventListener('focusin', (e) => document.documentElement.classList.toggle('typing', isText(e.target)));
+  addEventListener('focusout', () => document.documentElement.classList.remove('typing'));
+
+  // A rotation (or any large change of width) reflows the whole page: come back to what was on screen, not to the same
+  // pixel offset, which by then shows another section (audit R7). The anchor is what sat a third of the way down the
+  // screen when the person last scrolled; if the new layout re-rendered it (the phone frame), its nearest marked ancestor.
+  let anchor: Element | null = null, mark: string | null = null, lastW = innerWidth, resizedAt = 0, pending = 0;
+  addEventListener('scroll', () => {
+    if (pending || performance.now() - resizedAt < 600) return;
+    pending = requestAnimationFrame(() => {
+      pending = 0;
+      anchor = document.elementFromPoint(innerWidth / 2, innerHeight / 3);
+      const m = anchor?.closest('[data-tour], section[id]');
+      mark = !m ? null : m.id ? '#' + m.id : `[data-tour="${m.getAttribute('data-tour')}"]`;
+    });
+  }, { passive: true });
+  addEventListener('resize', () => {
+    if (Math.abs(innerWidth - lastW) > 100 && (anchor || mark)) {
+      const a = anchor, sel = mark;
+      resizedAt = performance.now();
+      requestAnimationFrame(() => (a?.isConnected ? a : sel ? document.querySelector(sel) : null)?.scrollIntoView({ block: 'center' }));
+    }
+    lastW = innerWidth;
+  });
 }
 
 /** Publish an element's rendered height as a CSS variable (sticky offsets use real heights, not guesses). */

@@ -168,6 +168,35 @@ test.describe('on a touch screen', () => {
   });
 });
 
+test('typing in a field hides the bottom dock; leaving the field brings it back (R8)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3); s.tab('farmer'); s.screen('file');`);
+  const input = page.locator('.farmer input.input');
+  await input.focus();
+  await expect(page.locator('.ctrl-dock')).toBeHidden();
+  await input.blur();
+  await expect(page.locator('.ctrl-dock')).toBeVisible();
+  // the scrubber is an input too, but not a text field: using it keeps the dock
+  await page.locator('.ctrl-dock input[type=range]').focus();
+  await expect(page.locator('.ctrl-dock')).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('turning a phone on its side keeps the farmer’s alert on screen, and the nav scrolls away instead of sticking (R7)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+  await page.evaluate(() => document.querySelector('[data-tour=alert] .countdown')!.scrollIntoView({ block: 'center' }));
+  await page.mouse.wheel(0, 1);
+  await page.waitForTimeout(400);
+  await page.setViewportSize({ width: 844, height: 390 });
+  await expect.poll(async () => { const r = await box(page, '[data-tour=alert]'); return r.bottom > 0 && r.top < 390; }, { timeout: 5_000 }).toBe(true);
+  expect(await page.locator('header.nav').evaluate((e) => getComputedStyle(e).position)).toBe('static');
+  await expect(page.locator('.nav-cta')).toBeHidden();
+  expect(errors).toEqual([]);
+});
+
 /** The screen title sits between the sticky nav and the bottom of the screen. */
 async function titleOnScreen(page: Page) {
   await expect.poll(async () => {
