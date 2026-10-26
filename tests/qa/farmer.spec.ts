@@ -81,3 +81,20 @@ test('on a phone the explainer gives one line per rule and reaches the rain char
   await expect(more).toContainText('Rule A, rain + terrain');
   expect(errors).toEqual([]);
 });
+
+test('How it works on a phone is the five steps, two notes and the replay; the diagram and the real-vs-simulated table fold away', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await page.locator('#how').scrollIntoViewIfNeeded();
+  const arch = page.locator('#how [data-how-arch]'), rs = page.locator('#how [data-how-rs]');
+  await expect(arch).toHaveCount(1, { timeout: 20_000 });
+  await expect(arch).not.toHaveAttribute('open', '');
+  await expect(rs).not.toHaveAttribute('open', '');
+  // it was about 7,800 px (audit S-09)
+  expect(await page.evaluate(() => document.getElementById('how')!.getBoundingClientRect().height)).toBeLessThan(2600);
+  await rs.locator('summary').click();
+  await expect(rs.locator('.rs-table')).toBeVisible();
+  await arch.locator('summary').click();
+  await expect(arch.locator('[data-node=pk]')).toBeVisible();
+  expect(errors).toEqual([]);
+});

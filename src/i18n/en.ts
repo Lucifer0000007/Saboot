@@ -244,6 +244,7 @@ const en: Record<string, string | string[]> = {
   'arch.caption': 'Sources feed the event detector, the plausibility score and the evidence clock on the server. The clock triggers the farmer alert, guided capture and the sealed evidence packet on the phone. The packet feeds the officer console, the assessment worklist, the evidence handoff and the audit ledger. Saboot decides nothing in this chain.',
   'arch.caption.pmfby': 'Sources feed the event detector, the plausibility score and the 72‑hour clock on the server. The clock triggers the farmer alert, guided capture and the sealed evidence packet on the phone. The packet feeds the insurer console, district triage, the filing handoff and the audit ledger. Nobody in this chain is Saboot deciding a claim.',
   'wf.h': 'Five steps',
+  'arch.h': 'What runs where: the architecture',
   'wf.1.t': 'Detect',
   'wf.1.b': 'Rules watch rain, river, terrain and radar over every registered plot and flag a likely flood.',
   'wf.2.t': 'Alert',
