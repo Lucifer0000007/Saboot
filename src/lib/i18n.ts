@@ -39,15 +39,27 @@ export function prefetchLang(l: Lang): Promise<unknown> {
   return p;
 }
 
+/** The page language and script classes (fonts, line height) follow the dictionary actually on screen. */
+function markPage(l: Lang) {
+  const html = document.documentElement;
+  html.lang = l;
+  html.classList.toggle('l-hi', l === 'hi');
+  html.classList.toggle('l-pa', l === 'pa');
+  html.classList.remove('lang-pending');
+}
+
 /** Load dictionary + fonts BEFORE switching so text reflows exactly once (no visible font swap). */
 export async function setLang(l: Lang) {
   langLoading.value = l;
   try {
     await prefetchLang(l);
-    if (!dicts[l]) { const m = await loaders[l](); dicts[l] = m.default; }
+    // prefetchLang gives up waiting after 4 s; a dictionary still not here by then is a failure, not an endless wait
+    if (!dicts[l]) { const m = await Promise.race([loaders[l](), new Promise<never>((_, no) => setTimeout(() => no(new Error('timeout')), 4000))]); dicts[l] = m.default; }
   } catch {
-    // stay in the language the person is reading, say so, and let them try again
+    // stay in the language the person is reading, wholly (the start-up script may already have marked the page for l),
+    // say so, and let them try again
     langLoading.value = null;
+    markPage(langReady.value);
     showToast(tr('lang.fail', { lang: LANGS.find((x) => x.id === l)!.label }), 'warn');
     return;
   }
@@ -55,11 +67,7 @@ export async function setLang(l: Lang) {
   langReady.value = l;
   ver.value++;
   langLoading.value = null;
-  const html = document.documentElement;
-  html.lang = l;
-  html.classList.toggle('l-hi', l === 'hi');
-  html.classList.toggle('l-pa', l === 'pa');
-  html.classList.remove('lang-pending');
+  markPage(l);
 }
 
 function lookup(key: string): string | string[] {
@@ -112,6 +120,9 @@ export const LANGS: { id: Lang; label: string; short: string; bcp: string }[] = 
 ];
 
 if (typeof document !== 'undefined') {
-  if (lang.value !== 'en') setLang(lang.value);
-  else document.documentElement.classList.remove('lang-pending');
+  if (lang.value !== 'en') {
+    void setLang(lang.value);
+    // a saved choice whose dictionary could not load at start (a weak link): try again when the connection comes back
+    addEventListener('online', () => { if (langReady.value !== lang.value && !langLoading.value) void setLang(lang.value); });
+  } else document.documentElement.classList.remove('lang-pending');
 }

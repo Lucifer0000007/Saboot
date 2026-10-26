@@ -1,8 +1,8 @@
 import { computed, effect } from '@preact/signals';
 import { useEffect, useRef } from 'preact/hooks';
 import { Icon, type IconName } from '../ui/Icon';
-import { tr, trr } from '../lib/i18n';
-import { voiceMode, lang, network, browserOnline, rail } from '../lib/prefs';
+import { tr, trr, langReady } from '../lib/i18n';
+import { voiceMode, network, browserOnline, rail } from '../lib/prefs';
 import { storageOk, storagePersistent } from '../lib/db';
 import { say, stopVoice } from '../lib/voice';
 import { announce } from '../lib/announce';
@@ -92,7 +92,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
     if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
     if (voiceMode.value) {
       const sp = screenSpeech(s);
-      if (sp) say(sp[0], sp[1], lang.value, sp[2]);
+      if (sp) say(sp[0], sp[1], langReady.value, sp[2]);
     } else stopVoice();
   }, [s]);
 
@@ -101,7 +101,7 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
   useEffect(() => {
     if (!alerted) return;
     announce(tr('al.title') + '. ' + tr('al.msg'));
-    if (voiceMode.value && s === 'home') say('alert', trr('al.voice'), lang.value, 'alert-' + rail.value);
+    if (voiceMode.value && s === 'home') say('alert', trr('al.voice'), langReady.value, 'alert-' + rail.value);
   }, [alerted]);
 
   if (!p || !d) return null;

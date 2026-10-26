@@ -1,7 +1,7 @@
 import { useMemo } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
-import { tr, trr } from '../lib/i18n';
-import { lang, lowData } from '../lib/prefs';
+import { tr, trr, langReady } from '../lib/i18n';
+import { lowData } from '../lib/prefs';
 import { say, stopVoice, speakingId, progress, voiceNA } from '../lib/voice';
 import { fmtCountdown, fmtCountdownWords } from '../lib/time';
 import { model, focusPlot } from '../sim/engine';
@@ -19,7 +19,7 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
         type="button"
         class={'pill pill-ghost voice-btn' + (active ? ' on' : '')}
         aria-pressed={active}
-        onClick={() => (active ? stopVoice() : say(id, text, lang.value, clip))}
+        onClick={() => (active ? stopVoice() : say(id, text, langReady.value, clip))}
       >
         <Icon name={active ? 'mute' : 'volume'} />
         {active ? tr('f.stop') : label ?? tr('f.read')}
@@ -32,7 +32,7 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
           return <span key={i} class={cur ? 'cur' : undefined}>{s}</span>;
         })}
       </p>
-      {voiceNA.value === lang.value && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
+      {voiceNA.value === langReady.value && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
     </div>
   );
 }
