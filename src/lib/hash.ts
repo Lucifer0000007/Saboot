@@ -105,4 +105,14 @@ export async function verifyChain<T>(chain: ChainLink<T>[]): Promise<LinkStatus[
   return out;
 }
 
+/**
+ * A check code a farmer can read aloud: eight digits in two groups ("4821 0937"), taken from the first 32 bits of a
+ * hash. Hex letters are hard to say in Hindi or Punjabi and easy to mishear on a phone line (audit F13). It only helps
+ * a person match two records by ear; the full hash is what proves anything.
+ */
+export function checkCode(hash: string) {
+  const s = String(parseInt(hash.slice(0, 8), 16) % 1e8).padStart(8, '0');
+  return s.slice(0, 4) + ' ' + s.slice(4);
+}
+
 export const short = (h: string | undefined, n = 10) => (h ? h.slice(0, n) + '…' : '—');

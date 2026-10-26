@@ -499,7 +499,8 @@ const pa: Record<string, string | string[]> = {
   'fl.s1.pmfby': 'Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ Crop Insurance App ਖੋਲ੍ਹੋ।', // needs-native-review {{TRANSLATE}}: official names kept in English
   'fl.s2': 'ਆਪਣਾ ਖੇਤ ਨੰਬਰ ਦੱਸੋ ਅਤੇ ਇਸ ਸਕ੍ਰੀਨ ਦਾ ਵੇਰਵਾ ਵਿਖਾਓ।', // needs-native-review
   'fl.s2.pmfby': 'ਕਹੋ: ਹੜ੍ਹ ਨਾਲ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ। ਆਪਣਾ ਪਾਲਿਸੀ ਨੰਬਰ ਅਤੇ ਖੇਤ ਨੰਬਰ ਦੱਸੋ।', // needs-native-review
-  'fl.s3': 'ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣੇ ਸਬੂਤ ਦਾ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ।', // needs-native-review
+  'fl.s3': 'ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣਾ ਜਾਂਚ ਕੋਡ (8 ਅੰਕ) ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ।', // needs-native-review
+  'fl.check': 'ਜਾਂਚ ਕੋਡ', // needs-native-review
   'fl.s4': 'ਤੁਹਾਨੂੰ ਜੋ ਵੀ ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ ਮਿਲੇ, ਉਹ ਲਿਖ ਲਓ।', // needs-native-review
   'fl.s4.pmfby': 'ਉਹ ਜੋ ਹਵਾਲਾ ਨੰਬਰ ਦੇਣ, ਉਸ ਨੂੰ ਲਿਖ ਲਓ।', // needs-native-review
   'fl.ref': 'ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ', // needs-native-review

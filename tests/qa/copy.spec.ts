@@ -47,3 +47,16 @@ test('the Proof screen names the plot in words, keeps coordinates and the data f
   await expect(page.locator('.share-sheet [data-export-bundle]')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('the farmer reads out an 8-digit check code, and the officer drawer shows the same code', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3); s.tab('farmer'); s.screen('file');`);
+  const row = page.locator('.summary .facts div', { hasText: 'Check code' }).locator('dd');
+  await expect(row).toHaveText(/^\d{4} \d{4}$/);
+  const code = (await row.textContent())!;
+  await expect(page.locator('.howto')).toContainText('read out your check code');
+  await sab(page, `s.tab('insurer'); s.plot('P-04');`);
+  await expect(page.locator('.drawer [data-check-code] strong')).toHaveText(code, { timeout: 20_000 });
+  expect(errors).toEqual([]);
+});

@@ -3,6 +3,7 @@ import { Icon, type IconName } from '../../ui/Icon';
 import { tr, trr } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { showToast } from '../../lib/announce';
+import { checkCode } from '../../lib/hash';
 import { focusPlot, focusDet, model } from '../../sim/engine';
 import { view, recordRef, policyNo } from '../focus';
 import { screen } from '../nav';
@@ -23,7 +24,7 @@ export function FileClaim() {
     [tr('fl.cause'), tr('fl.flood')],
     [tr('fl.event'), fmtClock(d.eventT!)],
     [trr('fl.deadline'), fmtClock(d.deadlineT!)],
-    [tr('pk.hash'), v.seal ? v.seal.packetHash.slice(0, 16) : '—'],
+    [tr('fl.check'), v.seal ? checkCode(v.seal.packetHash) : '—'],
   ];
   const text = `${m.raw.district}\n` + rows.map(([k, val]) => `${k}: ${val}`).join('\n') + '\n(SIMULATION · synthetic data)';
 

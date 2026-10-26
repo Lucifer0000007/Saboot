@@ -4,7 +4,7 @@ import { Sheet } from '../ui/Sheet';
 import { fmtClock, fmtDur, fmtT } from '../lib/time';
 const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 const fmtDurEn = (h: number) => fmtDur(h, true);
-import { sha256, short } from '../lib/hash';
+import { sha256, short, checkCode } from '../lib/hash';
 import { dbGet } from '../lib/db';
 import { openPlot } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
@@ -129,6 +129,8 @@ function Photos({ s }: { s: PlotState }) {
   }, [items]);
   if (!items.length) return <p class="muted">No photos received yet.</p>;
   return (
+    <>
+    {focus?.seal && <p class="muted" data-check-code>The farmer’s check code, from the sealed packet’s fingerprint: <strong class="num">{checkCode(focus.seal.packetHash)}</strong>. It helps match a phone call to this record; the fingerprint is the proof.</p>}
     <ul class="dphotos" role="list">
       {items.map((it) => (
         <li key={it.kind}>
@@ -141,6 +143,7 @@ function Photos({ s }: { s: PlotState }) {
         </li>
       ))}
     </ul>
+    </>
   );
 }
 
