@@ -8,6 +8,8 @@ import { Icon, type IconName } from '../ui/Icon';
 import { tr, trr, langReady } from '../lib/i18n';
 import { PMFBY } from '../config';
 import { SCENARIO } from '../generated/scenario-summary';
+import { ProvTag } from '../ui/ProvTag';
+import { simTab, insurerView } from '../site/layout';
 
 type NodeId = 'src' | 'det' | 'pl' | 'clk' | 'al' | 'cap' | 'pk' | 'ins' | 'tri' | 'fil' | 'aud';
 const GROUPS: { id: string; label: string; nodes: [NodeId, IconName][] }[] = [
@@ -87,6 +89,49 @@ function Architecture() {
   );
 }
 
+interface Counts { caught: number; missed: number; falseAlarms: number; correctRejections: number }
+interface Replay { id: string; source: string; sample: { points: number }; runs: Record<string, { events: Record<string, Counts> }> }
+
+/** Open the console's pilot metrics on the replay block (the console is a lazy chunk, so wait for the block to appear). */
+function openReplay() {
+  simTab.value = 'insurer';
+  insurerView.value = 'impact';
+  const t0 = Date.now();
+  const find = () => {
+    const el = document.querySelector('[data-replay]');
+    if (el) el.scrollIntoView({ block: 'start' });
+    else if (Date.now() - t0 < 8000) setTimeout(find, 200);
+  };
+  find();
+}
+
+/**
+ * The one result from real data, where a judge asks "is any of this real?" (audit J6): the replay of the rules over a real
+ * past flood. Every number is read from public/data/validation-status.json, the file the console's replay block reads; none
+ * is typed here. Labelled REPLAY and "not a validation". Nothing shows until the file says a replay is on record.
+ */
+function ReplayCard() {
+  const [r, setR] = useState<Replay | null>(null);
+  useEffect(() => {
+    fetch('data/validation-status.json').then((x) => (x.ok ? x.json() : null)).then((j) => j?.run && j.replay && setR(j.replay), () => {});
+  }, []);
+  const a = r?.runs.A?.events['R1-FLOOD'];
+  if (!r || !a) return null;
+  const flooded = a.caught + a.missed, dry = a.falseAlarms + a.correctRejections;
+  return (
+    <section aria-labelledby="rp-h" class="how-block card replay-card" data-replay-card>
+      <div class="row-between">
+        <h3 id="rp-h" class="h-sm">{tr('rp.h')}</h3>
+        <ProvTag prov="replay" />
+      </div>
+      <p>{tr('rp.b', { points: r.sample.points, flooded, dry })}</p>
+      <p class="rp-strip" data-rp-counts>{tr('rp.a', { caught: a.caught, flooded, fa: a.falseAlarms, dry })}</p>
+      <p class="muted">{tr('rp.not', { source: r.source })}</p>
+      <button type="button" class="link-arrow" data-rp-open onClick={openReplay}>{trr('rp.go')} <Icon name="arrow" size={16} /></button>
+    </section>
+  );
+}
+
 const STEPS: IconName[] = ['satellite', 'phone', 'camera', 'shield', 'file'];
 type Status = 'real' | 'sim' | 'mixed' | 'none';
 const REAL: [Status, number][] = [
@@ -119,6 +164,7 @@ export default function HowItWorks() {
         <p class="note note-plain"><Icon name="phone" /><span>{tr('how.local')}</span></p>
         <p class="note note-plain"><Icon name="map" /><span>{trr('how.model', { state: PMFBY.state })}</span></p>
       </div>
+      <ReplayCard />
       <section aria-labelledby="wf-h" class="how-block">
         <h3 id="wf-h" class="h-sm">{tr('wf.h')}</h3>
         <ol class="workflow" role="list">

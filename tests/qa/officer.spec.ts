@@ -1,6 +1,7 @@
 // The officer console on a phone and a laptop (audit workstream W4): the card tables, the one ranked worklist, the tamper
 // check, the imported packet's own record, objections, the deep link, the map's tap targets and the import sheet.
 import { test, expect, type Page } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { ALL_VIEWPORTS, open } from './harness';
 
 const V = (name: string) => ALL_VIEWPORTS.find((v) => v.name === name)!;
@@ -331,5 +332,27 @@ test('import sheet on a phone: phone wording for the camera, the paste box when 
   await p2.getByRole('button', { name: /Import evidence/ }).first().click();
   await expect(p2.locator('.import-sheet [data-scan-hint]')).toHaveText('Point this phone’s camera at the QR code on the farmer’s phone.');
   await ctx2.close();
+  expect(errors).toEqual([]);
+});
+
+test('the real-data replay is where a judge looks: a REPLAY card in How it works, with counts read from the published file, says it is not a validation, and opens the replay block in the console (J6)', async ({ page }) => {
+  const v = JSON.parse(readFileSync('public/data/validation-status.json', 'utf8'));
+  const a = v.replay.runs.A.events['R1-FLOOD'];
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await page.locator('#how').scrollIntoViewIfNeeded();
+  const card = page.locator('[data-replay-card]');
+  await expect(card).toBeVisible({ timeout: 20_000 });
+  await expect(card.locator('[data-prov=replay]')).toBeVisible();
+  await expect(card.locator('[data-rp-counts]')).toHaveText(`Rain alone flagged ${a.caught} of the ${a.caught + a.missed} flooded points, and ${a.falseAlarms} of the ${a.falseAlarms + a.correctRejections} dry ones.`);
+  await expect(card).toContainText(`${v.replay.sample.points} sample points`);
+  await expect(card).toContainText('This is not a validation');
+  await card.locator('[data-rp-open]').click();
+  await expect(page.locator('[data-replay]')).toBeInViewport({ timeout: 15_000 });
+  // translated, with the same numbers
+  await page.evaluate('window.__sab.lang("hi")');
+  await page.locator('#how').scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-replay-card] h3')).toHaveText('क्या इसमें कुछ असली है? एक पुरानी बाढ़, दोबारा चलाई गई', { timeout: 15_000 });
+  await expect(page.locator('[data-rp-counts]')).toContainText(String(a.caught));
   expect(errors).toEqual([]);
 });
