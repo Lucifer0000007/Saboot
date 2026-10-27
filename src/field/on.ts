@@ -15,6 +15,8 @@ function mark(on: boolean) {
 export function enterField() {
   fieldOn.value = true;
   mark(true);
+  // a sheet that just closed (the settings) steps the history back after this: mark that entry too, once
+  addEventListener('popstate', () => mark(fieldOn.value), { once: true });
   scrollTo(0, 0);
 }
 

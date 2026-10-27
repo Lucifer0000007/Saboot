@@ -9,10 +9,14 @@ import { Page } from './site/Page';
 import { installQaHooks } from './qa-hooks';
 import { showToast, updateReady } from './lib/announce';
 import { tr } from './lib/i18n';
+import { fieldOn } from './field/on';
 
 // index.html already holds the prerendered shell; render() adopts those DOM nodes (no flash, no shift). This module
 // is evaluated after the first paint (scripts/postbuild.mjs), so hydration never holds that paint back.
-render(<Page />, document.getElementById('app')!);
+const app = document.getElementById('app')!;
+// field mode does not reuse the prerendered simulation shell: render() would keep its banner and footer around
+if (fieldOn.value) app.textContent = '';
+render(<Page />, app);
 // The inline boot script in index.html (scripts/postbuild.mjs) watches for a start that never comes; this tells it to stand down.
 document.documentElement.dataset.booted = '1';
 try { sessionStorage.removeItem('saboot.bootRetry'); } catch { /* storage unavailable */ }
