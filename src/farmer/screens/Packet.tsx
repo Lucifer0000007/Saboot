@@ -23,7 +23,7 @@ function ShareCard() {
   return (
     <section class="share-card" aria-labelledby="share-h" data-tour="share">
       <h3 id="share-h"><Icon name="qr" /> {tr('k.title')}</h3>
-      <p class="f-help">{tr('k.body')}</p>
+      <p class="f-help">{activePlotId.value !== null ? tr('hm.kBody', { farmer: nm(focusPlot.value!.name) }) : tr('k.body')}</p>
       <button type="button" class="pill pill-ghost" onClick={() => setOpen(true)}><Icon name="qr" /> {tr('k.btn')}</button>
       {open && <ShareSheet onClose={() => setOpen(false)} />}
     </section>

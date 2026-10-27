@@ -468,3 +468,11 @@ test('HM-6: the per-farmer data section in Settings names the farmer in the page
   await expect(sec).not.toContainText('Mohinder');
   expect(errors).toEqual([]);
 });
+
+test('HM-7: on a helper’s Proof screen the share card names whose proof the code is', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.seek(60); s.active('P-05'); s.tab('farmer'); s.screen('packet');`);
+  await expect(page.locator('.share-card .f-help')).toHaveText(/^Mohinder Dhillon’s proof as a code/);
+  expect(errors).toEqual([]);
+});

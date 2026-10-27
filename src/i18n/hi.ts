@@ -669,6 +669,7 @@ const hi: Record<string, string | string[]> = {
   'hm.endNo': 'काम जारी रखें', // needs-native-review
   'hm.seal': '{farmer} का सबूत सील करें', // needs-native-review
   'hm.pkTitle': '{farmer} का सबूत', // needs-native-review
+  'hm.kBody': '{farmer} का सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
   'hm.flTitle': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
   'hm.flTitle.pmfby': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
   'hm.noDamageDone': '{farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए।', // needs-native-review

@@ -687,6 +687,7 @@ const en: Record<string, string | string[]> = {
   'hm.endNo': 'Keep working',
   'hm.seal': 'Seal {farmer}’s evidence',
   'hm.pkTitle': '{farmer}’s evidence',
+  'hm.kBody': '{farmer}’s proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone.',
   'hm.flTitle': 'Report {farmer}’s loss',
   'hm.flTitle.pmfby': 'Report {farmer}’s loss',
   'hm.noDamageDone': 'Recorded for {farmer}: no damage. Nothing more is needed.',

@@ -669,6 +669,7 @@ const pa: Record<string, string | string[]> = {
   'hm.endNo': 'ਕੰਮ ਜਾਰੀ ਰੱਖੋ', // needs-native-review
   'hm.seal': '{farmer} ਦਾ ਸਬੂਤ ਸੀਲ ਕਰੋ', // needs-native-review
   'hm.pkTitle': '{farmer} ਦਾ ਸਬੂਤ', // needs-native-review
+  'hm.kBody': '{farmer} ਦਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ।', // needs-native-review
   'hm.flTitle': '{farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'hm.flTitle.pmfby': '{farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ', // needs-native-review
   'hm.noDamageDone': '{farmer} ਲਈ ਦਰਜ ਕੀਤਾ ਗਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ।', // needs-native-review
