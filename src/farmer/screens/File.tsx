@@ -5,7 +5,7 @@ import { fmtClock } from '../../lib/time';
 import { showToast } from '../../lib/announce';
 import { checkCode } from '../../lib/hash';
 import { focusPlot, focusDet, model, activePlotId } from '../../sim/engine';
-import { view, recordRef, policyNo } from '../focus';
+import { view, recordRef, policyNo, ConsentMissing } from '../focus';
 import { screen } from '../nav';
 import { cropName } from '../parts';
 import { nm } from '../../lib/names';
@@ -73,7 +73,12 @@ export function FileClaim() {
     const clean = ref.trim();
     if (!/^[A-Za-z0-9/-]{4,32}$/.test(clean)) { setErr(tr('fl.bad')); return; }
     setErr(null);
-    await recordRef(clean);
+    try {
+      await recordRef(clean);
+    } catch (e) {
+      if (e instanceof ConsentMissing) { setErr(tr('cap.needConsent', { farmer: nm(p.name) })); return; }
+      throw e;
+    }
     showToast(tr('fl.saved', { ref: clean.toUpperCase() }), 'ok');
     screen.value = 'status';
   }

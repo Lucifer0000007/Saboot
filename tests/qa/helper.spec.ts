@@ -444,3 +444,17 @@ test.describe('FARM-03 / HM-3 on a touch phone', () => {
     expect(errors).toEqual([]);
   });
 });
+
+test('HM-1: a filing reference is refused for a farmer who has not agreed, and nothing is written to their log', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await startSession(page);
+  await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+  await sab(page, `s.screen('file');`);
+  await page.locator('.farmer input.input').fill('KR-2026-55821');
+  await page.locator('.farmer button[type=submit]').click();
+  await expect(page.locator('.farmer .note-bad')).toContainText('Mohinder Dhillon has not agreed yet');
+  expect((await logs(page))['P-05']?.events ?? 0).toBe(0);
+  expect(errors).toEqual([]);
+});

@@ -8,7 +8,7 @@ import { rawScenario, seek, activePlotId } from '../../src/sim/engine.ts';
 import { network } from '../../src/lib/prefs.ts';
 import { dbClear } from '../../src/lib/db.ts';
 import { appendLink } from '../../src/lib/hash.ts';
-import { logs, addShot, seal, recordConsent, reportNoDamage, type FocusEvent, type Link } from '../../src/farmer/focus.ts';
+import { logs, addShot, seal, recordConsent, reportNoDamage, recordRef, type FocusEvent, type Link } from '../../src/farmer/focus.ts';
 import type { ScenarioRaw } from '../../src/sim/types.ts';
 
 rawScenario.value = JSON.parse(readFileSync(new URL('../../public/data/flood-replay.json', import.meta.url), 'utf8')) as ScenarioRaw;
@@ -87,4 +87,12 @@ test('a photo lands in the log of the farmer whose consent was checked, even if 
   await saving;
   assert.deepEqual(types('P-05'), ['consent', 'shot']);
   assert.deepEqual(types('P-09'), ['consent']);
+});
+
+test('HM-1: a filing reference is refused for a farmer who has not agreed, and recorded once they have', async () => {
+  await assert.rejects(recordRef('KR-2026-55821'), { name: 'ConsentMissing' });
+  assert.deepEqual(types('P-05'), []);
+  await agree('Test Farmer');
+  await recordRef('KR-2026-55821');
+  assert.deepEqual(types('P-05'), ['consent', 'ref']);
 });

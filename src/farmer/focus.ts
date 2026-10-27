@@ -523,7 +523,12 @@ export async function syncOutbox() {
   }
 }
 
-export const recordRef = (ref: string) => append({ type: 'ref', simT: t.value, data: { ref: ref.trim().toUpperCase() } });
+/** A helper records a filing reference for a farmer only once that farmer has agreed, as for photos (HM-1). */
+export async function recordRef(ref: string) {
+  const key = activeKey.value;
+  await requireConsent(key);
+  return append({ type: 'ref', simT: t.value, data: { ref: ref.trim().toUpperCase() } }, key);
+}
 /** A helper records "no damage" for a farmer only once that farmer has agreed, as for photos (audit CC-02). */
 export async function reportNoDamage(undo = false) {
   const key = activeKey.value;
