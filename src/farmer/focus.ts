@@ -569,6 +569,9 @@ async function catchUp(stage: 'captured' | 'sealed' | 'filed') {
   if (!loaded) await loadFocus();
   const d = focusDet.value;
   if (!d || d.alertT === null) return;
+  // another tab may have sealed since this one loaded: decide from the newest log, so no photo is tried after that seal
+  const key = activeKey.value, newest = await currentLog(key);
+  if (newest.length > chain.value.length) logs.value = { ...logs.value, [key]: newest };
   const back = t.value;
   // Run scripted actions at their scripted time (never before the user's own last action).
   const at = async (offset: number, fn: () => Promise<unknown>) => {
