@@ -1,0 +1,14 @@
+/* Field mode (lazy chunk). Built from the shared tokens and classes; only what they do not already cover. */
+.fd { padding-block: 16px 48px; }
+.fd-strip { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--kali); color: var(--paper); }
+.fd-strip p { display: flex; gap: 8px; align-items: flex-start; margin: 0; }
+.fd-strip .pill { background: var(--paper); color: var(--kali); }
+.fd-consent { margin: 0; padding: 12px 14px; border-inline-start: 4px solid var(--rule-strong); font-size: 1.05rem; }
+.fd-shots { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.fd-shot { display: flex; gap: 12px; align-items: flex-start; }
+.fd-shot .thumb { flex: none; width: 96px; height: 72px; object-fit: cover; border-radius: 8px; display: grid; place-items: center; }
+.fd-row { display: block; width: 100%; text-align: start; }
+.fd-back { align-self: flex-start; }
+.fd .qr { max-width: 100%; height: auto; }
+.fd ul { padding: 0; list-style: none; }
+.fd textarea, .fd input, .fd select { max-width: 100%; }

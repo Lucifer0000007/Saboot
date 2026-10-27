@@ -19,9 +19,11 @@ import { readDeepLink, scrollToId, scrollToPhone, scrollToPanel, simTab, insurer
 import { rail, cadence, receiver } from '../lib/prefs';
 import { watchPlaces } from './trail';
 import { readResume, saveResume } from './resume';
+import { fieldOn } from '../field/on';
 
 const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
+const FieldMode = lazy(() => import('../field/FieldMode'), 640);
 
 function SimPlaceholder() {
   return (
@@ -63,6 +65,8 @@ let deepLinked = false;
 let seenK: string | undefined;
 async function applyDeepLink() {
   if (deepLinked || !model.value) return;
+  // field mode has no replay, no resume and no demo import: a #k= link there is read by the field screens
+  if (fieldOn.value) { deepLinkDone.value = true; return; }
   deepLinked = true;
   try {
     // the stored log must be in memory before a moment jump decides what the farmer is still missing
@@ -124,7 +128,7 @@ export function Page({ ssr }: { ssr?: boolean }) {
     const onHash = () => {
       const d = readDeepLink();
       // Back to the entry the link opened on brings its #k= back: that code was imported already
-      if (d.k && d.k !== seenK) {
+      if (d.k && d.k !== seenK && !fieldOn.value) {
         seenK = d.k;
         simTab.value = 'insurer';
         importCode.value = d.k;
@@ -142,16 +146,22 @@ export function Page({ ssr }: { ssr?: boolean }) {
   return (
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{tr('skip.main')}</a>
-      <Announcement />
-      <Nav />
-      <main id="main" tabIndex={-1}>
-        <Hero />
-        <Problem />
-        {ssr ? <SimPlaceholder /> : <Simulation />}
-        <HowSection ssr={ssr} />
-        <Limits />
-      </main>
-      <Footer />
+      {!ssr && fieldOn.value ? (
+        <main id="main" tabIndex={-1}><FieldMode /></main>
+      ) : (
+        <>
+          <Announcement />
+          <Nav />
+          <main id="main" tabIndex={-1}>
+            <Hero />
+            <Problem />
+            {ssr ? <SimPlaceholder /> : <Simulation />}
+            <HowSection ssr={ssr} />
+            <Limits />
+          </main>
+          <Footer />
+        </>
+      )}
       {!ssr && (
         <>
           <Settings />

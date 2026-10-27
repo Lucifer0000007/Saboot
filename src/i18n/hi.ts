@@ -735,5 +735,74 @@ const hi: Record<string, string | string[]> = {
   'set.farmerDeleteAsk': 'इस फ़ोन से {farmer} की फ़ोटो, सहमति और सील किया गया पैकेट मिटाएँ? दूसरे किसानों का डेटा रहेगा। इसे वापस नहीं किया जा सकता।', // needs-native-review
   'set.farmerKeep': 'रहने दें', // needs-native-review
   'set.farmerDeleted': '{farmer} का डेटा इस फ़ोन से मिटा दिया गया।', // needs-native-review
+  // field mode (src/field/FieldMode.tsx)
+  'fd.title': 'फ़ील्ड मोड', // needs-native-review
+  'fd.enter': 'असल में इस्तेमाल करें (फ़ील्ड मोड)', // needs-native-review
+  'fd.enterHelp': 'असली किसान के लिए, इस फ़ोन पर असली फ़ोटो। सिमुलेशन जैसा है वैसा रहता है।', // needs-native-review
+  'fd.strip': 'फ़ील्ड मोड: इस फ़ोन पर असली फ़ोटो। जब तक आप कोड साझा नहीं करते, कुछ नहीं भेजा जाता। Saboot कुछ तय नहीं करता।', // needs-native-review
+  'fd.leave': 'फ़ील्ड मोड छोड़ें', // needs-native-review
+  'fd.stay': 'यहाँ सब कुछ सिर्फ़ इस फ़ोन पर, इस ब्राउज़र के स्टोरेज में रखा जाता है। ब्राउज़र का डेटा साफ़ करने से यह मिट जाता है।', // needs-native-review
+  'fd.tabFarmer': 'फ़ोटो लें', // needs-native-review
+  'fd.tabOfficer': 'मिले हुए सबूत', // needs-native-review
+  'fd.new': 'नया किसान', // needs-native-review
+  'fd.records': 'इस फ़ोन पर किसान', // needs-native-review
+  'fd.name': 'किसान का नाम', // needs-native-review
+  'fd.village': 'गाँव', // needs-native-review
+  'fd.khasra': 'खेत / खसरा नंबर', // needs-native-review
+  'fd.crop': 'फ़सल', // needs-native-review
+  'fd.lang': 'किसान की भाषा', // needs-native-review
+  'fd.by': 'फ़ोटो लेने वाला (आपका नाम)', // needs-native-review
+  'fd.byShort': '{who} ने इस फ़ोन पर लिखा।', // needs-native-review
+  'fd.save': 'किसान सहेजें', // needs-native-review
+  'fd.need': 'हर खाना भरें।', // needs-native-review
+  'fd.consentTitle': '{farmer} की सहमति', // needs-native-review
+  'fd.consentIntro': '{farmer} को उनकी भाषा में यह पढ़कर सुनाएँ। {farmer} के सहमत होने तक कोई फ़ोटो नहीं ली जा सकती।', // needs-native-review
+  'fd.agree': '{farmer} सहमत हैं', // needs-native-review
+  'fd.consented': 'सहमति {time} पर दर्ज हुई', // needs-native-review
+  'fd.clock': 'घड़ी अभी शुरू करें', // needs-native-review
+  'fd.clockHelp': 'इस रिकॉर्ड की घड़ी इस फ़ोन के समय से शुरू करता है। फ़ोटो का समय इसी से गिना जाता है।', // needs-native-review
+  'fd.clockAt': 'घड़ी {time} पर शुरू हुई', // needs-native-review
+  'fd.photos': 'फ़ोटो', // needs-native-review
+  'fd.take': 'कैमरा खोलें', // needs-native-review
+  'fd.file': 'फ़ोन का कैमरा ऐप', // needs-native-review
+  'fd.noCam': 'कैमरा यहाँ नहीं खुला। इसकी जगह “फ़ोन का कैमरा ऐप” इस्तेमाल करें।', // needs-native-review
+  'fd.saving': 'फ़ोटो सहेजी जा रही है…', // needs-native-review
+  'fd.saveFail': 'फ़ोटो इस फ़ोन पर सहेजी नहीं जा सकी।', // needs-native-review
+  'fd.photoAt': '{time} पर ली गई', // needs-native-review
+  'fd.noLoc': 'कोई लोकेशन नहीं', // needs-native-review
+  'fd.gps': 'GPS ±{m} मी', // needs-native-review
+  'fd.seal': '{farmer} के सबूत सील करें', // needs-native-review
+  'fd.sealNeed': 'पहले सहमति, घड़ी और कम से कम एक फ़ोटो चाहिए।', // needs-native-review
+  'fd.sealed': '{time} पर सील हुआ। इस रिकॉर्ड में ये फ़ोटो अब नहीं बदल सकतीं।', // needs-native-review
+  'fd.sealFail': 'सील नहीं हो सका। साइन करने के लिए यह पेज https या localhost पर खुला होना चाहिए।', // needs-native-review
+  'fd.isSealed': 'सील हुआ', // needs-native-review
+  'fd.notSealed': 'अभी सील नहीं', // needs-native-review
+  'fd.share': 'सबूत साझा करें', // needs-native-review
+  'fd.shareLead': 'यह QR कोड अधिकारी को दिखाएँ, या कोड या लिंक भेजें। सिर्फ़ कोड इस फ़ोन से जाता है, और तभी जब आप उसे साझा करें। फ़ोटो यहीं रहती हैं।', // needs-native-review
+  'fd.copyCode': 'कोड कॉपी करें', // needs-native-review
+  'fd.copyLink': 'लिंक कॉपी करें', // needs-native-review
+  'fd.copied': 'कॉपी हो गया', // needs-native-review
+  'fd.copyFail': 'यहाँ कॉपी करना रुका हुआ है। कोड बॉक्स में चुना हुआ है: इसे ख़ुद कॉपी करें।', // needs-native-review
+  'fd.codeBox': 'सबूत कोड', // needs-native-review
+  'fd.qr': 'सबूत कोड का QR कोड', // needs-native-review
+  'fd.recv.lead': 'किसानों के फ़ोन से मिले कोड। हर कोड यहीं, इस फ़ोन पर जाँचा जाता है। किसान का नाम और गाँव कोड में नहीं हैं: वे किसान के फ़ोन पर रहते हैं।', // needs-native-review
+  'fd.recv.paste': 'कोड या लिंक चिपकाएँ', // needs-native-review
+  'fd.recv.check': 'जाँचें और जोड़ें', // needs-native-review
+  'fd.recv.scan': 'QR स्कैन करें', // needs-native-review
+  'fd.recv.stopScan': 'स्कैन बंद करें', // needs-native-review
+  'fd.recv.none': 'अभी कुछ नहीं मिला।', // needs-native-review
+  'fd.recv.ok': 'सील होने के बाद से नहीं बदला', // needs-native-review
+  'fd.recv.bad': 'सील होने के बाद बदला गया, या Saboot कोड नहीं है। इस कॉपी पर भरोसा न करें।', // needs-native-review
+  'fd.recv.at': '{time} पर मिला (इस फ़ोन की घड़ी)', // needs-native-review
+  'fd.recv.sealAt': '{time} पर सील हुआ (किसान के फ़ोन की घड़ी)', // needs-native-review
+  'fd.recv.clock': 'फ़ोटो का समय हाथ से शुरू की गई घड़ी से गिना गया', // needs-native-review
+  'fd.recv.after': 'घड़ी शुरू होने के {h} घंटे बाद', // needs-native-review
+  'fd.recv.photos': '{n} फ़ोटो', // needs-native-review
+  'fd.recv.noProof': 'इससे सिर्फ़ यह पता चलता है कि कोड बदला नहीं गया। यह साबित नहीं करता कि किसने सील किया या फ़ोटो में क्या है। Saboot कुछ तय नहीं करता।', // needs-native-review
+  'fd.got.ok': 'जाँचा और जोड़ा: सील होने के बाद से नहीं बदला।', // needs-native-review
+  'fd.got.dup': 'यह कोड पहले से सूची में है।', // needs-native-review
+  'fd.got.bad': 'सील होने के बाद बदला गया, या Saboot कोड नहीं है। इसे जोड़ा नहीं गया।', // needs-native-review
+  'fd.got.sim': 'यह कोड डेमो का है, असली फ़ोटो का नहीं। फ़ील्ड मोड सिर्फ़ असली फ़ोटो रखता है, इसलिए इसे जोड़ा नहीं गया।', // needs-native-review
+  'fd.got.crypto': 'यह पेज यहाँ हस्ताक्षर नहीं जाँच सकता। इसे https या localhost पर खोलें।', // needs-native-review
 };
 export default hi;

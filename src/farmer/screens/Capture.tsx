@@ -25,7 +25,7 @@ export function Thumb({ id, alt }: { id: string; alt: string }) {
   return url ? <img class="thumb" src={url} alt={alt} width="96" height="72" decoding="async" /> : <div class="thumb thumb-ph" aria-hidden="true" />;
 }
 
-function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, h: number) => void; onFail: () => void; onClose: () => void }) {
+export function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, h: number) => void; onFail: () => void; onClose: () => void }) {
   const vid = useRef<HTMLVideoElement>(null);
   const shutter = useRef<HTMLButtonElement>(null);
   useEffect(() => onBack(onClose), []);

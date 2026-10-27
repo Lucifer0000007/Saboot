@@ -13,6 +13,7 @@ import { activePlotId, focusPlot } from '../sim/engine';
 import { download } from '../lib/download';
 import { showToast } from '../lib/announce';
 import { buildLabel } from '../lib/build';
+import { enterField } from '../field/on';
 
 function Toggle({ sig, label, help, icon, onChange }: { sig: Signal<boolean>; label: string; help?: string; icon: IconName; onChange?: (v: boolean) => void }) {
   return (
@@ -137,6 +138,13 @@ export function Settings() {
       <Toggle sig={highContrast} label={tr('set.contrast')} icon="eye" />
       {activePlotId.value !== null && focusPlot.value && <FarmerData id={activePlotId.value} name={focusPlot.value.name} />}
       <YourData />
+      <fieldset class="set-group" data-field-entry>
+        <legend><Icon name="camera" /> {tr('fd.title')}</legend>
+        <p class="f-help">{tr('fd.enterHelp')}</p>
+        <button type="button" class="pill pill-dark pill-block" data-enter-field onClick={() => { settingsOpen.value = false; enterField(); }}>
+          <Icon name="camera" /> {tr('fd.enter')}
+        </button>
+      </fieldset>
       <p class="small muted set-build">{tr('foot.build', { b: buildLabel() })}</p>
       <button type="button" class="pill pill-dark pill-block" onClick={() => (settingsOpen.value = false)}>{tr('set.close')}</button>
     </Sheet>
