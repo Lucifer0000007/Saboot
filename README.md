@@ -307,14 +307,14 @@ Playwright + axe QA matrix, and Lighthouse.
 
 | Budget | Limit | Measured |
 |---|---|---|
-| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 101.1 KB |
-| Whole site excluding audio, gzip | ≤ 700 KB | 478.1 KB |
+| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 113.8 KB |
+| Whole site excluding audio, gzip | ≤ 700 KB | 528.1 KB |
 | Largest lazy chunk, gzip | ≤ 60 KB | 45.3 KB (jsQR, only on laptops without `BarcodeDetector`) |
 | Scenario data | ≤ 40 KB | 25.3 KB raw |
-| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 to 98 / 100 / 100 on all three pages |
-| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 / 2.1 to 2.5 s on the landing and alert pages; 2.4 to 3.2 s on `?tab=insurer`, depending on machine load (the same reading with and without the newest landing section) |
-| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 to 200 ms run to run on this machine (the previous build reads the same spread) |
-| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (619 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 249 unit tests; 46 Firefox and WebKit smoke tests |
+| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 96 to 98 / 100 / 100 on all three pages (three runs) |
+| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 (0.019 on `?tab=insurer`) / 2.76 to 2.88 s on all three pages, three runs; the `pre-field-mode` build reads 3.06 to 3.49 s on the same machine |
+| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | **Fails**: 288 to 312 ms on this machine (256 to 264 ms at `pre-field-mode` and the commit before it) |
+| QA captures (states × viewports × languages + extra runs) | 0 problems | 563 captures, 0 problems; 712 of 715 Playwright tests pass (24 in the dark theme), 2 fail (the R2 reading-position reload and the R4 dropped-chunk reload, both failing since `pre-field-mode`) and 1 did not run (the INP test above, which fails when run on its own); 280 unit tests; 46 Firefox and WebKit smoke tests |
 
 QA matrix: 20 states × 7 viewports (360×640 to 1440×900) × English/Hindi/Punjabi, plus pseudo-localisation (+40%), 200% text,
 the in-app 150% text on a 360 px phone, reflow at 320 px, reduced motion, anchors under sticky chrome, offline after first

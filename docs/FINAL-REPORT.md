@@ -9,10 +9,12 @@ The branch turns a simulation into a prototype that touches reality in three pla
 photos sealed on a real phone and checked on a laptop with no server; a real past flood run offline through two of the
 rules, shown as raw counts under a REPLAY label; and a label on every value saying whether it is live, replayed, simulated or
 typed by hand. Along the way the audit found 80 problems; every blocker and every major one on the demo path is fixed, each
-with a test that was red before the fix. The quick gate (`npm run verify -- --quick`), the full QA matrix and Lighthouse
-pass: 619 Playwright tests (24 of them in the dark theme), 564 captures, 249 unit tests, 46 Firefox and WebKit smoke tests, Lighthouse 97 to 98 / 100 / 100 on all
-three pages with LCP 2.11 s. Since then: a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and seven real
-conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`).
+with a test that was red before the fix. Later work added a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and
+seven real conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`). At the code
+freeze: 712 of 715 Playwright tests pass (24 of them in the dark theme), 563 captures with 0 problems, 280 unit tests, 46
+Firefox and WebKit smoke tests, Lighthouse 96 to 98 / 100 / 100 on all three pages with LCP 2.11 s and interactive 2.76 to
+2.88 s. Not passing: two reload tests (R2 reading position, R4 dropped chunk), red since `pre-field-mode`, and INP at 288 to
+312 ms against a 200 ms limit.
 
 ## 2. The mistakes that mattered most, and what was done
 
