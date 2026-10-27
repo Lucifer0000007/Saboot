@@ -361,3 +361,28 @@ test('a helper cannot take photos for a farmer who has not agreed: the capture s
   await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
   expect(errors).toEqual([]);
 });
+
+/** On screen below every sticky bar (the site nav, and the farmer header while acting for a farmer) and above the dock.
+ * `whole: false`: only its top needs to be in that band (a tall row). */
+const onScreen = (l: ReturnType<Page['locator']>, whole = true) => l.evaluate((el, whole) => {
+  const r = el.getBoundingClientRect();
+  const top = Math.max(document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0, document.querySelector('.farmer.acting-for .f-top')?.getBoundingClientRect().bottom ?? 0);
+  const bottom = Math.min(innerHeight, document.querySelector('.ctrl-dock')?.getBoundingClientRect().top ?? innerHeight);
+  return r.top >= top - 1 && (whole ? r.bottom <= bottom + 1 : r.top < bottom);
+}, whole);
+
+async function startSession(page: Page) {
+  await sab(page, `s.seek(20); s.tab('farmer'); s.screen('home');`);
+  await page.locator('[data-helper-card]').getByRole('button', { name: /Open helper mode/ }).click();
+  await page.getByLabel('Your name').fill('Test Helper');
+  await page.getByRole('button', { name: /Start helper session/ }).click();
+  await expect(page.locator('ol.hq li')).toHaveCount(4);
+}
+
+test('HM-2: after Start helper session on a phone, the first farmer in the queue is on screen', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await startSession(page);
+  await expect.poll(() => onScreen(page.locator('ol.hq li').first(), false), { timeout: 5_000 }).toBe(true);
+  expect(errors).toEqual([]);
+});

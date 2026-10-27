@@ -9,6 +9,7 @@ import { helperSession, startHelperSession } from '../focus';
 import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, jumpToFirstAlert, type QueueState } from '../helper';
 import { cropName } from '../parts';
 import { nm } from '../../lib/names';
+import { scrollToPhone } from '../../site/layout';
 
 const FeaturePhone = lazy(() => import('../FeaturePhone'), 0);
 
@@ -30,6 +31,12 @@ function Start() {
     if (!name.trim()) { setErr(tr('hm.needName')); return; }
     setErr(null);
     await startHelperSession({ name: name.trim(), role: tr(role) });
+    // the short form became the long queue in place: bring the queue's top on screen, as a screen change does (HM-2)
+    requestAnimationFrame(() => {
+      scrollToPhone();
+      const h = document.querySelector<HTMLElement>('[data-helper-screen] h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    });
   }
   return (
     <form class="stack f-stack" onSubmit={go} noValidate>
