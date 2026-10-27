@@ -5,7 +5,7 @@ import { computed } from '@preact/signals';
 import { model, t, activePlotId, pause, seek } from '../sim/engine';
 import type { Plot } from '../sim/model';
 import { logs, reduce, recordConsent, ensureFocus, endHelperSession, startHelperSession, helperSession, keepActive, storedActive, type FocusView } from './focus';
-import { screen } from './nav';
+import { screen, type Screen } from './nav';
 
 /** The farmers in the helper's queue, in order. The scenario names them; the app never guesses. */
 export const helperPlots = computed(() => {
@@ -98,6 +98,13 @@ export function backToQueue() {
   activePlotId.value = null;
   screen.value = 'helper';
   void keepActive(null);
+}
+
+/** A reload comes back to this screen, and to this farmer if they are in the queue of a session still running (audit R2). */
+export function resumeAt(s: Screen | null, plot: string | null) {
+  if (plot !== null && !(helperSession.value && helperPlots.value.some((p) => p.id === plot))) return;
+  activePlotId.value = plot;
+  screen.value = s;
 }
 
 /**

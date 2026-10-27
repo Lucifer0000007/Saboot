@@ -4,10 +4,10 @@ import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
 import { liveMsg, toast, updateReady } from '../lib/announce';
 import { tr, langLoading } from '../lib/i18n';
-import { loadScenario, model, t } from '../sim/engine';
+import { loadScenario, model, t, seek } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
-import { resumeHelper } from '../farmer/helper';
+import { resumeHelper, resumeAt } from '../farmer/helper';
 import { Settings } from '../ui/Settings';
 import { ResetAsk } from '../ui/ControlBar';
 import { Presenter } from '../tour/Presenter';
@@ -18,6 +18,7 @@ import { Simulation, SimHead } from './Simulation';
 import { readDeepLink, scrollToId, scrollToPhone, scrollToPanel, simTab, insurerView, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
 import { watchPlaces } from './trail';
+import { readResume, saveResume } from './resume';
 
 const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
@@ -67,37 +68,47 @@ async function applyDeepLink() {
     // the stored log must be in memory before a moment jump decides what the farmer is still missing
     await loadFocus();
     const d = readDeepLink();
+    // a reload comes back to where the person was, not to where the link first took them (audit R2)
+    const r = readResume();
+    const at = r ? undefined : d.at;
     if (d.rail) rail.value = d.rail;
     if (d.cadence) cadence.value = d.cadence;
     if (d.receiver !== undefined) receiver.value = d.receiver;
-    if (d.tab) simTab.value = d.tab;
-    if (d.view) insurerView.value = d.view;
+    if (r) { simTab.value = r.tab; insurerView.value = r.view; }
+    else {
+      if (d.tab) simTab.value = d.tab;
+      if (d.view) insurerView.value = d.view;
+    }
     if (d.k) {
       simTab.value = 'insurer';
       importCode.value = d.k;
       seenK = d.k;
     }
-    if (d.at) {
+    if (at) {
       simTab.value = 'farmer';
-      await jumpTo(d.at as MomentId);
+      await jumpTo(at as MomentId);
     }
+    restoreClock();
+    if (r) { seek(r.t); resumeAt(r.s, r.plot); }
+    // a helper session still running comes back to its farmer; a moment link is the demo farmer's story (audit CC-01)
+    else if (!at) await resumeHelper();
     // the phone's position (and its main button above the dock) depends on the words and fonts of a saved Hindi or Punjabi
-    // choice still loading: wait for them before the scroll (audit F2, J12)
-    if (d.at) {
+    // choice still loading, and on the farmer screen a reload brought back: wait for them before the scroll (audit F2, J12)
+    const phone = !!at || (r?.sec === 'simulation' && r.tab === 'farmer');
+    if (phone || r) {
       for (let i = 0; langLoading.value && i < 100; i++) await new Promise((r) => setTimeout(r, 50));
       await new Promise((r) => requestAnimationFrame(r));
       await document.fonts?.ready;
-      requestAnimationFrame(() => scrollToPhone());
     }
+    const sec = r?.sec;
+    if (phone) requestAnimationFrame(() => scrollToPhone());
+    else if (r) { if (sec === 'simulation') requestAnimationFrame(() => scrollToPanel()); else if (sec) requestAnimationFrame(() => document.getElementById(sec)?.scrollIntoView({ block: 'start' })); }
     else if (d.tab && d.tab !== 'farmer') requestAnimationFrame(() => scrollToPanel());
     else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
-    restoreClock();
-    // a helper session still running comes back to its farmer; a moment link is the demo farmer's story (audit CC-01)
-    if (!d.at) await resumeHelper();
     // an officer link with no moment lands where the console has something to show, but only for a visitor whose replay
     // has not started: it never moves a clock that a stored log has already set (audit OF-07, J5)
-    if (d.tab === 'insurer' && !d.at && !d.k && t.value === 0) await jumpTo('deadline');
+    if (!r && d.tab === 'insurer' && !d.at && !d.k && t.value === 0) await jumpTo('deadline');
   } finally {
     deepLinkDone.value = true;
   }
@@ -120,7 +131,11 @@ export function Page({ ssr }: { ssr?: boolean }) {
       }
     };
     addEventListener('hashchange', onHash);
-    return () => removeEventListener('hashchange', onHash);
+    // where the person is, for a reload (audit R2): kept as the page is hidden, since a phone may drop it without unloading
+    const hide = () => { if (document.visibilityState === 'hidden') saveResume(); };
+    addEventListener('pagehide', saveResume);
+    document.addEventListener('visibilitychange', hide);
+    return () => { removeEventListener('hashchange', onHash); removeEventListener('pagehide', saveResume); document.removeEventListener('visibilitychange', hide); };
   }, []);
   useEffect(() => { void applyDeepLink(); }, [model.value]);
   useEffect(() => watchPlaces(), []);

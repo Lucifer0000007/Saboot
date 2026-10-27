@@ -157,3 +157,42 @@ test('a reload mid-capture, or the page opened again, returns to the helper’s 
   await expect(page.locator('[data-helper-bar]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test('a reload comes back to the officer’s tab, view, replay time and section, not to the farmer at the start (R2)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('draft'); s.tab('insurer'); s.insurer('draft');`);
+  await expect(page.locator('[data-view-bar] [aria-checked=true]')).toHaveText(/Draft list/, { timeout: 20_000 });
+  await page.locator('.draft').first().scrollIntoViewIfNeeded();
+  const t0 = await page.evaluate(() => (window.__sab.state() as { t: number }).t);
+  await page.reload();
+  await ready(page);
+  await expect(page.locator('[data-view-bar] [aria-checked=true]'), 'the officer view').toHaveText(/Draft list/, { timeout: 20_000 });
+  const t1 = await page.evaluate(() => (window.__sab.state() as { t: number }).t);
+  expect(Math.abs(t1 - t0), 'the replay time').toBeLessThan(0.02);
+  // the page comes back to the console, not to the top or to another section
+  await expect.poll(() => page.evaluate(() => { const r = document.getElementById('simulation')!.getBoundingClientRect(); return r.top < innerHeight / 3 && r.bottom > innerHeight / 3; }), { timeout: 5_000 }).toBe(true);
+  // a link opened afresh still lands where the link says
+  await page.goto('/?at=alert');
+  await ready(page);
+  await expect(page.locator('[data-tour=alert]')).toBeVisible({ timeout: 20_000 });
+  expect(errors).toEqual([]);
+});
+
+test('a reload comes back to the farmer screen and a reading position in another section (R2)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('capture'); s.tab('farmer');`);
+  await page.locator('.farmer .f-nav').getByRole('button', { name: 'Proof' }).click();
+  await page.reload();
+  await ready(page);
+  await expect(page.locator('.farmer .f-nav [aria-current=page]')).toHaveText('Proof', { timeout: 20_000 });
+  await expect.poll(() => page.evaluate(() => document.querySelector('[data-tour=phone]')!.getBoundingClientRect().top), { timeout: 5_000 }).toBeLessThan(200);
+  // reading Honest limits: a reload comes back there
+  await page.evaluate(() => document.getElementById('limits')!.scrollIntoView());
+  await page.waitForTimeout(300);
+  await page.reload();
+  await ready(page);
+  await expect.poll(() => page.evaluate(() => { const r = document.getElementById('limits')!.getBoundingClientRect(); return r.top < innerHeight / 3 && r.bottom > innerHeight / 3; }), { timeout: 5_000 }).toBe(true);
+  expect(errors).toEqual([]);
+});

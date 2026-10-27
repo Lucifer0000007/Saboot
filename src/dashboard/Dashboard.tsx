@@ -69,7 +69,8 @@ export default function Dashboard() {
   useEffect(() => {
     const el = bar.current, b = el?.querySelector<HTMLElement>('[aria-checked="true"]');
     if (el && b && (b.offsetLeft < el.scrollLeft || b.offsetLeft + b.offsetWidth > el.scrollLeft + el.clientWidth)) el.scrollLeft = b.offsetLeft - 4;
-  }, [view]);
+    // the bar is not drawn while an officer link is still loading (below): check again once it is
+  }, [view, deepLinkDone.value]);
   // the demo receiver's list, polled only when this laptop is the receiver (the preference is off by default). An effect,
   // not a mount-time check: on a laptop the console can mount before the deep link has set the preference.
   useEffect(() => {
