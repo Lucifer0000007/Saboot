@@ -112,6 +112,20 @@ test('settings opens field mode, and leaving it returns to the demo unchanged', 
   expect(errors).toEqual([]);
 });
 
+test('a page opened at ?mode=field leaves to a working demo', async ({ page }) => {
+  const errors = watch(page);
+  await page.goto('/?mode=field');
+  await expect(page.locator('[data-field-mode]')).toBeVisible({ timeout: 20_000 });
+  await page.locator('[data-leave-field]').click();
+  await expect(page.locator('[data-field-mode]')).toHaveCount(0);
+  await expect(page.locator('#hero-h')).toBeVisible();
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+  await page.evaluate(`(async () => { const s = window.__sab; await s.jump('alert'); s.tab('farmer'); s.screen('capture'); })()`);
+  await expect(page.locator('.farmer')).toContainText('Harjit Kaur', { timeout: 20_000 });
+  expect(errors).toEqual([]);
+});
+
 for (const scheme of ['light', 'dark'] as const) {
   test(`field mode capture screen renders at 360x640 (${scheme})`, async ({ page }) => {
     const errors = watch(page);
