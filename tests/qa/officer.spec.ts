@@ -107,6 +107,9 @@ test('one tamper check in the console: the real packet and the audit ledger in o
   await view.locator('[data-tc-packet] button', { hasText: 'Import evidence' }).click();
   await expect(page.locator('.import-sheet')).toBeVisible();
   await page.keyboard.press('Escape');
+  // the closed sheet hands its Back step back (history.go) a moment later: a new address typed in before that is cancelled
+  await expect(page.locator('.import-sheet')).toHaveCount(0);
+  await page.waitForTimeout(150);
   await page.goto('/?tab=ledger');
   await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
   await page.evaluate('window.__sab.ready()');

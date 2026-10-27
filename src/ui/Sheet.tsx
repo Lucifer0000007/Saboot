@@ -1,10 +1,11 @@
 // Overlay sheet: right-side drawer on desktop, full-height bottom sheet on mobile (CSS decides).
-// Focus-trapped, Esc closes, focus returns to the opener. One component for every dialog.
+// Focus-trapped, Esc and Android Back close it, focus returns to the opener. One component for every dialog.
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Icon } from './Icon';
 import { Portal } from './Portal';
 import { tr } from '../lib/i18n';
+import { onBack } from '../lib/back';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
@@ -47,6 +48,7 @@ export function Sheet({
   useEffect(() => {
     const top = () => closeRef.current();
     openSheets.push(top);
+    const release = onBack(top);
     const prev = document.activeElement as HTMLElement | null;
     const root = ref.current!;
     (root.querySelector<HTMLElement>('[autofocus]') ?? root.querySelector<HTMLElement>('.sheet-head button') ?? root).focus();
@@ -59,6 +61,7 @@ export function Sheet({
     return () => {
       const i = openSheets.indexOf(top);
       if (i >= 0) openSheets.splice(i, 1);
+      release();
       root.removeEventListener('keydown', onKey);
       // a sheet closed over another one leaves the page locked for the one still open (audit UI-08)
       if (!openSheets.length) document.documentElement.classList.remove('sheet-open');

@@ -15,6 +15,7 @@ import { jumpTo } from '../sim/moments';
 import { screen } from '../farmer/nav';
 import { ensureFocus, full } from '../farmer/focus';
 import { nm } from '../lib/names';
+import { onBack } from '../lib/back';
 
 interface Step {
   key: string;
@@ -137,6 +138,8 @@ export default function Tour() {
   const close = () => { tourStep.value = null; tourSeen.value = true; };
   const next = () => (i < STEPS.length - 1 ? (tourStep.value = i + 1) : close());
   const back = () => i > 0 && (tourStep.value = i - 1);
+  // Android Back closes the tour, as Skip does (a sheet or the camera opened over it closes first)
+  useEffect(() => onBack(() => { tourStep.value = null; tourSeen.value = true; }), []);
 
   // the spotlight scrolls only once the step's setup is done, or the setup's own scrolling would undo it
   const ready = useRef(-1);

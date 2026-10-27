@@ -16,6 +16,7 @@ import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
 import { readDeepLink, scrollToId, scrollToPhone, scrollToPanel, simTab, insurerView, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
+import { watchPlaces } from './trail';
 
 const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
@@ -56,6 +57,8 @@ function useNear(id: string) {
 }
 
 let deepLinked = false;
+/** The #k= code last opened, from the link or a hash change. */
+let seenK: string | undefined;
 async function applyDeepLink() {
   if (deepLinked || !model.value) return;
   deepLinked = true;
@@ -71,6 +74,7 @@ async function applyDeepLink() {
     if (d.k) {
       simTab.value = 'insurer';
       importCode.value = d.k;
+      seenK = d.k;
     }
     if (d.at) {
       simTab.value = 'farmer';
@@ -105,7 +109,9 @@ export function Page({ ssr }: { ssr?: boolean }) {
     // a link with #k= pasted into a tab that is already open (the page does not reload for a hash change)
     const onHash = () => {
       const d = readDeepLink();
-      if (d.k) {
+      // Back to the entry the link opened on brings its #k= back: that code was imported already
+      if (d.k && d.k !== seenK) {
+        seenK = d.k;
         simTab.value = 'insurer';
         importCode.value = d.k;
       }
@@ -114,6 +120,7 @@ export function Page({ ssr }: { ssr?: boolean }) {
     return () => removeEventListener('hashchange', onHash);
   }, []);
   useEffect(() => { void applyDeepLink(); }, [model.value]);
+  useEffect(() => watchPlaces(), []);
   return (
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{tr('skip.main')}</a>

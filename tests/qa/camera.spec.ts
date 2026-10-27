@@ -28,3 +28,17 @@ test('camera granted: a real camera frame and a real GPS fix become a hashed, ge
   await expect.poll(async () => (await state(page)).shots, { timeout: 20_000 }).toBe(1);
   expect(errors).toEqual([]);
 });
+
+test('Android Back closes the camera and leaves the farmer on the photo screen, nothing taken (R1, UI-03)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('capture');`);
+  await page.getByRole('button', { name: /Open camera/ }).click();
+  await expect(page.locator('.finder')).toBeVisible({ timeout: 15_000 });
+  await page.goBack();
+  await expect(page.locator('.finder')).toHaveCount(0);
+  await expect(page.locator('.farmer .f-nav [aria-current=page]')).toHaveText('Photos');
+  expect(page.url()).toMatch(/^http:\/\/localhost/);
+  expect((await state(page)).shots).toBe(0);
+  expect(errors).toEqual([]);
+});

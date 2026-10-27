@@ -12,6 +12,7 @@ import { screen } from '../nav';
 import { ShotPicto } from '../parts';
 import { Val } from '../../ui/ProvTag';
 import { nm } from '../../lib/names';
+import { onBack } from '../../lib/back';
 
 export function Thumb({ id, alt }: { id: string; alt: string }) {
   const [url, setUrl] = useState<string | null>(null);
@@ -27,6 +28,7 @@ export function Thumb({ id, alt }: { id: string; alt: string }) {
 function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, h: number) => void; onFail: () => void; onClose: () => void }) {
   const vid = useRef<HTMLVideoElement>(null);
   const shutter = useRef<HTMLButtonElement>(null);
+  useEffect(() => onBack(onClose), []);
   useEffect(() => {
     let stream: MediaStream | null = null;
     let alive = true;

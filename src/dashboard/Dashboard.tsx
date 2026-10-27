@@ -144,7 +144,7 @@ export default function Dashboard() {
       {(view === 'impact' || (view === 'draft' && relief)) && <Impact />}
       <PlotDrawer />
       <ImportedDrawer />
-      {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(null, '', location.pathname + location.search); }} />}
+      {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(history.state, '', location.pathname + location.search); }} />}
     </section>
   );
 }

@@ -7,6 +7,7 @@ import { tr, setLang, prefetchLang, LANGS, langReady, langLoading } from '../lib
 import { scrollToId, measureInto, type SectionId } from './layout';
 import { runSimulation } from './actions';
 import { startTour } from '../tour/state';
+import { onBack } from '../lib/back';
 
 const LINKS: [SectionId, string][] = [['problem', 'nav.problem'], ['simulation', 'nav.sim'], ['how', 'nav.how'], ['limits', 'nav.limits']];
 
@@ -25,8 +26,9 @@ function LangSwitch() {
     const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); box.current?.querySelector<HTMLElement>('.lang-btn')?.focus(); } };
     document.addEventListener('pointerdown', away);
     document.addEventListener('keydown', esc);
+    const release = onBack(() => setOpen(false));
     box.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus();
-    return () => { document.removeEventListener('pointerdown', away); document.removeEventListener('keydown', esc); };
+    return () => { document.removeEventListener('pointerdown', away); document.removeEventListener('keydown', esc); release(); };
   }, [open]);
   return (
     <div class="lang" ref={box}>
