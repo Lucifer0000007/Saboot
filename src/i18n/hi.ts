@@ -31,15 +31,14 @@ const hi: Record<string, string | string[]> = {
   'lang.name.hi': 'हिन्दी', // needs-native-review
   'lang.name.pa': 'पंजाबी', // needs-native-review
   'sim.tag': 'सिमुलेशन', // needs-native-review
-  'sim.tagShort': 'SIM', // needs-native-review
+  'sim.tagShort': 'सिम.', // needs-native-review
   'hero.eyebrow': 'आपदा में फ़सल-नुकसान के प्रमाण की परत', // needs-native-review
   'hero.h': 'घड़ी तूफ़ान के साथ शुरू होती है।', // needs-native-review
   'hero.l1': 'सबूत पंजीकृत खेतों पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रखता है, बाढ़ की आशंका होते ही प्रमाण की घड़ी शुरू करता है और किसान को उसकी भाषा में फ़ोन करता है।', // needs-native-review
   'hero.l2': 'यह ऑफ़लाइन भी चलने वाली फ़ोटो में मदद करता है और उन्हें इस तरह सील करता है कि कोई भी बदलाव दिख जाए। नुकसान का आकलन करने वाले अधिकारी को क्रमबद्ध, जाँचने लायक रिकॉर्ड मिलता है।', // needs-native-review
-  'hero.run': 'सिमुलेशन चलाएँ', // needs-native-review
-  'hero.how': 'यह कैसे काम करता है', // needs-native-review
+  'hero.run': 'ख़ुद चलाकर देखें', // needs-native-review
   'hero.clockLabel': 'चित्र: एक घड़ी, जो तूफ़ान के साथ गिनना शुरू करती है', // needs-native-review
-  'hero.clockCap': 'घटना के समय से गिनती, फ़ोन कॉल से नहीं', // needs-native-review
+  'hero.clockCap': 'उदाहरण: प्रमाण की घड़ी घटना के समय से चलती है, फ़ोन कॉल से नहीं', // needs-native-review
   'hero.labels': 'स्क्रीन पर हर आँकड़ा बताता है कि वह कहाँ से आया:', // needs-native-review
 
   'pb.eyebrow': 'समस्या', // needs-native-review
@@ -68,12 +67,14 @@ const hi: Record<string, string | string[]> = {
   'sim.tab.farmer': 'किसान', // needs-native-review
   'sim.tab.insurer': 'बीमा कंपनी', // needs-native-review
   'sim.tab.insurer.relief': 'अधिकारी', // needs-native-review
-  'sim.tab.ledger': 'लेजर', // needs-native-review
   'sim.tab.explainer': 'व्याख्या', // needs-native-review
   'sim.phoneCap': 'किसान का फ़ोन, आपके ब्राउज़र में सचमुच चल रहा है', // needs-native-review
   'sim.loading': 'बाढ़ का रीप्ले लोड हो रहा है…', // needs-native-review
   'sim.loadError': 'सिमुलेशन का डेटा लोड नहीं हुआ। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'sim.retry': 'फिर कोशिश करें', // needs-native-review
+  'boot.slow': 'सामान्य से ज़्यादा समय लग रहा है। अगर जल्दी कुछ न दिखे, तो अपना कनेक्शन जाँचें और पेज फिर से लोड करें।', // needs-native-review
+  'boot.failed': 'सिमुलेशन शुरू नहीं हो सका। अपना कनेक्शन जाँचें, फिर पेज फिर से लोड करें।', // needs-native-review
+  'boot.reload': 'फिर से लोड करें', // needs-native-review
   'lang.fail': '{lang} लोड नहीं हो सकी। अपना कनेक्शन देखें और फिर कोशिश करें।', // needs-native-review
   'app.offlineReady': 'ऑफ़लाइन चलने के लिए तैयार।', // needs-native-review
   'app.updated': 'सबूत का नया संस्करण तैयार है।', // needs-native-review
@@ -84,6 +85,9 @@ const hi: Record<string, string | string[]> = {
   'sim.consoleNote.relief': 'अधिकारी का कंसोल अंग्रेज़ी में दिखाया गया है।', // needs-native-review
   'tour.invite': 'पहली बार? 2 मिनट का जज टूर लें।', // needs-native-review
   'tour.start': 'टूर शुरू करें', // needs-native-review
+  'tour.hero': '2 मिनट का टूर लें', // needs-native-review
+  'tour.menu': 'गाइड वाला टूर, 2 मिनट', // needs-native-review
+  'tour.loading': 'टूर लोड हो रहा है…', // needs-native-review
   'tour.dismiss': 'हटाएँ', // needs-native-review
 
   'ctl.label': 'सिमुलेशन नियंत्रण', // needs-native-review
@@ -99,6 +103,7 @@ const hi: Record<string, string | string[]> = {
   'ctl.ask.keep': 'जो लिया गया है उसे रखें', // needs-native-review
   'ctl.ask.go': 'मिटाकर फिर से शुरू करें', // needs-native-review
   'ctl.more': 'और नियंत्रण', // needs-native-review
+  'ctl.moreShort': 'क्षण', // needs-native-review
   'ctl.moreTitle': 'रीप्ले नियंत्रण', // needs-native-review
   'ctl.net': 'फ़ोन नेटवर्क', // needs-native-review
   'net.online': 'ऑनलाइन', // needs-native-review
@@ -171,6 +176,9 @@ const hi: Record<string, string | string[]> = {
   'tour.next': 'आगे', // needs-native-review
   'tour.finish': 'समाप्त', // needs-native-review
   'tour.manual': 'आपका डिवाइस कम गति (रिड्यूस्ड मोशन) चाहता है, इसलिए टूर अपने आप आगे नहीं बढ़ेगा।', // needs-native-review
+  'tour.offline': 'ऑफ़लाइन करें', // needs-native-review
+  'tour.online': 'फिर ऑनलाइन करें', // needs-native-review
+  'tour.tamperTry': 'Tamper test चलाएँ', // needs-native-review
   'tour.s1.t': 'घड़ी तूफ़ान के साथ शुरू होती है', // needs-native-review
   'tour.s1.b': 'बाढ़ के बाद आकलन अक्सर तब होता है जब प्रमाण फीके पड़ चुके होते हैं। सबूत घटना के समय से घड़ी शुरू करता है, यानी जब पानी पहुँचता है तब से, न कि जब किसान को पता चलता है। यहाँ सब कुछ कृत्रिम डेटा वाला सिमुलेशन है।', // needs-native-review
   'tour.s1.b.pmfby': 'बाढ़ में फ़सल बीमा नुकसान की सूचना 72 घंटे के भीतर देनी होती है, जो पानी आने के समय से गिने जाते हैं, किसान को पता चलने से नहीं। सबूत यही दूरी पाटता है। यहाँ सब कुछ कृत्रिम डेटा वाला सिमुलेशन है।', // needs-native-review
@@ -180,10 +188,12 @@ const hi: Record<string, string | string[]> = {
   'tour.s3.b': '{name} को {language} में फ़ोन आता है, घटना शुरू होने के {focus} बाद, और जल्दी फ़ोटो लेने को कहा जाता है। इस रीप्ले में बीच के किसान (माध्यिका) को घटना के {median} बाद फ़ोन आता है; सबसे धीमे दसवें हिस्से को {p90} इंतज़ार करना पड़ता है, क्योंकि उनके खेत सिर्फ़ रडार को दिखते हैं। यह सलाह है, समय-सीमा नहीं।', // needs-native-review
   'tour.s3.b.pmfby': '{name} को {language} में फ़ोन आता है, घटना शुरू होने के {focus} बाद। उलटी गिनती पहले ही {left} दिखाती है, क्योंकि सबूत घटना के समय से गिनता है। इस रीप्ले में बीच के किसान (माध्यिका) को घटना के {median} बाद फ़ोन आता है; सबसे धीमे दसवें हिस्से को {p90} इंतज़ार करना पड़ता है।', // needs-native-review
   'tour.s4.t': 'तीन निर्देशित फ़ोटो, ऑफ़लाइन भी', // needs-native-review
-  'tour.s4.b': 'पूरा खेत, पास से, पहचान चिह्न। हर फ़ोटो को फ़ोन पर ही समय, जगह और SHA-256 फ़िंगरप्रिंट मिलता है। नेटवर्क को कमज़ोर या ऑफ़लाइन करें: चीज़ें कतार में रुकती हैं, और सिंक रिकॉर्ड फ़ोन का समय और सर्वर का समय दिखाता है।', // needs-native-review
+  'tour.s4.b': 'पूरा खेत, पास से, पहचान चिह्न। हर फ़ोटो को फ़ोन पर ही समय, जगह और SHA-256 फ़िंगरप्रिंट मिलता है। नीचे के बटन से ऑफ़लाइन करके देखें: चीज़ें कतार में रुकती हैं, और सिंक रिकॉर्ड फ़ोन का समय और सर्वर का समय दिखाता है।', // needs-native-review
   'tour.s5.t': 'हर बदलाव दिखाने वाला प्रमाण', // needs-native-review
   'tour.s5.b': 'हर कार्रवाई अपनी पिछली कार्रवाई से जुड़ी है। बाद में कुछ भी बदलें, समय भी, तो जाँच विफल हो जाती है। किसान सील किया हुआ प्रमाण अधिकारी को दिखाता है; सबूत न कुछ जमा करता है, न फ़ैसला करता है।', // needs-native-review
   'tour.s5.b.pmfby': 'हर कार्रवाई पिछली से जुड़ी होती है। बाद में कुछ भी बदलें, समय भी, तो जाँच विफल हो जाती है। किसान आधिकारिक माध्यम से दावा दर्ज करता है; सबूत न दर्ज करता है, न फ़ैसला करता है।', // needs-native-review
+  'tour.s5t.t': 'छेड़छाड़ जाँच: एक बदला हुआ रिकॉर्ड पूरी कड़ी तोड़ देता है', // needs-native-review
+  'tour.s5t.b': 'अधिकारी के कंसोल में हर घटना एक हैश-कड़ी में दर्ज है। “Tamper test” चलाएँ: एक रिकॉर्ड का समय बिना दोबारा हैश किए 6 घंटे पीछे कर दिया जाता है, और जाँच ठीक उसी रिकॉर्ड पर फ़ेल होती है। आगे बढ़ने पर टूर उसे वापस ठीक कर देता है।', // needs-native-review
   'tour.s6.t': 'क्रम में प्रमाण, फ़ैसले नहीं', // needs-native-review
   'tour.s6.b': 'अधिकारी को प्रमाण-स्तरों और उनकी अनिश्चितता के साथ क्रमबद्ध कार्य-सूची, समीक्षा के लिए मसौदा सूची और ऑडिट लेजर दिखता है। फ़ैसला सबूत के बाहर, किसी व्यक्ति द्वारा होता है।', // needs-native-review
   'tour.s6.b.pmfby': 'बीमा कंपनी और ज़िला अधिकारी अनिश्चितता के साथ प्रमाण-स्तर, निरीक्षण कतार और ऑडिट लेजर देखते हैं। फ़ैसला सबूत के बाहर, एक व्यक्ति करता है।', // needs-native-review
@@ -193,6 +203,12 @@ const hi: Record<string, string | string[]> = {
   'how.lead': 'समझदारी वाला हिस्सा सर्वर पर चलता है (यहाँ सिमुलेटेड)। किसान वाला हिस्सा फ़ोन पर चलता है और कमज़ोर या बिना सिग्नल के भी काम करता रहता है।', // needs-native-review
   'how.local': 'इस डेमो में सब कुछ आपके अपने फ़ोन या लैपटॉप पर चलता है। फ़ोटो और आपकी असली लोकेशन तब तक डिवाइस से बाहर नहीं जाती जब तक आप ख़ुद साझा न करें।', // needs-native-review
   'how.model': 'रीप्ले में एक काल्पनिक ज़िला और गढ़ी गई मानसूनी बाढ़ है। कोई असली जगह, व्यक्ति या रिकॉर्ड इसमें नहीं है।', // needs-native-review
+  'rp.h': 'क्या इसमें कुछ असली है? एक पुरानी बाढ़, दोबारा चलाई गई', // needs-native-review
+  'rp.b': 'काल्पनिक ज़िले से अलग, दो नियम, जैसे यह ऐप उन्हें चलाता है, एक असली बाढ़ के प्रकाशित नक़्शे के {points} नमूना बिंदुओं पर ऑफ़लाइन चलाए गए: {flooded} बाढ़ वाले हिस्से के अंदर, {dry} उसके बाहर।', // needs-native-review
+  'rp.a': 'सिर्फ़ बारिश के नियम ने {flooded} बाढ़ वाले बिंदुओं में से {caught} को, और {dry} सूखे बिंदुओं में से {fa} को चिह्नित किया।', // needs-native-review
+  'rp.not': 'यह सत्यापन नहीं है: एक ही बाढ़, नक़्शे से कहीं मोटे बारिश और नदी के आँकड़े, कोई किसान, खेत या दावा शामिल नहीं, और कोई अग्रिम समय नहीं। स्रोत: {source}।', // needs-native-review
+  'rp.go': 'हर गिनती, उसकी सीमाओं के साथ, अधिकारी कंसोल में देखें', // needs-native-review
+  'rp.go.pmfby': 'हर गिनती, उसकी सीमाओं के साथ, बीमा कंपनी के कंसोल में देखें', // needs-native-review
   'how.model.pmfby': 'रीप्ले में {state} का एक काल्पनिक ज़िला है, उस राज्य का जहाँ यह योजना चलती है, और गढ़ी गई मानसूनी बाढ़। कोई असली जगह, व्यक्ति या रिकॉर्ड इसमें नहीं है।', // needs-native-review
   'arch.server': 'सर्वर (सिमुलेटेड)', // needs-native-review
   'arch.phone': 'यह फ़ोन (असली, आपके ब्राउज़र में)', // needs-native-review
@@ -228,6 +244,7 @@ const hi: Record<string, string | string[]> = {
   'arch.caption': 'स्रोत सर्वर पर घटना पहचान, विश्वसनीयता स्कोर और प्रमाण की घड़ी को डेटा देते हैं। घड़ी फ़ोन पर किसान की चेतावनी, निर्देशित फ़ोटो और सील किए प्रमाण पैकेट को शुरू करती है। पैकेट अधिकारी कंसोल, आकलन कार्य-सूची, प्रमाण सौंपने और ऑडिट लेजर को डेटा देता है। इस श्रृंखला में सबूत कुछ भी तय नहीं करता।', // needs-native-review
   'arch.caption.pmfby': 'स्रोत सर्वर पर घटना पहचान, विश्वसनीयता स्कोर और 72 घंटे की घड़ी को डेटा देते हैं। घड़ी फ़ोन पर किसान की चेतावनी, निर्देशित फ़ोटो और सील किए प्रमाण पैकेट को शुरू करती है। पैकेट बीमा कंसोल, ज़िला प्राथमिकता, दावा दर्ज कराने और ऑडिट लेजर तक जाता है। इस पूरी कड़ी में सबूत कहीं भी दावे का फ़ैसला नहीं करता।', // needs-native-review
   'wf.h': 'पाँच कदम', // needs-native-review
+  'arch.h': 'क्या कहाँ चलता है: ढाँचा', // needs-native-review
   'wf.1.t': 'पहचान', // needs-native-review
   'wf.1.b': 'नियम हर पंजीकृत खेत पर बारिश, नदी, भू-भाग और रडार पर नज़र रखते हैं और संभावित बाढ़ को चिह्नित करते हैं।', // needs-native-review
   'wf.2.t': 'चेतावनी', // needs-native-review
@@ -241,6 +258,7 @@ const hi: Record<string, string | string[]> = {
   'wf.5.b': 'किसान सील किया हुआ प्रमाण अधिकारी को दिखाता है। सबूत ऑडिट रिकॉर्ड रखता है और अधिकारी की पुष्टि पर नज़र रखता है; फ़ैसला अधिकारी करता है, Saboot के बाहर।', // needs-native-review
   'wf.5.b.pmfby': 'जानकारी आधिकारिक माध्यम के लिए तैयार रहती है (भारत में, उदाहरण के लिए, Crop Insurance App, या Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, जो हेल्पलाइन और शिकायत का माध्यम है)। सबूत पुष्टि पर नज़र रखता है और देर होने पर शिकायत आगे बढ़ाता है।', // needs-native-review {{TRANSLATE}}: official names kept in English until a native speaker confirms the Hindi/Punjabi terms
   'rs.h': 'क्या असली है और क्या सिमुलेटेड', // needs-native-review
+  'rs.key': 'असली: वह कोड जो इसी पेज पर आपके ब्राउज़र में चलता है। सिमुलेटेड: गढ़ा हुआ डेटा या पहले से तय नकली हिस्सा। आंशिक रूप से असली: असली कोड, जो सिमुलेटेड इनपुट या सेवाओं पर चलता है।', // needs-native-review
   'rs.c': 'हिस्सा', // needs-native-review
   'rs.demo': 'इस डेमो में', // needs-native-review
   'rs.status': 'स्थिति', // needs-native-review
@@ -303,14 +321,13 @@ const hi: Record<string, string | string[]> = {
 
   'f.nav.home': 'होम', // needs-native-review
   'f.nav.photos': 'फ़ोटो', // needs-native-review
-  'f.nav.packet': 'सबूत', // needs-native-review
-  'f.nav.file': 'साझा करें', // needs-native-review
-  'f.nav.file.pmfby': 'रिपोर्ट', // needs-native-review
-  'f.nav.status': 'स्थिति', // needs-native-review
+  'f.nav.packet': 'मेरा सबूत', // needs-native-review
+  'f.nav.report': 'रिपोर्ट', // needs-native-review
   'f.read': 'सुनें', // needs-native-review
   'f.stop': 'रोकें', // needs-native-review
   'f.captions': 'कैप्शन', // needs-native-review
-  'f.voiceNA': 'इस फ़ोन पर इस भाषा में आवाज़ उपलब्ध नहीं है। कृपया कैप्शन पढ़ें।', // needs-native-review
+  'f.voiceNA': 'इस फ़ोन में {lang} की अपनी आवाज़ नहीं है, इसलिए कुछ नहीं बजाया गया: सबूत ऐप आपके शब्द किसी ऑनलाइन आवाज़ को कभी नहीं भेजता। कृपया कैप्शन पढ़ें, या फ़ोन की टेक्स्ट-टू-स्पीच सेटिंग में {lang} आवाज़ जोड़ें।', // needs-native-review
+  'f.voiceCall': 'असल इस्तेमाल में यह संदेश फ़ोन कॉल से भी आता है (यहाँ सिमुलेटेड)।', // needs-native-review
   'conn.label': 'फ़ोन नेटवर्क', // needs-native-review
   'conn.online': 'ऑनलाइन', // needs-native-review
   'conn.weak': 'कमज़ोर सिग्नल (2G)', // needs-native-review
@@ -334,7 +351,7 @@ const hi: Record<string, string | string[]> = {
   'sync.empty': 'अभी भेजने को कुछ नहीं।', // needs-native-review
 
   'reg.title': 'आपका खेत पंजीकृत है', // needs-native-review
-  'reg.watching': 'सबूत आपके खेत पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रख रहा है।', // needs-native-review
+  'reg.watching': 'सबूत ऐप आपके खेत पर बारिश, नदी और सैटेलाइट संकेतों पर नज़र रख रहा है।', // needs-native-review
   'reg.allClear': 'सब ठीक है', // needs-native-review
   'reg.watch': 'भारी बारिश की चेतावनी', // needs-native-review
   'reg.rain': 'पिछले 24 घंटे की बारिश: {mm} मिमी', // needs-native-review
@@ -344,9 +361,11 @@ const hi: Record<string, string | string[]> = {
   'reg.plot': 'खेत', // needs-native-review
   'reg.khasra': 'खसरा नं.', // needs-native-review
   'reg.season': 'मौसम', // needs-native-review
+  'reg.at': 'पंजीकरण कहाँ हुआ', // needs-native-review
+  'reg.atV': 'गाँव में CSC शिविर (सिमुलेशन)', // needs-native-review
   'reg.kharif': 'ख़रीफ़ 2026', // needs-native-review
-  'reg.voice': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत आपको फ़ोन करेगा और तीन फ़ोटो माँगेगा।', // needs-native-review
-  'reg.voice.pmfby': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत आपको फ़ोन करेगा। फिर आपके पास रिपोर्ट करने के लिए 72 घंटे होंगे।', // needs-native-review
+  'reg.voice': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा और तीन फ़ोटो माँगेगा।', // needs-native-review
+  'reg.voice.pmfby': 'आपका खेत पंजीकृत है। अगर आपके खेत में बाढ़ आती है, तो सबूत ऐप आपको फ़ोन करेगा। फिर आपके पास रिपोर्ट करने के लिए 72 घंटे होंगे।', // needs-native-review
   'reg.listen': 'सुनें', // needs-native-review
   'crop.Paddy': 'धान', // needs-native-review
   'crop.Maize': 'मक्का', // needs-native-review
@@ -360,11 +379,15 @@ const hi: Record<string, string | string[]> = {
   'al.clock.pmfby': 'रिपोर्ट करने का बचा समय', // needs-native-review
   'al.started': 'घड़ी लगभग {time} पर शुरू हुई, जब भारी बारिश या नदी का बढ़ता पानी पहली बार दिखा। जब तक पानी दिख रहा है, फ़ोटो सबसे ज़्यादा काम की होती हैं। यह सलाह है, कानूनी समय-सीमा नहीं।', // needs-native-review
   'al.started.pmfby': '72 घंटे की घड़ी {time} पर शुरू हुई, जब घटना शुरू हुई — इस संदेश के मिलने पर नहीं।', // needs-native-review
-  'al.voice': 'सबूत अलर्ट। आपके खेत में बाढ़ की आशंका है। कृपया जल्दी तीन फ़ोटो लें। यह सलाह है, समय-सीमा नहीं।', // needs-native-review
-  'al.voice.pmfby': 'सबूत चेतावनी। आपके खेत में बाढ़ पाई गई है। रिपोर्ट करने की 72 घंटे की घड़ी शुरू हो गई है। “अभी फ़ोटो लें” दबाएँ और तीन फ़ोटो लें।', // needs-native-review
+  'al.voice': 'सबूत ऐप की चेतावनी। आपके खेत में बाढ़ की आशंका है। कृपया जल्दी तीन फ़ोटो लें। यह सलाह है, समय-सीमा नहीं।', // needs-native-review
+  'al.voice.pmfby': 'सबूत ऐप की चेतावनी। आपके खेत में बाढ़ पाई गई है। रिपोर्ट करने की 72 घंटे की घड़ी शुरू हो गई है। “अभी फ़ोटो लें” दबाएँ और तीन फ़ोटो लें।', // needs-native-review
   'al.cta': 'अभी फ़ोटो लें', // needs-native-review
   'al.noDamage': 'मेरे खेत में नुकसान नहीं', // needs-native-review
   'al.help': 'कोई मेरी मदद करेगा', // needs-native-review
+  'al.how': 'यह चेतावनी आप तक कैसे पहुँची (सिमुलेशन)', // needs-native-review
+  'al.how.d': 'आपकी भाषा में एक वॉइस कॉल, फिर इस स्क्रीन का लिंक वाला एक SMS। यहाँ दोनों सिमुलेशन हैं: कोई कॉल नहीं होती और कोई SMS नहीं भेजा जाता।', // needs-native-review
+  'al.how.sms': 'सबूत ऐप: आपके खेत ({plot}) में बाढ़ की आशंका। पानी दिखते रहते फ़ोटो लेने के लिए ऐप खोलें।', // needs-native-review
+  'al.how.nophone': 'स्मार्टफ़ोन नहीं है? गाँव का कोई सहायक आपकी सहमति से आपके लिए फ़ोटो ले सकता है।', // needs-native-review
   'al.play': 'आवाज़ संदेश सुनें', // needs-native-review
   'al.expired': 'जल्दी फ़ोटो लेने की सलाह का समय बीत गया', // needs-native-review
   'al.expired.pmfby': 'रिपोर्ट का समय ख़त्म', // needs-native-review
@@ -374,6 +397,8 @@ const hi: Record<string, string | string[]> = {
   'al.reminder.pmfby': 'याद दिलाना: {left} बचे हैं। फ़ोटो में 2 मिनट लगते हैं।', // needs-native-review
   'al.about': 'लगभग {t}', // needs-native-review
   'al.passedWords': 'सलाह की अवधि बीत गई', // needs-native-review
+  'al.passedLabel': 'जल्दी फ़ोटो लेने की सलाह', // needs-native-review
+  'al.endedAt': '{time} को खत्म हुई', // needs-native-review
   'al.lastHours': 'जल्दी फ़ोटो लें', // needs-native-review
   'al.advice': 'सलाह, समय-सीमा नहीं', // needs-native-review
   'al.lastHours.pmfby': 'आख़िरी घंटे', // needs-native-review
@@ -400,6 +425,8 @@ const hi: Record<string, string | string[]> = {
   'cap.locating': 'जगह ढूँढ रहे हैं…', // needs-native-review
   'cap.gps': 'GPS ±{acc} मी', // needs-native-review
   'cap.simGps': 'सिमुलेटेड जगह', // needs-native-review
+  'cap.geoOff': 'इस फ़ोन ने फ़ोटो की जगह नहीं दी। लोकेशन चालू करें, और इस पेज को अनुमति दें, ताकि अधिकारी देख सकें कि फ़ोटो कहाँ ली गई। फिर दोबारा कोशिश करें।', // needs-native-review
+  'cap.geoSim': 'सिमुलेटेड जगह के साथ सहेजें', // needs-native-review
   'cap.hashing': 'फ़ोटो सुरक्षित कर रहे हैं…', // needs-native-review
   'cap.old': 'यह फ़ोटो इस सत्र से पुरानी है। कृपया कैमरे से नई फ़ोटो लें।', // needs-native-review
   'cap.queued': 'फ़ोन में सहेजी गई। नेटवर्क आने पर भेजी जाएगी।', // needs-native-review
@@ -412,6 +439,9 @@ const hi: Record<string, string | string[]> = {
   'pk.sealed': 'सील किया गया', // needs-native-review
   'pk.unsealed': 'अभी सील नहीं', // needs-native-review
   'pk.location': 'जगह', // needs-native-review
+  'pk.atPlot': 'प्लॉट {plot} पर', // needs-native-review
+  'pk.notChecked': 'प्लॉट से मिलाकर नहीं देखा गया', // needs-native-review
+  'pk.coords': 'जगह (निर्देशांक)', // needs-native-review
   'pk.hash': 'फ़िंगरप्रिंट', // needs-native-review
   'pk.tech': 'तकनीकी विवरण: फ़िंगरप्रिंट, सिंक लॉग और छेड़छाड़-सूचक लॉग', // needs-native-review
   'pk.chain': 'छेड़छाड़-रोधी रिकॉर्ड', // needs-native-review
@@ -419,19 +449,20 @@ const hi: Record<string, string | string[]> = {
   'pk.queued': 'नेटवर्क का इंतज़ार: {n} कतार में', // needs-native-review
   'pk.synced': 'सर्वर को {time} पर मिला', // needs-native-review
   'pk.gap': 'फ़ोटो के समय और सर्वर के समय में {gap} का अंतर — जाँच के लिए चिह्नित।', // needs-native-review
-  'pk.cta': 'आगे: अपना प्रमाण साझा करें', // needs-native-review
+  'pk.cta': 'आगे: नुकसान की रिपोर्ट करें', // needs-native-review
   'pk.cta.pmfby': 'अगला: नुकसान की रिपोर्ट करें', // needs-native-review
   'pk.empty': 'अभी कोई फ़ोटो नहीं।', // needs-native-review
   'pk.device': 'फ़ोन का समय', // needs-native-review
   'pk.server': 'सर्वर का समय', // needs-native-review
   'pk.syncNow': 'अभी भेजें', // needs-native-review
   'pk.prev': 'पिछला', // needs-native-review
+  'pk.evObjection': 'मसौदा सूची में सबूत जोड़ा गया', // needs-native-review
 
-  'k.title': 'जजों के लैपटॉप पर दिखाएँ', // needs-native-review
-  'k.body': 'अपने सील किए पैकेट को हस्ताक्षरित कोड में बदलें। केवल फ़िंगरप्रिंट, समय और अनुमानित जगह साझा होती है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
+  'k.title': 'अधिकारी या पटवारी को दिखाएँ', // needs-native-review
+  'k.body': 'आपका सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
   'k.btn': 'QR कोड से साझा करें', // needs-native-review
   'k.sheet': 'हस्ताक्षरित प्रमाण कोड', // needs-native-review
-  'k.lead': 'यह QR कोड लैपटॉप के कैमरे को दिखाएँ, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है।', // needs-native-review
+  'k.lead': 'अधिकारी को यह QR कोड अपने फ़ोन या लैपटॉप से स्कैन करने दें, या कोड या लिंक कॉपी करें। आप खुद भेजें, तभी कुछ भेजा जाता है।', // needs-native-review
   'k.send': 'लैपटॉप को भेजें', // needs-native-review
   'k.sendHelp': 'केवल यह हस्ताक्षरित कोड उस लैपटॉप को भेजा जाता है जहाँ से यह पेज खोला गया। फ़ोटो फ़ोन में ही रहती हैं।', // needs-native-review
   'k.sending': 'भेजा जा रहा है…', // needs-native-review
@@ -445,16 +476,18 @@ const hi: Record<string, string | string[]> = {
   'k.bundleNote': 'खुला प्रारूप, जिसे दूसरे सिस्टम पढ़ सकें। यह किसी सिस्टम से जुड़ा हुआ नहीं है। फ़ोटो फ़ोन में ही रहती हैं।', // needs-native-review
   'k.share': 'लिंक साझा करें', // needs-native-review
   'k.copied': 'कॉपी हो गया', // needs-native-review
-  'k.code': 'कोड', // needs-native-review
+  'k.code': 'तकनीकी विवरण: कोड और डेटा फ़ाइल', // needs-native-review
   'k.making': 'आपके पैकेट पर हस्ताक्षर हो रहे हैं…', // needs-native-review
   'k.stay': 'फ़ोटो इसी फ़ोन में रहती हैं। कोड में केवल उनके फ़िंगरप्रिंट हैं।', // needs-native-review
   'k.fail': 'कोड नहीं बन सका। जाँचें कि आपकी फ़ोटो सील हो गई हैं, फिर दोबारा कोशिश करें।', // needs-native-review
   'cap.camDenied': 'कैमरा बंद है या उपलब्ध नहीं है। अपनी ब्राउज़र सेटिंग में कैमरे की अनुमति दें और फिर कोशिश करें। आप सिमुलेटेड फ़ोटो भी ले सकते हैं; उस पर "सिमुलेटेड" लिखा होगा।', // needs-native-review
   'cap.saveFail': 'फ़ोटो इस फ़ोन में सहेजी नहीं जा सकी। थोड़ी जगह खाली करें और फिर कोशिश करें।', // needs-native-review
+  'cap.sealFail': 'सबूत इस फ़ोन पर सील नहीं हो सका। थोड़ी जगह खाली करें और फिर कोशिश करें।', // needs-native-review
   'cap.badPhoto': 'यह फ़ोटो पढ़ी नहीं जा सकी। इसे फिर से लें।', // needs-native-review
   'cap.needConsent': '{farmer} ने अभी सहमति नहीं दी है। कोई भी फ़ोटो लेने से पहले उनकी सहमति लें।', // needs-native-review
   'cap.askConsent': 'सहमति लें', // needs-native-review
   'db.memory': 'यह फ़ोन आपकी फ़ोटो सहेज नहीं रहा है। भेजे जाने तक इस पेज को खुला रखें।', // needs-native-review
+  'db.notPersistent': 'फ़ोन में जगह कम होने पर ब्राउज़र ये फ़ोटो हटा सकता है। इन्हें जल्दी अधिकारी को भेजें।', // needs-native-review
   'prov.live': 'लाइव', // needs-native-review
   'prov.replay': 'रीप्ले', // needs-native-review
   'prov.sim': 'सिमुलेटेड', // needs-native-review
@@ -466,31 +499,36 @@ const hi: Record<string, string | string[]> = {
   'fe.note': 'सिमुलेटेड नहीं: मौखिक सहमति से की गई गुमनाम बातचीत, docs/INTERVIEWS.md में दर्ज। लोगों ने जो कहा वह उनका अपना अनुभव है, कोई निष्कर्ष नहीं।', // needs-native-review
   'fe.strip': '{n} इंटरव्यू · {states} राज्य · {roles} भूमिकाएँ', // needs-native-review
   'fe.target': '{state} में इंटरव्यू: अब तक {n}।', // needs-native-review
+  'fe.next': 'अगला कदम: {state} में इंटरव्यू।', // needs-native-review
   'fe.letters': 'रुचि-पत्र: {n}', // needs-native-review
   'fe.users': 'इसे इस्तेमाल करने वाले लोग: {n}', // needs-native-review
   'fe.raised': 'इंटरव्यू में लोगों ने क्या बताया', // needs-native-review
   'fe.theme': '{state} में बताया गया: {theme}', // needs-native-review
   'fe.quote': '“{quote}” ({role}, {state})', // needs-native-review
   'fe.landing.h': 'हमने उन लोगों से पूछा जो यह काम करते हैं', // needs-native-review
-  'fe.landing.note': 'मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। सूची docs/INTERVIEWS.md में है। उन्होंने जो बताया वह उनका अपना अनुभव है।', // needs-native-review
+  'fe.landing.note': 'मौखिक सहमति से की गई गुमनाम फ़ोन बातचीत; रिकॉर्डिंग नहीं की गई। उन्होंने जो बताया वह उनका अपना अनुभव है।', // needs-native-review
+  'fe.who': 'हमने किनसे बात की', // needs-native-review
+  'fe.listLink': 'पूरी सूची, प्रोजेक्ट के कोड में', // needs-native-review
   'fe.role.patwari': 'पटवारी', // needs-native-review
   'fe.role.assessor': 'बीमा कंपनी के नुक़सान आकलनकर्ता', // needs-native-review
   'fe.role.farmer': 'किसान', // needs-native-review
   'fe.role.csc': 'सीएससी संचालक', // needs-native-review
-  'fl.title': 'अपना प्रमाण साझा करें', // needs-native-review
+  'fl.title': 'नुकसान की रिपोर्ट करें', // needs-native-review
   'fl.title.pmfby': 'नुकसान की रिपोर्ट करें', // needs-native-review
-  'fl.intro': 'सबूत कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को अपना सील किया हुआ प्रमाण दिखाएँ। आपका ब्योरा तैयार है।', // needs-native-review
-  'fl.intro.pmfby': 'सबूत आपकी ओर से दावा दर्ज नहीं करता। आधिकारिक माध्यम से रिपोर्ट करें। आपकी जानकारी तैयार है।', // needs-native-review
+  'fl.intro': 'सबूत ऐप कुछ भी जमा नहीं करता। अपने गाँव का आकलन करने वाले अधिकारी को बताएँ और अपना सील किया हुआ प्रमाण दिखाएँ: उसका QR कोड “मेरा सबूत” टैब पर है। आपका ब्योरा तैयार है।', // needs-native-review
+  'fl.intro.pmfby': 'सबूत ऐप आपकी ओर से दावा दर्ज नहीं करता। आधिकारिक माध्यम से रिपोर्ट करें। आपकी जानकारी तैयार है।', // needs-native-review
   'fl.summary': 'आपकी जानकारी', // needs-native-review
   'fl.copy': 'जानकारी कॉपी करें', // needs-native-review
   'fl.copied': 'कॉपी हो गया', // needs-native-review
   'fl.copyFail': 'कॉपी नहीं हो सका। कृपया जानकारी पढ़कर सुनाएँ।', // needs-native-review
+  'fl.again': 'आपका ब्योरा और रिपोर्ट करने का तरीका', // needs-native-review
   'fl.steps': 'रिपोर्ट कैसे करें', // needs-native-review
   'fl.s1': 'अपने गाँव का आकलन करने वाले अधिकारी को बताएँ कि आपके पास बाढ़ की सील की हुई फ़ोटो हैं।', // needs-native-review
   'fl.s1.pmfby': 'Krishi Rakshak Portal & Helpline (KRPH), टोल-फ़्री 14447, पर फ़ोन करें, या Crop Insurance App खोलें।', // needs-native-review {{TRANSLATE}}: official names kept in English
   'fl.s2': 'अपना खेत नंबर बताएँ और इस स्क्रीन का ब्योरा दिखाएँ।', // needs-native-review
   'fl.s2.pmfby': 'कहें: बाढ़ से फ़सल का नुकसान। अपना पॉलिसी नंबर और खेत नंबर बताएँ।', // needs-native-review
-  'fl.s3': 'पूछे जाने पर अपने सबूत का फ़िंगरप्रिंट पढ़कर सुनाएँ।', // needs-native-review
+  'fl.s3': 'पूछे जाने पर अपना जाँच कोड (8 अंक) पढ़कर सुनाएँ।', // needs-native-review
+  'fl.check': 'जाँच कोड', // needs-native-review
   'fl.s4': 'आपको जो भी रसीद या प्रविष्टि नंबर मिले, उसे लिख लें।', // needs-native-review
   'fl.s4.pmfby': 'वे जो संदर्भ संख्या दें, उसे लिख लें।', // needs-native-review
   'fl.ref': 'रसीद या प्रविष्टि नंबर', // needs-native-review
@@ -507,9 +545,10 @@ const hi: Record<string, string | string[]> = {
   'fl.farmer': 'किसान', // needs-native-review
   'fl.event': 'घटना शुरू हुई', // needs-native-review
 
-  'st.title': 'दावे की स्थिति', // needs-native-review
-  'st.note': 'सबूत नज़र रखता है। फ़ैसला अधिकारी करता है।', // needs-native-review
-  'st.note.pmfby': 'सबूत नज़र रखता है। फ़ैसला बीमा कंपनी करती है।', // needs-native-review
+  'st.title': 'सबूत की स्थिति', // needs-native-review
+  'st.title.pmfby': 'दावे की स्थिति', // needs-native-review
+  'st.note': 'सबूत ऐप नज़र रखता है। फ़ैसला अधिकारी करता है।', // needs-native-review
+  'st.note.pmfby': 'सबूत ऐप नज़र रखता है। फ़ैसला बीमा कंपनी करती है।', // needs-native-review
   'st.detected': 'घटना पहचानी गई', // needs-native-review
   'st.alerted': 'चेतावनी मिली', // needs-native-review
   'st.captured': 'फ़ोटो ली गईं', // needs-native-review
@@ -535,13 +574,25 @@ const hi: Record<string, string | string[]> = {
   'st.escalated': 'ज़िला कार्यालय को भेजा गया', // needs-native-review
   'st.escalated.pmfby': 'ज़िला कृषि कार्यालय को भेजा गया', // needs-native-review
   'st.none': 'अभी याद दिलाने की ज़रूरत नहीं।', // needs-native-review
-  'st.decisionNote': 'सबूत कभी फ़ैसला नहीं करता। अधिकारी करता है।', // needs-native-review
-  'st.decisionNote.pmfby': 'सबूत कभी दावों का फ़ैसला नहीं करता।', // needs-native-review
+  'st.decisionNote': 'सबूत ऐप कभी फ़ैसला नहीं करता। अधिकारी करता है।', // needs-native-review
+  'st.decisionNote.pmfby': 'सबूत ऐप कभी दावों का फ़ैसला नहीं करता।', // needs-native-review
   'st.surveyAt': '{time} को तय', // needs-native-review
   'ob.title': 'अधिकारी की मसौदा सूची', // needs-native-review
   'ob.soon': 'आगे चलकर अधिकारी एक मसौदा सूची जारी करेंगे। यह सिमुलेशन है: लगभग {time}। अगर आपकी प्रविष्टि ग़लत लगे, तो {until} तक अपना सील किया हुआ सबूत जोड़ सकते हैं।', // needs-native-review
   'ob.open': 'अधिकारी की मसौदा सूची आ गई है (सिमुलेटेड)। अगर आपकी प्रविष्टि ग़लत लगे, तो अपना सील किया हुआ सबूत जोड़ें। यह {until} तक खुला है।', // needs-native-review
-  'ob.attach': 'मेरा सील किया हुआ सबूत जोड़ें', // needs-native-review
+  'ob.attach': 'ग़लत लगती है: मेरा सबूत जोड़ें', // needs-native-review
+  'ob.right': 'सही लगती है', // needs-native-review
+  'ob.rightNote': 'ठीक है। आपको कुछ करने की ज़रूरत नहीं। अगर आपकी राय बदले, तो {until} तक अपना सबूत जोड़ सकते हैं।', // needs-native-review
+  'ob.mine': 'मसौदा सूची में आपकी प्रविष्टि', // needs-native-review
+  'ob.listed': 'प्लॉट {plot} सूची में है।', // needs-native-review
+  'ob.notListed': 'प्लॉट {plot} सूची में नहीं है।', // needs-native-review
+  'ob.tier': 'सबूत: {tier}। यह सिर्फ़ अधिकारी की जाँच का क्रम तय करता है; यह फ़ैसला नहीं है।', // needs-native-review
+  'ob.tier.supported': 'समर्थित', // needs-native-review
+  'ob.tier.partial': 'आंशिक', // needs-native-review
+  'ob.tier.insufficient': 'अभी पर्याप्त नहीं', // needs-native-review
+  'ob.share': 'रडार का अनुमान: प्लॉट का {lo}–{hi}% पानी में। यह फ़सल का नुकसान नहीं है।', // needs-native-review
+  'ob.photos': 'आपकी फ़ोटो {time} पर अधिकारी तक पहुँचीं।', // needs-native-review
+  'ob.noPhotos': 'आपकी फ़ोटो अभी अधिकारी तक नहीं पहुँचीं।', // needs-native-review
   'ob.needSeal': 'पहले अपनी फ़ोटो लें और उन्हें सील करें। फिर यहाँ जोड़ सकते हैं।', // needs-native-review
   'ob.filed': 'आपका सील किया हुआ सबूत आपकी प्रविष्टि से जुड़ गया ({time})। फ़ैसला अधिकारी करता है, Saboot के बाहर।', // needs-native-review
   'ob.answered': 'अधिकारी ने जवाब दिया ({time}), Saboot के बाहर। Saboot सिर्फ़ इतना दिखाता है कि जवाब आया।', // needs-native-review
@@ -562,6 +613,7 @@ const hi: Record<string, string | string[]> = {
   'as.recording': 'रिकॉर्डिंग… रोकने के लिए दबाएँ', // needs-native-review
   'as.done': 'सहमति {time} पर दर्ज हुई', // needs-native-review
   'as.doneToast': 'सहमति दर्ज हुई।', // needs-native-review
+  'as.saveFail': 'सहमति इस फ़ोन में सहेजी नहीं जा सकी। थोड़ी जगह खाली करें और फिर कोशिश करें।', // needs-native-review
   'as.start': 'फ़ोटो शुरू करें', // needs-native-review
   'as.needName': 'पहले सहायक का नाम लिखें।', // needs-native-review
   'as.voiceSha': 'आवाज़ से सहमति · फ़िंगरप्रिंट {h}', // needs-native-review
@@ -569,9 +621,10 @@ const hi: Record<string, string | string[]> = {
   'as.noMic': 'माइक्रोफ़ोन उपलब्ध नहीं। दबाकर रखने वाला तरीका अपनाएँ।', // needs-native-review
   'as.means': 'इसका मतलब', // needs-native-review
   'as.means1': 'फ़ोटो इसी फ़ोन में रहती हैं। सिर्फ़ उनकी पहचान-छाप, समय और लगभग 100 मीटर तक गोल की हुई जगह साझा की जा सकती है।', // needs-native-review
-  'as.means2': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
-  'as.means2.pmfby': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला बीमा कंपनी करती है। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
+  'as.means2': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत ऐप कोई फ़ैसला नहीं करता।', // needs-native-review
+  'as.means2.pmfby': 'सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला बीमा कंपनी करती है। सबूत ऐप कोई फ़ैसला नहीं करता।', // needs-native-review
   'as.means3': 'आप कभी भी अपनी कॉपी माँग सकते हैं, या इस फ़ोन से सब कुछ मिटवा सकते हैं।', // needs-native-review
+  'as.uiCopy': 'यही शब्द {lang} में, आपके लिए', // needs-native-review
   'hm.consentTitle': 'किसान {farmer} की सहमति', // needs-native-review
   'hm.consentIntro': '{farmer} को यह पढ़कर सुनाइए। {farmer} बटन को दबाकर रखकर, या बोलकर सहमति देते हैं। इसके बिना कुछ भी दर्ज नहीं होता।', // needs-native-review
   'hm.title': 'सहायक मोड', // needs-native-review
@@ -598,6 +651,7 @@ const hi: Record<string, string | string[]> = {
   'hm.a.view': 'देखें', // needs-native-review
   'hm.note': 'हर किसान की सहमति और फ़ोटो उसी किसान के अपने लॉग में सील होती हैं, हर फ़ोटो पर आपका नाम रहता है। आप सिर्फ़ फ़ोटो लेते हैं। सबूत कोई फ़ैसला नहीं करता।', // needs-native-review
   'hm.phoneBtn': 'बिना स्मार्टफ़ोन वाला किसान (डिज़ाइन सिमुलेशन)', // needs-native-review
+  'hm.fpFuture': 'आगे: बिना स्मार्टफ़ोन वाला किसान?', // needs-native-review
   'hm.end': 'सहायक सत्र खत्म करें', // needs-native-review
   'hm.r.sarpanch': 'सरपंच', // needs-native-review
   'hm.r.csc': 'सीएससी संचालक', // needs-native-review
@@ -610,6 +664,17 @@ const hi: Record<string, string | string[]> = {
   'hm.card.btn': 'सहायक मोड खोलें', // needs-native-review
   'hm.noDamage': 'किसान ने बताया: कोई नुकसान नहीं', // needs-native-review
   'hm.next': 'अगला किसान', // needs-native-review
+  'hm.endAsk': 'सहायक सत्र खत्म करें? हर किसान की सहमति और सील किया गया सबूत इसी फ़ोन पर रहेगा।', // needs-native-review
+  'hm.endYes': 'हाँ, खत्म करें', // needs-native-review
+  'hm.endNo': 'काम जारी रखें', // needs-native-review
+  'hm.seal': '{farmer} का सबूत सील करें', // needs-native-review
+  'hm.pkTitle': '{farmer} का सबूत', // needs-native-review
+  'hm.kBody': '{farmer} का सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं।', // needs-native-review
+  'hm.flTitle': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
+  'hm.flTitle.pmfby': '{farmer} के नुकसान की रिपोर्ट करें', // needs-native-review
+  'hm.noDamageDone': '{farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए।', // needs-native-review
+  'hm.jumpAlert': 'पहली चेतावनी पर जाएँ (रीप्ले)', // needs-native-review
+  'hm.paused': 'किसी किसान को खोलते ही रीप्ले रुक जाता है, ताकि उनकी सहमति, फ़ोटो और सील पर रीप्ले का वही समय दर्ज हो जब आपने ये किए।', // needs-native-review
   'pk.by': 'फ़ोटो किसने लीं', // needs-native-review
   'pk.byValue': '{name}, {role}', // needs-native-review
   'fp.title': 'बिना स्मार्टफ़ोन वाला किसान', // needs-native-review
@@ -617,24 +682,24 @@ const hi: Record<string, string | string[]> = {
   'fp.note': 'यहाँ कोई असली फ़ोन कॉल नहीं होती और कोई एसएमएस या व्हाट्सऐप संदेश नहीं जाता। यह सिर्फ़ दिखाता है कि प्रक्रिया कैसे चलेगी, और रीप्ले में कुछ नहीं बदलता।', // needs-native-review
   'fp.stepsLabel': 'कॉल के चरण', // needs-native-review
   'fp.s1': 'मिस्ड कॉल', // needs-native-review
-  'fp.s2': 'सबूत वापस कॉल करता है', // needs-native-review
+  'fp.s2': 'सबूत ऐप वापस कॉल करता है', // needs-native-review
   'fp.s3': 'कीपैड से जवाब', // needs-native-review
   'fp.s4': 'सहायक फ़ोटो लेता है', // needs-native-review
-  'fp.s1.b': 'डिज़ाइन में, किसान मिस्ड कॉल देता है और सबूत वापस कॉल करके चेतावनी बोलकर सुनाता है।', // needs-native-review
+  'fp.s1.b': 'डिज़ाइन में, किसान मिस्ड कॉल देता है और सबूत ऐप वापस कॉल करके चेतावनी बोलकर सुनाता है।', // needs-native-review
   'fp.call': 'मिस्ड कॉल दें', // needs-native-review
-  'fp.incoming': 'सबूत की कॉल', // needs-native-review
+  'fp.incoming': 'सबूत ऐप की कॉल', // needs-native-review
   'fp.press': 'सुनिए, फिर 1 या 2 दबाइए।', // needs-native-review
   'fp.k1': 'आपने 1 दबाया: नुकसान।', // needs-native-review
   'fp.k2': 'आपने 2 दबाया: कोई नुकसान नहीं।', // needs-native-review
   'fp.kother': 'नुकसान के लिए 1 या कोई नुकसान नहीं के लिए 2 दबाइए।', // needs-native-review
-  'fp.prompt': 'नमस्ते। यह सबूत है। आपके खेत के पास भारी बारिश या नदी का बढ़ता पानी पाया गया है। अगर खेत में पानी से नुकसान है तो 1 दबाइए। अगर नुकसान नहीं है तो 2 दबाइए।', // needs-native-review
+  'fp.prompt': 'नमस्ते। यह सबूत ऐप है। आपके खेत के पास भारी बारिश या नदी का बढ़ता पानी पाया गया है। अगर खेत में पानी से नुकसान है तो 1 दबाइए। अगर नुकसान नहीं है तो 2 दबाइए।', // needs-native-review
   'fp.play': 'कॉल सुनें', // needs-native-review
   'fp.keypad': 'फ़ोन का कीपैड', // needs-native-review
   'fp.key1': 'नुकसान', // needs-native-review
   'fp.key2': 'कोई नुकसान नहीं', // needs-native-review
-  'fp.out1': 'सबूत आपके पास के किसी सहायक से कहता है कि वह आकर आपके लिए फ़ोटो ले। इस कॉल से कोई रिपोर्ट दर्ज नहीं होती।', // needs-native-review
-  'fp.out2': 'सबूत इस खेत के लिए “कोई नुकसान नहीं” दर्ज करता है और कुछ शुरू नहीं करता।', // needs-native-review
-  'fp.logHead': 'सबूत क्या दर्ज करेगा', // needs-native-review
+  'fp.out1': 'सबूत ऐप आपके पास के किसी सहायक से कहता है कि वह आकर आपके लिए फ़ोटो ले। इस कॉल से कोई रिपोर्ट दर्ज नहीं होती।', // needs-native-review
+  'fp.out2': 'सबूत ऐप इस खेत के लिए “कोई नुकसान नहीं” दर्ज करता है और कुछ शुरू नहीं करता।', // needs-native-review
+  'fp.logHead': 'सबूत ऐप क्या दर्ज करेगा', // needs-native-review
   'fp.helper': 'सहायक स्मार्टफ़ोन लेकर आता है, किसान के साथ सहमति बोलकर पढ़ता है, तीन फ़ोटो लेता है और पैकेट सील करता है। पैकेट में सहायक का नाम और किसान की सहमति दर्ज रहती है।', // needs-native-review
   'fp.open': 'सहायक मोड खोलें', // needs-native-review
   'fp.again': 'फिर से शुरू करें', // needs-native-review
@@ -664,5 +729,81 @@ const hi: Record<string, string | string[]> = {
   'set.deleteYes': 'हाँ, मिटाएँ', // needs-native-review
   'set.deleteNo': 'मेरा डेटा रहने दें', // needs-native-review
   'set.deleted': 'आपका डेटा इस फ़ोन से मिटा दिया गया।', // needs-native-review
+  'set.farmerData': 'इस फ़ोन पर {farmer} का डेटा', // needs-native-review
+  'set.farmerDataHelp': 'सिर्फ़ {farmer} की सहमति, फ़ोटो और सील किया गया पैकेट। किसी दूसरे किसान का डेटा नहीं छुआ जाता।', // needs-native-review
+  'set.farmerExport': '{farmer} के डेटा की कॉपी (JSON)', // needs-native-review
+  'set.farmerDelete': 'इस फ़ोन से {farmer} का डेटा मिटाएँ', // needs-native-review
+  'set.farmerDeleteAsk': 'इस फ़ोन से {farmer} की फ़ोटो, सहमति और सील किया गया पैकेट मिटाएँ? दूसरे किसानों का डेटा रहेगा। इसे वापस नहीं किया जा सकता।', // needs-native-review
+  'set.farmerKeep': 'रहने दें', // needs-native-review
+  'set.farmerDeleted': '{farmer} का डेटा इस फ़ोन से मिटा दिया गया।', // needs-native-review
+  // field mode (src/field/FieldMode.tsx)
+  'fd.title': 'फ़ील्ड मोड', // needs-native-review
+  'fd.enter': 'असल में इस्तेमाल करें (फ़ील्ड मोड)', // needs-native-review
+  'fd.enterHelp': 'असली किसान के लिए, इस फ़ोन पर असली फ़ोटो। सिमुलेशन जैसा है वैसा रहता है।', // needs-native-review
+  'fd.strip': 'फ़ील्ड मोड: इस फ़ोन पर असली फ़ोटो। जब तक आप कोड साझा नहीं करते, कुछ नहीं भेजा जाता। Saboot कुछ तय नहीं करता।', // needs-native-review
+  'fd.leave': 'फ़ील्ड मोड छोड़ें', // needs-native-review
+  'fd.stay': 'यहाँ सब कुछ सिर्फ़ इस फ़ोन पर, इस ब्राउज़र के स्टोरेज में रखा जाता है। ब्राउज़र का डेटा साफ़ करने से यह मिट जाता है।', // needs-native-review
+  'fd.tabFarmer': 'फ़ोटो लें', // needs-native-review
+  'fd.tabOfficer': 'मिले हुए सबूत', // needs-native-review
+  'fd.new': 'नया किसान', // needs-native-review
+  'fd.records': 'इस फ़ोन पर किसान', // needs-native-review
+  'fd.name': 'किसान का नाम', // needs-native-review
+  'fd.village': 'गाँव', // needs-native-review
+  'fd.khasra': 'खेत / खसरा नंबर', // needs-native-review
+  'fd.crop': 'फ़सल', // needs-native-review
+  'fd.lang': 'किसान की भाषा', // needs-native-review
+  'fd.by': 'फ़ोटो लेने वाला (आपका नाम)', // needs-native-review
+  'fd.byShort': '{who} ने इस फ़ोन पर लिखा।', // needs-native-review
+  'fd.save': 'किसान सहेजें', // needs-native-review
+  'fd.need': 'हर खाना भरें।', // needs-native-review
+  'fd.consentTitle': '{farmer} की सहमति', // needs-native-review
+  'fd.consentIntro': '{farmer} को उनकी भाषा में यह पढ़कर सुनाएँ। {farmer} के सहमत होने तक कोई फ़ोटो नहीं ली जा सकती।', // needs-native-review
+  'fd.agree': '{farmer} सहमत हैं', // needs-native-review
+  'fd.consented': 'सहमति {time} पर दर्ज हुई', // needs-native-review
+  'fd.clock': 'घड़ी अभी शुरू करें', // needs-native-review
+  'fd.clockHelp': 'इस रिकॉर्ड की घड़ी इस फ़ोन के समय से शुरू करता है। फ़ोटो का समय इसी से गिना जाता है।', // needs-native-review
+  'fd.clockAt': 'घड़ी {time} पर शुरू हुई', // needs-native-review
+  'fd.photos': 'फ़ोटो', // needs-native-review
+  'fd.take': 'कैमरा खोलें', // needs-native-review
+  'fd.file': 'फ़ोन का कैमरा ऐप', // needs-native-review
+  'fd.noCam': 'कैमरा यहाँ नहीं खुला। इसकी जगह “फ़ोन का कैमरा ऐप” इस्तेमाल करें।', // needs-native-review
+  'fd.saving': 'फ़ोटो सहेजी जा रही है…', // needs-native-review
+  'fd.saveFail': 'फ़ोटो इस फ़ोन पर सहेजी नहीं जा सकी।', // needs-native-review
+  'fd.photoAt': '{time} पर ली गई', // needs-native-review
+  'fd.noLoc': 'कोई लोकेशन नहीं', // needs-native-review
+  'fd.gps': 'GPS ±{m} मी', // needs-native-review
+  'fd.seal': '{farmer} के सबूत सील करें', // needs-native-review
+  'fd.sealNeed': 'पहले सहमति, घड़ी और कम से कम एक फ़ोटो चाहिए।', // needs-native-review
+  'fd.sealed': '{time} पर सील हुआ। इस रिकॉर्ड में ये फ़ोटो अब नहीं बदल सकतीं।', // needs-native-review
+  'fd.sealFail': 'सील नहीं हो सका। साइन करने के लिए यह पेज https या localhost पर खुला होना चाहिए।', // needs-native-review
+  'fd.isSealed': 'सील हुआ', // needs-native-review
+  'fd.notSealed': 'अभी सील नहीं', // needs-native-review
+  'fd.share': 'सबूत साझा करें', // needs-native-review
+  'fd.shareLead': 'यह QR कोड अधिकारी को दिखाएँ, या कोड या लिंक भेजें। सिर्फ़ कोड इस फ़ोन से जाता है, और तभी जब आप उसे साझा करें। फ़ोटो यहीं रहती हैं।', // needs-native-review
+  'fd.copyCode': 'कोड कॉपी करें', // needs-native-review
+  'fd.copyLink': 'लिंक कॉपी करें', // needs-native-review
+  'fd.copied': 'कॉपी हो गया', // needs-native-review
+  'fd.copyFail': 'यहाँ कॉपी करना रुका हुआ है। कोड बॉक्स में चुना हुआ है: इसे ख़ुद कॉपी करें।', // needs-native-review
+  'fd.codeBox': 'सबूत कोड', // needs-native-review
+  'fd.qr': 'सबूत कोड का QR कोड', // needs-native-review
+  'fd.recv.lead': 'किसानों के फ़ोन से मिले कोड। हर कोड यहीं, इस फ़ोन पर जाँचा जाता है। किसान का नाम और गाँव कोड में नहीं हैं: वे किसान के फ़ोन पर रहते हैं।', // needs-native-review
+  'fd.recv.paste': 'कोड या लिंक चिपकाएँ', // needs-native-review
+  'fd.recv.check': 'जाँचें और जोड़ें', // needs-native-review
+  'fd.recv.scan': 'QR स्कैन करें', // needs-native-review
+  'fd.recv.stopScan': 'स्कैन बंद करें', // needs-native-review
+  'fd.recv.none': 'अभी कुछ नहीं मिला।', // needs-native-review
+  'fd.recv.ok': 'सील होने के बाद से नहीं बदला', // needs-native-review
+  'fd.recv.bad': 'सील होने के बाद बदला गया, या Saboot कोड नहीं है। इस कॉपी पर भरोसा न करें।', // needs-native-review
+  'fd.recv.at': '{time} पर मिला (इस फ़ोन की घड़ी)', // needs-native-review
+  'fd.recv.sealAt': '{time} पर सील हुआ (किसान के फ़ोन की घड़ी)', // needs-native-review
+  'fd.recv.clock': 'फ़ोटो का समय हाथ से शुरू की गई घड़ी से गिना गया', // needs-native-review
+  'fd.recv.after': 'घड़ी शुरू होने के {h} घंटे बाद', // needs-native-review
+  'fd.recv.photos': '{n} फ़ोटो', // needs-native-review
+  'fd.recv.noProof': 'इससे सिर्फ़ यह पता चलता है कि कोड बदला नहीं गया। यह साबित नहीं करता कि किसने सील किया या फ़ोटो में क्या है। Saboot कुछ तय नहीं करता।', // needs-native-review
+  'fd.got.ok': 'जाँचा और जोड़ा: सील होने के बाद से नहीं बदला।', // needs-native-review
+  'fd.got.dup': 'यह कोड पहले से सूची में है।', // needs-native-review
+  'fd.got.bad': 'सील होने के बाद बदला गया, या Saboot कोड नहीं है। इसे जोड़ा नहीं गया।', // needs-native-review
+  'fd.got.sim': 'यह कोड डेमो का है, असली फ़ोटो का नहीं। फ़ील्ड मोड सिर्फ़ असली फ़ोटो रखता है, इसलिए इसे जोड़ा नहीं गया।', // needs-native-review
+  'fd.got.crypto': 'यह पेज यहाँ हस्ताक्षर नहीं जाँच सकता। इसे https या localhost पर खोलें।', // needs-native-review
 };
 export default hi;

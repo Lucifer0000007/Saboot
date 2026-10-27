@@ -10,15 +10,16 @@ import { buildLabel } from '../lib/build';
 import { reducedMotion } from '../lib/prefs';
 import { TEAM_NAME, PROJECT, TRACK, EVENT, REPO_URL } from '../config';
 import { SCENARIO } from '../generated/scenario-summary';
-import { scrollToId } from './layout';
 import { runSimulation } from './actions';
+import { startTour } from '../tour/state';
 
 export function Announcement() {
   return (
     <div class="ann on-ink" id="top" role="region" aria-label={tr('ann.label')}>
       <div class="wrap ann-in">
         <p>{tr('ann.text')}</p>
-        <a class="pill" href="#simulation" onClick={(e) => { e.preventDefault(); scrollToId('simulation'); }}>
+        {/* the same action as the hero's "Explore it yourself": go to the demo and start it (audit J11) */}
+        <a class="pill" href="#simulation" onClick={(e) => { e.preventDefault(); runSimulation(); }}>
           <span>{tr('ann.skip')}</span>
         </a>
       </div>
@@ -56,10 +57,11 @@ export function Hero() {
             <p>{tr('hero.l2')}</p>
           </div>
           <div class="cta-row">
-            <a id="hero-cta" class="pill pill-primary pill-lg" href="#simulation" onClick={(e) => { e.preventDefault(); runSimulation(); }}>
-              {tr('hero.run')} <span class="arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="pill pill-ghost pill-lg" href="#how" onClick={(e) => { e.preventDefault(); scrollToId('how'); }}>{tr('hero.how')}</a>
+            {/* the guided tour first, where a first-time visitor starts (audit J11); the tour's code loads only on the tap */}
+            <button id="hero-cta" type="button" class="pill pill-primary pill-lg" data-hero-tour onClick={() => startTour()}>
+              {tr('tour.hero')} <span class="arrow" aria-hidden="true">→</span>
+            </button>
+            <a class="pill pill-ghost pill-lg" href="#simulation" onClick={(e) => { e.preventDefault(); runSimulation(); }}>{tr('hero.run')}</a>
           </div>
         </div>
         {/* the product's real moment: the clock that starts at the event, the seal, and the labels on every value */}
@@ -108,12 +110,17 @@ function FieldPeople() {
         <FieldTag />
       </div>
       <p class="fe-strip">{tr('fe.strip', { n: c.interviews, states: c.states, roles: c.roles })}</p>
-      <ul class="fp-list" role="list">
-        {[...rows.values()].map((r) => (
-          <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
-        ))}
-      </ul>
-      <p class="muted small">{tr('fe.target', { state: TARGET_STATE, n: c.inTargetState })} {tr('fe.landing.note')}</p>
+      {/* one row per role and state is long on a phone: the list opens on request (audit J20) */}
+      <details class="fp-more" data-fp-more>
+        <summary><span>{tr('fe.who')}</span><Icon name="down" /></summary>
+        <ul class="fp-list" role="list">
+          {[...rows.values()].map((r) => (
+            <li key={r.role + r.state}><strong>{ROLE_KEY[r.role] ? tr(ROLE_KEY[r.role]) : r.role}</strong><span>{r.state}{r.n > 1 ? ` · ${r.n}` : ''}</span></li>
+          ))}
+        </ul>
+        <a class="link-arrow" href={REPO_URL + '/blob/main/docs/INTERVIEWS.md'} target="_blank" rel="noopener noreferrer">{tr('fe.listLink')}</a>
+      </details>
+      <p class="muted small" data-fp-note>{c.inTargetState === 0 ? tr('fe.next', { state: TARGET_STATE }) : tr('fe.target', { state: TARGET_STATE, n: c.inTargetState })} {tr('fe.landing.note')}</p>
     </div>
   );
 }

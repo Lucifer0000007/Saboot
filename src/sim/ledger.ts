@@ -70,15 +70,23 @@ export async function collect(list: Row[], t: number, liveShots: LiveShots, impo
   return out.sort((a, b) => a.simT - b.simT || a.plot.localeCompare(b.plot) || a.type.localeCompare(b.type));
 }
 
+let gen = 0;
+/** The rebuild asked for while a tamper test froze the ledger: restore catches up with it (OFF-3). */
+let skipped: Parameters<typeof rebuild> | null = null;
 export async function rebuild(list: Row[], t: number, liveShots: LiveShots, imports: Imported[] = []) {
-  if (tamper.value) return; // frozen while a tamper test is on screen
+  if (tamper.value) { skipped = [list, t, liveShots, imports]; return; } // frozen while a tamper test is on screen
+  // Hashing hundreds of records takes a while on a slow phone. Only the latest rebuild may write: an older one finishing late
+  // would show a stale ledger, and one finishing after a tamper test started would wipe it.
+  const my = ++gen;
   building.value = true;
   const bodies = await collect(list, t, liveShots, imports);
   const chain: LedgerLink[] = [];
   for (const b of bodies) chain.push(await appendLink(chain, b));
+  if (my !== gen) return;
+  building.value = false;
+  if (tamper.value) return;
   ledger.value = chain;
   statuses.value = null;
-  building.value = false;
 }
 
 export async function verifyLedger() {
@@ -106,5 +114,7 @@ export async function restore() {
   if (!tp) return;
   ledger.value = ledger.value.map((l, i) => (i === tp.seq ? { ...l, body: tp.before } : l));
   tamper.value = null;
+  // the replay moved while the ledger was frozen: rebuild for the time on screen before verifying
+  if (skipped) { const a = skipped; skipped = null; await rebuild(...a); }
   await verifyLedger();
 }

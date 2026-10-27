@@ -6,6 +6,22 @@ import { signal } from '@preact/signals';
 /** False once something had to be kept only in memory because the browser would not store it: the person must be told. */
 export const storageOk = signal(true);
 
+/** True once the browser has promised to keep what is stored, false when it refused (it may clear photos if the phone runs
+ * low on space), null until asked or when the browser cannot say. The person is told when it is false and photos are still
+ * waiting to be sent (FarmerApp); once they are sent, it no longer matters. */
+export const storagePersistent = signal<boolean | null>(null);
+
+/** Ask the browser to keep the stored photos (no prompt on most browsers) and remember its answer. */
+export async function requestPersistence(): Promise<void> {
+  try {
+    const sm = navigator.storage;
+    if (!sm?.persist) return;
+    storagePersistent.value = (await sm.persisted?.()) || (await sm.persist());
+  } catch {
+    /* the answer is only a hint; the offline queue works without it */
+  }
+}
+
 type Store = 'kv' | 'photos' | 'outbox';
 const mem: Record<Store, Map<string, unknown>> = { kv: new Map(), photos: new Map(), outbox: new Map() };
 let dbp: Promise<IDBDatabase | null> | null = null;

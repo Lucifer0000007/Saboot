@@ -25,12 +25,16 @@ export interface DraftEntry {
   /** Radar estimate of the share of the plot under water above what the crop shows anyway. Not crop damage. */
   floodShare: number;
   floodShareUnc: number;
+  /** The estimate's range, held to 0..1. */
+  floodShareLo: number;
+  floodShareHi: number;
   atOrAboveShareParameter: boolean;
   flags: string[];
   priority: number;
   eventAtHour: number | null;
   evidenceAtHour: number | null;
-  objection: { filedAtHour: number; answeredAtHour: number | null } | null;
+  /** responseBy: 'scripted' (the simulation's script) or 'hand' (the officer noted it here); never what the response said. */
+  objection: { filedAtHour: number; answeredAtHour: number | null; responseBy: 'scripted' | 'hand' | null } | null;
 }
 
 export interface DraftVillage {
@@ -78,9 +82,15 @@ export function listState(m: Pick<Model, 'opts'>, t: number): ListState {
 
 export const DRAFT_STATUS = 'DRAFT for officer review. Saboot does not decide claims, eligibility or amounts, and shows no amount.';
 
-export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | null): Draft {
+/** `noted`: plot id -> the replay hour the officer noted, by hand, that a response was given (src/dashboard/responses.ts). */
+export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | null, noted: Record<string, number> = {}): Draft {
   const share = RELIEF.damageShareThreshold;
   const listed = rows.filter((r) => r.e.tier !== 'none');
+  const objectionOf = (plot: string, o: NonNullable<Row['s']['objection']>): NonNullable<DraftEntry['objection']> => {
+    if (o.responded && o.respT !== null) return { filedAtHour: r2(o.t), answeredAtHour: r2(o.respT), responseBy: 'scripted' };
+    const h = noted[plot];
+    return h !== undefined && h >= o.t && h <= t ? { filedAtHour: r2(o.t), answeredAtHour: r2(h), responseBy: 'hand' } : { filedAtHour: r2(o.t), answeredAtHour: null, responseBy: null };
+  };
   const entryOf = (r: Row): DraftEntry => ({
     plot: r.s.plot.id,
     village: r.s.plot.village,
@@ -95,14 +105,14 @@ export function buildDraft(m: Model, rows: Row[], t: number, sha256: string | nu
     scoreHi: bandPct(r.e.hi) / 100,
     floodShare: r2(r.e.floodShare),
     floodShareUnc: r2(r.e.floodShareUnc),
+    floodShareLo: r2(r.e.floodShareLo),
+    floodShareHi: r2(r.e.floodShareHi),
     atOrAboveShareParameter: r.e.floodShare >= share,
     flags: r.s.flags.filter((f) => f !== 'tall-crop').map((f) => flagLabel(f, r.s.rail)),
     priority: r.pri,
     eventAtHour: r.s.times.eventT === null ? null : r2(r.s.times.eventT),
     evidenceAtHour: r.s.times.syncT !== null && r.s.times.syncT <= t ? r2(r.s.times.syncT) : null,
-    objection: r.s.objection
-      ? { filedAtHour: r2(r.s.objection.t), answeredAtHour: r.s.objection.responded && r.s.objection.respT !== null ? r2(r.s.objection.respT) : null }
-      : null,
+    objection: r.s.objection ? objectionOf(r.s.plot.id, r.s.objection) : null,
   });
   const byVillage = m.raw.map.villages
     .map((v, i) => {
@@ -187,15 +197,15 @@ export function draftCsv(d: Draft): string {
   const p = d.provenance;
   const head = [
     'village_rank', 'village', 'plot', 'crop', 'area_ha', 'stage', 'evidence_tier', 'score_lo', 'score_hi',
-    'flooded_share_estimate', 'flooded_share_plus_minus', 'at_or_above_share_parameter', 'review_priority', 'flags',
-    'objection_filed_at_hour', 'officer_response_noted_at_hour',
+    'flooded_share_estimate', 'flooded_share_plus_minus', 'flooded_share_lo', 'flooded_share_hi', 'at_or_above_share_parameter', 'review_priority', 'flags',
+    'objection_filed_at_hour', 'officer_response_noted_at_hour', 'officer_response_noted_by',
   ];
   const rank = new Map(d.villages.map((v) => [v.name, v.rank]));
   const lines = d.entries.map((e) =>
     [
       rank.get(e.village) ?? '', e.village, e.plot, e.crop, e.areaHa, e.stage, e.tierLabel, e.scoreLo, e.scoreHi,
-      e.floodShare, e.floodShareUnc, e.atOrAboveShareParameter ? 'yes' : 'no', e.priority, e.flags.join('; '),
-      e.objection?.filedAtHour ?? '', e.objection?.answeredAtHour ?? '',
+      e.floodShare, e.floodShareUnc, e.floodShareLo, e.floodShareHi, e.atOrAboveShareParameter ? 'yes' : 'no', e.priority, e.flags.join('; '),
+      e.objection?.filedAtHour ?? '', e.objection?.answeredAtHour ?? '', e.objection?.responseBy ?? '',
     ].map(cell).join(','),
   );
   return (

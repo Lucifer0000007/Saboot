@@ -3,27 +3,30 @@ import { Icon, type IconName } from '../../ui/Icon';
 import { tr, trr } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { showToast } from '../../lib/announce';
-import { focusPlot, focusDet, model } from '../../sim/engine';
-import { view, recordRef, policyNo } from '../focus';
+import { checkCode } from '../../lib/hash';
+import { focusPlot, focusDet, model, activePlotId } from '../../sim/engine';
+import { view, recordRef, policyNo, ConsentMissing } from '../focus';
 import { screen } from '../nav';
 import { cropName } from '../parts';
+import { nm } from '../../lib/names';
 
 const STEPS: [string, IconName][] = [['fl.s1', 'phone'], ['fl.s2', 'volume'], ['fl.s3', 'shield'], ['fl.s4', 'file']];
 
-export function FileClaim() {
+/** The farmer's details for the officer, with Copy, and the steps to report. Shown before the receipt number is saved, and
+ *  folded under the status once it is (one Report tab, audit S-06). */
+export function ReportDetails() {
   const p = focusPlot.value!, d = focusDet.value!, m = model.value!;
   const v = view.value;
-  const [ref, setRef] = useState('');
-  const [err, setErr] = useState<string | null>(null);
   const rows: [string, string][] = [
-    [tr('fl.farmer'), p.name],
+    // the farmer's name in their script, with the Latin spelling the officer's records use
+    [tr('fl.farmer'), nm(p.name) === p.name ? p.name : `${nm(p.name)} (${p.name})`],
     [trr('reg.policy'), policyNo(p.id)],
-    [tr('reg.plot'), `${p.id} · ${tr('reg.khasra')} ${p.khasra} · ${p.village}`],
+    [tr('reg.plot'), `${p.id} · ${tr('reg.khasra')} ${p.khasra} · ${nm(p.village)}`],
     [tr('reg.crop'), `${cropName(p.crop)} · ${p.areaHa.toFixed(1)} ha`],
     [tr('fl.cause'), tr('fl.flood')],
     [tr('fl.event'), fmtClock(d.eventT!)],
     [trr('fl.deadline'), fmtClock(d.deadlineT!)],
-    [tr('pk.hash'), v.seal ? v.seal.packetHash.slice(0, 16) : '—'],
+    [tr('fl.check'), v.seal ? checkCode(v.seal.packetHash) : '—'],
   ];
   const text = `${m.raw.district}\n` + rows.map(([k, val]) => `${k}: ${val}`).join('\n') + '\n(SIMULATION · synthetic data)';
 
@@ -36,20 +39,8 @@ export function FileClaim() {
     }
   }
 
-  async function save(e: Event) {
-    e.preventDefault();
-    const clean = ref.trim();
-    if (!/^[A-Za-z0-9/-]{4,32}$/.test(clean)) { setErr(tr('fl.bad')); return; }
-    setErr(null);
-    await recordRef(clean);
-    showToast(tr('fl.saved', { ref: clean.toUpperCase() }), 'ok');
-    screen.value = 'status';
-  }
-
   return (
-    <div class="stack f-stack">
-      <h2 class="f-title">{trr('fl.title')}</h2>
-      <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
+    <>
       <section class="card summary" aria-labelledby="sum-h">
         <div class="row-between">
           <h3 id="sum-h">{tr('fl.summary')}</h3>
@@ -67,30 +58,56 @@ export function FileClaim() {
           ))}
         </ol>
       </section>
-      {v.ref ? (
-        <p class="note note-ok"><Icon name="okShape" /><span>{tr('fl.saved', { ref: v.ref.ref })} · <span class="num">{fmtClock(v.ref.simT)}</span></span></p>
-      ) : (
-        <form class="stack f-stack" onSubmit={save} noValidate>
-          <label class="field">
-            <span>{trr('fl.ref')}</span>
-            <input
-              type="text"
-              inputMode="text"
-              autoComplete="off"
-              autoCapitalize="characters"
-              value={ref}
-              onInput={(e) => setRef((e.currentTarget as HTMLInputElement).value)}
-              aria-describedby="ref-help"
-              aria-invalid={!!err}
-              class="input"
-              placeholder="KR-2026-55821"
-            />
-            <small id="ref-help" class="f-help">{tr('fl.refHelp')}</small>
-          </label>
-          {err && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{err}</span></p>}
-          <button type="submit" class="pill pill-primary pill-lg pill-block"><Icon name="check" /> {trr('fl.save')} <span class="arrow" aria-hidden="true">→</span></button>
-        </form>
-      )}
-    </div>
+    </>
+  );
+}
+
+/** Before the receipt number is saved: how to report, then the field for the number. */
+export function FileClaim() {
+  const p = focusPlot.value!;
+  const [ref, setRef] = useState('');
+  const [err, setErr] = useState<string | null>(null);
+
+  async function save(e: Event) {
+    e.preventDefault();
+    const clean = ref.trim();
+    if (!/^[A-Za-z0-9/-]{4,32}$/.test(clean)) { setErr(tr('fl.bad')); return; }
+    setErr(null);
+    try {
+      await recordRef(clean);
+    } catch (e) {
+      if (e instanceof ConsentMissing) { setErr(tr('cap.needConsent', { farmer: nm(p.name) })); return; }
+      throw e;
+    }
+    showToast(tr('fl.saved', { ref: clean.toUpperCase() }), 'ok');
+    screen.value = 'status';
+  }
+
+  return (
+    <>
+      <h2 class="f-title">{activePlotId.value !== null ? trr('hm.flTitle', { farmer: nm(p.name) }) : trr('fl.title')}</h2>
+      <p class="note note-plain"><Icon name="info" /><span>{trr('fl.intro')}</span></p>
+      <ReportDetails />
+      <form class="stack f-stack" onSubmit={save} noValidate>
+        <label class="field">
+          <span>{trr('fl.ref')}</span>
+          <input
+            type="text"
+            inputMode="text"
+            autoComplete="off"
+            autoCapitalize="characters"
+            value={ref}
+            onInput={(e) => setRef((e.currentTarget as HTMLInputElement).value)}
+            aria-describedby="ref-help"
+            aria-invalid={!!err}
+            class="input"
+            placeholder="KR-2026-55821"
+          />
+          <small id="ref-help" class="f-help">{tr('fl.refHelp')}</small>
+        </label>
+        {err && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{err}</span></p>}
+        <button type="submit" class="pill pill-primary pill-lg pill-block"><Icon name="check" /> {trr('fl.save')} <span class="arrow" aria-hidden="true">→</span></button>
+      </form>
+    </>
   );
 }

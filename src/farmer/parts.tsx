@@ -1,15 +1,19 @@
 import { useMemo } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
-import { tr, trr } from '../lib/i18n';
-import { lang, lowData } from '../lib/prefs';
+import { tr, trr, langReady } from '../lib/i18n';
+import { lowData } from '../lib/prefs';
 import { say, stopVoice, speakingId, progress, voiceNA } from '../lib/voice';
 import { fmtCountdown, fmtCountdownWords } from '../lib/time';
 import { model, focusPlot } from '../sim/engine';
 import type { ShotKind } from './photo';
+import type { Lang } from '../sim/types';
+import { nm } from '../lib/names';
 
 /** Captions are always visible; the current sentence is highlighted while voice plays. */
-export function VoiceCaption({ id, text, clip, label }: { id: string; text: string; clip?: string; label?: string }) {
+/** `lang`: the language of `text` when it is not the page's (a farmer's consent, read in the farmer's language). */
+export function VoiceCaption({ id, text, clip, label, lang }: { id: string; text: string; clip?: string; label?: string; lang?: Lang }) {
   const active = speakingId.value === id;
+  const l = lang ?? langReady.value;
   const parts = useMemo(() => text.match(/[^.!?।]+[.!?।]?\s*/g) ?? [text], [text]);
   let acc = 0;
   const at = progress.value * text.length;
@@ -19,7 +23,7 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
         type="button"
         class={'pill pill-ghost voice-btn' + (active ? ' on' : '')}
         aria-pressed={active}
-        onClick={() => (active ? stopVoice() : say(id, text, lang.value, clip))}
+        onClick={() => (active ? stopVoice() : say(id, text, l, clip))}
       >
         <Icon name={active ? 'mute' : 'volume'} />
         {active ? tr('f.stop') : label ?? tr('f.read')}
@@ -32,7 +36,8 @@ export function VoiceCaption({ id, text, clip, label }: { id: string; text: stri
           return <span key={i} class={cur ? 'cur' : undefined}>{s}</span>;
         })}
       </p>
-      {voiceNA.value === lang.value && <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('f.voiceNA')}</span></p>}
+      {/* why it is silent and what to do (audit F7); the alert and registration messages also say they come as a call */}
+      {voiceNA.value === l && <p class="note note-warn" role="status" data-voice-na><Icon name="info" /><span>{tr('f.voiceNA', { lang: tr('lang.name.' + l) })}{clip ? ' ' + tr('f.voiceCall') : ''}</span></p>}
     </div>
   );
 }
@@ -45,15 +50,15 @@ export function countdownTone(left: number, hard = true) {
   return left <= 0 ? (hard ? 'over' : 'passed') : left < 6 ? 'last' : left < 24 ? 'amber' : 'ink';
 }
 
-export function Countdown({ left, total, hard = true }: { left: number; total: number; hard?: boolean }) {
+export function Countdown({ left, total, hard = true, label, ended }: { left: number; total: number; hard?: boolean; label: string; ended: string }) {
   const pct = Math.max(0, Math.min(1, left / total));
   const tone = countdownTone(left, hard);
   return (
     <div class={'countdown ' + tone}>
       {hard ? (
-        <div class="count num" role="timer" aria-label={trr('al.clock')}>{fmtCountdown(left)}</div>
+        <div class="count num" role="timer" aria-label={label}>{fmtCountdown(left)}</div>
       ) : (
-        <div class="count words" role="timer" aria-label={trr('al.clock')}>{fmtCountdownWords(left)}</div>
+        <div class="count words" role="timer" aria-label={label}>{left <= 0 ? ended : fmtCountdownWords(left)}</div>
       )}
       {tone === 'last' && <span class="tag tag-warn last-tag"><Icon name="clock" size={16} />{trr('al.lastHours')}</span>}
       {!hard && <span class="tag advice-tag"><Icon name="info" size={16} />{tr('al.advice')}</span>}
@@ -69,7 +74,7 @@ export function PlotMini() {
   const vb = `${p.cx - 70} ${p.cy - 48} 140 96`;
   const near = m.plots.filter((q) => q.v === p.v && q.id !== p.id);
   return (
-    <svg class="mini decor" viewBox={vb} role="img" aria-label={`${tr('reg.plot')} ${p.id}, ${p.village}`}>
+    <svg class="mini decor" viewBox={vb} role="img" aria-label={`${tr('reg.plot')} ${p.id}, ${nm(p.village)}`}>
       <rect x={p.cx - 70} y={p.cy - 48} width="140" height="96" fill="var(--sunk)" />
       <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="7" stroke-linecap="round" />
       {near.map((q) => <polygon key={q.id} points={q.pts.join(' ')} fill="var(--silt)" stroke="var(--rule-strong)" stroke-width=".6" />)}

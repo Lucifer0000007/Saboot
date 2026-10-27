@@ -43,7 +43,9 @@ helper must be named first. The farmer agrees by pressing and holding a button f
 sentence they agreed to is stored with the method and the time. The record is part of the farmer's packet body and is in the
 hash chain, so a change to it breaks the chain.
 
-The consent sentence, shown and read aloud in the farmer's language. `{farmer}` and `{helper}` are replaced by the names:
+The consent sentence, shown and read aloud in the farmer's language (the language the scenario lists for that farmer, whatever
+the helper's phone is set to; the helper gets the same words in the phone's language underneath, and the log records which
+language the farmer was read). `{farmer}` and `{helper}` are replaced by the names:
 
 | Language | Sentence |
 |---|---|
@@ -59,10 +61,10 @@ Under it, three plain lines say what the consent means:
 | English | The helper only takes the photos. The officer decides. Saboot decides nothing. (On the insurance rail: The insurer decides.) |
 | English | You can ask for a copy, or for everything to be deleted from this phone, at any time. |
 | हिन्दी | फ़ोटो इसी फ़ोन में रहती हैं। सिर्फ़ उनकी पहचान-छाप, समय और लगभग 100 मीटर तक गोल की हुई जगह साझा की जा सकती है। |
-| हिन्दी | सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत कोई फ़ैसला नहीं करता। |
+| हिन्दी | सहायक सिर्फ़ फ़ोटो लेता है। फ़ैसला अधिकारी करता है। सबूत ऐप कोई फ़ैसला नहीं करता। |
 | हिन्दी | आप कभी भी अपनी कॉपी माँग सकते हैं, या इस फ़ोन से सब कुछ मिटवा सकते हैं। |
 | ਪੰਜਾਬੀ | ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੀ ਪਛਾਣ-ਛਾਪ, ਸਮਾਂ ਅਤੇ ਲਗਭਗ 100 ਮੀਟਰ ਤੱਕ ਗੋਲ ਕੀਤੀ ਹੋਈ ਥਾਂ ਸਾਂਝੀ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। |
-| ਪੰਜਾਬੀ | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |
+| ਪੰਜਾਬੀ | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਐਪ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। |
 | ਪੰਜਾਬੀ | ਤੁਸੀਂ ਕਦੇ ਵੀ ਆਪਣੀ ਕਾਪੀ ਮੰਗ ਸਕਦੇ ਹੋ, ਜਾਂ ਇਸ ਫ਼ੋਨ ਤੋਂ ਸਭ ਕੁਝ ਮਿਟਵਾ ਸਕਦੇ ਹੋ। |
 
 The Hindi and Punjabi text is machine-drafted and flagged for native review (`docs/translation-review.md`). A real pilot needs
@@ -93,9 +95,12 @@ In Settings, under *Your data on this phone*:
 - **Delete my data from this phone** (with a confirmation step) removes **every** log, photo, queued item, helper session, the
   phone's signing key and any imported packets. It cannot be undone.
 
-Both act on the whole phone, not on one farmer. On a helper's phone that means one farmer's request exports or erases every
-farmer's log. Per-farmer export and delete are not built in this prototype; a pilot needs them before a helper's phone holds
-more than one farmer's evidence.
+Both act on the whole phone, for the phone's owner. In helper mode, with a farmer open, Settings also shows
+*{farmer}'s data on this phone*, which acts on that one farmer only:
+
+- **Copy of {farmer}'s data (JSON)** gives that farmer's own log and nothing about any other farmer.
+- **Delete {farmer}'s data from this phone** (with a confirmation step) removes that farmer's log, photos, spoken consent,
+  queued items and queued sends. Every other farmer's evidence stays; a photo file another farmer's log also holds stays too.
 
 In the simulation nothing exists anywhere else, so deleting on the phone deletes everything. In a pilot, withdrawing consent
 would also have to reach the officer's office: how a withdrawal changes a draft list that already names the plot is a process

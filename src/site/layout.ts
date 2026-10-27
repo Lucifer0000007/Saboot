@@ -4,8 +4,9 @@ import { signal, computed } from '@preact/signals';
 import { PUBLIC_URL } from '../config';
 
 export type Layout = 'mobile' | 'tablet' | 'desktop';
-export type SimTab = 'farmer' | 'insurer' | 'ledger' | 'explainer';
-export type InsurerView = 'claims' | 'triage' | 'draft' | 'impact';
+export type SimTab = 'farmer' | 'insurer' | 'explainer';
+/** 'ledger' is the tamper check, once a tab of its own (audit S-05). */
+export type InsurerView = 'claims' | 'draft' | 'ledger' | 'impact';
 export type SectionId = 'problem' | 'simulation' | 'how' | 'limits';
 
 const hasDom = typeof window !== 'undefined';
@@ -42,6 +43,44 @@ if (hasDom) {
   addEventListener('resize', sync);
   // text-size changes (in-app 125/150%) toggle classes on <html>
   new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
+
+  // A text field has focus, so a phone's keyboard is probably up: the bottom dock steps aside instead of covering the
+  // field's button (audit R8). Any text-like input counts, not only type=text.
+  const NOT_TEXT = /^(button|checkbox|radio|range|submit|reset|file|image|color|hidden)$/;
+  const isText = (el: EventTarget | null) => el instanceof HTMLTextAreaElement || (el instanceof HTMLInputElement && !NOT_TEXT.test(el.type)) || (el instanceof HTMLElement && el.isContentEditable);
+  // the dock comes back a moment after the field loses focus: a tap on the form's button moves focus first, and a dock
+  // reappearing at once would land under the finger and take the tap
+  let back: ReturnType<typeof setTimeout> | undefined;
+  const later = () => { clearTimeout(back); back = setTimeout(() => document.documentElement.classList.remove('typing'), 400); };
+  addEventListener('focusin', (e) => { if (isText(e.target)) { clearTimeout(back); document.documentElement.classList.add('typing'); } else later(); });
+  addEventListener('focusout', later);
+
+  // A rotation (or any large change of width) reflows the whole page: come back to what was on screen, not to the same
+  // pixel offset, which by then shows another section (audit R7). The anchor is what sat a third of the way down the
+  // screen when the person last scrolled; if the new layout re-rendered it (the phone frame), its nearest marked ancestor.
+  let anchor: Element | null = null, mark: string | null = null, lastW = innerWidth, resizedAt = -Infinity;
+  let cap: ReturnType<typeof setTimeout> | undefined;
+  addEventListener('scroll', () => {
+    if (performance.now() - resizedAt < 600) return;
+    clearTimeout(cap);
+    cap = setTimeout(() => {
+      anchor = document.elementFromPoint(innerWidth / 2, innerHeight / 3);
+      const m = anchor?.closest('[data-tour], section[id]');
+      mark = !m ? null : m.id ? '#' + m.id : `[data-tour="${m.getAttribute('data-tour')}"]`;
+    }, 120);
+  }, { passive: true });
+  addEventListener('resize', () => {
+    clearTimeout(cap);
+    if (Math.abs(innerWidth - lastW) > 100 && (anchor || mark)) {
+      const a = anchor, sel = mark;
+      resizedAt = performance.now();
+      const back = () => (a?.isConnected ? a : sel ? document.querySelector(sel) : null)?.scrollIntoView({ block: 'center' });
+      // once at the next frame, and again when a layout switch (the phone frame) has re-rendered the views
+      requestAnimationFrame(back);
+      setTimeout(back, 350);
+    }
+    lastW = innerWidth;
+  });
 }
 
 /** Publish an element's rendered height as a CSS variable (sticky offsets use real heights, not guesses). */
@@ -58,6 +97,8 @@ export const panelTab = computed<Exclude<SimTab, 'farmer'>>(() => (simTab.value 
 export const insurerView = signal<InsurerView>('claims');
 /** Plot open in the insurer drawer. */
 export const openPlot = signal<string | null>(null);
+/** An imported packet open in its own drawer, by its chain head (audit OF-01: it used to open the simulated plot). */
+export const openImported = signal<string | null>(null);
 /** Feature K: a code to import (from a #k= link), or '' to open the import sheet empty. */
 export const importCode = signal<string | null>(null);
 /** Open the import sheet on what the demo receiver holds (only meaningful when prefs.receiver is on). */
@@ -79,14 +120,42 @@ export function scrollToId(id: string, focus = true) {
   }
 }
 
-/** Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin). */
-export function scrollToPhone() {
-  const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
+/** Bring the open panel (the console) to the top of the view, not the section heading above it: on a desktop with its tabs,
+ *  below that the panel itself (the view switch rides in the bottom dock there). */
+export function scrollToPanel() {
+  const el = document.querySelector<HTMLElement>('.sim-grid .panel-tabs, .sim-body > .sim-tabs, #st-panel');
   if (!el) return scrollToId('simulation', false);
   el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 
-export interface DeepLink { at?: string; tab?: SimTab; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
+/**
+ * Bring the farmer's phone to the top of the view (the page scrolls under the sticky bars by their own scroll margin).
+ * Unframed (a phone), the app starts right under the nav, and if the farmer's main button would then sit under the bottom
+ * dock (a small screen, a two-line Hindi title) the page scrolls only as far as that button needs (audit F2, J12).
+ */
+export function scrollToPhone() {
+  const el = document.querySelector<HTMLElement>('[data-tour="phone"]');
+  if (!el) return scrollToId('simulation', false);
+  const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  if (el.classList.contains('phone')) return el.scrollIntoView({ behavior, block: 'start' });
+  const nav = document.querySelector('header.nav');
+  const navH = nav && getComputedStyle(nav).position === 'sticky' ? nav.getBoundingClientRect().height : 0;
+  let top = el.getBoundingClientRect().top + scrollY - navH;
+  const cta = el.querySelector('[data-tour="cta"]');
+  if (cta) {
+    const dock = document.querySelector('.ctrl-dock')?.getBoundingClientRect().height ?? 0;
+    top = Math.max(top, cta.getBoundingClientRect().bottom + scrollY - (innerHeight - dock - 16));
+  }
+  scrollTo({ top, behavior });
+}
+
+/** The phone is on screen at all (the person has not scrolled on to another section). */
+export function phoneInView() {
+  const r = document.querySelector('[data-tour="phone"]')?.getBoundingClientRect();
+  return !!r && r.bottom > 0 && r.top < innerHeight;
+}
+
+export interface DeepLink { at?: string; tab?: SimTab; view?: InsurerView; section?: SectionId; k?: string; rail?: 'relief' | 'pmfby'; cadence?: 'demo' | 'slow'; receiver?: boolean }
 
 /** ?at=alert (QR target), ?tab=insurer, ?rail=pmfby, ?cadence=slow, #how, #k=<payload>; old #/dashboard style links still work. */
 export function readDeepLink(): DeepLink {
@@ -94,13 +163,15 @@ export function readDeepLink(): DeepLink {
   const q = new URLSearchParams(location.search);
   const out: DeepLink = {};
   const at = q.get('at');
-  if (at && /^(trigger|alert|capture|deadline|confirm)$/.test(at)) out.at = at;
+  if (at && /^(trigger|alert|capture|deadline|confirm|draft)$/.test(at)) out.at = at;
   const rail = q.get('rail');
   if (rail === 'relief' || rail === 'pmfby') out.rail = rail;
   const cad = q.get('cadence');
   if (cad === 'demo' || cad === 'slow') out.cadence = cad;
   const tab = q.get('tab');
-  if (tab && /^(farmer|insurer|ledger|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  if (tab && /^(farmer|insurer|explainer)$/.test(tab)) out.tab = tab as SimTab;
+  // the ledger was a tab of its own: an old link opens the console's tamper check, where it now lives
+  if (tab === 'ledger') { out.tab = 'insurer'; out.view = 'ledger'; }
   // the public site is never a receiver (nothing listens there), so the flag is honoured only on another host: the demo laptop
   const rc = q.get('receiver');
   if (rc === '1' && location.host !== new URL(PUBLIC_URL).host) out.receiver = true;

@@ -65,6 +65,7 @@ export const STATES: State[] = [
     id: 'feature-phone', focus: '.fphone-sheet',
     setup: async (p) => {
       await sab(p, `s.seek(20); s.tab('farmer'); s.screen('helper');`);
+      await p.locator('[data-fp-future] summary').click();
       await p.locator('[data-fp-open]').first().click();
       await p.locator('[data-fp-call]').click();
       await p.waitForSelector('.fphone-sheet .keypad');

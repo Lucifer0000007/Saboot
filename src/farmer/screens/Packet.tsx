@@ -6,14 +6,15 @@ import { tr, trr } from '../../lib/i18n';
 import { fmtClock, fmtDur } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { network } from '../../lib/prefs';
-import { view, syncOutbox, seal, busy, isOffline, GAP_FLAG_H, type Link } from '../focus';
+import { view, syncOutbox, busy, isOffline, GAP_FLAG_H, type Link, type FocusEvent } from '../focus';
 import { SHOTS } from '../photo';
 import { screen } from '../nav';
-import { activePlotId } from '../../sim/engine';
-import { backToQueue } from '../helper';
+import { activePlotId, focusPlot } from '../../sim/engine';
+import { nextFarmer } from '../helper';
 import { SyncLog } from '../SyncLog';
-import { Thumb } from './Capture';
+import { Thumb, sealOrSay, sealLabel } from './Capture';
 import { Seal } from '../../ui/Seal';
+import { nm } from '../../lib/names';
 
 const ShareSheet = lazy(() => import('../ShareToLaptop'), 0);
 
@@ -22,15 +23,17 @@ function ShareCard() {
   return (
     <section class="share-card" aria-labelledby="share-h" data-tour="share">
       <h3 id="share-h"><Icon name="qr" /> {tr('k.title')}</h3>
-      <p class="f-help">{tr('k.body')}</p>
+      <p class="f-help">{activePlotId.value !== null ? tr('hm.kBody', { farmer: nm(focusPlot.value!.name) }) : tr('k.body')}</p>
       <button type="button" class="pill pill-ghost" onClick={() => setOpen(true)}><Icon name="qr" /> {tr('k.btn')}</button>
       {open && <ShareSheet onClose={() => setOpen(false)} />}
     </section>
   );
 }
 
-const EV_LABEL: Record<string, string> = {
+// typed by event type, so a new kind of event cannot reach the screen as a raw key (audit CC-04: 'objection' did)
+const EV_LABEL: Record<FocusEvent['type'], string> = {
   shot: 'cap.taken', seal: 'pk.sealed', sync: 'pk.server', ref: 'fl.ref', no_damage: 'al.noDamage', consent: 'as.consent',
+  objection: 'pk.evObjection',
 };
 
 function groups(h: string) {
@@ -39,10 +42,13 @@ function groups(h: string) {
 
 export function Packet() {
   const v = view.value;
+  const [msg, setMsg] = useState<string | null>(null);
+  // a helper looks at the farmer's evidence, not "your evidence" (audit H11)
+  const title = activePlotId.value !== null ? tr('hm.pkTitle', { farmer: nm(focusPlot.value!.name) }) : tr('pk.title');
   if (!v.shotCount) {
     return (
       <div class="stack f-stack">
-        <h2 class="f-title">{tr('pk.title')}</h2>
+        <h2 class="f-title">{title}</h2>
         <p>{tr('pk.empty')}</p>
         <button type="button" class="pill pill-primary pill-lg pill-block" data-take-photos onClick={() => (screen.value = 'capture')}>
           <Icon name="camera" /> {tr('cap.title')} <span class="arrow" aria-hidden="true">→</span>
@@ -63,7 +69,7 @@ export function Packet() {
       <div class="pk-head">
         <Seal state={v.seal ? 'sealed' : 'open'} size={76} />
         <div>
-          <h2 class="f-title">{tr('pk.title')}</h2>
+          <h2 class="f-title">{title}</h2>
           <span class={'tag ' + (v.seal ? 'tag-ok' : '')}><Icon name={v.seal ? 'lock' : 'info'} size={16} /> {v.seal ? tr('pk.sealed') : tr('pk.unsealed')}</span>
         </div>
       </div>
@@ -77,9 +83,14 @@ export function Packet() {
         ))}
       </ul>
 
+      {/* the sealed evidence and the way to show it live together on Proof (audit S-06, F4) */}
+      {v.seal && <ShareCard />}
+
       <dl class="facts">
         <div><dt>{tr('f.nav.photos')}</dt><dd>{photoOrigins.map(([o, n]) => <Val key={o} kind="photo" prov={o}><span class="num">{n}</span></Val>)}</dd></div>
-        <div><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span> · {first.geo.src === 'gps' ? tr('cap.gps', { acc: first.geo.acc }) : tr('cap.simGps')}</Val></dd></div>
+        {/* plain words for the farmer; the coordinates are in the technical details (audit F12). A real GPS fix is not
+            compared with the fictional plot, so it does not claim to be at the plot. */}
+        <div data-pk-loc><dt>{tr('pk.location')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}>{first.geo.src === 'gps' ? <>{tr('cap.gps', { acc: first.geo.acc })} · {tr('pk.notChecked')}</> : <>{tr('pk.atPlot', { plot: focusPlot.value!.id })} · {tr('cap.simGps')}</>}</Val></dd></div>
         {v.consent && <div data-captured-by><dt>{tr('pk.by')}</dt><dd>{tr('pk.byValue', { name: v.consent.helper, role: v.consent.role })}</dd></div>}
         <div><dt>{tr('pk.device')}</dt><dd class="num">{fmtClock(v.firstShotT!)} – {fmtClock(v.lastShotT!, false)}</dd></div>
         <div><dt>{tr('pk.server')}</dt><dd class="num">{v.syncedT !== null ? fmtClock(v.syncedT) : '—'}</dd></div>
@@ -95,14 +106,13 @@ export function Packet() {
       )}
       {gaps.length > 0 && <p class="note note-warn"><Icon name="flag" /><span>{tr('pk.gap', { gap: fmtDur(maxGap) })}</span></p>}
 
-      {v.seal && <ShareCard />}
-
       <details class="pk-tech" data-pk-tech>
         <summary><Icon name="link" /> <span>{tr('pk.tech')}</span></summary>
         <div class="stack">
-        {v.seal && (
-          <dl class="facts"><div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div></dl>
-        )}
+        <dl class="facts">
+          {v.seal && <div class="full" data-tour="hash"><dt>{tr('pk.hash')} <span lang="en">(SHA-256)</span></dt><dd class="hash">{groups(v.seal.packetHash)}</dd></div>}
+          <div class="full" data-pk-coords><dt>{tr('pk.coords')}</dt><dd><Val kind="loc" prov={first.geo.src === 'gps' ? 'live' : 'sim'}><span class="num">{first.geo.lat.toFixed(5)}, {first.geo.lon.toFixed(5)}</span></Val></dd></div>
+        </dl>
         <SyncLog />
         <section class="chain" aria-labelledby="chain-h">
         <h3 id="chain-h"><Icon name="link" /> {tr('pk.chain')}</h3>
@@ -123,17 +133,20 @@ export function Packet() {
       </details>
 
       {v.seal && activePlotId.value !== null ? (
-        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={backToQueue}>
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={nextFarmer}>
           <Icon name="users" /> {tr('hm.next')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : v.seal ? (
-        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'file')}>
+        <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'status')}>
           <Icon name="file" /> {trr('pk.cta')} <span class="arrow" aria-hidden="true">→</span>
         </button>
       ) : (
-        <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={seal}>
-          <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
-        </button>
+        <>
+          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value} onClick={() => sealOrSay(setMsg)}>
+            <Icon name="lock" /> {sealLabel()} <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
+        </>
       )}
     </div>
   );

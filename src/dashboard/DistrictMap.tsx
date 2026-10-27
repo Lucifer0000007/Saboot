@@ -9,7 +9,7 @@ import { floodPath, lowlandPath } from '../sim/model';
 import { lastPassBefore, type Tier } from '../sim/evidence';
 import { stageLabel } from '../sim/cohort';
 import { fmtT } from '../lib/time';
-import { openPlot } from '../site/layout';
+import { openPlot, layout } from '../site/layout';
 import { importedLabel } from '../k/imported';
 import { rows, importedRows, tierFilter, layers, type Row } from './state';
 
@@ -40,8 +40,11 @@ export function MapDefs() {
 
 export const tierPaint = (t: Tier) => (t === 'none' ? 'var(--silt)' : `url(#pat-${t})`);
 
-const view = signal<{ z: number; cx: number; cy: number }>({ z: 1, cx: 0.5, cy: 0.5 });
+/** null until someone zooms or pans: a phone then opens one step in, on the demo farmer's village (audit OF-10, UI-11). */
+const view = signal<{ z: number; cx: number; cy: number } | null>(null);
 const ZOOMS = [1, 1.5, 2, 3];
+/** Extra tap area around every plot, in screen pixels, drawn under the plots so it only catches taps that miss them all. */
+const HIT_PX = 14;
 
 /** Rendered px per SVG unit, so labels can be sized to >= 12px on screen. */
 function useScale(ref: { current: Element | null }, units: number) {
@@ -68,7 +71,8 @@ export function DistrictMap() {
   const hz = m.raw.hail;
   const { w: W, h: H } = m.raw.map;
   const svg = useRef<SVGSVGElement>(null);
-  const v = view.value;
+  const home = m.raw.map.villages[m.plots.find((p) => p.id === m.raw.focus)?.v ?? 0];
+  const v = view.value ?? (layout.value === 'mobile' && home ? { z: 2, cx: home.x / W, cy: home.y / H } : { z: 1, cx: 0.5, cy: 0.5 });
   const vw = W / v.z, vh = H / v.z;
   const vx = Math.max(0, Math.min(W - vw, v.cx * W - vw / 2));
   const vy = Math.max(0, Math.min(H - vh, v.cy * H - vh / 2));
@@ -104,6 +108,13 @@ export function DistrictMap() {
           {m.raw.map.roads.map((d, i) => <path key={i} d={d} fill="none" stroke="var(--rule)" stroke-width="3" />)}
           <path d={m.raw.map.canal} fill="none" stroke="var(--water)" stroke-width="2" stroke-dasharray="5 3" />
           <path d={m.raw.map.river} fill="none" stroke="var(--water)" stroke-width="9" stroke-linecap="round" />
+          {/* a wider, invisible edge under every plot: a tap just outside a small plot still opens it; the plots above keep
+              every tap that lands on them. Keyboard and screen reader users have the plots themselves and the list. */}
+          <g class="plot-hits" aria-hidden="true">
+            {rows.value.filter((r) => filt[r.e.tier]).map((r) => (
+              <polygon key={r.s.plot.id} class="plot-hit" data-plot={r.s.plot.id} points={r.s.plot.pts.join(' ')} fill="none" stroke="transparent" stroke-width={fs(HIT_PX * 2)} stroke-linejoin="round" pointer-events="stroke" onClick={() => select(r)} />
+            ))}
+          </g>
           {rows.value.map((r) => {
             const p = r.s.plot;
             const on = filt[r.e.tier];
@@ -155,6 +166,7 @@ export function DistrictMap() {
         </svg>
       </div>
       <figcaption>
+        <span class="map-hint">Tap or click a plot to open it; every plot is also in the list below. </span>
         {m.raw.district} · {pass === null ? 'no radar pass processed yet' : `flood extent from the simulated radar pass at ${fmtT(pass)}`} · synthetic terrain
       </figcaption>
     </figure>
@@ -183,15 +195,18 @@ export function Legend() {
       {importedRows.value.length > 0 && (
         <p class="lg-item lg-imp"><svg width="28" height="20" aria-hidden="true"><circle cx="14" cy="10" r="8" fill="none" stroke="var(--kali)" stroke-width="2" /></svg><span>Imported from a judge’s phone</span></p>
       )}
-      <fieldset>
-        <legend>Layers</legend>
-        {(['flood', 'terrain', 'gauges'] as const).map((k) => (
-          <label key={k} class="lg-item">
-            <input type="checkbox" checked={lay[k]} onChange={() => (layers.value = { ...lay, [k]: !lay[k] })} />
-            <span>{k === 'flood' ? 'Flood extent (simulated radar)' : k === 'terrain' ? 'Low-lying terrain' : `Rain gauges (${m.stations.map((s) => s.id).join(', ')})`}</span>
-          </label>
-        ))}
-      </fieldset>
+      {/* the layer switches are rarely needed: folded on a phone, open on wider screens (audit J7) */}
+      <details class="lg-layers" open={layout.value !== 'mobile'}>
+        <summary>Map layers</summary>
+        <fieldset aria-label="Map layers">
+          {(['flood', 'terrain', 'gauges'] as const).map((k) => (
+            <label key={k} class="lg-item">
+              <input type="checkbox" checked={lay[k]} onChange={() => (layers.value = { ...lay, [k]: !lay[k] })} />
+              <span>{k === 'flood' ? 'Flood extent (simulated radar)' : k === 'terrain' ? 'Low-lying terrain' : `Rain gauges (${m.stations.map((s) => s.id).join(', ')})`}</span>
+            </label>
+          ))}
+        </fieldset>
+      </details>
     </div>
   );
 }

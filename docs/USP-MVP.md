@@ -11,8 +11,8 @@ Numbers marked "measured" were taken in this review on the built site (Chrome, m
 | Criterion | Now | After the planned changes | Evidence from the product | What lowers it |
 |---|---|---|---|---|
 | Innovation | 6 | 7 | The event clock starts at the **earliest** qualifying signal, so a farmer is never given more time than there was (`src/sim/rules.ts`, `combine`). Evidence is held by the farmer: a signed packet of 253 bytes (338 characters) that two independent verifiers check. Helper mode seals each farmer's own consent in that farmer's own log. | The pieces are known (thresholds, hash chains, QR). The newest claim, a plot-level clock from rain, river and radar, has never met real data. The official crop-insurance app reportedly already takes geo-tagged photos (secondary sources, not checked against the official site). |
-| Feasibility | 5 | 7 | Runs from the service-worker cache with no network. Real camera, location, hashing, signing and verification work: about 6 s of machine time for the whole phone flow (measured). 127 unit tests pass, and the README reports a 556-test QA matrix. | No backend, no real data feeds, no plot register, no telephony. Detection is not tested on real floods. Privacy design and the Hindi and Punjabi text are not reviewed. Open blockers: evidence can be lost on reconnect, and real versus simulated is not recorded. |
-| Technical approach | 7 | 8 | One set of pure rule functions is shared by the app, the scenario generator and the real-data harness. Strict CSP and no third-party requests. Lighthouse 97 to 98 performance and 100 accessibility (measured). axe reports 0 serious or critical issues across 26 states and 3 languages (measured by the audit). | The log can lose events on rewind or reconnect. Copy claims checks that do not exist. The two verifiers disagree on odd inputs. `verify.sh` is missing. Budget headroom is thin (LCP 2.2 to 2.4 s against 2.5 s). |
+| Feasibility | 5 | 7 | Runs from the service-worker cache with no network. Real camera, location, hashing, signing and verification work: about 4.7 s of machine time for the whole phone flow (measured, `docs/FINAL-REPORT.md` §4). 280 unit tests pass; 713 of 715 Playwright tests pass and 563 QA captures show 0 problems (README). | No backend, no real data feeds, no plot register, no telephony. Detection is not tested on real floods. Privacy design and the Hindi and Punjabi text are not reviewed. |
+| Technical approach | 7 | 8 | One set of pure rule functions is shared by the app, the scenario generator and the real-data harness. Strict CSP and no third-party requests. Lighthouse 96 to 98 performance and 100 accessibility (README, code freeze); axe 0 serious or critical across 20 states × 7 viewports × 3 languages. | INP fails (288 to 312 ms against 200 ms); interactive is 2.76 to 2.88 s against 3 s; the R2 reload test fails. |
 | Potential impact | 6 | 7 | A real gap: assessment happens after the water recedes, and evidence fades. The pilot plan has a comparison block, agreed stop conditions and no invented figures. Helper-led reach suits shared phones. The packet format is open. | No measured effect, by design. Depends on a department supplying plot and gauge data. The false-alarm cost is real (alert fatigue). Flood only. The customer is slow to move. |
 
 Overall: about 6 of 10 today. The jump comes from showing the real loop (a real photo, sealed, checked on another device,
@@ -22,7 +22,8 @@ broken on purpose) and from being exact about what is real.
 - **Double down on** the live seal-and-check loop. It is the one part that touches reality. Then helper mode (the real user
   is the person holding a shared phone), the habit of saying what is not real, and the pilot kit.
 - **Cut from the demo path:** the tour, the explainer, the two-rail and radar-cadence switches on the first screen, pilot
-  metrics, and anything that needs a server. About twenty controls compete before the product appears.
+  metrics, and anything that needs a server. About twenty controls compete before the product appears. (Later decided
+  otherwise: the hero starts with the 2-minute tour, D-89.)
 - **Underselling:**
   1. It works with no internet on a shared phone.
   2. The seal is 253 bytes. It fits in a QR code, and a stranger's script with no Saboot code can check it.
@@ -30,7 +31,7 @@ broken on purpose) and from being exact about what is real.
   4. The team documented its own limits (validation harness, privacy design, pilot plan) before being asked.
 
 ### Judge: the ten hardest questions
-Answers assume the Phase 4 changes C-02, C-03 and C-04 are done. Until then do not say "location verified" or "received just now".
+C-02, C-03 and C-04 are done; still never say "location verified".
 
 | # | Question | Honest answer | What we show |
 |---|---|---|---|
@@ -38,7 +39,7 @@ Answers assume the Phase 4 changes C-02, C-03 and C-04 are done. Until then do n
 | 2 | Why not the official crop-insurance app? | It waits for an insured farmer to know the clock started and to act, and it serves insurance. Saboot starts from the event, supports helpers and offline capture, and serves the state relief assessment, which is not tied to insurance. Not every state runs the scheme. We do not claim the app lacks features, and we do not integrate with it. | The relief rail as the default. |
 | 3 | Radar cannot see under tall crops, and paddy is wet on purpose. | Agreed, and the app says so. Rain and river rules give the first signal. Radar only confirms. Tall crops hide water, and for paddy only water above the expected level counts. That paddy choice is not tested. Every score shows a band, and the farmer can always report. | The plot drawer's bands. |
 | 4 | Who is the customer? | A district or state revenue and disaster-management department: a licence plus a fee per flood event, with farmers paying nothing. Insurers could come later. No figures exist. A one-block pilot with a comparison block comes first. | The pilot plan. |
-| 5 | Privacy of farmland photos, locations and consent? | Photos stay on the phone. Only fingerprints, times and a location rounded to about 100 m can be shared. Consent is per farmer. No analytics or third-party requests. It is designed with India's data protection law in mind and is not legally reviewed. There is no access control yet, and export and delete are device-wide. | The share sheet, with nothing but a code. |
+| 5 | Privacy of farmland photos, locations and consent? | Photos stay on the phone. Only fingerprints, times and a location rounded to about 100 m can be shared. Consent is per farmer. No analytics or third-party requests. It is designed with India's data protection law in mind and is not legally reviewed. There is no access control yet. Export and delete act on the whole phone, and in helper mode on one farmer only. | The share sheet, with nothing but a code. |
 | 6 | What is real? | Real: the camera, location, hashing, signing, offline queue and the check on the laptop. Replay: one real flood run through the rules, as raw counts (or "Not run"). Simulated: the district, farmers, rain and river series, the server and the phone call. Entered by hand: references, names and any typed reading. | The four labels on screen. |
 | 7 | Is detection validated? | No. The 0.67 and 1 on screen are a consistency check on a synthetic flood. The same rules ran on one real flood, with counts, the source named and the scale mismatch stated. Rule B (radar) is not independently tested. | The replay block, or "Not run". |
 | 8 | False alarms and alert fatigue? | In the simulation the river rule alerts more plots than the synthetic flood reached. Thresholds are uncalibrated. The pilot tracks false alarms from week one and has a stop condition. | The pilot plan's risk table. |
@@ -67,10 +68,10 @@ say "unchanged", never "genuine". Hindi and Punjabi versions need native review 
 | 5 | Judge | Taps "Try a changed copy" or edits one character: "Changed after sealing" | Tampering shows | LIVE |
 
 **Success checks (verifiable).**
-- A new `tests/qa/mvp.spec.ts` runs steps 2 to 5 end to end with Chrome's fake camera and fake location. It asserts three
+- `tests/qa/mvp.spec.ts` runs steps 2 to 5 end to end with Chrome's fake camera and fake location. It asserts three
   shots, a seal, a code of about 338 characters, "Unchanged" on import, the new officer row, a visible receipt time, and a
   failure at the chain or signature step after one character is changed.
-- On the throttled profile the machine time for steps 2 to 4 stays under 10 s (measured now: about 6 s).
+- On the throttled profile the machine time for steps 2 to 4 stays under 10 s (measured: about 4.7 s, `docs/FINAL-REPORT.md` §4).
 - A hand rehearsal on a real Android phone and the real laptop webcam, in the real venue conditions. Only you can do this.
 
 ## 4. The X factor, and the tea-stall test
@@ -80,9 +81,7 @@ seconds, and nothing needs explaining. **Tea-stall test:** after 30 seconds some
 farmer's flood photos, and when the judge changed one letter the seal broke". The retelling stays correct as long as the pitch
 says "changed", not "faked".
 
-One technical condition: today the last character of a code can change without breaking it (16 valid strings for a 3-photo
-code). A judge could hit that and see no failure. Both verifiers will decode strictly (change C-12 below), and the one-click
-button picks a safe position.
+This was fixed by C-12: both verifiers decode strictly, so any changed character fails.
 
 ## 5. What to change, add, demote or cut
 
@@ -150,8 +149,8 @@ has mobile data. (3) The link route: share the link through any messenger and op
 | The camera is refused | Use the phone's file picker. If that fails, "Use a simulated photo", and say it is simulated |
 | The laptop webcam cannot read the QR | Paste the code, or open the link in a new tab |
 | There is no internet | Use the team phone. Skip the judge-phone route |
-| A page reloads | State is kept after C-01. Until then, do not reload after a real capture |
-| Someone presses `R` | It asks first after C-10. Until then, never press it |
+| A page reloads | State is kept, and the page returns to the same screen |
+| Someone presses `R` | It asks first when anything is captured |
 | The projector or laptop sleeps | Disable sleep. Keep a second laptop with the same cached site |
 
 ## 6b. The Impact slide: three sentences a judge can repeat

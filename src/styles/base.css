@@ -92,13 +92,13 @@ button:disabled { cursor: not-allowed; }
 .pill .arrow { font-family: var(--font-body); }
 /* the one primary action on a screen: haldi with a kali edge, legible in sunlight (tests/qa/checks.ts counts it) */
 .pill-primary { background: var(--haldi); color: var(--haldi-ink); border-color: var(--haldi-edge); }
-.pill-primary:hover { background: var(--haldi-hover); }
+@media (hover: hover) { .pill-primary:hover { background: var(--haldi-hover); } }
 .pill-dark { background: var(--kali); color: var(--silt); border-color: var(--kali); }
-.pill-dark:hover { background: var(--kali-2); border-color: var(--kali-2); }
+@media (hover: hover) { .pill-dark:hover { background: var(--kali-2); border-color: var(--kali-2); } }
 .pill-ghost { border-color: var(--kali); background: var(--paper); }
-.pill-ghost:hover { background: var(--sunk); }
+@media (hover: hover) { .pill-ghost:hover { background: var(--sunk); } }
 .pill-light { border-color: var(--silt); color: var(--silt); }
-.pill-light:hover { background: var(--glint-soft); }
+@media (hover: hover) { .pill-light:hover { background: var(--glint-soft); } }
 .pill-sm { min-height: 44px; padding: 8px 14px; }
 .pill-lg { min-height: 56px; padding: 14px 24px; font-size: 1.125rem; }
 /* Indic labels draw about 2px above the centre of a button (tall ascenders, short descenders), so the padding moves them down.
@@ -117,7 +117,7 @@ button:disabled { cursor: not-allowed; }
   display: inline-grid; place-items: center; flex: none; width: 48px; height: 48px; padding: 0;
   border-radius: var(--r-btn); border: var(--bd-ctl); background: var(--paper); color: var(--kali);
 }
-.iconbtn:hover { background: var(--sunk); }
+@media (hover: hover) { .iconbtn:hover { background: var(--sunk); } }
 .iconbtn.solid { background: var(--kali); border-color: var(--kali); color: var(--silt); }
 
 /* cards: paper on silt, one rule; the signboard panel has a kali edge */
@@ -172,7 +172,7 @@ button:disabled { cursor: not-allowed; }
   min-height: 48px; min-width: 48px; padding: 8px 14px; border: 0; border-radius: var(--r-chip); background: transparent;
   font-size: var(--fs-ui); font-weight: 600; color: var(--kali-2);
 }
-.seg > button:hover { color: var(--kali); background: var(--paper); }
+@media (hover: hover) { .seg > button:hover { color: var(--kali); background: var(--paper); } }
 .seg > button[aria-pressed='true'], .seg > button[aria-checked='true'] { background: var(--kali); color: var(--silt); }
 
 /* forms */
@@ -191,6 +191,10 @@ button:disabled { cursor: not-allowed; }
 .switch input:checked::after { transform: translateX(20px); background: var(--paper); }
 
 /* overlays: drawer (desktop right) / bottom sheet (mobile), focus-trapped by ui/Sheet.tsx */
+/* the page behind an open sheet stays where it was (audit UI-08). Not on a desktop, where hiding the scrollbar would shift the
+   page sideways under the drawer (phones draw their scrollbars over the page) */
+html.sheet-open:not(.lay-desktop) { overflow: hidden; }
+.sheet { overscroll-behavior: contain; }
 .backdrop { position: fixed; inset: 0; background: var(--scrim); z-index: var(--z-drawer); }
 .sheet {
   position: fixed; z-index: var(--z-drawer); background: var(--paper); box-shadow: var(--shadow-float);
@@ -206,6 +210,8 @@ button:disabled { cursor: not-allowed; }
 .nb { white-space: nowrap; }
 .sheet-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: var(--s3) var(--gutter); display: flex; flex-direction: column; gap: var(--s3); }
 .backdrop.modal { z-index: var(--z-modal); }
+/* a short dialog (a confirm, the key list) is a bottom sheet as tall as its content on a phone, not a full empty screen (audit UI-14) */
+.sheet.center { height: auto; max-height: 90dvh; border-radius: var(--r-sheet) var(--r-sheet) 0 0; border-top: var(--bd); }
 @media (min-width: 1024px) {
   .sheet { inset: 0 0 0 auto; width: min(560px, 100vw); height: 100dvh; border-left: var(--bd); }
   .sheet.center { inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: min(640px, calc(100vw - 48px)); height: auto; max-height: calc(100dvh - 48px); border: var(--bd); border-radius: var(--r-sheet); }
@@ -213,9 +219,15 @@ button:disabled { cursor: not-allowed; }
 
 .toast {
   position: fixed; left: 50%; bottom: calc(var(--dock-real, 0px) + 16px); transform: translateX(-50%);
-  z-index: var(--z-toast); max-width: min(520px, calc(100vw - 32px)); padding: 12px 18px; border-radius: var(--r-btn);
+  z-index: var(--z-toast); width: max-content; max-width: min(520px, calc(100vw - 32px)); padding: 12px 18px; border-radius: var(--r-btn);
   background: var(--kali); color: var(--silt); font-size: var(--fs-sm); font-weight: 600; text-align: center; box-shadow: var(--shadow-float);
+  /* a note, not a control: a tap goes through to whatever is under it (its words are in the live region too, audit H14, UI-15) */
+  pointer-events: none;
 }
+/* below the desktop layout it sits under the nav, away from the farmer's main button and the dock (audit F2, S-16); over a sheet,
+   whose title and close button are at the top, it goes back to the bottom */
+html:not(.lay-desktop) .toast { bottom: auto; top: calc(var(--nav-real, var(--nav-h)) + 8px); }
+html:not(.lay-desktop).sheet-open .toast { top: auto; bottom: calc(16px + var(--safe-b)); }
 .toast.warn { background: var(--warn); color: var(--on-fill); }
 /* a new build took over this page (src/main.tsx): say so until the person reloads */
 .update-bar {

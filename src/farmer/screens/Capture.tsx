@@ -5,12 +5,14 @@ import { fmtClock } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { announce } from '../../lib/announce';
 import { lowData } from '../../lib/prefs';
-import { view, addShot, addSyntheticShot, getGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
+import { view, full, addShot, addSyntheticShot, getGeo, simGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
 import { ShotPicto } from '../parts';
 import { Val } from '../../ui/ProvTag';
+import { nm } from '../../lib/names';
+import { onBack } from '../../lib/back';
 
 export function Thumb({ id, alt }: { id: string; alt: string }) {
   const [url, setUrl] = useState<string | null>(null);
@@ -23,9 +25,10 @@ export function Thumb({ id, alt }: { id: string; alt: string }) {
   return url ? <img class="thumb" src={url} alt={alt} width="96" height="72" decoding="async" /> : <div class="thumb thumb-ph" aria-hidden="true" />;
 }
 
-function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, h: number) => void; onFail: () => void; onClose: () => void }) {
+export function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, h: number) => void; onFail: () => void; onClose: () => void }) {
   const vid = useRef<HTMLVideoElement>(null);
   const shutter = useRef<HTMLButtonElement>(null);
+  useEffect(() => onBack(onClose), []);
   useEffect(() => {
     let stream: MediaStream | null = null;
     let alive = true;
@@ -62,36 +65,59 @@ function Viewfinder({ onShot, onFail, onClose }: { onShot: (b: Blob, w: number, 
   );
 }
 
+/** A helper seals a farmer's evidence, not "my evidence" (audit H11). */
+export const sealLabel = () => (activePlotId.value !== null ? tr('hm.seal', { farmer: nm(focusPlot.value!.name) }) : tr('cap.done'));
+
+/** Seal, or say on screen why it did not happen (storage failed, or the farmer has not agreed). True once sealed. */
+export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boolean> {
+  setMsg(null);
+  try {
+    await seal();
+    return true;
+  } catch (e) {
+    setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) }) : tr('cap.sealFail'));
+    return false;
+  }
+}
+
 export function Capture() {
   const v = view.value;
+  /** Sealed in the whole log, not only at the replay time: a scrub back to before the seal must not reopen capture (FARM-01). */
+  const sealed = !!full.value.seal;
   const [sel, setSel] = useState<ShotKind | null>(null);
   const [phase, setPhase] = useState<'idle' | 'locating' | 'hashing'>('idle');
   const [msg, setMsg] = useState<string | null>(null);
   const [finder, setFinder] = useState(false);
   /** The camera is blocked or missing: say so and let the person choose, never swap in a simulated photo on their behalf. */
   const [camBlocked, setCamBlocked] = useState(false);
+  /** A real photo the phone gave no location for, waiting for the person to turn location on or choose a simulated one. */
+  const [noGeo, setNoGeo] = useState<{ blob: Blob; w: number; h: number } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  // ask for the location as the screen opens, so the first photo does not wait for it
-  useEffect(() => { void getGeo(); }, []);
+  // listen for the location while the screen is open, so the first photo does not wait for a cold GPS fix
+  useEffect(() => watchGeo(), []);
   const kind = sel ?? SHOTS.find((k) => !v.shots[k]) ?? null;
   const helper = v.consent?.helper;
   /** A helper is capturing for a farmer who has not agreed yet: no photo until they do. */
   const needConsent = activePlotId.value !== null && !v.consent;
   const n = kind ? SHOTS.indexOf(kind) + 1 : 3;
 
-  async function take(blob: Blob, w: number, h: number) {
+  /** Save a real photo. `sim`: the person chose a simulated location after the phone gave none (labelled Simulated). */
+  async function take(blob: Blob, w: number, h: number, sim = false) {
     if (!kind) return;
     setMsg(null);
     setCamBlocked(false);
+    setNoGeo(null);
     try {
       setPhase('locating');
-      const geo = await getGeo();
+      const geo = sim ? simGeo(2) : await getGeo();
+      // no location from the phone: ask the person to turn it on, and keep the photo until they choose (audit F6)
+      if (!geo) { setNoGeo({ blob, w, h }); return; }
       setPhase('hashing');
       await addShot(kind, blob, w, h, geo, false, helper);
       setSel(null);
       announce(tr('cap.taken') + ': ' + tr('shot.' + kind));
     } catch (e) {
-      setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: focusPlot.value!.name }) : tr('cap.saveFail'));
+      setMsg(e instanceof ConsentMissing ? tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) }) : tr('cap.saveFail'));
     } finally {
       setPhase('idle');
     }
@@ -99,7 +125,9 @@ export function Capture() {
 
   async function simulated() {
     if (!kind) return;
+    setMsg(null);
     setCamBlocked(false);
+    setNoGeo(null);
     try {
       setPhase('hashing');
       await addSyntheticShot(kind, helper);
@@ -115,6 +143,7 @@ export function Capture() {
   function openCamera() {
     setMsg(null);
     setCamBlocked(false);
+    setNoGeo(null);
     const coarse = matchMedia('(pointer: coarse)').matches;
     if (!coarse && typeof navigator.mediaDevices?.getUserMedia === 'function') setFinder(true);
     else fileRef.current?.click();
@@ -158,14 +187,15 @@ export function Capture() {
 
       {needConsent ? (
         <div class="shotcard" data-need-consent>
-          <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: focusPlot.value!.name })}</span></p>
+          <p class="note note-warn" role="status"><Icon name="info" /><span>{tr('cap.needConsent', { farmer: nm(focusPlot.value!.name) })}</span></p>
           <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => (screen.value = 'assist')}>
             {tr('cap.askConsent')} <span class="arrow" aria-hidden="true">→</span>
           </button>
         </div>
-      ) : kind && !all ? (
+      ) : kind && !all && !sealed ? (
         <div class="shotcard" data-tour="shot">
-          <p class="eyebrow">{tr('cap.step', { n })}</p>
+          {/* a helper capturing for a farmer sees whose photos these are on the card itself (audit H12) */}
+          <p class="eyebrow">{tr('cap.step', { n })}{activePlotId.value !== null && <> · {nm(focusPlot.value!.name)}</>}</p>
           <ShotPicto kind={kind} />
           <h3>{tr('shot.' + kind)}</h3>
           <p>{tr('shot.' + kind + '.d')}</p>
@@ -180,13 +210,28 @@ export function Capture() {
             </>
           )}
           {camBlocked && <p class="note note-warn" role="alert" data-cam-blocked><Icon name="info" /><span>{tr('cap.camDenied')}</span></p>}
+          {noGeo && phase === 'idle' && (
+            <div class="note note-warn" role="alert" data-geo-off>
+              <Icon name="info" />
+              <div class="stack">
+                <span>{tr('cap.geoOff')}</span>
+                <div class="row">
+                  <button type="button" class="pill pill-dark" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h)}>{tr('sim.retry')}</button>
+                  <button type="button" class="pill pill-ghost" onClick={() => take(noGeo.blob, noGeo.w, noGeo.h, true)}>{tr('cap.geoSim')}</button>
+                </div>
+              </div>
+            </div>
+          )}
           {msg && <p class="note note-bad" role="alert"><Icon name="barShape" /><span>{msg}</span></p>}
           <input ref={fileRef} type="file" accept="image/*" capture="environment" class="sr-only" tabIndex={-1} aria-hidden="true" onChange={onFile} />
         </div>
       ) : (
-        <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || !!v.seal} onClick={async () => { await seal(); screen.value = 'packet'; }}>
-          <Icon name="lock" /> {tr('cap.done')} <span class="arrow" aria-hidden="true">→</span>
-        </button>
+        <>
+          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || sealed} onClick={async () => { if (await sealOrSay(setMsg)) screen.value = 'packet'; }}>
+            <Icon name="lock" /> {sealLabel()} <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
+        </>
       )}
 
       <ul class="shots" role="list" data-tour="shots">
@@ -197,14 +242,15 @@ export function Capture() {
               <Thumb id={s.photoId} alt={tr('shot.' + k)} />
               <div class="shot-meta">
                 <Val kind="photo" prov={s.synthetic ? 'sim' : 'live'}><strong>{tr('shot.' + k)}</strong></Val>
-                <span class="num">{fmtClock(s.simT)}</span>
+                {/* the replay clock, also for a live photo: the phone's own time is in the sync log (audit F14) */}
+                <Val kind="time" prov="sim"><span class="num">{fmtClock(s.simT)}</span></Val>
                 <Val kind="loc" prov={s.geo.src === 'gps' ? 'live' : 'sim'}>{s.geo.src === 'gps' ? tr('cap.gps', { acc: s.geo.acc }) : tr('cap.simGps')}</Val>
                 <span class="hash">{short(s.sha, 12)}</span>
                 <span class={s.recvT === null ? 'tag' : 'tag tag-ok'}>
                   <Icon name={s.recvT === null ? 'clock' : 'okShape'} size={16} /> {s.recvT === null ? tr('cap.queued') : tr('cap.sent')}
                 </span>
               </div>
-              {!v.seal && (
+              {!sealed && (
                 <button type="button" class="pill pill-ghost pill-sm" onClick={() => setSel(k)} aria-label={`${tr('cap.retake')}: ${tr('shot.' + k)}`}>
                   {tr('cap.retake')}
                 </button>

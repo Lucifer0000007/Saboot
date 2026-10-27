@@ -3,13 +3,22 @@
 .spot { position: fixed; border-radius: var(--r-card); box-shadow: 0 0 0 9999px var(--scrim); outline: 3px solid var(--haldi); transition: all var(--t-mid) var(--ease); }
 .tour-card {
   position: fixed; left: 8px; right: 8px; bottom: calc(8px + var(--safe-b)); pointer-events: auto;
-  display: flex; flex-direction: column; gap: 12px; max-height: 58dvh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 12px; max-height: 58dvh; overflow: hidden;
   padding: 20px 20px 0; background: var(--paper); border: var(--bd-strong); border-radius: var(--r-sheet); box-shadow: var(--shadow-float);
 }
-/* progress and actions stay visible while the step text scrolls; the rule above them shows where it scrolls */
+/* only the step text scrolls; progress and actions stay put, and a fade shows there is more to read */
+.tour-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.tour-body.more { -webkit-mask-image: linear-gradient(#000 calc(100% - 28px), transparent); mask-image: linear-gradient(#000 calc(100% - 28px), transparent); }
+.tour-try { flex: none; align-self: flex-start; }
 .tour-foot {
-  position: sticky; bottom: 0; display: flex; flex-direction: column; gap: 12px; margin: auto -20px 0;
+  flex: none; display: flex; flex-direction: column; gap: 12px; margin: 0 -20px;
   padding: 12px 20px 16px; background: var(--paper); border-top: var(--bd);
+}
+/* a phone: a short card across the bottom, so the spotlight has the space above it (audit UI-05, J10) */
+@media (max-width: 767px) {
+  .tour-card { max-height: 46dvh; gap: 8px; padding: 12px 16px 0; }
+  .tour-card h2 { font-size: 1.25rem; }
+  .tour-foot { margin: 0 -16px; padding: 8px 16px 10px; gap: 8px; }
 }
 @media (max-width: 419px) {
   .tour-actions .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -17,7 +26,7 @@
 }
 .tour-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
 .tour-card p { font-size: 1rem; }
-.tour-progress { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; }
+.tour-progress { display: grid; grid-template-columns: repeat(var(--n, 7), minmax(0, 1fr)); gap: 4px; }
 .tour-progress i { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--kali) calc(var(--k) * 100%), var(--sunk) 0); }
 .tour-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .tour-actions .pill-dark { margin-left: auto; }

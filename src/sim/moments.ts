@@ -1,5 +1,5 @@
 import { computed } from '@preact/signals';
-import { model, demoDet, seek, pause } from './engine';
+import { model, demoDet, seek, pause, activePlotId } from './engine';
 import { full, ensureFocus, SCRIPT } from '../farmer/focus';
 import { screen } from '../farmer/nav';
 import { insurerView } from '../site/layout';
@@ -23,13 +23,17 @@ export const moments = computed<Moment[]>(() => {
       : { id: 'deadline', t: d.deadlineT!, label: 'Advice ends', hint: `End of the capture-soon advice, ${m.opts.windowHours} h after the event began (not a deadline)` },
     { id: 'confirm', t: refT + SCRIPT.ack + 0.1, label: 'Confirmation', hint: 'Insurer acknowledges; inspection scheduled' },
   ];
-  // relief rail only: the officer publishes the draft list (outside Saboot, simulated) and objections open
-  if (m.opts.rail === 'relief') list.push({ id: 'draft', t: m.opts.publishAtHour + 0.5, label: 'Draft list', hint: 'The officer publishes the draft list (simulated); farmers may attach sealed evidence' });
+  // relief rail only: the officer has published the draft list (outside Saboot, simulated) and the first scripted farmer has
+  // attached sealed evidence, so the moment shows an objection (audit OF-05), while the window is still open
+  const firstObj = Math.min(...m.plots.flatMap((p) => (p.obj ? [p.obj[0]] : [])));
+  if (m.opts.rail === 'relief') list.push({ id: 'draft', t: m.opts.publishAtHour + (Number.isFinite(firstObj) ? firstObj : 0) + 0.5, label: 'Draft list', hint: 'The draft list is published (simulated) and the first farmer has attached sealed evidence' });
   return list;
 });
 
 export async function jumpTo(id: MomentId) {
   pause();
+  // every moment is the demo farmer's story: a jump never acts for a farmer a helper has open (audit CC-01)
+  activePlotId.value = null;
   if (id === 'capture') await ensureFocus('captured');
   if (id === 'deadline' || id === 'confirm' || id === 'draft') await ensureFocus('filed');
   const mm = moments.value.find((x) => x.id === id);

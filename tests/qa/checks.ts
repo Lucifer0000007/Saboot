@@ -11,6 +11,8 @@ export function runChecks(opts: CheckOpts): string[] {
 
   const hidden = (el: Element) => {
     if (el.closest('[aria-hidden="true"], [inert], .sr-only, template')) return true;
+    // the folded part of a closed <details> is not on screen, though Chrome may still report a box for it
+    if (el.closest('details:not([open]) > :not(summary)')) return true;
     const cs = getComputedStyle(el);
     return cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0;
   };

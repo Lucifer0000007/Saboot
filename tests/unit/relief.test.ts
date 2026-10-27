@@ -178,6 +178,25 @@ test('entries at or above the share parameter are exactly those whose radar esti
   }
 });
 
+test('the flooded-share range never leaves 0..100%, in the model and in both exports (audit OF-06)', () => {
+  let clipped = 0;
+  for (const t of [40, 60, H]) {
+    const rows = rowsAt(relief, t);
+    for (const r of rows) {
+      const { floodShare: x, floodShareUnc: u, floodShareLo: lo, floodShareHi: hi } = r.e;
+      assert.ok(lo >= 0 && hi <= 1 && lo <= x && x <= hi, `${r.s.plot.id} ${lo} ${x} ${hi}`);
+      assert.equal(lo, Math.max(0, x - u));
+      assert.equal(hi, Math.min(1, x + u));
+      if (x + u > 1 || x - u < 0) clipped++;
+    }
+    const d = buildDraft(relief, rows, t, SHA);
+    for (const e of d.entries) assert.ok(e.floodShareLo >= 0 && e.floodShareHi <= 1, e.plot);
+    const head = draftCsv(d).split(/\r?\n/).find((l) => l.startsWith('village_rank'))!;
+    assert.match(head, /flooded_share_lo,flooded_share_hi/);
+  }
+  assert.ok(clipped > 0, 'the scenario has estimates at the edges, so the clamp is exercised');
+});
+
 // ---- why a plot is ranked where it is -------------------------------------------------------------------------------
 test('the four parts of a priority, at the unchanged weights, add up to the priority the worklist shows', () => {
   for (const r of rowsAt(relief, 60)) {

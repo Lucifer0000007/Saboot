@@ -2,6 +2,19 @@
 .how-body { container: panel / inline-size; display: flex; flex-direction: column; gap: var(--s5); }
 .how-body .sec-head { margin-bottom: 0; }
 .how-block { display: flex; flex-direction: column; gap: var(--s3); }
+.replay-card { padding: var(--s3); background: var(--paper); border: var(--bd); border-left: 5px solid var(--neel); border-radius: var(--r-card); }
+.replay-card .link-arrow { align-self: flex-start; min-height: 44px; }
+.rp-strip { font-family: var(--font-display); font-weight: 600; font-size: 1.375rem; line-height: 1.25; }
+.how-more { border-top: 2px solid var(--kali); }
+.how-more > details { border-bottom: 1px solid var(--rule); }
+.how-more > details > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--s2); min-height: 48px;
+  padding-block: var(--s3); font-family: var(--font-head); font-weight: var(--weight-head); font-size: var(--fs-h-sm); line-height: var(--lh-head);
+}
+.how-more > details > summary::-webkit-details-marker { display: none; }
+.how-more > details > summary .ic { flex: none; transition: transform var(--t-fast); }
+.how-more > details[open] > summary .ic { transform: rotate(180deg); }
+.how-more > details[open] { padding-bottom: var(--s4); }
 .how-notes { display: grid; gap: var(--s2); grid-template-columns: minmax(0, 1fr); }
 @container panel (min-width: 44em) { .how-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
@@ -38,6 +51,14 @@
 .workflow h4 { font-size: var(--fs-h-sm); }
 .wf-n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--khet); color: var(--on-fill); font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; }
 @container panel (min-width: 44em) { .workflow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* a phone reads the steps as a numbered list, not five cards (audit S-09) */
+@container panel (max-width: 43.99em) {
+  .workflow { gap: 0; }
+  .workflow li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 4px 12px; padding: 12px 0; background: none; border: 0; border-top: 1px solid var(--rule); border-radius: 0; box-shadow: none; }
+  .workflow li > .ic { display: none; }
+  .workflow .wf-n { grid-row: span 2; }
+  .workflow h4 { font-size: 1.125rem; }
+}
 @container panel (min-width: 70em) { .workflow { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .rs-table { font-size: 1rem; }
 .rs-table th[scope='row'] { font-weight: var(--weight-head); font-family: var(--font-head); font-size: 1.125rem; }

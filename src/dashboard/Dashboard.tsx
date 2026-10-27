@@ -4,28 +4,32 @@ import { Icon, type IconName } from '../ui/Icon';
 import { fmtClock, fmtT } from '../lib/time';
 const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 import { lazy } from '../lib/lazy';
-import { insurerView, importCode, importReceived, type InsurerView } from '../site/layout';
+import { insurerView, importCode, importReceived, deepLinkDone, type InsurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
+import { moments, jumpTo } from '../sim/moments';
 import { rail } from '../lib/prefs';
 import { kpis } from './state';
 import { effect } from '@preact/signals';
 import { receiver } from '../lib/prefs';
 import { receipts } from '../k/receipt';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import { loadImported } from '../k/imported';
+import { loadAssignments } from './assign';
+import { loadNoted } from './responses';
 import { DistrictMap, Legend, MapDefs } from './DistrictMap';
 import { PlotList } from './PlotList';
 import { PlotDrawer } from './PlotDrawer';
+import { ImportedDrawer } from './ImportedDrawer';
 import { Pipeline } from './Pipeline';
-import { Triage } from './Triage';
 import { DraftView } from './DraftView';
 import { Impact } from './Impact';
+import { TamperCheck } from './TamperCheck';
 
 const ImportSheet = lazy(() => import('./Import'), 0);
 
 const VIEWS: Record<'relief' | 'pmfby', [InsurerView, string, IconName][]> = {
-  pmfby: [['claims', 'Claims map & ranking', 'map'], ['triage', 'District triage', 'list'], ['impact', 'Impact (simulated)', 'scale']],
-  relief: [['claims', 'Map & ranking', 'map'], ['triage', 'Assessment worklist', 'list'], ['draft', 'Draft list', 'file'], ['impact', 'Pilot metrics (simulated)', 'scale']],
+  pmfby: [['claims', 'Map & worklist', 'map'], ['ledger', 'Tamper check', 'shield'], ['impact', 'Impact (simulated)', 'scale']],
+  relief: [['claims', 'Map & worklist', 'map'], ['draft', 'Draft list', 'file'], ['ledger', 'Tamper check', 'shield']],
 };
 
 function Kpis() {
@@ -55,8 +59,18 @@ function Kpis() {
 export default function Dashboard() {
   const m = model.value!;
   // the draft list belongs to the relief rail; on the PMFBY rail the same tab falls back to the map
-  const view = insurerView.value === 'draft' && rail.value !== 'relief' ? 'claims' : insurerView.value;
-  useEffect(() => { void loadImported(); }, []);
+  // the relief rail's pilot metrics are a future pilot's figures, not a step in the demo: they sit under the draft list
+  // instead of in a view of their own (audit S-11, FEATURE-MAP F17); an 'impact' link opens the draft list there
+  const relief = rail.value === 'relief';
+  const view = insurerView.value === 'draft' && !relief ? 'claims' : insurerView.value === 'impact' && relief ? 'draft' : insurerView.value;
+  useEffect(() => { void loadImported(); void loadAssignments(); void loadNoted(); }, []);
+  // the chosen view stays visible in the bar when it scrolls sideways on a phone (the page itself does not move)
+  const bar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = bar.current, b = el?.querySelector<HTMLElement>('[aria-checked="true"]');
+    if (el && b && (b.offsetLeft < el.scrollLeft || b.offsetLeft + b.offsetWidth > el.scrollLeft + el.clientWidth)) el.scrollLeft = b.offsetLeft - 4;
+    // the bar is not drawn while an officer link is still loading (below): check again once it is
+  }, [view, deepLinkDone.value]);
   // the demo receiver's list, polled only when this laptop is the receiver (the preference is off by default). An effect,
   // not a mount-time check: on a laptop the console can mount before the deep link has set the preference.
   useEffect(() => {
@@ -66,6 +80,10 @@ export default function Dashboard() {
     });
     return () => { dispose(); stop?.(); };
   }, []);
+  // an officer link moves the replay to its moment after the page starts; until then the console waits in its loading
+  // state, so the figures do not render at T+0 and then jump down the page (Lighthouse layout shift on ?tab=insurer)
+  // (a full screen tall: with the view switch moved into the dock on a phone, 480 px let the next section show and then move)
+  if (!deepLinkDone.value) return <div class="loading" style={{ minHeight: '100vh' }} role="status" aria-busy="true"><span class="spin" aria-hidden="true" /></div>;
   return (
     <section class="dash" aria-labelledby="dash-h" data-tour="dash" data-sim-numbers>
       <MapDefs />
@@ -85,29 +103,54 @@ export default function Dashboard() {
           )}
         </div>
       </header>
-      <Kpis />
-      <Pipeline />
-      <div class="seg view-seg" role="radiogroup" aria-label="Console view">
+      {/* the views stay in reach: a bar that sticks under the nav (and the control bar on a laptop) while the console scrolls */}
+      <div class="seg view-seg" role="radiogroup" data-view-bar aria-label="Console view" ref={bar}>
         {VIEWS[rail.value].map(([id, label, icon]) => (
-          <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => (insurerView.value = id)}>
+          <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => {
+            insurerView.value = id;
+            // deep in a view the bar is stuck: open the new view at its top, not at the old scroll offset (OFF-4)
+            const head = document.querySelector<HTMLElement>('.dash-head');
+            if (head && head.getBoundingClientRect().bottom < 0) requestAnimationFrame(() => head.scrollIntoView({ block: 'start' }));
+          }}>
             <Icon name={icon} size={16} /> {label}
           </button>
         ))}
       </div>
-      {view === 'claims' && (
-        <div class="claims">
-          <div class="claims-map">
-            <DistrictMap />
-            <Legend />
+      {kpis.value.events === 0 && (
+        // before the flood the console is empty: say so, and offer the moments where it has something to show (audit OF-07)
+        <div class="note note-plain" data-t0>
+          <Icon name="info" />
+          <div class="stack">
+            <p><strong>No plot has been alerted yet at <span class="num">{fmtT(tSlow.value)}</span>.</strong> Play the replay, or jump to a moment:</p>
+            <div class="row">
+              {moments.value.filter((x) => x.id === 'deadline' || x.id === 'draft').map((x) => (
+                <button key={x.id} type="button" class="pill pill-ghost pill-sm" data-t0-jump={x.id} onClick={() => void jumpTo(x.id)}>{x.label}</button>
+              ))}
+            </div>
           </div>
-          <PlotList />
         </div>
       )}
-      {view === 'triage' && <Triage />}
+      {/* the figures and the pipeline belong to the worklist; the other views have their own (the draft list's steps,
+          the pilot metrics), so on a phone they open on their content */}
+      {view === 'claims' && (
+        <>
+          <Kpis />
+          <Pipeline />
+          <div class="claims">
+            <div class="claims-map">
+              <DistrictMap />
+              <Legend />
+            </div>
+            <PlotList />
+          </div>
+        </>
+      )}
       {view === 'draft' && <DraftView />}
-      {view === 'impact' && <Impact />}
+      {view === 'ledger' && <TamperCheck />}
+      {(view === 'impact' || (view === 'draft' && relief)) && <Impact />}
       <PlotDrawer />
-      {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(null, '', location.pathname + location.search); }} />}
+      <ImportedDrawer />
+      {importCode.value !== null && <ImportSheet initial={importCode.value || undefined} onClose={() => { importCode.value = null; if (location.hash.startsWith('#k=')) history.replaceState(history.state, '', location.pathname + location.search); }} />}
     </section>
   );
 }

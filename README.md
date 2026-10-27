@@ -1,5 +1,7 @@
 # Saboot — the clock starts at the storm
 
+[![ci](https://github.com/Lucifer0000007/Saboot/actions/workflows/ci.yml/badge.svg)](https://github.com/Lucifer0000007/Saboot/actions/workflows/ci.yml)
+
 **SIMULATION · synthetic data · fictional district.** Saboot is a front-end-only simulation of a **disaster crop-loss
 evidence layer**. After a flood, evidence of crop loss fades as the water recedes, while assessment depends on officers
 reaching every field. Saboot watches (simulated) rain, river and satellite signals, starts an evidence clock at the
@@ -16,7 +18,7 @@ language; every score shows its uncertainty; every number on screen comes from t
 claim, places a real call, or connects to any government system. The decision happens outside Saboot.
 
 Built for the Code Yudh Hackathon, Chandigarh University · Track: AgriTech & Rural Transformation · Agri-FinTech.
-Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · rules for contributors:
+Spec: [`docs/SABOOT-SPEC.md`](docs/SABOOT-SPEC.md) (§14–15 hold the two-rail design and the rules) · design: [`docs/DESIGN.md`](docs/DESIGN.md) · what is not built: [`docs/ROADMAP.md`](docs/ROADMAP.md) · rules for contributors: [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CLAUDE.md`](CLAUDE.md) · security: [`SECURITY.md`](SECURITY.md) · all docs: [`docs/README.md`](docs/README.md).
 
 **Live site:** https://moonlit-pixie-248afc.netlify.app (this is the `PUBLIC_URL` in
 [`src/config.ts`](src/config.ts), which also feeds the canonical link, the social preview tags and the judges' QR code).
@@ -31,7 +33,9 @@ Run it locally in one line: `npm ci && npm run dev` (then open http://localhost:
 |---|---|
 | The simulation: farmer app, officer console, audit ledger, detection explainer | this repository, `src/` |
 | Relief workflow: worklist, draft list, objections, pilot metrics | the **Officer** tab, relief rail |
-| Helper mode and the feature-phone design simulation | the farmer app home |
+| Helper mode | the farmer app home |
+| The feature-phone design simulation | a folded 'Future' link in the helper screen |
+| Minimal field mode for real use: one farmer at a time, LIVE and HAND values only | `?mode=field`, or Settings → 'Use it for real (field mode)' |
 | Real-data validation harness (not yet run on real data) | [`docs/VALIDATION.md`](docs/VALIDATION.md) |
 | Open evidence format and a standalone verifier | [`docs/EVIDENCE-FORMAT.md`](docs/EVIDENCE-FORMAT.md) |
 | Privacy and consent design (not legally reviewed) | [`docs/PRIVACY-AND-CONSENT.md`](docs/PRIVACY-AND-CONSENT.md) |
@@ -68,6 +72,12 @@ Graph / Twitter tags, and `npm run qr` encodes it, so the three can never disagr
 `.github/workflows/pages.yml` is a manual backup (it runs only from the Actions tab, never on push). Any static host
 works the same way (Vercel, Cloudflare Pages: publish `dist/`).
 
+**How the live site gets updated.** The live site (`moonlit-pixie-248afc`) is linked to this repository in Netlify:
+**every merge to `main` builds and publishes it to production**, and a pull request gets a deploy preview (which needs a
+Netlify login to open). Netlify runs `npm run build` only; the tests run in CI (`.github/workflows/ci.yml`)
+and locally (`npm run verify`), so run them before merging. `npm run deploy` is a different path: it publishes this clone's
+linked Netlify site by hand, after the full gate.
+
 **HTTP headers** are defined once, in `public/_headers` (`netlify.toml` holds build settings only): a Content
 Security Policy with no `unsafe-inline` scripts (the build hashes the three inline scripts), `nosniff`, no framing,
 `strict-origin-when-cross-origin` referrers, a Permissions-Policy that allows only camera, microphone and
@@ -83,11 +93,12 @@ the hero text.
 
 ## On the day (venue checklist)
 
-- **Before the pitch**, open the live URL on the presenting laptop once and click through the Farmer, Officer, Ledger
-  and Explainer tabs: the service worker caches everything, so the demo then works with no network.
+- **Before the pitch**, open the live URL on the presenting laptop once and click through the Farmer, Officer and
+  Explainer tabs (and the Officer tab's Tamper check view): the service worker caches everything, so the demo then works
+  with no network.
 - Keep a local copy ready: `npm run build && npm run preview` (localhost counts as a secure context, so camera,
   location and WebCrypto all work).
-- Judges' phones need the site once over mobile data (about 90 KB to the first screen). Backup slide text:
+- Judges' phones need the site once over mobile data (about 115 KB to the first screen). Backup slide text:
   *"If the venue Wi-Fi is slow, switch to mobile data, scan the QR, and let the page load once — after that it
   works offline."*
 - Presenter keys: press `?` for the list. `Space` play/pause, `1–6` jump to Trigger / Alert / Capture / Advice ends /
@@ -124,9 +135,9 @@ Say the **median**, not only the demo farmer's number: the demo farmer is one pl
 | 0:45 | "Take photos now" → camera, or "Use simulated photo" | "Three guided photos, real camera and GPS, fingerprinted with SHA-256 on the phone." |
 | 1:00 | `A` (airplane), take a photo, open Proof | "No signal: it waits on the phone. The sync log shows phone time against server time." |
 | 1:10 | Helper card on the farmer home → start a session | "A sarpanch or CSC operator captures for several farmers. Each farmer gives their own consent, sealed in their own log." |
-| 1:25 | Officer tab → Assessment worklist → Draft list | "The officer sees why each plot is ranked where it is. The draft list is for review. The decision happens outside Saboot." |
+| 1:25 | Officer tab → Map & worklist → Draft list | "The officer sees why each plot is ranked where it is. The draft list is for review. The decision happens outside Saboot." |
 | 1:40 | `6` (Draft list) → farmer Status → "Attach my sealed evidence" | "If a farmer disagrees, they attach their sealed evidence. Saboot never resolves it." |
-| 1:50 | Pilot metrics | "These are simulated, with their definitions. Real-data validation: not run. We say so." |
+| 1:50 | Pilot metrics, under the draft list | "These are simulated, with their definitions. Real-data validation: not run. We say so." |
 
 ## Two rails, one core
 
@@ -145,13 +156,16 @@ detections and event times on both.
 
 The **relief workflow** (all simulated and labelled so):
 
-1. **Assessment worklist.** The priority formula is unchanged since the first build (35% evidence ambiguity, 30% urgency,
-   15% area, 20% integrity flags). Each row says why it is ranked there, and villages are ranked by review load.
+1. **Map & worklist**, one ranked list under the map (it replaced 'Map & ranking' and 'Assessment worklist'). The priority formula is unchanged since the first build (35%
+   evidence ambiguity, 30% urgency, 15% area, 20% integrity flags). Each row says why it is ranked there and who is assigned
+   to visit; villages by review load fold above the list.
 2. **Draft assessment list**, marked "draft, for officer review", village by village, with JSON and CSV export that carry their
    provenance: rule versions, parameters, scenario fingerprint, rail, time. No farmer name, no coordinates, no amount.
 3. **Objections.** After the officer publishes the draft (a simulated time, outside Saboot), a farmer can attach their sealed
    packet to their entry. Saboot shows that an officer's response came, never what it said, and never resolves anything.
-4. **Pilot metrics**, each with its definition: median event to call (the headline), flooded plots with evidence on file, event to
+   The officer can list the objections oldest first, sees a flag once the window closes with no response noted, and can
+   note by hand that one came (labelled HAND).
+4. **Pilot metrics**, under the draft list (not a step in the demo), each with its definition: median event to call (the headline), flooded plots with evidence on file, event to
    evidence, objection rate. The slower, more realistic radar cadence is shown beside the demo one, with the flooded plots it never
    alerts. "Visits avoided" is omitted on purpose: there is no honest baseline for it.
 
@@ -180,7 +194,11 @@ once for the session, then works through a queue of farmers. **Each farmer gives
 log**; their photos and sealed packet live there too, and the helper is named on every photo and in the officer's drawer. A helper
 can also record that a farmer reports no damage.
 
-The **feature-phone path** is a labelled **design simulation**: a missed call asks for a call back, the call reads the alert (with
+A helper cannot take photos, record 'no damage' or note a filing reference for a farmer who has not agreed. The consent is read
+in the farmer's language, with the phone-language copy underneath. In Settings each farmer can take a copy of, or delete, only
+their own data.
+
+The **feature-phone path** is a labelled **design simulation** (folded under 'Future' in the helper screen): a missed call asks for a call back, the call reads the alert (with
 captions always on) and a keypad answer (1 for damage, 2 for no damage) either asks for a helper visit or logs "no damage".
 No real telephony, SMS or WhatsApp is involved, and it changes nothing in the replay.
 
@@ -201,7 +219,7 @@ who sealed it."* The plot then appears as **Imported (live)**. The same check ru
 node scripts/verify-packet.mjs <code | link | bundle.json>      # zero dependencies, shares no code with the app
 ```
 
-Ten test vectors in `tests/vectors/` (valid, tampered photo hash, tampered chain, wrong signature, wrong version, truncated, and
+Twenty-one test vectors in `tests/vectors/evidence-v1.json` (valid, tampered photo hash, tampered chain, wrong signature, wrong version, truncated, and
 more) must give the same answer in both verifiers, and so must every single-bit change to a valid packet.
 
 ## Real-data validation: not run
@@ -253,6 +271,10 @@ and the photo body follows when the signal improves. The **sync log** lists ever
 time and the gap, marked synced, queued, "fingerprint sent, photo waiting" or gap flagged (more than 2 hours). Status
 changes are announced to screen readers. After one visit the whole site works with the network off.
 
+Android Back closes the top sheet, camera or tour, then goes back one farmer screen or console view before leaving the site;
+a reload returns to the active tab, officer view, replay time and farmer screen, and to a running helper session at that
+farmer's step with consent intact.
+
 ## Real-world claims to verify before deploying
 
 Every real-world claim in the UI carries a `{{VERIFY: …}}` marker next to it in the source. `npm run markers` lists
@@ -295,20 +317,20 @@ Playwright + axe QA matrix, and Lighthouse.
 
 | Budget | Limit | Measured |
 |---|---|---|
-| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 99.7 KB |
-| Whole site excluding audio, gzip | ≤ 700 KB | 476.4 KB |
+| Initial load (HTML + inline CSS + entry JS + first fonts), gzip | ≤ 200 KB | 113.8 KB |
+| Whole site excluding audio, gzip | ≤ 700 KB | 528.1 KB |
 | Largest lazy chunk, gzip | ≤ 60 KB | 45.3 KB (jsQR, only on laptops without `BarcodeDetector`) |
 | Scenario data | ≤ 40 KB | 25.3 KB raw |
-| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 97 to 98 / 100 / 100 on all three pages |
-| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 / 2.1 to 2.5 s on the landing and alert pages; 2.4 to 3.2 s on `?tab=insurer`, depending on machine load (the same reading with and without the newest landing section) |
-| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | 136 to 200 ms run to run on this machine (the previous build reads the same spread) |
-| QA captures (states × viewports × languages + extra runs) | 0 problems | 564 captures (609 tests pass, including 24 in the dark theme; every state, 7 viewports, English, Hindi and Punjabi); 229 unit tests |
+| Lighthouse mobile (2 Mbps / 300 ms / 4× CPU), median of 5: Perf / A11y / BP | ≥ 90 / 95 / 95 | 96 to 98 / 100 / 100 on all three pages (three runs) |
+| LCP / CLS / interactive | < 2.5 s / < 0.05 / ≤ 3 s | 2.11 s / 0.000 (0.019 on `?tab=insurer`) / 2.76 to 2.88 s on all three pages, three runs; the `pre-field-mode` build reads 3.06 to 3.49 s on the same machine |
+| INP (Event Timing, 4× CPU, main interactions) | < 200 ms | **Fails**: 288 to 312 ms on this machine (256 to 264 ms at `pre-field-mode` and the commit before it) |
+| QA captures (states × viewports × languages + extra runs) | 0 problems | 563 captures, 0 problems; 713 of 715 Playwright tests pass (24 in the dark theme), 1 fails (the R2 reading-position reload, failing since `pre-field-mode`) and 1 did not run (the INP test above, which fails when run on its own); 280 unit tests; 46 Firefox and WebKit smoke tests |
 
 QA matrix: 20 states × 7 viewports (360×640 to 1440×900) × English/Hindi/Punjabi, plus pseudo-localisation (+40%), 200% text,
 the in-app 150% text on a 360 px phone, reflow at 320 px, reduced motion, anchors under sticky chrome, offline after first
 load, recovery from a dropped chunk request, and INP. Each capture checks horizontal overflow, clipped text, content spilling
 out of its box, overlapping controls, sticky chrome ≤ 30%, target sizes (48 px in the farmer app, 44 px elsewhere), labelled
-images and SVG, one blue primary per screen, simulated labels, console errors and axe (0 serious/critical). Screenshots and a
+images and SVG, one haldi primary per screen, simulated labels, console errors and axe (0 serious/critical). Screenshots and a
 contact sheet land in `qa/` (open `qa/index.html`).
 
 Release gates (`release.spec.ts`, `camera.spec.ts`, `helper.spec.ts`, `privacy.spec.ts`), all on the built site served with the
@@ -322,7 +344,9 @@ session with per-farmer consent that survives a reload; the feature-phone flow l
 of the test's own, that a full capture, seal, share and import flow makes only plain GETs with no body and no fingerprint or
 code in any URL or header. `npm run sw:update-check` proves a cached visitor gets the next build on their second load, with the
 old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a Firefox and WebKit smoke run (not a gate; see
-[Known limitations](#known-limitations)).
+[Known limitations](#known-limitations)). CI (`.github/workflows/ci.yml`) runs the fast checks on every push; the full gate stays
+local (`npm run verify`). An outside review of the repository is answered point by point in
+[`docs/REVIEW-RESPONSE.md`](docs/REVIEW-RESPONSE.md).
 
 ## Assumptions
 
@@ -341,10 +365,11 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
 - Weak (2G) networking is simulated as one small message about every 1.2 s, hash-first.
 - MIT licence, held by Ayush Kumar Sharma (`LICENSE`).
 - The officer and district console stays English; the farmer-facing and public parts are trilingual.
-- The nav's "Run the simulation" pill is off-black while another primary action is on screen and turns blue otherwise, so each
-  screen has exactly one blue primary.
+- The nav's "Run the simulation" pill is kali (off-black) while another primary action is on screen and turns haldi otherwise,
+  so each screen has at most one haldi primary.
 - `--bad-tint` is one step lighter than the spec's `#f3dfd9`, which measured 4.44:1 against red text (AA needs 4.5:1).
-- Fonts: Instrument Serif + JetBrains Mono; Noto Sans and Noto Serif Devanagari/Gurmukhi load only when Hindi or Punjabi is chosen.
+- Fonts: Anek (display) and Noto Sans (body), with JetBrains Mono for codes and fingerprints; the Devanagari and Gurmukhi versions
+  load only when Hindi or Punjabi is chosen (with the main script if that choice is saved).
 - 200% text is tested at tablet and desktop widths (WCAG 1.4.4); reflow is tested at 320 px with normal text (1.4.10).
 - The stop hook runs `verify.sh --hook` (quick matrix, no Lighthouse, skipped when nothing changed); the full gate runs in
   `npm run verify` and `npm run deploy`.
@@ -370,22 +395,31 @@ old cache deleted. `npx playwright test -c playwright.browsers.config.ts` is a F
   by QR, paste or link, or, when you run the optional demo receiver on the laptop (`scripts/receipt-server.mjs`), by a
   POST of the same signed code to that laptop, which stamps its own clock and verifies nothing. There is no other backend.
 - Feature K proves a packet was not altered after sealing; it cannot prove who sealed it or that the phone clock was right.
-- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: in this session Playwright's WebKit and Firefox builds passed 43 smoke checks and skipped 3 (Playwright's Firefox build has no working crypto.subtle, so it cannot sign a packet). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
-  real Firefox are on the manual test list.
+- **Browsers.** The gate runs in Chrome. The Firefox and WebKit smoke run is not a gate: Playwright's WebKit and Firefox builds pass all 46 smoke checks, none skipped, and Firefox hashes and signs a packet like Chrome (an earlier note that its `crypto.subtle` failed no longer reproduces). Both are desktop engines, so this says nothing about Safari on an iPhone. Real Safari on an iPhone and
+  a low-end Android phone are on the manual test list.
 - The tamper test edits the in-memory ledger only; a reload or Restore puts it back.
+- **A start that fails.** If the main script cannot be downloaded, the page reloads once by itself; if that fails too, or nothing has
+  started after 25 s, the placeholder says so in the visitor's language with a Reload button and the browser's own error text. The
+  replay data gives up after 8 s per try, retries twice, then shows "Try again" (`docs/DECISIONS.md`, D-57). This was tried with
+  injected failures in emulated phones, not on a real phone.
 - Lighthouse uses simulated throttling against a local server with compression; real devices vary.
 
 ## Project layout
 
 ```
 src/site/       page shell: announcement, nav, hero, problem, simulation layout, rail switch, FAQ, footer (prerendered)
-src/farmer/     farmer app: screens, helper mode, feature-phone design simulation, per-farmer logs, share-to-laptop (K)
-src/dashboard/  officer and district console: map, ranked list, drawer, pipeline, worklist, draft list, pilot metrics, ledger, import
+src/farmer/     farmer app: four tabs (Home, Photos, Proof, Report), helper mode, feature-phone design simulation, per-farmer logs,
+                share-to-laptop (K)
+src/field/      field mode (lazy, ?mode=field)
+src/dashboard/  officer and district console: Map & worklist, drawer, pipeline, draft list with pilot metrics, Tamper check
+                (import test and ledger), Impact, import
 src/explainer/  detection explainer        src/how/  How it works        src/tour/  judge tour + presenter mode
 src/sim/        seeded model, pure rules, clock, cohort, evidence tiers, metrics, ledger      src/k/  signed payload, bundle, QR, scanner
 src/generated/  scenario summary written by npm run gen                   src/i18n/  en / hi / pa
+src/ui/         shared controls (settings, sheets, seal, labels)          src/lib/  storage, hashing, i18n, Back and voice helpers
+src/data/       field evidence
 scripts/        fonts, scenario + facts, validation harness, packet verifier, postbuild (prerender, social tags, CSP hashes, SW),
                 budgets, contrast, markers, i18n, Lighthouse, og image, QR, sw update check, deploy
-docs/           spec, validation, evidence format, privacy and consent, the pilot kit, scenario facts (generated)
+docs/           spec, validation, evidence format, privacy and consent, the pilot kit, scenario facts (generated); index: docs/README.md
 tests/unit/     node --test                 tests/qa/  Playwright + axe gates      tests/vectors/ + tests/fixtures/      verify.sh
 ```

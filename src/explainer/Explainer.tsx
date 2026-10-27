@@ -273,6 +273,15 @@ export default function Explainer() {
       </header>
       <div class="card-elev rules">
         <h4><Icon name="scale" /> Deterministic rules own the clock</h4>
+        {/* one line per rule, then the charts; the full rules and their limits open on request (audit J18) */}
+        <ul class="rules-short" role="list">
+          <li><strong>A</strong><span>Rain ≥ <span class="num">{th.rainHeavy}</span> mm in 24 h at the nearest gauge, on low-lying land.</span></li>
+          <li><strong>B</strong><span>Radar shows new water on ≥ <span class="num">{Math.round(th.floodFrac * 100)}%</span> of the plot.</span></li>
+          <li><strong>C</strong><span>A river gauge reaches its danger level, for plots in reach.</span></li>
+          <li><strong><Icon name="clock" size={16} /></strong><span>The clock starts at the earliest signal, never at the alert.</span></li>
+        </ul>
+        <details class="rules-more" data-rules-more>
+          <summary><span>The full rules, their limits and the role of AI</span><Icon name="down" /></summary>
         <ol>
           <li><strong>Rule A, rain + terrain:</strong> 24-hour rain at the nearest gauge ≥ <span class="num">{th.rainHeavy}</span> mm <em>and</em> the plot is low-lying. Limit: gauges are sparse, so rain at the gauge is only a proxy for rain on the plot.</li>
           <li>
@@ -288,6 +297,7 @@ export default function Explainer() {
           <li><strong>Clock start:</strong> the <em>earliest</em> qualifying signal: when 24-hour rain crossed <span class="num">{th.rain24}</span> mm (the threshold IMD uses for “heavy rain”), or the river reached its danger level, or else the last clear radar pass. Never the alert time. If unsure, the farmer gets less time, not more.</li>
         </ol>
         <p>By design, AI would be used only for perception (is water visible in a photo?) and language. It would never set a deadline and never decide anything. This prototype runs no AI model: the photo check is planned, not built, and the voice is a recorded clip or the phone’s speech synthesis.</p>
+        </details>
       </div>
       <div class="xgrid">
         <RainPanel m={m} />

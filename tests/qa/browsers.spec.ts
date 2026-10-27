@@ -11,10 +11,9 @@ const sab = (page: Page, js: string) => page.evaluate(`(async () => { const s = 
 for (const v of [V('390x844'), V('1280x800')]) {
   for (const id of ['landing', 'alert', 'evidence-packet', 'dashboard', 'drawer', 'ledger-tamper', 'import', 'draft-list', 'objection', 'helper-queue', 'feature-phone']) {
     const st = STATES.find((s) => s.id === id)!;
-    test(`${id} · ${v.name}`, async ({ page, browserName }, info) => {
-      // Playwright's Firefox build throws NS_ERROR_FAILURE from crypto.subtle (digest and ECDSA), so the signed packet
-      // cannot be made there; hashing itself falls back to plain JS. Real Firefox is on the manual test list.
-      test.skip(browserName === 'firefox' && id === 'import', 'Playwright Firefox build: crypto.subtle throws NS_ERROR_FAILURE');
+    test(`${id} · ${v.name}`, async ({ page }, info) => {
+
+
       const errors: string[] = [];
       await open(page, v, 'en', errors);
       await st.setup(page, v);
@@ -28,8 +27,7 @@ for (const v of [V('390x844'), V('1280x800')]) {
   }
 }
 
-test('hash chain and signed packet in this engine', async ({ page, browserName }) => {
-  test.skip(browserName === 'firefox', 'Playwright Firefox build: crypto.subtle throws NS_ERROR_FAILURE (ECDSA signing)');
+test('hash chain and signed packet in this engine', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `await s.jump('capture'); await s.ensure('sealed'); s.seek(s.state().t + 0.3);`);

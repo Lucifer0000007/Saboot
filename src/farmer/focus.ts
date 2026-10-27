@@ -4,11 +4,12 @@
 // simT <= t, so scrubbing the replay backwards "un-happens" actions.
 import { signal, computed } from '@preact/signals';
 import { appendLink, canonical, sha256, type ChainLink } from '../lib/hash';
-import { dbGet, dbSet, dbDel, dbClear, dbKeys } from '../lib/db';
+import { dbGet, dbSet, dbDel, dbClear, dbKeys, requestPersistence } from '../lib/db';
 import { network, browserOnline } from '../lib/prefs';
-import { t, seek, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
+import { t, seek, pause, model, focusPlot, focusDet, toLatLon, activePlotId } from '../sim/engine';
 import { syntheticPhoto, type ShotKind, SHOTS } from './photo';
 import { imported } from '../k/imported';
+import type { Lang } from '../sim/types';
 
 export interface Geo { lat: number; lon: number; acc: number; src: 'gps' | 'sim' }
 export interface ShotData {
@@ -23,7 +24,8 @@ export interface ShotData {
   helper?: string;
   queued: boolean;
 }
-export interface Consent { farmer: string; helper: string; role: string; method: 'hold' | 'voice'; audioSha?: string; text: string }
+/** `lang`: the language of `text`, the one the farmer was read the consent in (older logs have none). */
+export interface Consent { farmer: string; helper: string; role: string; method: 'hold' | 'voice'; audioSha?: string; text: string; lang?: Lang }
 
 /** 'hash' = only the tiny fingerprint message reached the server (weak 2G network): it fixes the
  *  server receipt time. 'full' = the photo bodies arrived too. Old logs without a stage count as 'full'. */
@@ -58,6 +60,8 @@ export const helperSession = signal<HelperSession | null>(null);
 const KEY = 'focus-chain';
 const IDS = 'log-ids';
 const SESSION = 'helper-session';
+/** The farmer a helper has open, kept beside the session (audit H4). */
+const ACTIVE = 'helper-active';
 const kvKey = (k: string) => (k === DEMO ? KEY : 'log:' + k);
 let loaded = false;
 
@@ -81,8 +85,9 @@ async function save(key: string) {
   await dbSet('kv', IDS, ids);
 }
 
-/** Remember who the helper is for this session (name and role only; nothing else about them is kept). */
+/** Remember who the helper is for this session (name and role only; nothing else about them is kept). The replay pauses (H6). */
 export async function startHelperSession(s: HelperSession) {
+  pause();
   helperSession.value = s;
   await dbSet('kv', SESSION, s);
 }
@@ -90,8 +95,12 @@ export async function startHelperSession(s: HelperSession) {
 export async function endHelperSession() {
   activePlotId.value = null;
   helperSession.value = null;
-  await dbDel('kv', SESSION);
+  await Promise.all([dbDel('kv', SESSION), dbDel('kv', ACTIVE)]);
 }
+/** Remember which farmer the helper has open, so a phone that drops the page (its camera app took the memory) comes back
+ *  to that farmer, not to the demo farmer (audit H4). null: the helper is on the queue. */
+export const keepActive = (id: string | null) => (id ? dbSet('kv', ACTIVE, id) : dbDel('kv', ACTIVE));
+export const storedActive = () => dbGet<string>('kv', ACTIVE);
 
 /** Writes one at a time (and across tabs where the browser has Web Locks), so two actions can never overwrite each other. */
 let writes: Promise<unknown> = Promise.resolve();
@@ -114,10 +123,13 @@ async function currentLog(key: string): Promise<Link[]> {
  * replay is behind their last action, the replay moves forward to it so they can see what they did. A `passive` event (a
  * sync) never moves the replay.
  */
-async function append(ev: FocusEvent, key: string = activeKey.value, passive = false) {
+async function append(next: FocusEvent | ((c: Link[]) => Promise<FocusEvent | null>), key: string = activeKey.value, passive = false) {
   return exclusive(async () => {
     if (!loaded) await loadFocus();
     const c = await currentLog(key);
+    // an event built from the log (a seal) is built here, under the lock, from the log it will follow; null writes nothing
+    const ev = typeof next === 'function' ? await next(c) : next;
+    if (!ev) return null;
     const last = c.length ? c[c.length - 1].body.simT : -Infinity;
     const simT = Math.max(ev.simT, last);
     if (simT > ev.simT && !passive) {
@@ -146,7 +158,7 @@ export async function resetFocus() {
   rewound.value = false;
   photoUrls.forEach((u) => URL.revokeObjectURL(u));
   photoUrls.clear();
-  await Promise.all([dbDel('kv', KEY), dbDel('kv', IDS), dbDel('kv', SESSION), ...ids.map((id) => dbDel('kv', kvKey(id))), dbClear('photos'), dbClear('outbox')]);
+  await Promise.all([dbDel('kv', KEY), dbDel('kv', IDS), dbDel('kv', SESSION), dbDel('kv', ACTIVE), ...ids.map((id) => dbDel('kv', kvKey(id))), dbClear('photos'), dbClear('outbox')]);
 }
 
 /**
@@ -170,6 +182,49 @@ export async function deleteMyData() {
   await resetFocus();
   imported.value = [];
   await Promise.all([dbDel('kv', 'k-device-key'), dbDel('kv', 'k-imported'), dbDel('kv', 'k-send-queue')]);
+}
+
+/**
+ * One farmer's copy: that farmer's own log (consent, photo fingerprints, seal) and nothing about anyone else. What a helper
+ * hands over when one farmer asks (as.means3, audit H10). Photos are not in it: they stay on the phone.
+ */
+export function exportFarmerData(key: string) {
+  return {
+    kind: 'saboot.farmer-export',
+    v: 1,
+    simulation: true,
+    note: 'One farmer’s log from this phone in the Saboot simulation: their consent, photo fingerprints and seal. Photos are not included; they stay on the phone. Nothing was uploaded.',
+    plot: key,
+    log: logs.value[key] ?? [],
+  };
+}
+
+/** Delete one farmer's log, photos, spoken consent and queued items from this phone. Every other farmer's evidence stays. */
+export async function deleteFarmerData(key: string) {
+  await exclusive(async () => {
+    const owned = (c: Link[]) => c.flatMap((l) => {
+      const e = l.body;
+      if (e.type === 'shot') return [e.data.photoId];
+      if (e.type === 'consent' && e.data.audioSha) return ['consent-' + e.data.audioSha.slice(0, 16)];
+      return [];
+    });
+    // the same photo file can sit in two farmers' logs (it is flagged as reused): it stays while another log holds it
+    const others = new Set(Object.entries(logs.value).filter(([k]) => k !== key).flatMap(([, c]) => owned(c)));
+    const mine = owned(await currentLog(key)).filter((id) => !others.has(id));
+    const rest = { ...logs.value };
+    delete rest[key];
+    logs.value = rest;
+    for (const id of mine) { const u = photoUrls.get(id); if (u) URL.revokeObjectURL(u); photoUrls.delete(id); }
+    const queued = await Promise.all((await dbKeys('outbox')).map(async (k) => [k, await dbGet<OutboxEntry>('outbox', k)] as const));
+    const sends = (await dbGet<{ plot: string }[]>('kv', 'k-send-queue')) ?? [];
+    await Promise.all([
+      dbDel('kv', kvKey(key)),
+      dbSet('kv', IDS, Object.keys(rest).filter((k) => k !== DEMO)),
+      dbSet('kv', 'k-send-queue', sends.filter((s) => s.plot !== key)),
+      ...mine.map((id) => dbDel('photos', id)),
+      ...queued.filter(([, e]) => e?.plot === key).map(([k]) => dbDel('outbox', k)),
+    ]);
+  });
 }
 
 /** What each log shows at sim time t: the demo farmer's view, and the view of every farmer a helper has captured for. */
@@ -268,19 +323,46 @@ export function simGeo(seed = 0): Geo {
   return { lat: +lat.toFixed(6), lon: +lon.toFixed(6), acc: 8, src: 'sim' };
 }
 
-/** How long a photo waits for a location before it says "simulated location" and goes on. */
+/** How long a photo waits for a location before the person is asked to turn location on. */
 const GEO_WAIT_MS = 3500;
 
-export function getGeo(): Promise<Geo> {
+/** A fix is reused for a photo while it is younger than this. */
+const FIX_MAX_AGE_MS = 60000;
+let lastFix: { geo: Geo; at: number } | null = null;
+const freshFix = () => (lastFix && Date.now() - lastFix.at < FIX_MAX_AGE_MS ? lastFix.geo : null);
+const keepFix = (p: GeolocationPosition): Geo => {
+  const geo: Geo = { lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' };
+  lastFix = { geo, at: Date.now() };
+  return geo;
+};
+
+/**
+ * Listen for the phone's location while the camera screen is open. A cold GPS fix outdoors, or a permission prompt still on
+ * screen, takes longer than a photo can wait; this way the fix is usually there by the time the photo is taken. Returns the stop.
+ */
+export function watchGeo(): () => void {
+  if (!('geolocation' in navigator)) return () => {};
+  const id = navigator.geolocation.watchPosition(keepFix, () => {}, { enableHighAccuracy: true, maximumAge: FIX_MAX_AGE_MS });
+  return () => navigator.geolocation.clearWatch(id);
+}
+
+/**
+ * The phone's location for a photo: a recent fix, else a precise one, else a coarse (network) one. null when the phone gives
+ * none (location off, refused, or not found in time): the camera screen then asks the person to turn it on, and never puts a
+ * made-up location on a real photo without saying so (audit F6).
+ */
+export function getGeo(): Promise<Geo | null> {
+  const recent = freshFix();
+  if (recent) return Promise.resolve(recent);
   return new Promise((res) => {
-    if (!('geolocation' in navigator)) return res(simGeo(1));
-    const done = (g: Geo) => res(g);
-    const timer = setTimeout(() => done(simGeo(2)), GEO_WAIT_MS);
-    navigator.geolocation.getCurrentPosition(
-      (p) => { clearTimeout(timer); done({ lat: +p.coords.latitude.toFixed(6), lon: +p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy), src: 'gps' }); },
-      () => { clearTimeout(timer); done(simGeo(3)); },
-      { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 500, maximumAge: 60000 }
-    );
+    if (!('geolocation' in navigator)) return res(null);
+    let over = false;
+    const done = (g: Geo | null) => { if (!over) { over = true; clearTimeout(timer); res(g); } };
+    // a fix the watch delivers while this waits counts too
+    const timer = setTimeout(() => done(freshFix()), GEO_WAIT_MS);
+    const ok = (p: GeolocationPosition) => done(keepFix(p));
+    const coarse = () => navigator.geolocation.getCurrentPosition(ok, () => done(freshFix()), { enableHighAccuracy: false, timeout: GEO_WAIT_MS - 500, maximumAge: FIX_MAX_AGE_MS });
+    navigator.geolocation.getCurrentPosition(ok, (e) => (e.code === e.PERMISSION_DENIED ? done(null) : coarse()), { enableHighAccuracy: true, timeout: GEO_WAIT_MS - 1500, maximumAge: FIX_MAX_AGE_MS });
   });
 }
 
@@ -308,10 +390,13 @@ async function requireConsent(key: string) {
 export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, geo: Geo, synthetic: boolean, helper?: string) {
   // the farmer this photo is for is fixed now: moving on to another farmer while it is saved must not move the photo
   const key = activeKey.value;
+  // no photo after the seal, even with the replay scrubbed back to before it: the packet would not hold it (FARM-01)
+  if (reduce(await currentLog(key), Infinity).seal) throw new Error('Already sealed.');
   if (!synthetic) await requireConsent(key);
   busy.value = true;
-  // ask the browser to keep what is captured when storage runs low (no prompt; the answer is not needed)
-  void navigator.storage?.persist?.().catch(() => undefined);
+  // ask the browser to keep what is captured when storage runs low; if it refuses, the farmer is told (FarmerApp). A
+  // simulated photo stores nothing that matters, so it never asks.
+  if (!synthetic) void requestPersistence();
   try {
     const sha = await sha256(blob);
     const photoId = 'ph-' + sha.slice(0, 16);
@@ -362,16 +447,22 @@ export function packetBody(v: FocusView) {
 
 export async function seal() {
   const key = activeKey.value;
-  const v = view.value;
-  if (!v.shotCount || full.value.seal) return;
-  if (Object.values(v.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
+  const f = full.value;
+  if (!f.shotCount || f.seal) return;
+  if (Object.values(f.shots).some((s) => s && !s.synthetic)) await requireConsent(key);
   busy.value = true;
   try {
-    const body = packetBody(v);
-    const packetHash = await sha256(canonical(body));
-    const queued = isOffline() || isWeak();
-    if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
-    await append({ type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } }, key);
+    // The packet covers the whole log, not what the replay shows at t: after a scrub back it still holds every photo, and
+    // its prev is the head the seal actually follows.
+    await append(async (c) => {
+      const v = reduce(c, Infinity);
+      if (!v.shotCount || v.seal) return null;
+      const body = packetBody(v);
+      const packetHash = await sha256(canonical(body));
+      const queued = isOffline() || isWeak();
+      if (queued) await dbSet('outbox', 'packet-' + packetHash.slice(0, 12), { kind: 'packet', simT: t.value, plot: key });
+      return { type: 'seal', simT: t.value, data: { packetHash, shots: body.shots.map((s) => s.sha256), queued, deviceMs: Date.now() } };
+    }, key);
   } finally {
     busy.value = false;
   }
@@ -423,8 +514,8 @@ export async function syncOutbox() {
         const packet = mine.some((k) => k.startsWith('packet-')) && seal ? seal.packetHash : undefined;
         await append({ type: 'sync', simT: t.value, data: { photoIds: ids, packet, stage: 'full' } }, owner, true);
       }
-      await dbClear('outbox');
-      return;
+      // only what was sent: a photo or seal queued while this sync ran stays queued, and goes out on the next pass
+      await Promise.all(keys.map((k) => dbDel('outbox', k)));
     }
   } finally {
     syncing = false;
@@ -432,9 +523,20 @@ export async function syncOutbox() {
   }
 }
 
-export const recordRef = (ref: string) => append({ type: 'ref', simT: t.value, data: { ref: ref.trim().toUpperCase() } });
-export const reportNoDamage = (undo = false) => append({ type: 'no_damage', simT: t.value, data: { undo } });
-export const recordConsent = (c: Consent) => append({ type: 'consent', simT: t.value, data: c });
+/** A helper records a filing reference for a farmer only once that farmer has agreed, as for photos (HM-1). */
+export async function recordRef(ref: string) {
+  const key = activeKey.value;
+  await requireConsent(key);
+  return append({ type: 'ref', simT: t.value, data: { ref: ref.trim().toUpperCase() } }, key);
+}
+/** A helper records "no damage" for a farmer only once that farmer has agreed, as for photos (audit CC-02). */
+export async function reportNoDamage(undo = false) {
+  const key = activeKey.value;
+  if (!undo) await requireConsent(key);
+  return append({ type: 'no_damage', simT: t.value, data: { undo } }, key);
+}
+/** `key`: the farmer whose consent this is, fixed when the hold or the recording began (audit CC-05). */
+export const recordConsent = (c: Consent, key: string = activeKey.value) => append({ type: 'consent', simT: t.value, data: c }, key);
 /** Attach the sealed packet to the published draft list (relief rail). Saboot never resolves it: the officer does, outside Saboot. */
 export async function fileObjection() {
   const v = view.value;
@@ -449,10 +551,27 @@ export const policyNo = (plotId: string) => `SIM-KSG-26-${plotId.replace('P-', '
 /** Scripted timings of the simulated people around the farmer (hours). Simulated, not rules and not real service levels. */
 export const SCRIPT = { capture: 3, seal: 3.1, ref: 5.1, ackDue: 48, escalate: 72, ack: 70, survey: 30, objectionResponse: 20 };
 
-export async function ensureFocus(stage: 'captured' | 'sealed' | 'filed') {
+let ensuring: Promise<unknown> = Promise.resolve();
+/**
+ * One catch-up at a time: two jumps at once (a double tap, a presenter key pressed twice) would each add the same photos.
+ * The script only ever writes to the demo farmer's log: a jump or a tour step while a helper is acting for a farmer first
+ * goes back to the demo farmer, so no scripted photo lands in a real farmer's log without their consent (audit CC-01).
+ * `helped` is for the QA helper demo alone, which records each farmer's consent before it catches up for them.
+ */
+export function ensureFocus(stage: 'captured' | 'sealed' | 'filed', helped = false): Promise<void> {
+  if (!helped) activePlotId.value = null;
+  const run = ensuring.then(() => catchUp(stage));
+  ensuring = run.catch(() => undefined);
+  return run;
+}
+
+async function catchUp(stage: 'captured' | 'sealed' | 'filed') {
   if (!loaded) await loadFocus();
   const d = focusDet.value;
   if (!d || d.alertT === null) return;
+  // another tab may have sealed since this one loaded: decide from the newest log, so no photo is tried after that seal
+  const key = activeKey.value, newest = await currentLog(key);
+  if (newest.length > chain.value.length) logs.value = { ...logs.value, [key]: newest };
   const back = t.value;
   // Run scripted actions at their scripted time (never before the user's own last action).
   const at = async (offset: number, fn: () => Promise<unknown>) => {

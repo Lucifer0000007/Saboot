@@ -85,7 +85,7 @@ work in greyscale, in high contrast and for colour-blind readers.
 The diagonal hatch is the visual word for "simulated": the announcement strip and the simulated chip use it, so the
 page says "this is a simulation" even before it is read. FIELD marks evidence from a consented interview
 or a signed letter; it is a display label, not a packet origin, and the evidence strip that uses it stays hidden
-until such a record exists (`src/lib/field.ts`).
+until such a record exists (`src/data/fieldEvidence.ts`).
 
 ## 4. The seal: the hero moment
 
@@ -124,14 +124,15 @@ Site, 1440                                    Farmer app, 360
 │                      │ Live Replay  │ │     │ │ [■ Take photos]│ │
 │ [■ Run simulation]   │ Sim  Hand    │ │     │ │ about 1 d 21 h│ │
 │  How it works        └──────────────┘ │     │ └──────────────┘ │
-└───────────────────────────────────────┘     │ Home Photos Proof│
+└───────────────────────────────────────┘     │Home Photos Proof │
+                                              │Report            │
                                               └──────────────────┘
 ```
 
 - **Landing:** left-aligned headline in Anek; beside it the product's real moment: the seal, the clock that started
   at the event, and the label legend. No stat grid.
 - **Farmer flow:** alert card on paper with a lal edge, one haldi action, the countdown in Anek numerals; capture
-  shows the three shots as a checklist; Proof leads with the seal.
+  shows the three shots as a checklist; Proof leads with the seal and holds the QR code; Report holds the steps, the receipt number and the status.
 - **QR verify:** the result is the seal plus the three chain steps, each with its own icon; the QR sits on white.
 - **Officer console:** tables with tabular figures, the evidence tier as a shaped badge, the draft list marked "not a
   decision" in its header, the objection window as a dated bar.

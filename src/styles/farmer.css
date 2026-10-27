@@ -35,6 +35,12 @@
 .f-strip.net-weak .f-net { padding: 0 8px; border: 1.5px solid var(--warn); border-radius: var(--r-chip); color: var(--warn); background: var(--warn-tint); }
 
 .f-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp4); padding: var(--sp3) var(--f-pad); }
+/* helper mode on a phone tall enough for one more bar: the farmer's name stays under the nav (on a short phone the photo card
+   names the farmer instead, src/farmer/screens/Capture.tsx) */
+@media (min-height: 760px) {
+  .farmer.acting-for:not(.framed) .f-top { position: sticky; top: var(--nav-real, var(--nav-h)); z-index: 2; padding-block: var(--sp2); background: var(--silt); border-bottom: 1px solid var(--rule); }
+  .farmer.acting-for:not(.framed) .f-body * { scroll-margin-top: 72px; }
+}
 .f-who { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
 .f-who strong { font-family: var(--font-head); font-weight: var(--weight-head); font-size: 1.5rem; line-height: var(--lh-head); }
 .f-who span { font-size: 1rem; color: var(--kali-2); }
@@ -52,13 +58,11 @@
 .f-row2 .pill { padding-inline: 16px; }
 
 /* farmer nav: bottom bar in the frame, a plain row above the screen when full-bleed */
-.f-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--sp3); padding: var(--sp2); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.f-nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp3); padding: var(--sp2); background: var(--paper); border-bottom: 1px solid var(--rule); }
 .farmer.framed .f-nav { border-bottom: 0; border-top: 2px solid var(--kali); padding-top: var(--sp3); padding-bottom: 10px; }
-/* narrow phones and large text: the five tabs go 3 + 2 instead of squeezing their labels */
+/* narrow phones and large text: the four tabs go 2 + 2 instead of squeezing their labels */
 @container farmer (max-width: 19.5em) {
-  .f-nav { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .f-nav > button { grid-column: span 2; }
-  .f-nav > button:nth-child(n + 4) { grid-column: span 3; }
+  .f-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .f-nav button {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; min-width: 0;
@@ -172,6 +176,11 @@
 .howto .ic { margin-top: 6px; margin-top: calc((1lh - 20px) / 2); }
 .summary { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-card); }
 .summary h3 { font-size: 1.5rem; }
+.ob-entry { display: flex; flex-direction: column; gap: var(--sp2); padding: var(--sp4); border: var(--bd); border-radius: var(--r-card); background: var(--paper); }
+.ob-facts { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 1rem; }
+.ob-facts li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; align-items: start; }
+.ob-facts .ic { margin-top: calc((1lh - 18px) / 2); }
+.st-h { margin-top: var(--sp4); padding-top: var(--sp5); border-top: var(--bd); }
 .tl { list-style: none; padding: 0; display: flex; flex-direction: column; }
 .tl li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: var(--bd); }
 .tl li > div { display: flex; flex-direction: column; min-width: 0; }
@@ -207,7 +216,13 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .share-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; background: var(--paper); border: 1.5px dashed var(--kali); border-radius: var(--r-card); }
 .share-card h3 { display: flex; align-items: center; gap: 8px; font-size: 1.375rem; }
 .qr { display: block; flex: none; align-self: center; width: min(100%, 320px); height: auto; aspect-ratio: 1 / 1; padding: 6px; color: #000; background: #fff; border: 2px solid var(--kali); border-radius: var(--r-ctl); }
-.k-code summary { min-height: 48px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.k-code summary { list-style: none; min-height: 48px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; }
+.k-code summary::-webkit-details-marker { display: none; }
+.k-code summary .ic { flex: none; transition: transform var(--t-fast); }
+.k-code[open] summary .ic { transform: rotate(180deg); }
+.fp-future[open] summary .ic:first-child, .al-how[open] summary .ic:first-child { transform: none; }
+.fp-future .link-arrow { justify-content: flex-start; text-align: start; }
+.k-code[open] { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 
 /* helper mode: a card on the home screen, the queue screen, and a bar saying who the app is acting for */
 .helper-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; background: var(--paper); border: var(--bd); border-left: 5px solid var(--khet); border-radius: var(--r-card); }
@@ -257,6 +272,9 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .farmer .card h4 { font-size: 1.125rem; margin-top: 4px; }
 .consent-card { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-card); }
 .consent-card h3 { font-size: 1.5rem; }
+/* the consent in the farmer's own script on a phone set to another language (audit H5); the fonts come with the dictionary */
+.in-hi { --font-head: 'Saboot Deva Display', 'Saboot Display', 'Saboot Deva Display Fallback', 'Saboot Display Fallback', sans-serif; --font-body: 'Saboot Deva Sans', 'Saboot Sans', 'Saboot Deva Fallback', 'Saboot Sans Fallback', sans-serif; font-family: var(--font-body); }
+.in-pa { --font-head: 'Saboot Guru Display', 'Saboot Display', 'Saboot Guru Display Fallback', 'Saboot Display Fallback', sans-serif; --font-body: 'Saboot Guru Sans', 'Saboot Sans', 'Saboot Guru Fallback', 'Saboot Sans Fallback', sans-serif; font-family: var(--font-body); }
 
 /* review pass: the helper bar sits clear of the tab bar; Indic labels keep their own leading */
 .hbar { margin-top: 8px; }

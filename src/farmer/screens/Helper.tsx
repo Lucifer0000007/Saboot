@@ -6,8 +6,10 @@ import { lazy } from '../../lib/lazy';
 import { tr } from '../../lib/i18n';
 import { fmtClock } from '../../lib/time';
 import { helperSession, startHelperSession } from '../focus';
-import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, type QueueState } from '../helper';
+import { queue, doneCount, HELPER_ROLES, openFarmer, leaveHelperMode, jumpToFirstAlert, type QueueState } from '../helper';
 import { cropName } from '../parts';
+import { nm } from '../../lib/names';
+import { scrollToPhone } from '../../site/layout';
 
 const FeaturePhone = lazy(() => import('../FeaturePhone'), 0);
 
@@ -29,6 +31,12 @@ function Start() {
     if (!name.trim()) { setErr(tr('hm.needName')); return; }
     setErr(null);
     await startHelperSession({ name: name.trim(), role: tr(role) });
+    // the short form became the long queue in place: bring the queue's top on screen, as a screen change does (HM-2)
+    requestAnimationFrame(() => {
+      scrollToPhone();
+      const h = document.querySelector<HTMLElement>('[data-helper-screen] h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    });
   }
   return (
     <form class="stack f-stack" onSubmit={go} noValidate>
@@ -57,10 +65,12 @@ export function Helper() {
   const session = helperSession.value;
   const list = queue.value;
   const [phone, setPhone] = useState(false);
+  const [ending, setEnding] = useState(false);
   return (
     <div class="stack f-stack" data-helper-screen>
       <h2 class="f-title">{tr('hm.title')}</h2>
-      <p>{tr('hm.intro')}</p>
+      {/* once the session runs, the queue comes first: the introduction has done its job (audit H13) */}
+      {!session && <p>{tr('hm.intro')}</p>}
       {!session ? (
         <Start />
       ) : (
@@ -69,6 +79,11 @@ export function Helper() {
             <p class="tag" data-helper-name><Icon name="users" size={16} /> {tr('hm.session', { name: session.name, role: session.role })}</p>
             <p class="hs-progress" role="status">{tr('hm.progress', { done: doneCount.value, n: list.length })}</p>
           </div>
+          {list.length > 0 && list.every((q) => q.state === 'no-alert') && (
+            <button type="button" class="pill pill-primary pill-lg pill-block" data-jump-alert onClick={jumpToFirstAlert}>
+              <Icon name="clock" /> {tr('hm.jumpAlert')} <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          )}
           <ol class="hq" role="list" aria-label={tr('hm.queue')}>
             {list.map((q) => {
               const m = META[q.state];
@@ -77,26 +92,45 @@ export function Helper() {
               return (
                 <li key={q.plot.id} class={'hq-' + q.state} data-farmer={q.plot.id}>
                   <div class="hq-main">
-                    <strong>{q.plot.name}</strong>
-                    <span class="sub">{q.plot.id} · {q.plot.village} · {cropName(q.plot.crop)} · <span class="nb">{q.plot.areaHa.toFixed(1)} ha</span></span>
+                    <strong>{nm(q.plot.name)}</strong>
+                    <span class="sub">{q.plot.id} · {nm(q.plot.village)} · {cropName(q.plot.crop)} · <span class="nb">{q.plot.areaHa.toFixed(1)} ha</span></span>
                     <span class="sub">{tr('hm.speaks', { lang: tr('lang.name.' + q.plot.lang) })}</span>
                     {q.by && <span class="sub" data-captured-by>{tr('hm.by', { name: q.by.name, role: q.by.role })}{q.consentT !== null && <> <span class="nb">· <span class="num">{fmtClock(q.consentT, false)}</span></span></>}</span>}
                   </div>
                   <span class={'tag tag-flow ' + m.tone}><Icon name={m.icon} size={16} /> {label}</span>
+                  {q.waiting > 0 && <span class="tag tag-flow" data-waiting><Icon name="clock" size={16} /> {tr('pk.queued', { n: q.waiting })}</span>}
                   {q.state === 'no-alert' && <span class="sub">{tr('hm.wait')}</span>}
                   <button type="button" class="pill pill-ghost" disabled={q.state === 'no-alert'} onClick={() => openFarmer(q.plot.id, q.state)}>
-                    {tr(action)}<span class="sr-only"> · {q.plot.name}</span>
+                    {tr(action)}<span class="sr-only"> · {nm(q.plot.name)}</span>
                   </button>
                 </li>
               );
             })}
           </ol>
           <p class="note note-plain"><Icon name="shield" /><span>{tr('hm.note')}</span></p>
-          <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
-          <button type="button" class="pill pill-ghost" onClick={() => void leaveHelperMode()}>{tr('hm.end')}</button>
+          <p class="note note-plain" data-replay-paused><Icon name="clock" /><span>{tr('hm.paused')}</span></p>
+          {/* one tap away from the feature-phone link: ending asks first (audit H16) */}
+          {!ending ? (
+            <button type="button" class="pill pill-ghost" data-end-session onClick={() => setEnding(true)}>{tr('hm.end')}</button>
+          ) : (
+            <div class="note note-warn" role="alert" data-end-ask>
+              <Icon name="info" />
+              <div class="stack">
+                <span>{tr('hm.endAsk')}</span>
+                <div class="row">
+                  <button type="button" class="pill pill-dark" data-end-yes onClick={() => void leaveHelperMode()}>{tr('hm.endYes')}</button>
+                  <button type="button" class="pill pill-ghost" onClick={() => setEnding(false)}>{tr('hm.endNo')}</button>
+                </div>
+              </div>
+            </div>
+          )}
         </>
       )}
-      {!session && <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}><Icon name="phone" size={18} /> {tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>}
+      {/* a future design, not the demo's path: folded away under one heading, with or without a session (audit S-11, FEATURE-MAP F8) */}
+      <details class="k-code fp-future" data-fp-future>
+        <summary><Icon name="phone" size={18} /> <span>{tr('hm.fpFuture')}</span> <Icon name="down" /></summary>
+        <button type="button" class="link-arrow" data-fp-open onClick={() => setPhone(true)}>{tr('hm.phoneBtn')} <span aria-hidden="true">→</span></button>
+      </details>
       {phone && <FeaturePhone onClose={() => setPhone(false)} />}
     </div>
   );

@@ -18,7 +18,7 @@ const STAGES: Record<'relief' | 'pmfby', Stage[]> = {
     { id: 'assembled', who: 'Saboot', label: 'Evidence assembled', icon: 'shield' },
     { id: 'filed', who: 'Farmer', label: 'Shown to the officer', icon: 'file' },
     { id: 'review', who: 'Officer', label: 'Officer review', icon: 'list' },
-    { id: 'decision', who: 'Department', label: 'Officer decision', icon: 'gavel' },
+    { id: 'decision', who: 'Department', label: 'Department decides', icon: 'gavel' },
   ],
 };
 

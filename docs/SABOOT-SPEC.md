@@ -141,7 +141,7 @@ Mood: calm, trustworthy, spacious. No stock photos, no emoji, no icon library (h
 2. Ranked list sortable by priority, time left, evidence tier.
 3. Plot detail drawer (right-side drawer on desktop, full-height bottom sheet on mobile, focus-trapped, Esc closes): event timeline, rainfall chart against the threshold, flood overlay, photos, hash verification status, and the plausibility breakdown showing each factor, its weight, and an uncertainty range, with the copy "evidence tier, not a claim decision".
 4. District triage view: inspection priority queue.
-5. Audit ledger view: append-only log with a "Verify integrity" button and a "Tamper test" button that alters one record and shows the hash chain failing.
+5. Audit ledger view: append-only log with a "Verify integrity" button and a "Tamper test" button that alters one record and shows the hash chain failing. (Built inside the console's Tamper check view, not as its own tab, S-05.)
 
 **D. Detection explainer** that updates as the scrubber moves: rainfall accumulation vs threshold, terrain check, flood extent, alerts sent, time-to-alert. Hail is shown as a low-confidence prompt path, honestly labelled.
 

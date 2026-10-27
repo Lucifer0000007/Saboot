@@ -5,23 +5,24 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Icon } from '../ui/Icon';
 import { Sheet } from '../ui/Sheet';
 import { ProvTag, Val } from '../ui/ProvTag';
-import { fmtT } from '../lib/time';
 import { announce } from '../lib/announce';
 import { fromOrigin } from '../lib/prov';
-import { model, t, seek, pause } from '../sim/engine';
-import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult, type KPayload } from '../k/payload';
+import { t, seek, pause } from '../sim/engine';
+import { verifyCode, codeBytes, codeFromQrText, b64url, type KResult } from '../k/payload';
 import { scanQr } from '../k/scan';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { download } from '../lib/download';
 import { addImported, importedLabel, imported } from '../k/imported';
 import { receiver } from '../lib/prefs';
 import { receipts, type Receipt as ReceiptEntry } from '../k/receipt';
-import { GAP_FLAG_H } from '../farmer/focus';
-import { openPlot, importReceived } from '../site/layout';
+import { openImported, importReceived } from '../site/layout';
 import { ConsoleNote } from './ConsoleNote';
+import { Details } from './PacketDetails';
 import { Seal } from '../ui/Seal';
 
 const NO_CRYPTO = 'This page cannot check signatures here. Open it over https, or on localhost.';
+/** A touch screen is a phone or tablet in the field: its own camera points at the farmer's QR code (audit OF-15). */
+const touch = () => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
 
 function Checks({ res }: { res: KResult }) {
   const steps: [string, boolean | null][] = [
@@ -32,28 +33,12 @@ function Checks({ res }: { res: KResult }) {
   return (
     <ol class="k-steps" role="list">
       {steps.map(([l, s]) => (
-        <li key={l} class={s === null ? 'skip' : s ? 'ok' : 'bad'}>
+        <li key={l} class={s === null ? 'not-reached' : s ? 'ok' : 'bad'}>
           <Icon name={s === null ? 'target' : s ? 'okShape' : 'barShape'} size={16} />
           <span>{l}{s === null ? ' (not reached)' : ''}</span>
         </li>
       ))}
     </ol>
-  );
-}
-
-/** When the laptop received the packet, against the phone's own clock at sealing. Large or negative gaps are flagged. */
-function Receipt({ p, receivedAt }: { p: KPayload; receivedAt: number }) {
-  const gapH = (receivedAt - p.deviceMs) / 3.6e6;
-  const note = gapH < -0.1
-    ? `The phone's clock is ${Math.round(-gapH * 60)} min ahead of this laptop's. Treat the phone's time with care.`
-    : gapH > GAP_FLAG_H
-      ? `Received ${gapH.toFixed(1)} h after sealing: flagged for review.`
-      : null;
-  return (
-    <>
-      <div><dt>Received by this console</dt><dd class="num"><Val kind="time" prov="live" english>{new Date(receivedAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'medium' })}</Val></dd></div>
-      {note && <div><dt>Clock check</dt><dd>{note}</dd></div>}
-    </>
   );
 }
 
@@ -97,7 +82,7 @@ function Received({ onClose }: { onClose: () => void }) {
               {res && <Checks res={res} />}
               {res && !res.ok && <p class="note note-bad"><Icon name="barShape" /><span><strong>Changed after sealing. Do not trust this copy. </strong>{res.reason}</span></p>}
               {res?.ok && res.payload && (isIn(res) ? (
-                <p class="note note-plain"><Icon name="check" /><span>Added as <strong>{importedLabel(res.payload)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload.plot}</button></span></p>
+                <p class="note note-plain"><Icon name="check" /><span>Added as <strong>{importedLabel(res.payload)}</strong>. <button type="button" class="link-arrow" data-open-imported onClick={() => { onClose(); openImported.value = res.payload!.head; }}>Open the imported packet for {res.payload.plot}</button></span></p>
               ) : (
                 <button type="button" class="pill pill-dark" data-add-received onClick={() => addOne(r, res)}><Icon name="inbox" /> Add to dashboard</button>
               ))}
@@ -105,39 +90,6 @@ function Received({ onClose }: { onClose: () => void }) {
           );
         })}
       </ul>
-    </div>
-  );
-}
-
-function Details({ res, receivedAt }: { res: KResult; receivedAt: number }) {
-  const p = res.payload!;
-  const plot = model.value?.plots.find((x) => x.id === p.plot);
-  return (
-    <div class="k-details">
-      <dl class="facts">
-        <div><dt>Plot</dt><dd>{p.plot}{plot ? ` · ${plot.name} · ${plot.village}` : ''} <ProvTag prov="sim" english /></dd></div>
-        <div><dt>Event began</dt><dd class="num">{fmtT(p.eventT)}</dd></div>
-        <div><dt>Sealed (replay time)</dt><dd class="num">{fmtT(p.sealT)}</dd></div>
-        <div><dt>Phone clock at sealing</dt><dd class="num"><Val kind="time" prov="live" english>{new Date(p.deviceMs).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</Val></dd></div>
-        <Receipt p={p} receivedAt={receivedAt} />
-        <div><dt>Coarse location (~100 m)</dt><dd class="num"><Val kind="loc" prov={fromOrigin(p.shots[0].loc)} english>{p.lat.toFixed(3)}, {p.lon.toFixed(3)}</Val></dd></div>
-        <div><dt>Chain head</dt><dd class="hash">{p.head.slice(0, 24)}…</dd></div>
-      </dl>
-      <ul class="k-shots" role="list">
-        {p.shots.map((s) => (
-          <li key={s.kind} data-k-shot>
-            <div class="k-ph" role="img" aria-label={`${s.kind} photo: stays on the farmer’s phone`}><Icon name="lock" /><span aria-hidden="true">Stays on the phone</span></div>
-            <span class="cap">{s.kind}</span>
-            <span class="num">{fmtT(s.simT)}</span>
-            <span class="hash">{s.sha.slice(0, 12)}…</span>
-            <span class="k-origins">
-              <Val kind="photo" prov={fromOrigin(s.photo)} english>photo</Val>
-              <Val kind="loc" prov={fromOrigin(s.loc)} english>location</Val>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p class="muted">Photos stay on the farmer’s phone; only their SHA-256 fingerprints travel. The labels say where each photo and location came from: they are what the phone’s software wrote, sealed so they cannot be changed afterwards. The real product would upload the photos with consent.</p>
     </div>
   );
 }
@@ -168,12 +120,24 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
     setReceivedAt(Date.now());
     setAdded(false);
     announce(r.ok ? 'Integrity verified: not altered since sealing.' : `Verification failed: ${r.reason}`);
+    // the verdict, not the code box, is what to read next: bring it up inside the sheet (audit OF-16)
+    requestAnimationFrame(() => document.querySelector('.import-sheet .k-result')?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   };
+  /** Paste from the clipboard, where the browser allows it; a refusal leaves the box as it was for a manual paste. */
+  async function pasteClip() {
+    try {
+      const c = (await navigator.clipboard.readText()).trim();
+      if (!c) return;
+      setText(c); setOriginal(null);
+      void run(c);
+    } catch { /* the person pastes into the box by hand */ }
+  }
   useEffect(() => { if (initial) void run(initial); }, []);
   useEffect(() => {
     if (mode !== 'scan' || !video.current) return;
     setCamErr(null);
-    return scanQr(video.current, (c) => { setText(codeFromQrText(c)); setMode('paste'); void run(c); }, () => setCamErr('No camera available here. Paste the code or open the link instead.'));
+    // no camera (or no permission): go straight to the paste box, saying why (audit OF-15)
+    return scanQr(video.current, (c) => { setText(codeFromQrText(c)); setMode('paste'); void run(c); }, () => { setCamErr('No camera available here, so this is the paste box. Paste the code or open the link instead.'); setMode('paste'); });
   }, [mode]);
 
   async function add() {
@@ -217,16 +181,20 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
         <Received onClose={onClose} />
       ) : mode === 'scan' ? (
         <div class="k-scan">
-          <video ref={video} muted playsInline aria-label="Webcam preview for QR scanning" />
-          {camErr ? <p class="note note-warn"><Icon name="info" /><span>{camErr}</span></p> : <p class="muted">Hold the farmer’s phone up to the webcam.</p>}
+          <video ref={video} muted playsInline aria-label="Camera preview for QR scanning" />
+          <p class="muted" data-scan-hint>{touch() ? 'Point this phone’s camera at the QR code on the farmer’s phone.' : 'Hold the farmer’s phone up to the webcam.'}</p>
         </div>
       ) : (
         <form class="stack" onSubmit={(e) => { e.preventDefault(); setOriginal(null); void run(text); }}>
+          {camErr && <p class="note note-warn" data-cam-err><Icon name="info" /><span>{camErr}</span></p>}
           <label class="field">
             <span>Evidence code or link</span>
             <textarea class="input k-text" rows={4} value={text} onInput={(e) => { setText((e.currentTarget as HTMLTextAreaElement).value); setRes(null); setOriginal(null); setAdded(false); }} spellcheck={false} />
           </label>
-          <button type="submit" class="pill pill-dark" disabled={!text.trim()}><Icon name="shield" /> Verify</button>
+          <div class="row">
+            <button type="submit" class="pill pill-dark" disabled={!text.trim()}><Icon name="shield" /> Verify</button>
+            {typeof navigator !== 'undefined' && !!navigator.clipboard?.readText && <button type="button" class="pill pill-ghost" data-paste-clip onClick={() => void pasteClip()}><Icon name="paste" size={16} /> Paste from clipboard</button>}
+          </div>
         </form>
       )}
       {res && (
@@ -254,7 +222,7 @@ export default function ImportSheet({ initial, onClose }: { initial?: string; on
             </button>
           )}
           {res.ok && (added ? (
-            <p class="note note-plain"><Icon name="check" /><span>Added to the dashboard as <strong>{importedLabel(res.payload!)}</strong>. <button type="button" class="link-arrow" onClick={() => { onClose(); openPlot.value = res.payload!.plot; }}>Open {res.payload!.plot}</button></span></p>
+            <p class="note note-plain"><Icon name="check" /><span>Added to the dashboard as <strong>{importedLabel(res.payload!)}</strong>. <button type="button" class="link-arrow" data-open-imported onClick={() => { onClose(); openImported.value = res.payload!.head; }}>Open the imported packet for {res.payload!.plot}</button></span></p>
           ) : (
             <button type="button" class="pill pill-dark" onClick={add}><Icon name="inbox" /> Add to dashboard</button>
           ))}

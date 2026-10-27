@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'preact/hooks';
 import { lazy } from '../lib/lazy';
 import { liveMsg, toast, updateReady } from '../lib/announce';
-import { tr } from '../lib/i18n';
-import { loadScenario, model } from '../sim/engine';
+import { tr, langLoading } from '../lib/i18n';
+import { loadScenario, model, t, seek } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
+import { resumeHelper, resumeAt } from '../farmer/helper';
 import { Settings } from '../ui/Settings';
 import { ResetAsk } from '../ui/ControlBar';
 import { Presenter } from '../tour/Presenter';
@@ -14,11 +15,15 @@ import { tourStep } from '../tour/state';
 import { Announcement, Hero, Problem, Limits, Footer } from './Shell';
 import { Nav } from './Nav';
 import { Simulation, SimHead } from './Simulation';
-import { readDeepLink, scrollToId, scrollToPhone, simTab, importCode, deepLinkDone } from './layout';
+import { readDeepLink, scrollToId, scrollToPhone, scrollToPanel, simTab, insurerView, importCode, deepLinkDone } from './layout';
 import { rail, cadence, receiver } from '../lib/prefs';
+import { watchPlaces } from './trail';
+import { readResume, saveResume } from './resume';
+import { fieldOn } from '../field/on';
 
-const Tour = lazy(() => import('../tour/Tour'), 0);
+const Tour = lazy(() => import('../tour/Tour'), 0, 'tour.loading');
 const HowItWorks = lazy(() => import('../how/HowItWorks'), 1600);
+const FieldMode = lazy(() => import('../field/FieldMode'), 640);
 
 function SimPlaceholder() {
   return (
@@ -56,29 +61,58 @@ function useNear(id: string) {
 }
 
 let deepLinked = false;
+/** The #k= code last opened, from the link or a hash change. */
+let seenK: string | undefined;
 async function applyDeepLink() {
   if (deepLinked || !model.value) return;
+  // field mode has no replay, no resume and no demo import: a #k= link there is read by the field screens
+  if (fieldOn.value) { deepLinkDone.value = true; return; }
   deepLinked = true;
   try {
     // the stored log must be in memory before a moment jump decides what the farmer is still missing
     await loadFocus();
     const d = readDeepLink();
+    // a reload comes back to where the person was, not to where the link first took them (audit R2)
+    const r = readResume();
+    const at = r ? undefined : d.at;
     if (d.rail) rail.value = d.rail;
     if (d.cadence) cadence.value = d.cadence;
     if (d.receiver !== undefined) receiver.value = d.receiver;
-    if (d.tab) simTab.value = d.tab;
+    if (r) { simTab.value = r.tab; insurerView.value = r.view; }
+    else {
+      if (d.tab) simTab.value = d.tab;
+      if (d.view) insurerView.value = d.view;
+    }
     if (d.k) {
       simTab.value = 'insurer';
       importCode.value = d.k;
+      seenK = d.k;
     }
-    if (d.at) {
+    if (at) {
       simTab.value = 'farmer';
-      await jumpTo(d.at as MomentId);
+      await jumpTo(at as MomentId);
     }
-    if (d.at) requestAnimationFrame(() => scrollToPhone());
+    restoreClock();
+    if (r) { seek(r.t); resumeAt(r.s, r.plot); }
+    // a helper session still running comes back to its farmer; a moment link is the demo farmer's story (audit CC-01)
+    else if (!at) await resumeHelper();
+    // the phone's position (and its main button above the dock) depends on the words and fonts of a saved Hindi or Punjabi
+    // choice still loading, and on the farmer screen a reload brought back: wait for them before the scroll (audit F2, J12)
+    const phone = !!at || (r?.sec === 'simulation' && r.tab === 'farmer');
+    if (phone || r) {
+      for (let i = 0; langLoading.value && i < 100; i++) await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => requestAnimationFrame(r));
+      await document.fonts?.ready;
+    }
+    const sec = r?.sec;
+    if (phone) requestAnimationFrame(() => scrollToPhone());
+    else if (r) { if (sec === 'simulation') requestAnimationFrame(() => scrollToPanel()); else if (sec) requestAnimationFrame(() => document.getElementById(sec)?.scrollIntoView({ block: 'start' })); }
+    else if (d.tab && d.tab !== 'farmer') requestAnimationFrame(() => scrollToPanel());
     else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
-    restoreClock();
+    // an officer link with no moment lands where the console has something to show, but only for a visitor whose replay
+    // has not started: it never moves a clock that a stored log has already set (audit OF-07, J5)
+    if (!r && d.tab === 'insurer' && !d.at && !d.k && t.value === 0) await jumpTo('deadline');
   } finally {
     deepLinkDone.value = true;
   }
@@ -93,28 +127,41 @@ export function Page({ ssr }: { ssr?: boolean }) {
     // a link with #k= pasted into a tab that is already open (the page does not reload for a hash change)
     const onHash = () => {
       const d = readDeepLink();
-      if (d.k) {
+      // Back to the entry the link opened on brings its #k= back: that code was imported already
+      if (d.k && d.k !== seenK && !fieldOn.value) {
+        seenK = d.k;
         simTab.value = 'insurer';
         importCode.value = d.k;
       }
     };
     addEventListener('hashchange', onHash);
-    return () => removeEventListener('hashchange', onHash);
+    // where the person is, for a reload (audit R2): kept as the page is hidden, since a phone may drop it without unloading
+    const hide = () => { if (document.visibilityState === 'hidden') saveResume(); };
+    addEventListener('pagehide', saveResume);
+    document.addEventListener('visibilitychange', hide);
+    return () => { removeEventListener('hashchange', onHash); removeEventListener('pagehide', saveResume); document.removeEventListener('visibilitychange', hide); };
   }, []);
   useEffect(() => { void applyDeepLink(); }, [model.value]);
+  useEffect(() => watchPlaces(), []);
   return (
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{tr('skip.main')}</a>
-      <Announcement />
-      <Nav />
-      <main id="main" tabIndex={-1}>
-        <Hero />
-        <Problem />
-        {ssr ? <SimPlaceholder /> : <Simulation />}
-        <HowSection ssr={ssr} />
-        <Limits />
-      </main>
-      <Footer />
+      {!ssr && fieldOn.value ? (
+        <main id="main" tabIndex={-1}><FieldMode /></main>
+      ) : (
+        <>
+          <Announcement />
+          <Nav />
+          <main id="main" tabIndex={-1}>
+            <Hero />
+            <Problem />
+            {ssr ? <SimPlaceholder /> : <Simulation />}
+            <HowSection ssr={ssr} />
+            <Limits />
+          </main>
+          <Footer />
+        </>
+      )}
       {!ssr && (
         <>
           <Settings />
@@ -129,7 +176,7 @@ export function Page({ ssr }: { ssr?: boolean }) {
           )}
           {toast.value && (
             <div class={'toast' + (toast.value.tone === 'warn' ? ' warn' : '')} key={toast.value.id} aria-hidden="true">
-              {toast.value.text}
+              {typeof toast.value.text === 'function' ? toast.value.text() : toast.value.text}
             </div>
           )}
           <div class="sr-only" aria-live="polite" aria-atomic="true">{liveMsg.value}</div>

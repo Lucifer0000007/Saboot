@@ -13,6 +13,12 @@ export function simParts(h: number) {
 
 const p2 = (n: number) => String(n).padStart(2, '0');
 
+/** The first sim hour at or after h that falls in office hours (10:00–17:00 IST): a field visit is not booked at night. */
+export function officeHours(h: number) {
+  const hod = (((T0_MS + IST) / 3600e3 + h) % 24 + 24) % 24;
+  return hod >= 10 && hod < 17 ? h : h + ((10 - hod + 24) % 24);
+}
+
 /** "Tue 14 Jul, 11:00" — day/month names come from the i18n dictionary (font subsets cover them).
  *  `english` forces English names (the insurer/district console is English in every language). */
 export function fmtClock(h: number, withDay = true, english = false) {

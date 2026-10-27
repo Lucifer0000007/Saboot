@@ -1,23 +1,25 @@
 import { computed, effect } from '@preact/signals';
 import { useEffect, useRef } from 'preact/hooks';
 import { Icon, type IconName } from '../ui/Icon';
-import { tr, trr } from '../lib/i18n';
-import { voiceMode, lang, network, browserOnline, rail } from '../lib/prefs';
-import { storageOk } from '../lib/db';
+import { tr, trr, langReady } from '../lib/i18n';
+import { voiceMode, network, browserOnline, rail } from '../lib/prefs';
+import { storageOk, storagePersistent } from '../lib/db';
 import { say, stopVoice } from '../lib/voice';
 import { announce } from '../lib/announce';
 import { t, focusPlot, focusDet, activePlotId } from '../sim/engine';
-import { view, syncOutbox, rewound } from './focus';
+import { view, syncOutbox, rewound, helperSession } from './focus';
 import { screen, settingsOpen, type Screen } from './nav';
 import { ConnStrip } from './ConnStrip';
 import { Home } from './screens/Home';
 import { Capture } from './screens/Capture';
 import { Packet } from './screens/Packet';
-import { FileClaim } from './screens/File';
 import { Status } from './screens/Status';
 import { Assist } from './screens/Assist';
 import { Helper } from './screens/Helper';
 import { backToQueue } from './helper';
+import { nm } from '../lib/names';
+import { tourStep } from '../tour/state';
+import { scrollToPhone } from '../site/layout';
 
 const autoScreen = computed<Screen>(() => {
   const d = focusDet.value, v = view.value;
@@ -33,8 +35,8 @@ const NAV: [Screen, IconName, string][] = [
   ['home', 'home', 'f.nav.home'],
   ['capture', 'camera', 'f.nav.photos'],
   ['packet', 'shield', 'f.nav.packet'],
-  ['file', 'file', 'f.nav.file'],
-  ['status', 'list', 'f.nav.status'],
+  // reporting and what follows share one tab (audit S-06); the 'file' screen id opens it too
+  ['status', 'file', 'f.nav.report'],
 ];
 
 // Coming back online (simulated or real) flushes the IndexedDB outbox automatically; network changes are announced.
@@ -57,15 +59,14 @@ function screenSpeech(s: Screen): [string, string, string | undefined] | null {
   }
   if (s === 'capture') return ['cap', tr('cap.title') + '. ' + tr('shot.wide.d'), undefined];
   if (s === 'packet') return ['pk', tr('pk.title') + '. ' + tr('pk.chainHelp'), undefined];
-  if (s === 'file') return ['fl', trr('fl.intro'), undefined];
-  if (s === 'status') return ['st', trr('st.note'), undefined];
+  if (s === 'file' || s === 'status') return view.value.ref ? ['st', trr('st.note'), undefined] : ['fl', trr('fl.intro'), undefined];
   if (s === 'assist') return ['as', tr('as.intro'), undefined];
   if (s === 'helper') return ['hm', tr('hm.intro'), undefined];
   return null;
 }
 
 function FarmerNav() {
-  const s = current.value;
+  const s = current.value === 'file' ? 'status' : current.value;
   return (
     <nav class="f-nav" aria-label={tr('nav.farmer')}>
       {NAV.map(([id, icon, label]) => (
@@ -87,12 +88,21 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
 
   useEffect(() => {
     if (first.current) { first.current = false; return; }
-    if (framed) body.current?.scrollTo({ top: 0 });
     const h = body.current?.querySelector('h2');
+    if (framed) body.current?.scrollTo({ top: 0 });
+    // unframed (a phone): the new screen opens at its top when its title is off screen, not wherever the last screen was
+    // scrolled to (audit H1, UI-02). The tour scrolls to its own targets.
+    else if (h && tourStep.value === null) {
+      const r = h.getBoundingClientRect();
+      // below the lower of the sticky bars: the site nav, and the farmer header while a helper acts for a farmer (HM-4)
+      const navB = Math.max(document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0,
+        document.querySelector('.farmer .f-top')?.getBoundingClientRect().bottom ?? 0);
+      if (r.top < navB || r.top > innerHeight * 0.6) scrollToPhone();
+    }
     if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
     if (voiceMode.value) {
       const sp = screenSpeech(s);
-      if (sp) say(sp[0], sp[1], lang.value, sp[2]);
+      if (sp) say(sp[0], sp[1], langReady.value, sp[2]);
     } else stopVoice();
   }, [s]);
 
@@ -101,27 +111,32 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
   useEffect(() => {
     if (!alerted) return;
     announce(tr('al.title') + '. ' + tr('al.msg'));
-    if (voiceMode.value && s === 'home') say('alert', trr('al.voice'), lang.value, 'alert-' + rail.value);
+    if (voiceMode.value && s === 'home') say('alert', trr('al.voice'), langReady.value, 'alert-' + rail.value);
   }, [alerted]);
 
   if (!p || !d) return null;
+  // On the helper's queue the farmer tabs would open the demo farmer's screens, not a farmer in the queue: the queue is the
+  // only way to a farmer, so the tabs are hidden there (audit H2).
+  const nav = !(helperSession.value && activePlotId.value === null && s === 'helper');
   return (
-    <section class={'farmer' + (framed ? ' framed' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
+    <section class={'farmer' + (framed ? ' framed' : '') + (activePlotId.value !== null && s !== 'helper' ? ' acting-for' : '')} aria-label={tr('nav.farmer')} data-sim-numbers>
       <ConnStrip />
       {!storageOk.value && <p class="note note-warn" role="status" data-storage-warning><Icon name="info" /><span>{tr('db.memory')}</span></p>}
+      {storageOk.value && storagePersistent.value === false && view.value.queued > 0 && <p class="note note-warn" role="status" data-persist-warning><Icon name="info" /><span>{tr('db.notPersistent')}</span></p>}
+      {/* a helper acting for a farmer keeps that farmer's name on screen while scrolling to the shutter or the seal (audit H12) */}
       <header class="f-top">
         <div class="f-who">
-          <strong>{s === 'helper' ? tr('hm.title') : p.name}</strong>
-          <span>{s === 'helper' ? tr('hm.sub') : `${p.id} · ${p.village}`}</span>
+          <strong>{s === 'helper' ? tr('hm.title') : nm(p.name)}</strong>
+          <span>{s === 'helper' ? tr('hm.sub') : `${p.id} · ${nm(p.village)}`}</span>
         </div>
         <button type="button" class="iconbtn" aria-label={tr('nav.settings')} onClick={() => (settingsOpen.value = true)} data-tour="settings">
           <Icon name="gear" />
         </button>
       </header>
-      {!framed && <FarmerNav />}
+      {!framed && nav && <FarmerNav />}
       {activePlotId.value !== null && s !== 'helper' && (
         <div class="hbar" role="group" aria-label={tr('hm.title')} data-helper-bar>
-          <span class="hbar-t"><Icon name="users" size={18} /> {tr('hm.bar', { farmer: p.name, plot: p.id })}</span>
+          <span class="hbar-t"><Icon name="users" size={18} /> {tr('hm.bar', { farmer: nm(p.name), plot: p.id })}</span>
           <button type="button" class="pill pill-ghost pill-sm" onClick={backToQueue}>{tr('hm.back')}</button>
         </div>
       )}
@@ -137,13 +152,12 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
           {s === 'home' && <Home />}
           {s === 'capture' && <Capture />}
           {s === 'packet' && <Packet />}
-          {s === 'file' && <FileClaim />}
-          {s === 'status' && <Status />}
+          {(s === 'file' || s === 'status') && <Status />}
           {s === 'assist' && <Assist />}
           {s === 'helper' && <Helper />}
         </div>
       </div>
-      {framed && <FarmerNav />}
+      {framed && nav && <FarmerNav />}
     </section>
   );
 }

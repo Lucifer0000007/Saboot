@@ -100,20 +100,21 @@ test('objection: the farmer attaches sealed evidence once, it is a sealed event 
   await page.locator('.chips .chip-btn', { hasText: 'Draft list' }).first().click();
   await expect(card).toHaveAttribute('data-objection', 'open', { timeout: 20_000 });
   const before = (await page.evaluate('window.__sab.logs()')) as Record<string, { events: number; head: string }>;
-  await card.getByRole('button', { name: 'Attach my sealed evidence' }).click();
+  await card.getByRole('button', { name: 'Looks wrong: attach my evidence' }).click();
   await expect(card).toHaveAttribute('data-objection', 'filed');
   await expect(card).toContainText('The officer decides, outside Saboot.');
   const after = (await page.evaluate('window.__sab.logs()')) as Record<string, { events: number; head: string }>;
   expect(after.$demo.events).toBe(before.$demo.events + 1);
   expect(after.$demo.head).not.toBe(before.$demo.head);
-  await expect(card.getByRole('button', { name: 'Attach my sealed evidence' })).toHaveCount(0);
+  await expect(card.getByRole('button', { name: 'Looks wrong: attach my evidence' })).toHaveCount(0);
   // the officer sees it on the draft list, next to the entry that is the judge's own
   await sab(page, `s.tab('insurer'); s.insurer('draft');`);
   const mine = page.locator('.dtable tr', { has: page.locator('.tag.you') });
   await expect(mine).toContainText('Evidence attached', { timeout: 20_000 });
   await expect(mine).toContainText('No response noted yet');
-  // twenty hours later a response is noted: that it came, never what it said
-  await sab(page, `s.seek(122);`);
+  // twenty hours later a response is noted: that it came, never what it said (relative to the moment, which now waits for
+  // the first scripted objection, audit OF-05)
+  await sab(page, `s.seek(s.state().t + 21);`);
   await expect(mine).toContainText('Response noted');
   await expect(mine).toContainText('outside Saboot');
   await expect(card).toContainText('The officer has responded');
@@ -255,9 +256,11 @@ test('worklist cells: the advice countdown has a clock under 24 h and words unde
   await expect(mix.locator('li')).toHaveCount(3);
   await expect(mix.locator('li svg')).toHaveCount(3);
   await expect(mix.locator('li').first()).toContainText(/supported/);
-  // a week in, a plot that reached the officer is "shown": there is no verdict on timing on the relief rail
+  // a week in, a plot that reached the officer has its evidence in: the time cell gives no time and no verdict on timing
+  // (audit OF-11: it used to repeat the stage, "Shown to the officer")
   await sab(page, `s.seek(168);`);
-  await expect(page.locator('.queue')).toContainText('Shown to the officer');
+  await expect(page.locator('.queue [data-tl-in]').first()).toHaveText('— (evidence in)');
+  expect((await page.locator('.queue .qcell[data-l="Advice left"]').allTextContents()).join(' ')).not.toContain('Shown to the officer');
   await expect(page.locator('.queue')).not.toContainText('Shown in time');
   expect(errors).toEqual([]);
 });

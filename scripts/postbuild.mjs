@@ -7,6 +7,9 @@ import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { writeServiceWorker } from './sw.mjs';
 import { PUBLIC_URL } from '../src/config.ts';
+import en from '../src/i18n/en.ts';
+import hi from '../src/i18n/hi.ts';
+import pa from '../src/i18n/pa.ts';
 
 const OUT = 'dist';
 
@@ -34,11 +37,30 @@ try {
   out = out.replace(/<link rel="modulepreload" crossorigin href="[^"]+">/g, '');
   if (!/<link rel="preload" href="data\/flood-replay\.json"[^>]*>/.test(out)) throw new Error('dist/index.html: the scenario preload is missing');
   out = out.replace(/<link rel="preload" href="data\/flood-replay\.json"[^>]*>/, '');
-  const boot = `const P=${JSON.stringify([entry[1], ...deps])};let d=0;` +
-    `const add=(h,a)=>{const e=document.createElement("link");e.rel=a?"preload":"modulepreload";if(a)e.as=a;e.href=h;e.crossOrigin="";document.head.appendChild(e)};` +
-    `const go=()=>{if(!d){d=1;add("data/flood-replay.json","fetch");P.concat(self.__dl||[]).forEach((h)=>add(h));import("${entry[1]}")}};` +
-    `if(document.visibilityState==="hidden"||document.documentElement.classList.contains("lang-pending")||!(self.PerformanceObserver&&(PerformanceObserver.supportedEntryTypes||[]).includes("paint")))go();` +
-    `else{new PerformanceObserver((l,o)=>{if(l.getEntries().some((e)=>e.name==="first-contentful-paint")){o.disconnect();setTimeout(go,0)}}).observe({type:"paint",buffered:true});setTimeout(go,1000)}`;
+  // The page must never be left on "Loading the flood replay…" with no way out. A failed download of the entry script reloads
+  // the page once by itself (a failed import() is remembered by the browser for the life of the page, so a reload is the retry);
+  // if that fails too, or nothing has started after 25 s, the placeholder says so in the visitor's language, with a Reload
+  // button and the browser's own error text (so a phone with no developer tools can still show what went wrong). The words
+  // come from the dictionaries (boot.*). main.tsx sets data-booted once the app is running, and the watch stands down.
+  // Once "could not start" is on screen (f=1), the 25 s "taking longer" message never replaces it.
+  // A saved Hindi or Punjabi choice keeps the page hidden until that dictionary and its fonts are here: they are fetched with
+  // the entry (L), not after it has started, so a phone on a slow link does not show English first. English fetches nothing more.
+  const dictChunk = (l) => {
+    const f = readdirSync(join(OUT, 'assets')).filter((n) => n.startsWith(l + '-') && n.endsWith('.js'));
+    if (f.length !== 1) throw new Error(`dist/assets: expected one ${l} dictionary chunk, found ${f.length}`);
+    return './assets/' + f[0];
+  };
+  const LANG = { hi: [dictChunk('hi'), 'fonts/deva-sans.woff2', 'fonts/deva-display.woff2'], pa: [dictChunk('pa'), 'fonts/guru-sans.woff2', 'fonts/guru-display.woff2'] };
+  for (const f of [...LANG.hi.slice(1), ...LANG.pa.slice(1)]) if (!existsSync(join(OUT, f))) throw new Error(`dist/${f} is missing`);
+  const BOOT = Object.fromEntries([['en', en], ['hi', hi], ['pa', pa]].map(([l, dict]) => [l, ['boot.slow', 'boot.failed', 'boot.reload'].map((k) => String(dict[k]))]));
+  const boot = `const P=${JSON.stringify([entry[1], ...deps])},M=${JSON.stringify(BOOT)},L=${JSON.stringify(LANG)},H=document.documentElement;let d=0,e="",f=0;` +
+    `addEventListener("error",(x)=>{e=e||String(x.message||"error")});addEventListener("unhandledrejection",(x)=>{e=e||String((x.reason&&x.reason.message)||x.reason||"rejected")});` +
+    `const show=(k)=>{const h=document.querySelector(".sim-ph");if(!h||H.dataset.booted||f>k)return;f=k;const m=M[H.classList.contains("l-hi")?"hi":H.classList.contains("l-pa")?"pa":"en"],p=document.createElement("p"),b=document.createElement("button");p.textContent=m[k];b.type="button";b.className="pill pill-primary";b.textContent=m[2];b.onclick=()=>location.reload();h.textContent="";h.append(p,b);if(k&&e){const s=document.createElement("small");s.textContent=e.slice(0,140);h.append(s)}};` +
+    `const add=(h,a)=>{const e=document.createElement("link");e.rel=a?"preload":"modulepreload";if(a)e.as=a;if(a==="font")e.type="font/woff2";e.href=h;e.crossOrigin="";document.head.appendChild(e)};` +
+    `const go=()=>{if(!d){d=1;add("data/flood-replay.json","fetch");P.concat(self.__dl||[]).forEach((h)=>add(h));const l=L[H.classList.contains("l-hi")?"hi":H.classList.contains("l-pa")?"pa":""];if(l){add(l[0]);add(l[1],"font");add(l[2],"font")}import("${entry[1]}").catch((x)=>{e=e||String((x&&x.message)||x);try{if(!sessionStorage.getItem("saboot.bootRetry")){sessionStorage.setItem("saboot.bootRetry","1");return location.reload()}}catch(_){}show(1)})}};` +
+    `if(document.visibilityState==="hidden"||H.classList.contains("lang-pending")||!(self.PerformanceObserver&&(PerformanceObserver.supportedEntryTypes||[]).includes("paint")))go();` +
+    `else{new PerformanceObserver((l,o)=>{if(l.getEntries().some((e)=>e.name==="first-contentful-paint")){o.disconnect();setTimeout(go,0)}}).observe({type:"paint",buffered:true});setTimeout(go,1000)}` +
+    `setTimeout(()=>show(0),25000);`;
   out = out
     .replace(entry[0], '')
     .replace('</body>', `<script type="module">${boot}</script></body>`);

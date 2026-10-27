@@ -7,10 +7,14 @@ import { tr, setLang, LANGS, langReady } from '../lib/i18n';
 import { textScale, voiceMode, lowData, highContrast, theme, type TextScale, type Theme } from '../lib/prefs';
 import { stopVoice } from '../lib/voice';
 import { settingsOpen } from '../farmer/nav';
-import { exportMyData, deleteMyData } from '../farmer/focus';
+import { exportMyData, deleteMyData, exportFarmerData, deleteFarmerData } from '../farmer/focus';
+import { backToQueue } from '../farmer/helper';
+import { activePlotId, focusPlot } from '../sim/engine';
 import { download } from '../lib/download';
 import { showToast } from '../lib/announce';
 import { buildLabel } from '../lib/build';
+import { enterField } from '../field/on';
+import { nm } from '../lib/names';
 
 function Toggle({ sig, label, help, icon, onChange }: { sig: Signal<boolean>; label: string; help?: string; icon: IconName; onChange?: (v: boolean) => void }) {
   return (
@@ -58,6 +62,44 @@ function YourData() {
   );
 }
 
+/**
+ * In helper mode, the farmer on screen can ask for a copy of their own data, or for it to be deleted, without touching any
+ * other farmer's evidence on the phone (as.means3, audit H10).
+ */
+function FarmerData({ id, name }: { id: string; name: string }) {
+  const [ask, setAsk] = useState(false);
+  async function del() {
+    await deleteFarmerData(id);
+    setAsk(false);
+    settingsOpen.value = false;
+    backToQueue();
+    showToast(tr('set.farmerDeleted', { farmer: name }), 'ok');
+  }
+  return (
+    <fieldset class="set-group" data-farmer-data>
+      <legend><Icon name="users" /> {tr('set.farmerData', { farmer: name })}</legend>
+      <p class="f-help">{tr('set.farmerDataHelp', { farmer: name })}</p>
+      <button type="button" class="pill pill-ghost pill-block" data-farmer-export onClick={() => download(`saboot-data-${id}.json`, JSON.stringify(exportFarmerData(id), null, 2) + '\n', 'application/json')}>
+        <Icon name="download" /> {tr('set.farmerExport', { farmer: name })}
+      </button>
+      {!ask ? (
+        <button type="button" class="pill pill-ghost pill-block" data-farmer-delete onClick={() => setAsk(true)}><Icon name="x" /> {tr('set.farmerDelete', { farmer: name })}</button>
+      ) : (
+        <div class="note note-warn" role="alert" data-farmer-delete-ask>
+          <Icon name="alert" />
+          <div class="stack">
+            <span>{tr('set.farmerDeleteAsk', { farmer: name })}</span>
+            <div class="row">
+              <button type="button" class="pill pill-dark" data-farmer-delete-yes onClick={del}>{tr('set.deleteYes')}</button>
+              <button type="button" class="pill pill-ghost" onClick={() => setAsk(false)}>{tr('set.farmerKeep')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </fieldset>
+  );
+}
+
 export function Settings() {
   if (!settingsOpen.value) return null;
   return (
@@ -95,7 +137,15 @@ export function Settings() {
         </div>
       </fieldset>
       <Toggle sig={highContrast} label={tr('set.contrast')} icon="eye" />
+      {activePlotId.value !== null && focusPlot.value && <FarmerData id={activePlotId.value} name={nm(focusPlot.value.name)} />}
       <YourData />
+      <fieldset class="set-group" data-field-entry>
+        <legend><Icon name="camera" /> {tr('fd.title')}</legend>
+        <p class="f-help">{tr('fd.enterHelp')}</p>
+        <button type="button" class="pill pill-dark pill-block" data-enter-field onClick={() => { settingsOpen.value = false; enterField(); }}>
+          <Icon name="camera" /> {tr('fd.enter')}
+        </button>
+      </fieldset>
       <p class="small muted set-build">{tr('foot.build', { b: buildLabel() })}</p>
       <button type="button" class="pill pill-dark pill-block" onClick={() => (settingsOpen.value = false)}>{tr('set.close')}</button>
     </Sheet>

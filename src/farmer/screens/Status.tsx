@@ -1,11 +1,16 @@
+import { useState } from 'preact/hooks';
 import { Icon } from '../../ui/Icon';
+import { lazy } from '../../lib/lazy';
 import { tr, trr } from '../../lib/i18n';
 import { rail } from '../../lib/prefs';
 import { railHardDeadline } from '../../config';
-import { fmtClock } from '../../lib/time';
+import { fmtClock, officeHours } from '../../lib/time';
 import { t, focusDet, model } from '../../sim/engine';
 import { view, SCRIPT, fileObjection, type FocusView } from '../focus';
 import type { Detection } from '../../sim/model';
+import { FileClaim, ReportDetails } from './File';
+
+const MyEntry = lazy(() => import('./MyEntry'), 120);
 
 type St = 'done' | 'wait' | 'overdue' | 'info';
 interface Item { key: string; at: number | null; due?: number; st: St; note?: string }
@@ -18,7 +23,7 @@ export function focusTimeline(d: Detection, v: FocusView, now: number, hard = tr
   const synced = v.queued === 0 && v.shotCount ? v.syncedT : null;
   const ackT = v.ref ? v.ref.simT + SCRIPT.ack : null;
   const ackDue = v.ref ? v.ref.simT + SCRIPT.ackDue : undefined;
-  const surveyT = ackT !== null ? ackT + SCRIPT.survey : null;
+  const surveyT = ackT !== null ? officeHours(ackT + SCRIPT.survey) : null;
   return [
     { key: 'st.detected', at: d.detectT, st: s(d.detectT) },
     { key: 'st.alerted', at: d.alertT, st: s(d.alertT) },
@@ -63,6 +68,8 @@ function ObjectionCard() {
   const pub = m.opts.publishAtHour, end = pub + m.opts.objectionWindowHours;
   const obj = v.objection;
   const respT = obj ? obj.simT + SCRIPT.objectionResponse : null;
+  // "Looks right" is the farmer's own reading; nothing is recorded or sent, and the evidence can still be attached
+  const [right, setRight] = useState(false);
   return (
     <section class="ob-card stack f-stack" aria-labelledby="ob-h" data-objection={obj ? 'filed' : now < pub ? 'soon' : now < end ? 'open' : 'closed'}>
       <h3 id="ob-h">{tr('ob.title')}</h3>
@@ -76,8 +83,14 @@ function ObjectionCard() {
       ) : now < end ? (
         <>
           <p>{tr('ob.open', { until: fmtClock(end) })}</p>
+          <MyEntry />
+          {right ? (
+            <p class="note note-ok" role="status" data-ob-right><Icon name="okShape" /><span>{tr('ob.rightNote', { until: fmtClock(end) })}</span></p>
+          ) : (
+            <button type="button" class="pill pill-ghost pill-lg pill-block" onClick={() => setRight(true)}><Icon name="check" /> {tr('ob.right')}</button>
+          )}
           {v.seal ? (
-            <button type="button" class="pill pill-primary pill-lg pill-block" onClick={() => void fileObjection()}><Icon name="shield" /> {tr('ob.attach')}</button>
+            <button type="button" class={'pill pill-lg pill-block ' + (right ? 'pill-ghost' : 'pill-primary')} onClick={() => void fileObjection()}><Icon name="shield" /> {tr('ob.attach')}</button>
           ) : (
             <p class="f-help">{tr('ob.needSeal')}</p>
           )}
@@ -89,14 +102,21 @@ function ObjectionCard() {
   );
 }
 
+/**
+ * The Report tab (audit S-06): one place for reporting and for what happens after. Before the receipt or reference number is
+ * saved it starts with how to report and the field for the number, and the status follows; once it is saved the status comes
+ * first and the details fold away underneath. The 'file' screen id still opens it.
+ */
 export function Status() {
   const d = focusDet.value!, v = view.value, now = t.value;
   const hard = railHardDeadline(rail.value);
   const items = focusTimeline(d, v, now, hard);
   const rem = focusReminders(d, v, now);
-  return (
-    <div class="stack f-stack">
-      <h2 class="f-title">{tr('st.title')}</h2>
+  const filed = !!v.ref;
+  const track = (
+    <>
+      {filed ? <h2 class="f-title">{trr('st.title')}</h2> : <h3 class="st-h">{trr('st.title')}</h3>}
+      {v.ref && <p class="note note-ok"><Icon name="okShape" /><span>{tr('fl.saved', { ref: v.ref.ref })} · <span class="num">{fmtClock(v.ref.simT)}</span></span></p>}
       <p class="note note-plain"><Icon name="scale" /><span>{trr('st.note')}</span></p>
       <ol class="tl" role="list">
         {items.map((it) => (
@@ -132,6 +152,24 @@ export function Status() {
           <p class="f-help">{tr('st.none')}</p>
         )}
       </section>
+    </>
+  );
+  return (
+    <div class="stack f-stack">
+      {filed ? (
+        <>
+          {track}
+          <details class="pk-tech" data-report-details>
+            <summary><Icon name="file" /> <span>{tr('fl.again')}</span></summary>
+            <div class="stack"><ReportDetails /></div>
+          </details>
+        </>
+      ) : (
+        <>
+          <FileClaim />
+          {track}
+        </>
+      )}
     </div>
   );
 }

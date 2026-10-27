@@ -56,7 +56,8 @@ for (const l of ['hi', 'pa']) {
 const walk = (d) => readdirSync(d).flatMap((n) => (statSync(join(d, n)).isDirectory() ? walk(join(d, n)) : [join(d, n)]));
 // the dictionaries themselves are not usage; src/lib/i18n.ts (which shows a toast) is
 const code = walk('src').filter((f) => /\.tsx?$/.test(f) && !f.split(/[\\/]/).includes('i18n')).map((f) => readFileSync(f, 'utf8')).join('\n');
-const dynamic = ['shot.', 'crop.', 'm.', 'net.', 'conn.', 'sync.st.', 'set.t', 'faq.', 'pb.', 'tour.s', 'arch.', 'wf.', 'rs.', 'sim.tab.', 'conn.live.', 'f.nav.', 'as.', 'st.', 'fl.s', 'rail.', 'cad.', 'lang.name.'];
+// 'boot.' keys are read by scripts/postbuild.mjs (the inline boot script's messages), not by src/
+const dynamic = ['boot.', 'shot.', 'crop.', 'm.', 'net.', 'conn.', 'sync.st.', 'set.t', 'faq.', 'pb.', 'tour.s', 'arch.', 'wf.', 'rs.', 'sim.tab.', 'conn.live.', 'f.nav.', 'as.', 'st.', 'fl.s', 'rail.', 'cad.', 'lang.name.'];
 // a rail variant (key.pmfby or key.relief) is used when its base key is: the app reads them with trr()
 const baseOf = (k) => k.replace(/\.(pmfby|relief)$/, '');
 const unused = en.filter((e) => { const k = baseOf(e.key); return !code.includes(`'${k}'`) && !code.includes(`"${k}"`) && !dynamic.some((p) => k.startsWith(p)) && !['days', 'months', 'u.d', 'u.h', 'u.m', 'u.day', 'u.days', 'u.min'].includes(k); });

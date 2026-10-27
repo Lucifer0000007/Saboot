@@ -16,6 +16,7 @@ import { SHOTS } from './photo';
 import { makeCode, newDeviceKey, qrTextOf, verifyCode } from '../k/payload';
 import { makeBundle, bundleJson } from '../k/bundle';
 import { qrPath } from '../k/qr';
+import { nm } from '../lib/names';
 
 async function deviceKey(): Promise<CryptoKeyPair> {
   const k = await dbGet<CryptoKeyPair>('kv', 'k-device-key');
@@ -51,6 +52,7 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
   const link = code ? `${location.origin}${location.pathname}#k=${code}` : '';
   const qr = useMemo(() => (code ? qrPath(qrTextOf(code), { ecc: 'L', border: 4 }) : null), [code]);
   const canShare = typeof navigator.share === 'function';
+  const plot = focusPlot.value!, consent = full.value.consent;
   // the signed code plus its decoded fields; from a helper's phone also who captured, which is NOT covered by the signature
   const exportBundle = async () => {
     if (!code) return;
@@ -78,6 +80,8 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
     : tr('k.sending');
   return (
     <Sheet title={tr('k.sheet')} onClose={onClose} closeLabel={tr('set.close')} class="share-sheet">
+      {/* whose code this is, so an officer shown several farmers' codes on one helper's phone can tell them apart (audit H8) */}
+      <p data-share-farmer><strong>{nm(plot.name)}</strong> · <span class="nb">{plot.id}</span>{consent && <><br /><span class="f-help">{tr('hm.by', { name: consent.helper, role: consent.role })}</span></>}</p>
       <p>{tr('k.lead')}</p>
       {qr ? (
         <svg class="qr" width="320" height="320" viewBox={`0 0 ${qr.size} ${qr.size}`} role="img" aria-label={tr('k.qr')} shape-rendering="crispEdges">
@@ -102,11 +106,12 @@ export default function ShareSheet({ onClose }: { onClose: () => void }) {
               <p class="f-help" data-send-state role="status">{sendState}</p>
             </>
           )}
-          <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
-          <p class="f-help">{tr('k.bundleNote')}</p>
+          {/* the data file and the raw code are for the officer's systems, not for the farmer (audit F12) */}
           <details class="k-code">
-            <summary>{tr('k.code')}</summary>
+            <summary><span>{tr('k.code')}</span><Icon name="down" /></summary>
             <p class="hash">{code}</p>
+            <button type="button" class="pill pill-ghost" data-export-bundle onClick={exportBundle}><Icon name="download" /> {tr('k.bundle')}</button>
+            <p class="f-help">{tr('k.bundleNote')}</p>
           </details>
         </>
       )}

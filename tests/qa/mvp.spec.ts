@@ -96,13 +96,13 @@ test('the live flow: three real photos are sealed on the phone, the laptop check
 
   // the ledger shows the import straight away and the tamper test works: the replay moved to the packet's time
   await lap.locator('.import-sheet button[aria-label="Close import"]').click();
-  await expect(lap.locator('tr.imported')).toContainText('Imported (live)');
+  await expect(lap.locator('li.imported')).toContainText('Imported (live)');
   await sab(lap, `s.tab('ledger');`);
   await expect(lap.locator('.ledger').first()).toContainText('IMPORTED_PACKET', { timeout: 20_000 });
   await expect(lap.getByRole('button', { name: /Tamper test/ })).toBeEnabled();
 
   // the same code again does not add a second row
-  await sab(lap, `s.tab('insurer');`);
+  await sab(lap, `s.tab('insurer'); s.insurer('claims');`);
   await lap.getByRole('button', { name: /Import evidence/ }).click();
   await lap.getByRole('radio', { name: /Paste code/ }).click();
   await lap.locator('.import-sheet textarea').fill(code);
@@ -110,7 +110,7 @@ test('the live flow: three real photos are sealed on the phone, the laptop check
   await expect(lap.locator('.k-result .note-ok')).toBeVisible();
   await lap.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
   await lap.locator('.import-sheet button[aria-label="Close import"]').click();
-  await expect(lap.locator('tr.imported')).toHaveCount(1);
+  await expect(lap.locator('li.imported')).toHaveCount(1);
 
   // editing the box clears the verdict at once: it must never stay green over different text
   await lap.getByRole('button', { name: /Import evidence/ }).click();
@@ -256,6 +256,27 @@ test('Reset, by the key or the button, asks before it clears what the phone capt
   expect(errors).toEqual([]);
 });
 
+test.describe('location refused', () => {
+  test.use({ permissions: [] });
+  test('F6: a real photo with no location asks the person to turn location on; a simulated location is used only when they choose it, and is labelled', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+    await page.locator('[data-tour=cta]').click();
+    await page.setInputFiles('input[type=file][capture]', { name: 'shot1.jpg', mimeType: 'image/jpeg', buffer: await jpeg(page, 'a photo with no location') });
+    const ask = page.locator('[data-geo-off]');
+    await expect(ask).toContainText('Turn on location', { timeout: 20_000 });
+    // nothing is stored with a made-up location behind the person's back
+    expect((await state(page)).shots).toBe(0);
+    await ask.getByRole('button', { name: 'Save it with a simulated location' }).click();
+    await expect.poll(async () => (await state(page)).shots, { timeout: 20_000 }).toBe(1);
+    const shot = page.locator('.shots li').first();
+    await expect(shot.locator('[data-v="photo"][data-prov="live"]')).toBeVisible();
+    await expect(shot.locator('[data-v="loc"][data-prov="sim"]')).toContainText('Simulated location');
+    expect(errors).toEqual([]);
+  });
+});
+
 test('the empty Proof screen offers a way to take photos instead of a dead end', async ({ page }) => {
   const errors: string[] = [];
   await open(page, V('390x844'), 'en', errors);
@@ -386,4 +407,63 @@ test.describe('the voice alert offline', () => {
     expect(part.bytes).toBe(10);
     expect(errors.filter((e) => !/Failed to load resource|net::ERR/.test(e))).toEqual([]);
   });
+});
+
+// The browser may clear stored photos when the phone runs low on space unless it agrees to keep them. The app asks when a real
+// photo is taken (src/lib/db.ts) and tells the farmer when the answer is no AND photos are still waiting to be sent. Online the
+// photos are sent at once, and a warning would only alarm: a fresh Chrome profile refuses, so it would show for nearly everyone.
+for (const [granted, offline, warned] of [[false, true, true], [false, false, false], [true, true, false]] as const) {
+  test(`persistent storage ${granted ? 'granted' : 'refused'}, ${offline ? 'offline' : 'online'}: ${warned ? 'the farmer is told' : 'no warning'}`, async ({ page }) => {
+    const errors: string[] = [];
+    await page.addInitScript((g) => {
+      Object.defineProperty(navigator, 'storage', { value: { persisted: async () => false, persist: async () => g }, configurable: true });
+    }, granted);
+    await open(page, V('390x844'), 'en', errors);
+    if (offline) await sab(page, `s.net('offline');`);
+    await sab(page, `await s.jump('alert'); s.tab('farmer');`);
+    await expect(page.locator('[data-persist-warning]')).toHaveCount(0);
+    await page.locator('[data-tour=cta]').click();
+    await takePhoto(page, 1);
+    if (warned) await expect(page.locator('[data-persist-warning]')).toContainText('may clear these photos', { timeout: 10_000 });
+    else {
+      await page.waitForTimeout(600);
+      await expect(page.locator('[data-persist-warning]')).toHaveCount(0);
+    }
+    expect(errors).toEqual([]);
+  });
+}
+
+// The console flags the same live photo file sealed for two different plots (src/k/imported.ts, the import sheet). A second
+// packet is made by copying the imported record into the laptop's own store under another plot, then the first code is
+// checked again: another plot is flagged, the same plot sealed again is not.
+test('the same live photo file sealed for another plot is flagged on the laptop, the same plot sealed again is not', async ({ page, browser }) => {
+  const errors: string[] = [];
+  const code = await phoneSeals(page, errors);
+  const { ctx, page: lap } = await laptop(browser, errors, '#k=' + code);
+  await expect(lap.locator('.k-result .note-ok')).toBeVisible({ timeout: 20_000 });
+  await expect(lap.locator('[data-photo-reuse]'), 'nothing else is imported yet').toHaveCount(0);
+  await lap.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
+  await expect(lap.locator('.import-sheet')).toContainText('Imported (live)');
+
+  const FAKE = 'f'.repeat(64);
+  const seedCopy = (plot: string) => lap.evaluate(async ([p, fake]) => {
+    const db = await new Promise<IDBDatabase>((res, rej) => { const r = indexedDB.open('saboot', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+    const list = await new Promise<{ head: string; plot: string }[]>((res) => { const q = db.transaction('kv').objectStore('kv').get('k-imported'); q.onsuccess = () => res(q.result); });
+    const original = list.find((x) => x.head !== fake);
+    await new Promise((res) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put([original, { ...original, plot: p, head: fake }], 'k-imported'); tx.oncomplete = () => res(null); });
+  }, [plot, FAKE]);
+
+  await seedCopy('P-04'); // the same plot sealed again: the same photos are legitimate
+  await lap.reload();
+  await expect(lap.locator('.k-result .note-ok')).toBeVisible({ timeout: 20_000 });
+  await expect(lap.locator('[data-photo-reuse]')).toHaveCount(0);
+
+  await seedCopy('P-09'); // the same live photo files under another plot
+  await lap.reload();
+  const flag = lap.locator('[data-photo-reuse]');
+  await expect(flag).toContainText('Same photo file as another plot', { timeout: 20_000 });
+  await expect(flag).toContainText('wide photo matches one in the packet for P-09');
+  await expect(flag).toContainText('Saboot decides nothing');
+  await ctx.close();
+  expect(errors).toEqual([]);
 });

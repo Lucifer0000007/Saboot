@@ -9,10 +9,17 @@ import { Page } from './site/Page';
 import { installQaHooks } from './qa-hooks';
 import { showToast, updateReady } from './lib/announce';
 import { tr } from './lib/i18n';
+import { fieldOn } from './field/on';
 
 // index.html already holds the prerendered shell; render() adopts those DOM nodes (no flash, no shift). This module
 // is evaluated after the first paint (scripts/postbuild.mjs), so hydration never holds that paint back.
-render(<Page />, document.getElementById('app')!);
+const app = document.getElementById('app')!;
+// field mode does not reuse the prerendered simulation shell: render() would keep its banner and footer around
+if (fieldOn.value) app.textContent = '';
+render(<Page />, app);
+// The inline boot script in index.html (scripts/postbuild.mjs) watches for a start that never comes; this tells it to stand down.
+document.documentElement.dataset.booted = '1';
+try { sessionStorage.removeItem('saboot.bootRetry'); } catch { /* storage unavailable */ }
 installQaHooks();
 
 // The service worker installs after the page has loaded. This module boots after the first paint, which on a fast
@@ -25,7 +32,9 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   // On a later visit the page was served by the old worker from its cache: when the new build's worker takes over, say
   // so and offer a reload, instead of leaving the old build on screen until the next visit.
   const hadWorker = !!navigator.serviceWorker.controller;
-  navigator.serviceWorker.addEventListener('controllerchange', () => (hadWorker ? (updateReady.value = true) : showToast(tr('app.offlineReady'), 'ok')), { once: true });
+  // the first-visit note waits while a sheet is open, so it never covers a verdict being read (audit OF-16)
+  const offlineReady = () => (document.documentElement.classList.contains('sheet-open') ? void setTimeout(offlineReady, 1500) : showToast(() => tr('app.offlineReady'), 'ok'));
+  navigator.serviceWorker.addEventListener('controllerchange', () => (hadWorker ? (updateReady.value = true) : offlineReady()), { once: true });
   const register = () => navigator.serviceWorker.register('./sw.js').then((r) => r.update()).catch(() => {});
   if (document.readyState === 'complete') register();
   else addEventListener('load', register);

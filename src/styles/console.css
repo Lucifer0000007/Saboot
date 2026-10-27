@@ -1,7 +1,7 @@
 /* Officer console, ledger, triage, impact, plot drawer, import, real-vs-simulated table. Dense and scannable: paper
    tables on silt, tabular figures, sentence-case labels, a kali rule under every table head (docs/DESIGN.md).
    Loaded with the lazy chunks that use it (Vite fetches it before the chunk runs), not inlined into the page. */
-.dash, .ledger, .triage, .impactp { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
+.dash, .ledger, .triage, .impactp, .tcheck { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
 .dash-head { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .dash-head p { max-width: 70ch; }
 
@@ -15,6 +15,12 @@
 .kpis .warn strong, .kpis .warn .kpi-l { color: var(--warn); }
 .kpis .bad { background: var(--bad-tint); border-color: var(--bad); }
 .kpis .bad strong, .kpis .bad .kpi-l { color: var(--bad); }
+/* a phone: smaller tiles, every label and description still on screen */
+@container panel (max-width: 36em) {
+  .kpis li { gap: 2px; padding: 10px 12px; }
+  .kpis strong { font-size: 1.75rem; }
+  .kpi-d { font-size: 0.75rem; }
+}
 @container panel (min-width: 36em) { .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @container panel (min-width: 58em) { .kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 
@@ -40,14 +46,27 @@
   .pipe-node .pipe-pill { justify-self: start; }
   .pipe-node.outside { border-left: 0; border-top-style: dashed; }
 }
+/* a phone: two stages to a row, so the cohort pipeline is half as tall */
+@container panel (min-width: 20em) and (max-width: 36em) {
+  .pipe { padding: 16px; }
+  .pipe-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }
+  .pipe-node { padding-left: 10px; }
+}
 .drawer .pipe-row { grid-template-columns: minmax(0, 1fr); }
 @container drawer (min-width: 26em) { .drawer .pipe-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .pipe-pill { max-width: 100%; }
 
-.view-seg { align-self: stretch; display: grid; grid-template-columns: minmax(0, 1fr); }
-.view-seg button { display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px; text-align: start; }
-@container panel (min-width: 30em) { .view-seg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@container panel (min-width: 64em) { .view-seg { align-self: flex-start; display: inline-flex; } }
+/* the console's views: one row that sticks under the nav and the laptop's control bar, scrolling sideways when narrow
+   (audit OF-03: it used to be a stacked list that scrolled away with the page) */
+.view-seg {
+  position: sticky; top: calc(var(--nav-real, var(--nav-h)) + var(--ctrl-real, 0px)); z-index: calc(var(--z-sticky) - 1);
+  align-self: stretch; display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.view-seg::-webkit-scrollbar { display: none; }
+/* anything scrolled to inside the console also clears that bar */
+.dash .view-seg ~ *, .dash .view-seg ~ * * { scroll-margin-top: calc(var(--ctrl-real, 0px) + 72px); }
+.view-seg button { flex: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+@container panel (min-width: 64em) { .view-seg { align-self: flex-start; } }
 
 .claims { display: grid; gap: var(--s3); grid-template-columns: minmax(0, 1fr); align-items: start; }
 .claims-map { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
@@ -59,7 +78,7 @@
 .map svg { display: block; width: 100%; height: auto; aspect-ratio: 600 / 420; touch-action: manipulation; }
 .map figcaption { font-size: 0.875rem; color: var(--kali-2); }
 .map .plot { cursor: pointer; }
-.map .plot:hover polygon { stroke: var(--kali); stroke-width: 2.4; }
+@media (hover: hover) { .map .plot:hover polygon { stroke: var(--kali); stroke-width: 2.4; } }
 .map .plot:focus { outline: none; }
 .map .plot:focus-visible polygon { stroke: var(--kali); stroke-width: 3.5; }
 .map .plot.dim { opacity: 0.25; }
@@ -72,6 +91,8 @@
 .legend { display: flex; flex-wrap: wrap; gap: 8px 32px; }
 .legend fieldset { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; }
 .legend legend { width: 100%; padding: 0; margin-bottom: 4px; font-size: 0.875rem; font-weight: 600; color: var(--kali-2); }
+.lg-layers summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 0.875rem; font-weight: 600; color: var(--kali-2); }
+.legend fieldset { column-gap: 12px; }
 .lg-item { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 0.875rem; cursor: pointer; }
 .lg-item input { width: 20px; height: 20px; margin: 0; accent-color: var(--khet); }
 
@@ -79,35 +100,36 @@
 .rtable { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 .rtable th, .rtable td { text-align: left; vertical-align: top; padding: 11px 10px; border-bottom: 1px solid var(--rule); }
 .rtable thead th { font-weight: 600; color: var(--kali-2); border-bottom: 2px solid var(--kali); }
-.rtable tbody tr:hover { background: var(--sunk); }
+@media (hover: hover) { .rtable tbody tr:hover { background: var(--sunk); } }
 .rtable .sub { display: block; color: var(--kali-2); font-size: 0.8125rem; overflow-wrap: anywhere; }
-/* stacked cards: the label sits in a padded gutter (absolute ::before), so cells with several children stay together */
+/* stacked cards: the label floats in a padded gutter, so cells with several children stay together, and the cell (a flow
+   root) grows to hold a label that wraps to two lines instead of letting it run into the next row (audit OF-08) */
 @container panel (max-width: 40em) {
   .rtable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .rtable, .rtable tbody, .rtable tfoot, .rtable tr { display: block; }
   .rtable tr { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 8px 16px; margin-bottom: 8px; }
-  .rtable td, .rtable th[scope='row'] { display: block; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
+  .rtable td, .rtable th[scope='row'] { display: flow-root; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
   .rtable th[scope='row'] { padding-left: 0; }
-  .rtable td[data-l]::before { content: attr(data-l); position: absolute; left: 0; top: 8px; width: 6.5rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
+  .rtable td[data-l]::before { content: attr(data-l); float: left; width: 6.5rem; margin: 2px 0 0 -7rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
 }
 /* very narrow cards: labels sit above their values */
 @container panel (max-width: 22em) {
   .rtable td, .lg-table td { padding-left: 0; }
-  .rtable td[data-l]::before, .lg-table td[data-l]::before { position: static; display: block; width: auto; }
+  .rtable td[data-l]::before, .lg-table td[data-l]::before { position: static; float: none; display: block; width: auto; margin: 0; }
 }
 @container panel (max-width: 52em) {
   .lg-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .lg-table, .lg-table tbody, .lg-table tr { display: block; }
   .lg-table tr { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 8px 16px; margin-bottom: 8px; }
-  .lg-table td { display: block; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
-  .lg-table td[data-l]::before { content: attr(data-l); position: absolute; left: 0; top: 8px; width: 6.5rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
+  .lg-table td { display: flow-root; position: relative; padding: 6px 0 6px 7rem; border: 0; min-height: 2.25rem; }
+  .lg-table td[data-l]::before { content: attr(data-l); float: left; width: 6.5rem; margin: 2px 0 0 -7rem; color: var(--kali-2); font-size: 0.8125rem; font-weight: 600; }
 }
 .lg-table td.num, .lg-table .hash, .lg-table .tag { white-space: nowrap; }
 .sortby { display: inline-flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 600; }
 .sortby select { min-height: 44px; width: auto; font-family: var(--font-body); }
 .plink { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--neel); font-family: var(--font-num); font-weight: 600; font-size: 1rem; text-decoration: underline; text-underline-offset: 4px; }
-.ptable tr.sel { background: var(--paper); box-shadow: inset 5px 0 0 var(--kali); }
-.ptable tr.focus td:first-child .plink { font-weight: 700; }
+.queue li.sel { box-shadow: inset 5px 0 0 var(--kali); }
+.queue li.focus .plink { font-weight: 700; }
 .tag.you { border-color: var(--kali); background: var(--kali); color: var(--silt); margin-left: 6px; }
 .lang-code { font-size: 0.75rem; padding: 1px 6px; border: var(--bd-ctl); border-radius: var(--r-chip); font-weight: 600; }
 .flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
@@ -124,6 +146,7 @@
 .dr-meta .id { white-space: nowrap; }
 .dr-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .dr-tier { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 20px; border-radius: var(--r-card); background: var(--silt); border: var(--bd-strong); }
+.dr-ledger { align-self: flex-start; min-height: 44px; }
 .dr-flags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .drawer section { display: flex; flex-direction: column; gap: 12px; }
 .drawer h3 { font-size: 1.375rem; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -190,25 +213,41 @@
 .vmix .p { color: var(--warn); }
 .vmix .i { color: var(--bad); }
 .vmix b { font-weight: 600; color: var(--kali); }
-.queue { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.queue li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 8px 12px; align-items: center; padding: 12px 16px; background: var(--paper); border: var(--bd); border-radius: var(--r-card); font-size: 0.875rem; }
-.queue li > :nth-child(n + 3) { grid-column: 2; }
-.qfig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 24px; min-width: 0; }
-.qcell { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
-.qcell::before { content: attr(data-l); font-size: 0.8125rem; font-weight: 600; color: var(--kali-2); }
-.qrank { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--kali); color: var(--silt); font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; align-self: start; }
-.qmain { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.qmain .sub { font-size: 0.875rem; color: var(--kali-2); }
+/* the worklist: one compact row per plot (rank, plot and village, one line of facts, three captioned figures), the reasons
+   and the assignment folded under "Why this rank" (audit J7, S-03) */
+.queue, .imp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.queue li, .imp-list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 4px 10px; align-items: start; padding: 8px 12px; background: var(--paper); border: var(--bd); border-radius: var(--r-card); font-size: 0.875rem; }
+.queue li > :nth-child(n + 3), .imp-list li > :nth-child(n + 3) { grid-column: 2; }
+.imp-list li.imported { box-shadow: inset 5px 0 0 var(--khet); }
+.qfig { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 20px; min-width: 0; }
+.qcell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.qcell::before { content: attr(data-l); font-size: 0.75rem; font-weight: 600; color: var(--kali-2); }
+.qrank { display: grid; place-items: center; width: 2rem; height: 2rem; margin-top: 6px; border-radius: 50%; background: var(--kali); color: var(--silt); font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+.qmain { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.qmain .plink { min-height: 44px; }
+.qmain .sub { font-size: 0.8125rem; color: var(--kali-2); }
+.qwhy summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 0.875rem; font-weight: 600; color: var(--neel); }
+.qwhy[open] { display: flex; flex-direction: column; gap: 8px; padding-bottom: 4px; }
+.assigned-tag { border-color: var(--khet); color: var(--khet); margin-top: 2px; }
+.assign { display: flex; flex-direction: column; gap: 4px; font-size: 0.8125rem; font-weight: 600; color: var(--kali-2); }
 .assign select { min-height: 44px; width: 100%; max-width: 320px; font-family: var(--font-body); font-size: 0.875rem; }
-/* middle width (a console beside the phone): the figures sit in a row, the assignment under the text */
-@container panel (min-width: 46em) {
-  .queue li { grid-template-columns: 2.5rem minmax(0, 1fr) auto; }
-  .queue li > :nth-child(n + 3) { grid-column: auto; }
-  .queue li > .assign { grid-column: 2 / -1; }
+.vsum { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 0 16px; }
+.vsum summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 600; }
+.vsum[open] { display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px; }
+.plist-ctl { justify-content: space-between; }
+/* a phone: the priority sits top right beside the plot; evidence and time left share the next line while they fit */
+@container panel (max-width: 46em) {
+  .queue li, .imp-list li { position: relative; }
+  .qmain .plink { max-width: calc(100% - 3.5rem); }
+  .qfig > .qcell:nth-child(3) { position: absolute; top: 8px; right: 12px; align-items: flex-end; }
+  .qfig .tl { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .plist > p.muted { font-size: 0.875rem; }
 }
-@container panel (min-width: 52em) {
-  .queue li { grid-template-columns: 2.5rem minmax(0, 1fr) auto minmax(160px, 220px); }
-  .queue li > .assign { grid-column: auto; }
+/* a console beside the phone: the figures sit beside the text, the reasons under it */
+@container panel (min-width: 46em) {
+  .queue li, .imp-list li { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .queue li > :nth-child(n + 3), .imp-list li > :nth-child(n + 3) { grid-column: auto; }
+  .queue li > .qwhy { grid-column: 2 / -1; }
 }
 
 /* impact */
@@ -233,22 +272,28 @@
 .fe-themes li { display: flex; align-items: flex-start; gap: 8px; }
 .fe-quote { margin: 0; padding: 8px 14px; border-left: 4px solid var(--haldi-edge); background: var(--haldi-tint); font-size: 0.9375rem; }
 
+/* tamper check: a real packet first, then the ledger */
+.tc-btn { align-self: flex-start; }
+.tc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tc-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+
 /* ledger */
 .lg-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .tamper-btn { border-color: var(--bad); color: var(--bad); background: var(--paper); }
-.tamper-btn:hover { background: var(--bad-tint); }
+@media (hover: hover) { .tamper-btn:hover { background: var(--bad-tint); } }
 .lg-status:empty { display: none; }
 .lg-status { display: flex; flex-direction: column; gap: var(--s1); }
 .lg-verdict { display: flex; align-items: center; gap: 16px; }
 .lg-verdict > .note { flex: 1; min-width: 0; }
-.lg-scroll { max-height: 640px; overflow-y: auto; border-top: 2px solid var(--kali); }
+.lg-scroll { border-top: 2px solid var(--kali); }
+.lg-filters { gap: 8px 16px; }
+.lg-count { font-size: 0.875rem; }
 .lg-table tr.tampered { background: var(--bad-tint); }
 .lg-table tr.broken { background: var(--warn-tint); }
 .lg-table .sub { font-size: 0.8125rem; }
 
 /* feature K: import a signed packet from a phone. The verdict leads with the seal. */
-.ptable tr.imported { background: var(--paper); box-shadow: inset 5px 0 0 var(--khet); }
-.imported-tag { margin-top: 6px; border-color: var(--kali); }
+.imported-tag { border-color: var(--kali); }
 .lg-imp { margin: 0; }
 .k-scan { display: flex; flex-direction: column; gap: 8px; }
 .k-scan video { width: 100%; aspect-ratio: 4 / 3; background: #000; border-radius: var(--r-card); object-fit: cover; }
@@ -260,9 +305,11 @@
 .k-steps li { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-left: 4px solid var(--rule); border-radius: 0 var(--r-chip) var(--r-chip) 0; background: var(--paper); }
 .k-steps .ok { color: var(--ok); border-left-color: var(--ok); }
 .k-steps .bad { color: var(--bad); border-left-color: var(--bad); background: var(--bad-tint); font-weight: 600; }
-.k-steps .skip { color: var(--kali-2); border-left-style: dashed; }
+.k-steps .not-reached { color: var(--kali-2); border-left-style: dashed; }
 .k-try { align-self: flex-start; border-color: var(--bad); color: var(--bad); background: var(--paper); }
-.k-try:hover { background: var(--bad-tint); }
+@media (hover: hover) { .k-try:hover { background: var(--bad-tint); } }
+.imp-drawer .k-verdict p { flex: 1; min-width: 0; }
+.imp-cohort { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .k-details { display: flex; flex-direction: column; gap: 12px; }
 /* columns sized in em so a 12-character fingerprint always fits its column, at any text size */
 .k-shots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9em, 100%), 1fr)); gap: 8px; font-size: 0.8125rem; }
@@ -290,6 +337,8 @@
 .obj .obj-l { display: flex; align-items: flex-start; gap: 6px; min-width: 0; }
 .obj .obj-l > .ic { margin-top: 0.2em; }
 .obj .obj-l > span { min-width: 0; }
+.obj .tag, .obj .pill { align-self: flex-start; margin-top: 4px; }
+.draft .chip-btn[aria-pressed='true'] { background: var(--kali); color: var(--silt); border-color: var(--kali); }
 .tag-share { margin-top: 4px; border-color: var(--kali); }
 .dtable td.num { white-space: normal; }
 .dprov { background: var(--paper); border: var(--bd); border-radius: var(--r-card); padding: 0 16px; }

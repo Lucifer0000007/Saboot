@@ -4,9 +4,9 @@ import { Sheet } from '../ui/Sheet';
 import { fmtClock, fmtDur, fmtT } from '../lib/time';
 const fmtClockEn = (h: number, withDay = true) => fmtClock(h, withDay, true);
 const fmtDurEn = (h: number) => fmtDur(h, true);
-import { sha256, short } from '../lib/hash';
+import { sha256, short, checkCode } from '../lib/hash';
 import { dbGet } from '../lib/db';
-import { openPlot } from '../site/layout';
+import { openPlot, insurerView } from '../site/layout';
 import { model, tSlow } from '../sim/engine';
 import { floodPath } from '../sim/model';
 import { stageLabel, flagLabel, type PlotState } from '../sim/cohort';
@@ -21,6 +21,8 @@ import { RowTier } from './PlotList';
 import { Pipeline } from './Pipeline';
 import { ConsoleNote } from './ConsoleNote';
 import { cohortPhotoSvg, svgUrl } from './photos';
+import { INSPECTORS, assigned } from './assign';
+import { ledgerPlot } from './Ledger';
 
 interface Ev { t: number; label: string; tone?: 'warn' | 'bad' | 'ok' }
 
@@ -129,6 +131,8 @@ function Photos({ s }: { s: PlotState }) {
   }, [items]);
   if (!items.length) return <p class="muted">No photos received yet.</p>;
   return (
+    <>
+    {focus?.seal && <p class="muted" data-check-code>The farmer’s check code, from the sealed packet’s fingerprint: <strong class="num">{checkCode(focus.seal.packetHash)}</strong>. It helps match a phone call to this record; the fingerprint is the proof.</p>}
     <ul class="dphotos" role="list">
       {items.map((it) => (
         <li key={it.kind}>
@@ -141,6 +145,7 @@ function Photos({ s }: { s: PlotState }) {
         </li>
       ))}
     </ul>
+    </>
   );
 }
 
@@ -169,7 +174,7 @@ export function PlotDrawer() {
   const s = r.s, p = s.plot, t = tSlow.value;
   return (
     <Sheet
-      title={<>{p.id} · {p.name}{s.persona === 'focus' && <span class="tag you">Your farmer</span>}</>}
+      title={<>{p.id} · {p.name}{s.persona === 'focus' && <span class="tag you">Demo phone</span>}</>}
       onClose={() => (openPlot.value = null)}
       closeLabel="Close plot details"
       class="drawer"
@@ -184,6 +189,7 @@ export function PlotDrawer() {
         ) : s.times.consentT !== null ? (
           <p class="muted" data-captured-by>Assisted capture: the farmer’s consent is recorded. The scripted scenario does not name the helper.</p>
         ) : null}
+        {assigned.value[p.id] !== undefined && <span class="tag assigned-tag" data-assigned><Icon name="users" size={14} />Field visit: {INSPECTORS[assigned.value[p.id]]}</span>}
         <span class="tag tag-sim"><span class="dot" aria-hidden="true" />Simulated plot</span>
       </div>
       <div class="dr-tier" data-sim-numbers>
@@ -212,6 +218,12 @@ export function PlotDrawer() {
           ))}
           {s.timeLeft !== null && s.timeLeft > 0 && s.stage === 'alerted' && <li class="warn"><time>now</time><span>{fmtDurEn(s.timeLeft)} left {s.rail === 'relief' ? 'of the capture-soon advice (not a deadline)' : `in the ${m.opts.windowHours}-hour window`}</span></li>}
         </ol>
+        <button type="button" class="link-arrow dr-ledger" data-plot-ledger onClick={() => {
+          ledgerPlot.value = p.id;
+          insurerView.value = 'ledger';
+          openPlot.value = null;
+          requestAnimationFrame(() => document.querySelector('.ledger')?.scrollIntoView({ block: 'start' }));
+        }}>Ledger for this plot: every record, hash-chained <Icon name="arrow" size={16} /></button>
       </section>
       <section aria-labelledby="dr-rain">
         <h3 id="dr-rain">Rainfall vs threshold</h3>
@@ -232,7 +244,7 @@ export function PlotDrawer() {
             <SarSpark m={m} p={p} t={t} />
             {!s.times.hail && (
               <p class="muted" data-share>
-                Radar estimate of the flooded share now: <strong class="num">{Math.round(r.e.floodShare * 100)}%</strong> ± <span class="num">{Math.round(r.e.floodShareUnc * 100)}</span> points. This is not crop damage, which only the officer assesses.
+                Radar estimate of the flooded share now: <strong class="num">{Math.round(r.e.floodShareLo * 100)}–{Math.round(r.e.floodShareHi * 100)}%</strong>, about <span class="num">{Math.round(r.e.floodShare * 100)}%</span>. This is not crop damage, which only the officer assesses.
                 {s.rail === 'relief' && r.e.floodShare >= RELIEF.damageShareThreshold && <> It is at or above the scenario’s share parameter (<span class="num">{RELIEF.damageShareThreshold}</span>, a labelled assumption), so the plot is listed first in its village.</>}
               </p>
             )}

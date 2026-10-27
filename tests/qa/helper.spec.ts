@@ -6,11 +6,13 @@ import { ALL_VIEWPORTS, open } from './harness';
 
 const V = (name: string) => ALL_VIEWPORTS.find((v) => v.name === name)!;
 const sab = (page: Page, js: string) => page.evaluate(`(async () => { const s = window.__sab; ${js} })()`);
-type LogInfo = { events: number; head: string | null; consentFarmer: string | null; consentHelper: string | null; packetHash: string | null; shotHelpers: (string | null)[] };
+type LogInfo = { events: number; head: string | null; consentFarmer: string | null; consentHelper: string | null; consentLang: string | null; packetHash: string | null; shotHelpers: (string | null)[] };
 const logs = (page: Page) => page.evaluate('window.__sab.logs()') as Promise<Record<string, LogInfo>>;
 
 /** Press and hold the consent button for longer than it asks (2 s). */
 async function giveConsent(page: Page) {
+  // the consent is read in the farmer's language (H5): wait until it is on screen, as a helper reading it out would
+  await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
   const hold = page.locator('button.hold');
   await hold.scrollIntoViewIfNeeded();
   const box = (await hold.boundingBox())!;
@@ -47,6 +49,8 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await expect(page.locator('[data-helper-name]')).toContainText('Test Helper, Sarpanch');
   await expect(page.locator('.hq li')).toHaveCount(4);
   await expect(page.locator('.hs-progress')).toHaveText('0 of 4 farmers done');
+  // H2: the queue is the only way to a farmer: no farmer tabs that would open the demo farmer instead
+  await expect(page.locator('.farmer .f-nav')).toHaveCount(0);
 
   // farmer one: consent, three photos, seal; the packet names the helper
   await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
@@ -54,10 +58,16 @@ test('helper mode is a card on the farmer home, and a session serves several far
   await giveConsent(page);
   await page.getByRole('button', { name: /Start photos/ }).click();
   await expect(page.locator('[data-helper-bar]')).toContainText('Capturing for Mohinder Dhillon (P-05)');
+  await expect(page.locator('.farmer .f-nav')).toHaveCount(1);
   await takePhotos(page, 3);
-  await page.getByRole('button', { name: /Seal my evidence/ }).click();
+  // H11: the helper seals the farmer's evidence, not "my evidence"
+  await page.getByRole('button', { name: /Seal Mohinder Dhillon’s evidence/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Mohinder Dhillon’s evidence');
   await expect(page.locator('[data-captured-by]')).toContainText('Test Helper, Sarpanch', { timeout: 10_000 });
+  // H13: "Next farmer" opens the next farmer still waiting, not the top of the queue
   await page.getByRole('button', { name: /Next farmer/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Avtar Sharma');
+  await page.getByRole('button', { name: /Back to the queue/ }).click();
   const first = page.locator('[data-farmer="P-05"]');
   await expect(first).toContainText('Evidence sealed');
   await expect(first.locator('[data-captured-by]')).toContainText('Captured by Test Helper, Sarpanch');
@@ -78,6 +88,9 @@ test('helper mode is a card on the farmer home, and a session serves several far
   expect(l['P-05'].consentFarmer).toBe('Mohinder Dhillon');
   expect(l['P-09'].consentFarmer).toBe('Rekha Rana');
   expect(l['P-05'].consentHelper).toBe('Test Helper');
+  // H5: each farmer was read the consent in the language they speak (both speak Punjabi), on a phone set to English
+  expect(l['P-05'].consentLang).toBe('pa');
+  expect(l['P-09'].consentLang).toBe('pa');
   expect(l['P-09'].consentHelper).toBe('Test Helper');
   expect(l['P-05'].shotHelpers).toEqual(['Test Helper', 'Test Helper', 'Test Helper']);
   expect(l['P-09'].shotHelpers).toEqual(['Test Helper']);
@@ -118,7 +131,13 @@ test('the helper session and every farmer log survive a reload; ending the sessi
   await sab(page, `s.seek(10);`);
   await expect(page.locator('[data-farmer="P-05"]')).toContainText('No alert yet');
   await sab(page, `s.seek(20);`);
+  // H16: ending asks first; "keep working" keeps the session
   await page.getByRole('button', { name: /End helper session/ }).click();
+  await expect(page.locator('[data-end-ask]')).toContainText('stays on this phone');
+  await page.getByRole('button', { name: 'Keep working' }).click();
+  await expect(page.locator('[data-helper-name]')).toBeVisible();
+  await page.getByRole('button', { name: /End helper session/ }).click();
+  await page.locator('[data-end-yes]').click();
   await expect(page.locator('[data-helper-screen]')).toHaveCount(0);
   await expect(page.locator('.farmer .f-who strong')).toHaveText('Harjit Kaur');
   expect(errors).toEqual([]);
@@ -129,6 +148,7 @@ test('feature-phone design simulation: a missed call, key 1 asks for a helper, k
   await open(page, V('1280x800'), 'en', errors);
   await sab(page, `s.seek(20); s.tab('farmer'); s.screen('helper');`);
   const before = await page.evaluate('window.__sab.state()');
+  await page.locator('[data-fp-future] summary').click(); // the design simulation is folded away (S-11)
   await page.locator('[data-fp-open]').first().click();
   const sheet = page.locator('.fphone-sheet');
   await expect(sheet).toBeVisible();
@@ -173,6 +193,7 @@ test('helper mode keeps the accessibility floor: 48 px targets in the queue and 
     .map((el) => ({ n: (el.textContent ?? el.getAttribute('aria-label') ?? '').trim().slice(0, 30), h: el.getBoundingClientRect().height, w: el.getBoundingClientRect().width }))
     .filter((r) => r.h > 0 && (r.h < 47.5 || r.w < 47.5)));
   expect(small, 'targets under 48 px in the helper queue').toEqual([]);
+  await page.locator('[data-fp-future] summary').click(); // the design simulation is folded away (S-11)
   await page.locator('[data-fp-open]').first().click();
   await page.locator('[data-fp-call]').click();
   const keys = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.fphone-sheet .key-btn')].map((el) => Math.min(el.getBoundingClientRect().height, el.getBoundingClientRect().width)));
@@ -198,7 +219,11 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   // the helper's phone: the signed code, and who captured, marked as not signed
   await page.locator('[data-tour=share] button').click();
   await expect(page.locator('.share-sheet .qr')).toBeVisible({ timeout: 20_000 });
+  // H8: the sheet says whose code it is, and who captured
+  await expect(page.locator('.share-sheet [data-share-farmer]')).toContainText('Mohinder Dhillon · P-05');
+  await expect(page.locator('.share-sheet [data-share-farmer]')).toContainText('Captured by QA helper, Sarpanch');
   await expect(page.locator('.share-sheet')).toContainText('Open format, designed to be ingestible by other systems. It is not an integration with any system.');
+  await page.locator('.share-sheet details.k-code summary').click(); // the data file sits in the technical details
   const phone = await grab('.share-sheet [data-export-bundle]');
   const b = phone.json;
   expect(b.kind).toBe('saboot.evidence-bundle');
@@ -226,9 +251,100 @@ test('evidence bundle: exported from a helper’s share sheet and from the conso
   await page.locator('.import-sheet button', { hasText: 'Add to dashboard' }).click();
   await page.keyboard.press('Escape');
   await sab(page, `s.tab('insurer'); s.insurer('claims');`);
-  const row = await grab('tr.imported [data-export-bundle]');
+  const row = await grab('li.imported [data-export-bundle]');
   expect(row.json.decoded.chainHead).toBe(b.decoded.chainHead);
   expect(verified(row.file).status).toBe(0);
+  expect(errors).toEqual([]);
+});
+
+test('CC-01: a presenter jump while a helper has a farmer open goes back to the demo farmer and writes nothing into that farmer’s log', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); await s.jump('capture');`);
+  const l = await logs(page);
+  expect(l['P-06'], 'nothing scripted in the helped farmer’s log').toBeUndefined();
+  expect(l.$demo.shotHelpers).toHaveLength(3);
+  await expect(page.locator('[data-helper-bar]')).toHaveCount(0);
+  await expect(page.locator('.farmer .f-who strong')).toHaveText('Harjit Kaur');
+  // a tour step that catches up on its own goes the same way
+  await sab(page, `s.active('P-06'); await s.ensure('sealed');`);
+  expect((await logs(page))['P-06']).toBeUndefined();
+  expect(errors).toEqual([]);
+});
+
+test('CC-02, H3: the Home tab offers no "no damage" for a farmer who has not agreed; it asks for consent instead', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.active('P-06'); s.tab('farmer'); s.screen('home');`);
+  const need = page.locator('.farmer [data-need-consent]');
+  await expect(need).toContainText('has not agreed yet');
+  await expect(page.getByRole('button', { name: /no damage/i })).toHaveCount(0);
+  await need.getByRole('button', { name: /Ask for consent/ }).click();
+  await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
+  expect((await logs(page))['P-06']).toBeUndefined();
+  expect(errors).toEqual([]);
+});
+
+test('H6: opening a farmer pauses the replay, so the consent time is the replay time when the helper acted', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(0); s.tab('farmer'); s.screen('helper');`);
+  await expect(page.locator('[data-replay-paused]')).toBeVisible();
+  await page.getByRole('button', { name: 'Play replay' }).first().click();
+  await page.waitForTimeout(300);
+  await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
+  await expect(page.getByRole('button', { name: 'Play replay' }).first()).toBeVisible();
+  const t0 = ((await page.evaluate('window.__sab.state()')) as { t: number }).t;
+  await page.waitForTimeout(1500);
+  expect(((await page.evaluate('window.__sab.state()')) as { t: number }).t).toBe(t0);
+  expect(errors).toEqual([]);
+});
+
+test('H7: a queue opened before any alert offers one jump to the first alert, and stays on the queue', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(2); await s.helper(0); s.tab('farmer'); s.screen('helper');`);
+  await expect(page.locator('.hq li.hq-no-alert')).toHaveCount(4);
+  await page.locator('[data-jump-alert]').click();
+  await expect(page.locator('[data-helper-screen]')).toBeVisible();
+  await expect(page.locator('.hq li.hq-consent').first().getByRole('button', { name: /Start/ })).toBeEnabled();
+  await expect(page.locator('[data-jump-alert]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('H9: offline, the queue row and the strip say which farmer’s evidence still waits for the network', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); s.net('offline'); await s.helper(1); s.tab('farmer'); s.screen('helper');`);
+  const row = page.locator('[data-farmer="P-05"]');
+  await expect(row).toContainText('Evidence sealed');
+  await expect(row.locator('[data-waiting]')).toHaveText(/Waiting for network: 4 queued/);
+  await expect(page.locator('[data-farmer="P-06"] [data-waiting]')).toHaveCount(0);
+  await expect(page.locator('.farmer .f-strip .f-queue')).toHaveText('4 waiting');
+  await sab(page, `s.net('online');`);
+  await expect(row.locator('[data-waiting]')).toHaveCount(0, { timeout: 10_000 });
+  await expect(page.locator('.farmer .f-strip .f-queue')).toHaveText('All sent');
+  expect(errors).toEqual([]);
+});
+
+test('H10: one farmer can take a copy of their own data, or have it deleted, and the other farmers keep theirs', async ({ page }) => {
+  const errors: string[] = [];
+  const { readFileSync } = await import('node:fs');
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(2); s.active('P-05'); s.tab('farmer'); s.screen('packet'); s.settings(true);`);
+  const box = page.locator('[data-farmer-data]');
+  await expect(box).toContainText('Mohinder Dhillon’s data on this phone');
+  const [dl] = await Promise.all([page.waitForEvent('download'), box.locator('[data-farmer-export]').click()]);
+  const json = readFileSync((await dl.path())!, 'utf8');
+  expect(JSON.parse(json)).toMatchObject({ kind: 'saboot.farmer-export', plot: 'P-05' });
+  expect(json).not.toContain('P-06');
+  await box.locator('[data-farmer-delete]').click();
+  await expect(box.locator('[data-farmer-delete-ask]')).toContainText('Other farmers’ data stays');
+  await box.locator('[data-farmer-delete-yes]').click();
+  await expect(page.locator('[data-helper-screen]')).toBeVisible();
+  await expect.poll(async () => Object.keys(await logs(page)).sort()).toEqual(['P-06']);
+  await expect(page.locator('[data-farmer="P-05"]')).toContainText('Waiting for consent');
+  await expect(page.locator('[data-farmer="P-06"]')).toContainText('Evidence sealed');
   expect(errors).toEqual([]);
 });
 
@@ -243,5 +359,120 @@ test('a helper cannot take photos for a farmer who has not agreed: the capture s
   await expect(page.getByRole('button', { name: /Use simulated photo/ })).toHaveCount(0);
   await need.getByRole('button', { name: /Ask for consent/ }).click();
   await expect(page.locator('.farmer .f-title')).toContainText('Consent from');
+  expect(errors).toEqual([]);
+});
+
+/** On screen below every sticky bar (the site nav, and the farmer header while acting for a farmer) and above the dock.
+ * `whole: false`: only its top needs to be in that band (a tall row). */
+const onScreen = (l: ReturnType<Page['locator']>, whole = true) => l.evaluate((el, whole) => {
+  const r = el.getBoundingClientRect();
+  const top = Math.max(document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0, document.querySelector('.farmer.acting-for .f-top')?.getBoundingClientRect().bottom ?? 0);
+  const bottom = Math.min(innerHeight, document.querySelector('.ctrl-dock')?.getBoundingClientRect().top ?? innerHeight);
+  return r.top >= top - 1 && (whole ? r.bottom <= bottom + 1 : r.top < bottom);
+}, whole);
+
+async function startSession(page: Page) {
+  await sab(page, `s.seek(20); s.tab('farmer'); s.screen('home');`);
+  await page.locator('[data-helper-card]').getByRole('button', { name: /Open helper mode/ }).click();
+  await page.getByLabel('Your name').fill('Test Helper');
+  await page.getByRole('button', { name: /Start helper session/ }).click();
+  await expect(page.locator('ol.hq li')).toHaveCount(4);
+}
+
+test('HM-2: after Start helper session on a phone, the first farmer in the queue is on screen', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await startSession(page);
+  await expect.poll(() => onScreen(page.locator('ol.hq li').first(), false), { timeout: 5_000 }).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test.describe('HM-4 on a touch phone', () => {
+  // mobile layout and touch, as the reporter found it: a farmer's row tapped after scrolling back to it
+  test.use({ isMobile: true, hasTouch: true });
+
+  test('HM-4: at 390x844 the consent screen opens with its title below the sticky farmer header and the helper bar on screen', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('390x844'), 'en', errors);
+    await startSession(page);
+    // the helper has scrolled on, then comes back to the farmer's row
+    await expect.poll(() => onScreen(page.locator('ol.hq li').first(), false), { timeout: 5_000 }).toBe(true);
+    await page.evaluate(() => scrollBy(0, 1000));
+    const row = page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ });
+    await row.scrollIntoViewIfNeeded();
+    await row.tap();
+    await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+    await expect.poll(() => onScreen(page.locator('.farmer .f-title')), { timeout: 5_000 }).toBe(true);
+    await expect(page.locator('[data-helper-bar]')).toBeInViewport();
+    expect(errors).toEqual([]);
+  });
+});
+
+/** Wait until a smooth scroll has finished: scrollY holds still for 300 ms. */
+async function scrollSettled(page: Page) {
+  await expect.poll(async () => {
+    const a = await page.evaluate(() => scrollY);
+    await page.waitForTimeout(300);
+    return a === (await page.evaluate(() => scrollY));
+  }, { timeout: 5_000 }).toBe(true);
+}
+
+test.describe('FARM-03 / HM-3 on a touch phone', () => {
+  // mobile layout and touch, as the reporter found it: the consent held by a finger
+  test.use({ isMobile: true, hasTouch: true });
+
+  test('FARM-03 / HM-3: once the hold records consent on a phone, Start photos is on screen', async ({ page, context }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    await startSession(page);
+    await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).tap();
+    await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+    await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
+    await scrollSettled(page);
+    // the finger is on the hold button, in the middle of the screen where nothing sticky covers it
+    const hold = page.locator('button.hold');
+    await hold.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+    await scrollSettled(page);
+    const bx = (await hold.boundingBox())!;
+    const cdp = await context.newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bx.x + bx.width / 2, y: bx.y + bx.height / 2 }] });
+    await page.waitForTimeout(2400);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await expect(page.locator('.farmer')).toContainText('Consent recorded at', { timeout: 10_000 });
+    await scrollSettled(page);
+    await expect.poll(() => onScreen(page.getByRole('button', { name: /Start photos/ })), { timeout: 5_000 }).toBe(true);
+    expect(errors).toEqual([]);
+  });
+});
+
+test('HM-1: a filing reference is refused for a farmer who has not agreed, and nothing is written to their log', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await startSession(page);
+  await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
+  await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+  await sab(page, `s.screen('file');`);
+  await page.locator('.farmer input.input').fill('KR-2026-55821');
+  await page.locator('.farmer button[type=submit]').click();
+  await expect(page.locator('.farmer .note-bad')).toContainText('Mohinder Dhillon has not agreed yet');
+  expect((await logs(page))['P-05']?.events ?? 0).toBe(0);
+  expect(errors).toEqual([]);
+});
+
+test('HM-6: the per-farmer data section in Settings names the farmer in the page script', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'hi', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.active('P-05'); s.tab('farmer'); s.screen('packet'); s.settings(true);`);
+  const sec = page.locator('[data-farmer-data]');
+  await expect(sec).toContainText('मोहिंदर ढिल्लों');
+  await expect(sec).not.toContainText('Mohinder');
+  expect(errors).toEqual([]);
+});
+
+test('HM-7: on a helper’s Proof screen the share card names whose proof the code is', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.seek(60); s.active('P-05'); s.tab('farmer'); s.screen('packet');`);
+  await expect(page.locator('.share-card .f-help')).toHaveText(/^Mohinder Dhillon’s proof as a code/);
   expect(errors).toEqual([]);
 });
