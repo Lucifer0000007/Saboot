@@ -636,6 +636,7 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `hm.endNo` | Keep working | काम जारी रखें | ਕੰਮ ਜਾਰੀ ਰੱਖੋ | needs review / needs review |
 | `hm.seal` | Seal {farmer}’s evidence | {farmer} का सबूत सील करें | {farmer} ਦਾ ਸਬੂਤ ਸੀਲ ਕਰੋ | needs review / needs review |
 | `hm.pkTitle` | {farmer}’s evidence | {farmer} का सबूत | {farmer} ਦਾ ਸਬੂਤ | needs review / needs review |
+| `hm.kBody` | {farmer}’s proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone. | {farmer} का सबूत, एक कोड के रूप में जिसे अधिकारी स्कैन कर सकते हैं। इसमें केवल फ़िंगरप्रिंट, समय और अनुमानित जगह है; फ़ोटो इसी फ़ोन में रहती हैं। | {farmer} ਦਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
 | `hm.flTitle` | Report {farmer}’s loss | {farmer} के नुकसान की रिपोर्ट करें | {farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ | needs review / needs review |
 | `hm.flTitle.pmfby` | Report {farmer}’s loss | {farmer} के नुकसान की रिपोर्ट करें | {farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ | needs review / needs review |
 | `hm.noDamageDone` | Recorded for {farmer}: no damage. Nothing more is needed. | {farmer} के लिए दर्ज किया गया: कोई नुकसान नहीं। आगे कुछ नहीं चाहिए। | {farmer} ਲਈ ਦਰਜ ਕੀਤਾ ਗਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। | needs review / needs review |
@@ -702,3 +703,71 @@ A native speaker should check each row; when a line is checked, change its `// n
 | `set.farmerDeleteAsk` | Delete {farmer}’s photos, consent and sealed packet from this phone? Other farmers’ data stays. This cannot be undone. | इस फ़ोन से {farmer} की फ़ोटो, सहमति और सील किया गया पैकेट मिटाएँ? दूसरे किसानों का डेटा रहेगा। इसे वापस नहीं किया जा सकता। | ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ ਮਿਟਾਉਣਾ ਹੈ? ਦੂਜੇ ਕਿਸਾਨਾਂ ਦਾ ਡਾਟਾ ਰਹੇਗਾ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ। | needs review / needs review |
 | `set.farmerKeep` | Keep it | रहने दें | ਰਹਿਣ ਦਿਓ | needs review / needs review |
 | `set.farmerDeleted` | {farmer}’s data was deleted from this phone. | {farmer} का डेटा इस फ़ोन से मिटा दिया गया। | {farmer} ਦਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ। | needs review / needs review |
+| `fd.title` | Field mode | फ़ील्ड मोड | ਫ਼ੀਲਡ ਮੋਡ | needs review / needs review |
+| `fd.enter` | Use it for real (field mode) | असल में इस्तेमाल करें (फ़ील्ड मोड) | ਅਸਲ ਵਿੱਚ ਵਰਤੋ (ਫ਼ੀਲਡ ਮੋਡ) | needs review / needs review |
+| `fd.enterHelp` | Real photos on this phone, for a real farmer. The simulation stays as it is. | असली किसान के लिए, इस फ़ोन पर असली फ़ोटो। सिमुलेशन जैसा है वैसा रहता है। | ਅਸਲ ਕਿਸਾਨ ਲਈ, ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਅਸਲ ਫ਼ੋਟੋਆਂ। ਸਿਮੂਲੇਸ਼ਨ ਜਿਵੇਂ ਹੈ ਉਵੇਂ ਰਹਿੰਦਾ ਹੈ। | needs review / needs review |
+| `fd.strip` | Field mode: real photos on this phone. Nothing is sent unless you share the code. Saboot decides nothing. | फ़ील्ड मोड: इस फ़ोन पर असली फ़ोटो। जब तक आप कोड साझा नहीं करते, कुछ नहीं भेजा जाता। Saboot कुछ तय नहीं करता। | ਫ਼ੀਲਡ ਮੋਡ: ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਅਸਲ ਫ਼ੋਟੋਆਂ। ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਕੋਡ ਸਾਂਝਾ ਨਹੀਂ ਕਰਦੇ, ਕੁਝ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ। Saboot ਕੁਝ ਤੈਅ ਨਹੀਂ ਕਰਦਾ। | needs review / needs review |
+| `fd.leave` | Leave field mode | फ़ील्ड मोड छोड़ें | ਫ਼ੀਲਡ ਮੋਡ ਛੱਡੋ | needs review / needs review |
+| `fd.stay` | Everything here is kept only on this phone, in this browser’s storage. Clearing the browser’s data deletes it. | यहाँ सब कुछ सिर्फ़ इस फ़ोन पर, इस ब्राउज़र के स्टोरेज में रखा जाता है। ब्राउज़र का डेटा साफ़ करने से यह मिट जाता है। | ਇੱਥੇ ਸਭ ਕੁਝ ਸਿਰਫ਼ ਇਸ ਫ਼ੋਨ ਉੱਤੇ, ਇਸ ਬ੍ਰਾਊਜ਼ਰ ਦੀ ਸਟੋਰੇਜ ਵਿੱਚ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਬ੍ਰਾਊਜ਼ਰ ਦਾ ਡਾਟਾ ਸਾਫ਼ ਕਰਨ ਨਾਲ ਇਹ ਮਿਟ ਜਾਂਦਾ ਹੈ। | needs review / needs review |
+| `fd.tabFarmer` | Capture | फ़ोटो लें | ਫ਼ੋਟੋ ਲਓ | needs review / needs review |
+| `fd.tabOfficer` | Received evidence | मिले हुए सबूत | ਮਿਲੇ ਸਬੂਤ | needs review / needs review |
+| `fd.new` | New farmer | नया किसान | ਨਵਾਂ ਕਿਸਾਨ | needs review / needs review |
+| `fd.records` | Farmers on this phone | इस फ़ोन पर किसान | ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਕਿਸਾਨ | needs review / needs review |
+| `fd.name` | Farmer’s name | किसान का नाम | ਕਿਸਾਨ ਦਾ ਨਾਮ | needs review / needs review |
+| `fd.village` | Village | गाँव | ਪਿੰਡ | needs review / needs review |
+| `fd.khasra` | Plot / khasra number | खेत / खसरा नंबर | ਖੇਤ / ਖਸਰਾ ਨੰਬਰ | needs review / needs review |
+| `fd.crop` | Crop | फ़सल | ਫ਼ਸਲ | needs review / needs review |
+| `fd.lang` | Farmer’s language | किसान की भाषा | ਕਿਸਾਨ ਦੀ ਭਾਸ਼ਾ | needs review / needs review |
+| `fd.by` | Photos taken by (your name) | फ़ोटो लेने वाला (आपका नाम) | ਫ਼ੋਟੋਆਂ ਲੈਣ ਵਾਲਾ (ਤੁਹਾਡਾ ਨਾਮ) | needs review / needs review |
+| `fd.byShort` | Typed on this phone by {who}. | {who} ने इस फ़ोन पर लिखा। | {who} ਨੇ ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਲਿਖਿਆ। | needs review / needs review |
+| `fd.save` | Save farmer | किसान सहेजें | ਕਿਸਾਨ ਸੰਭਾਲੋ | needs review / needs review |
+| `fd.need` | Fill in every field. | हर खाना भरें। | ਹਰ ਖ਼ਾਨਾ ਭਰੋ। | needs review / needs review |
+| `fd.consentTitle` | Consent from {farmer} | {farmer} की सहमति | {farmer} ਦੀ ਸਹਿਮਤੀ | needs review / needs review |
+| `fd.consentIntro` | Read this out to {farmer} in their language. No photo can be taken until {farmer} agrees. | {farmer} को उनकी भाषा में यह पढ़कर सुनाएँ। {farmer} के सहमत होने तक कोई फ़ोटो नहीं ली जा सकती। | {farmer} ਨੂੰ ਉਹਨਾਂ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਇਹ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। {farmer} ਦੇ ਸਹਿਮਤ ਹੋਣ ਤੱਕ ਕੋਈ ਫ਼ੋਟੋ ਨਹੀਂ ਲਈ ਜਾ ਸਕਦੀ। | needs review / needs review |
+| `fd.agree` | {farmer} agrees | {farmer} सहमत हैं | {farmer} ਸਹਿਮਤ ਹਨ | needs review / needs review |
+| `fd.consented` | Consent recorded at {time} | सहमति {time} पर दर्ज हुई | ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ | needs review / needs review |
+| `fd.clock` | Start the clock now | घड़ी अभी शुरू करें | ਘੜੀ ਹੁਣ ਸ਼ੁਰੂ ਕਰੋ | needs review / needs review |
+| `fd.clockHelp` | Starts this record’s clock at this phone’s time. Photo times are counted from it. | इस रिकॉर्ड की घड़ी इस फ़ोन के समय से शुरू करता है। फ़ोटो का समय इसी से गिना जाता है। | ਇਸ ਰਿਕਾਰਡ ਦੀ ਘੜੀ ਇਸ ਫ਼ੋਨ ਦੇ ਸਮੇਂ ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। ਫ਼ੋਟੋਆਂ ਦਾ ਸਮਾਂ ਇਸੇ ਤੋਂ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ। | needs review / needs review |
+| `fd.clockAt` | Clock started at {time} | घड़ी {time} पर शुरू हुई | ਘੜੀ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ | needs review / needs review |
+| `fd.photos` | Photos | फ़ोटो | ਫ਼ੋਟੋਆਂ | needs review / needs review |
+| `fd.take` | Open camera | कैमरा खोलें | ਕੈਮਰਾ ਖੋਲ੍ਹੋ | needs review / needs review |
+| `fd.file` | Phone camera app | फ़ोन का कैमरा ऐप | ਫ਼ੋਨ ਦੀ ਕੈਮਰਾ ਐਪ | needs review / needs review |
+| `fd.noCam` | The camera did not open here. Use “Phone camera app” instead. | कैमरा यहाँ नहीं खुला। इसकी जगह “फ़ोन का कैमरा ऐप” इस्तेमाल करें। | ਕੈਮਰਾ ਇੱਥੇ ਨਹੀਂ ਖੁੱਲ੍ਹਿਆ। ਇਸ ਦੀ ਥਾਂ “ਫ਼ੋਨ ਦੀ ਕੈਮਰਾ ਐਪ” ਵਰਤੋ। | needs review / needs review |
+| `fd.saving` | Saving the photo… | फ़ोटो सहेजी जा रही है… | ਫ਼ੋਟੋ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ… | needs review / needs review |
+| `fd.saveFail` | The photo could not be saved on this phone. | फ़ोटो इस फ़ोन पर सहेजी नहीं जा सकी। | ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। | needs review / needs review |
+| `fd.photoAt` | Taken at {time} | {time} पर ली गई | {time} ਵਜੇ ਲਈ ਗਈ | needs review / needs review |
+| `fd.noLoc` | no location | कोई लोकेशन नहीं | ਕੋਈ ਲੋਕੇਸ਼ਨ ਨਹੀਂ | needs review / needs review |
+| `fd.gps` | GPS ±{m} m | GPS ±{m} मी | GPS ±{m} ਮੀ | needs review / needs review |
+| `fd.seal` | Seal {farmer}’s evidence | {farmer} के सबूत सील करें | {farmer} ਦੇ ਸਬੂਤ ਸੀਲ ਕਰੋ | needs review / needs review |
+| `fd.sealNeed` | Consent, the clock and at least one photo come first. | पहले सहमति, घड़ी और कम से कम एक फ़ोटो चाहिए। | ਪਹਿਲਾਂ ਸਹਿਮਤੀ, ਘੜੀ ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਫ਼ੋਟੋ ਚਾਹੀਦੀ ਹੈ। | needs review / needs review |
+| `fd.sealed` | Sealed at {time}. These photos can no longer change in this record. | {time} पर सील हुआ। इस रिकॉर्ड में ये फ़ोटो अब नहीं बदल सकतीं। | {time} ਵਜੇ ਸੀਲ ਹੋਇਆ। ਇਸ ਰਿਕਾਰਡ ਵਿੱਚ ਇਹ ਫ਼ੋਟੋਆਂ ਹੁਣ ਨਹੀਂ ਬਦਲ ਸਕਦੀਆਂ। | needs review / needs review |
+| `fd.sealFail` | Could not seal. Signing needs this page over https or on localhost. | सील नहीं हो सका। साइन करने के लिए यह पेज https या localhost पर खुला होना चाहिए। | ਸੀਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਸਾਈਨ ਕਰਨ ਲਈ ਇਹ ਪੰਨਾ https ਜਾਂ localhost ਉੱਤੇ ਖੁੱਲ੍ਹਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। | needs review / needs review |
+| `fd.isSealed` | sealed | सील हुआ | ਸੀਲ ਹੋਇਆ | needs review / needs review |
+| `fd.notSealed` | not sealed yet | अभी सील नहीं | ਅਜੇ ਸੀਲ ਨਹੀਂ | needs review / needs review |
+| `fd.share` | Share the evidence | सबूत साझा करें | ਸਬੂਤ ਸਾਂਝਾ ਕਰੋ | needs review / needs review |
+| `fd.shareLead` | Show this QR code to the officer, or send the code or the link. Only the code leaves this phone, and only when you share it. The photos stay here. | यह QR कोड अधिकारी को दिखाएँ, या कोड या लिंक भेजें। सिर्फ़ कोड इस फ़ोन से जाता है, और तभी जब आप उसे साझा करें। फ़ोटो यहीं रहती हैं। | ਇਹ QR ਕੋਡ ਅਧਿਕਾਰੀ ਨੂੰ ਦਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਭੇਜੋ। ਸਿਰਫ਼ ਕੋਡ ਇਸ ਫ਼ੋਨ ਤੋਂ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਤਾਂ ਹੀ ਜਦੋਂ ਤੁਸੀਂ ਇਸਨੂੰ ਸਾਂਝਾ ਕਰੋ। ਫ਼ੋਟੋਆਂ ਇੱਥੇ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। | needs review / needs review |
+| `fd.copyCode` | Copy the code | कोड कॉपी करें | ਕੋਡ ਕਾਪੀ ਕਰੋ | needs review / needs review |
+| `fd.copyLink` | Copy the link | लिंक कॉपी करें | ਲਿੰਕ ਕਾਪੀ ਕਰੋ | needs review / needs review |
+| `fd.copied` | Copied | कॉपी हो गया | ਕਾਪੀ ਹੋ ਗਿਆ | needs review / needs review |
+| `fd.copyFail` | Copying is blocked here. The code is selected in the box: copy it by hand. | यहाँ कॉपी करना रुका हुआ है। कोड बॉक्स में चुना हुआ है: इसे ख़ुद कॉपी करें। | ਇੱਥੇ ਕਾਪੀ ਕਰਨਾ ਰੁਕਿਆ ਹੋਇਆ ਹੈ। ਕੋਡ ਡੱਬੇ ਵਿੱਚ ਚੁਣਿਆ ਹੋਇਆ ਹੈ: ਇਸਨੂੰ ਆਪ ਕਾਪੀ ਕਰੋ। | needs review / needs review |
+| `fd.codeBox` | Evidence code | सबूत कोड | ਸਬੂਤ ਕੋਡ | needs review / needs review |
+| `fd.qr` | QR code of the evidence code | सबूत कोड का QR कोड | ਸਬੂਤ ਕੋਡ ਦਾ QR ਕੋਡ | needs review / needs review |
+| `fd.recv.lead` | Codes received from farmers’ phones. Each one is checked here, on this phone. The farmer’s name and village are not in the code: they stay on the farmer’s phone. | किसानों के फ़ोन से मिले कोड। हर कोड यहीं, इस फ़ोन पर जाँचा जाता है। किसान का नाम और गाँव कोड में नहीं हैं: वे किसान के फ़ोन पर रहते हैं। | ਕਿਸਾਨਾਂ ਦੇ ਫ਼ੋਨਾਂ ਤੋਂ ਮਿਲੇ ਕੋਡ। ਹਰ ਕੋਡ ਇੱਥੇ, ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ। ਕਿਸਾਨ ਦਾ ਨਾਮ ਅਤੇ ਪਿੰਡ ਕੋਡ ਵਿੱਚ ਨਹੀਂ ਹਨ: ਉਹ ਕਿਸਾਨ ਦੇ ਫ਼ੋਨ ਉੱਤੇ ਰਹਿੰਦੇ ਹਨ। | needs review / needs review |
+| `fd.recv.paste` | Paste a code or link | कोड या लिंक चिपकाएँ | ਕੋਡ ਜਾਂ ਲਿੰਕ ਚਿਪਕਾਓ | needs review / needs review |
+| `fd.recv.check` | Check and add | जाँचें और जोड़ें | ਜਾਂਚੋ ਅਤੇ ਜੋੜੋ | needs review / needs review |
+| `fd.recv.scan` | Scan QR | QR स्कैन करें | QR ਸਕੈਨ ਕਰੋ | needs review / needs review |
+| `fd.recv.stopScan` | Stop scanning | स्कैन बंद करें | ਸਕੈਨ ਬੰਦ ਕਰੋ | needs review / needs review |
+| `fd.recv.none` | Nothing received yet. | अभी कुछ नहीं मिला। | ਅਜੇ ਕੁਝ ਨਹੀਂ ਮਿਲਿਆ। | needs review / needs review |
+| `fd.recv.ok` | Unchanged since sealing | सील होने के बाद से नहीं बदला | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਨਹੀਂ ਬਦਲਿਆ | needs review / needs review |
+| `fd.recv.bad` | Changed after sealing, or not a Saboot code. Do not trust this copy. | सील होने के बाद बदला गया, या Saboot कोड नहीं है। इस कॉपी पर भरोसा न करें। | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਦਲਿਆ ਗਿਆ, ਜਾਂ Saboot ਕੋਡ ਨਹੀਂ ਹੈ। ਇਸ ਕਾਪੀ ਉੱਤੇ ਭਰੋਸਾ ਨਾ ਕਰੋ। | needs review / needs review |
+| `fd.recv.at` | Received at {time} (this phone’s clock) | {time} पर मिला (इस फ़ोन की घड़ी) | {time} ਵਜੇ ਮਿਲਿਆ (ਇਸ ਫ਼ੋਨ ਦੀ ਘੜੀ) | needs review / needs review |
+| `fd.recv.sealAt` | Sealed at {time} (the farmer’s phone clock) | {time} पर सील हुआ (किसान के फ़ोन की घड़ी) | {time} ਵਜੇ ਸੀਲ ਹੋਇਆ (ਕਿਸਾਨ ਦੇ ਫ਼ੋਨ ਦੀ ਘੜੀ) | needs review / needs review |
+| `fd.recv.clock` | Photo times count from a clock started by hand | फ़ोटो का समय हाथ से शुरू की गई घड़ी से गिना गया | ਫ਼ੋਟੋਆਂ ਦਾ ਸਮਾਂ ਹੱਥ ਨਾਲ ਸ਼ੁਰੂ ਕੀਤੀ ਘੜੀ ਤੋਂ ਗਿਣਿਆ ਗਿਆ | needs review / needs review |
+| `fd.recv.after` | {h} h after the clock started | घड़ी शुरू होने के {h} घंटे बाद | ਘੜੀ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ {h} ਘੰਟੇ ਬਾਅਦ | needs review / needs review |
+| `fd.recv.photos` | {n} photo(s) | {n} फ़ोटो | {n} ਫ਼ੋਟੋ | needs review / needs review |
+| `fd.recv.noProof` | This shows only that the code was not changed. It does not prove who sealed it or what the photos show. Saboot decides nothing. | इससे सिर्फ़ यह पता चलता है कि कोड बदला नहीं गया। यह साबित नहीं करता कि किसने सील किया या फ़ोटो में क्या है। Saboot कुछ तय नहीं करता। | ਇਸ ਤੋਂ ਸਿਰਫ਼ ਇਹ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਕੋਡ ਬਦਲਿਆ ਨਹੀਂ ਗਿਆ। ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਕਿਸ ਨੇ ਸੀਲ ਕੀਤਾ ਜਾਂ ਫ਼ੋਟੋਆਂ ਵਿੱਚ ਕੀ ਹੈ। Saboot ਕੁਝ ਤੈਅ ਨਹੀਂ ਕਰਦਾ। | needs review / needs review |
+| `fd.got.ok` | Checked and added: unchanged since sealing. | जाँचा और जोड़ा: सील होने के बाद से नहीं बदला। | ਜਾਂਚਿਆ ਅਤੇ ਜੋੜਿਆ: ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਨਹੀਂ ਬਦਲਿਆ। | needs review / needs review |
+| `fd.got.dup` | This code is already in the list. | यह कोड पहले से सूची में है। | ਇਹ ਕੋਡ ਪਹਿਲਾਂ ਹੀ ਸੂਚੀ ਵਿੱਚ ਹੈ। | needs review / needs review |
+| `fd.got.bad` | Changed after sealing, or not a Saboot code. It was not added. | सील होने के बाद बदला गया, या Saboot कोड नहीं है। इसे जोड़ा नहीं गया। | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਦਲਿਆ ਗਿਆ, ਜਾਂ Saboot ਕੋਡ ਨਹੀਂ ਹੈ। ਇਸਨੂੰ ਜੋੜਿਆ ਨਹੀਂ ਗਿਆ। | needs review / needs review |
+| `fd.got.sim` | This code is from the demo, not from real photos. Field mode keeps only real photos, so it was not added. | यह कोड डेमो का है, असली फ़ोटो का नहीं। फ़ील्ड मोड सिर्फ़ असली फ़ोटो रखता है, इसलिए इसे जोड़ा नहीं गया। | ਇਹ ਕੋਡ ਡੈਮੋ ਦਾ ਹੈ, ਅਸਲ ਫ਼ੋਟੋਆਂ ਦਾ ਨਹੀਂ। ਫ਼ੀਲਡ ਮੋਡ ਸਿਰਫ਼ ਅਸਲ ਫ਼ੋਟੋਆਂ ਰੱਖਦਾ ਹੈ, ਇਸ ਲਈ ਇਸਨੂੰ ਜੋੜਿਆ ਨਹੀਂ ਗਿਆ। | needs review / needs review |
+| `fd.got.crypto` | This page cannot check signatures here. Open it over https or on localhost. | यह पेज यहाँ हस्ताक्षर नहीं जाँच सकता। इसे https या localhost पर खोलें। | ਇਹ ਪੰਨਾ ਇੱਥੇ ਦਸਤਖ਼ਤ ਨਹੀਂ ਜਾਂਚ ਸਕਦਾ। ਇਸਨੂੰ https ਜਾਂ localhost ਉੱਤੇ ਖੋਲ੍ਹੋ। | needs review / needs review |

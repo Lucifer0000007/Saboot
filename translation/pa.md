@@ -13,11 +13,15 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `al.clock.pmfby` | Time left to report | ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਬਾਕੀ ਸਮਾਂ |  |
 | `al.started` | The clock started at about {time}, when heavy rain or a rising river was first detected. Photos are most useful while the water is still visible. This is advice, not a legal deadline. | ਘੜੀ ਲਗਭਗ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ, ਜਦੋਂ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਪਹਿਲੀ ਵਾਰ ਵੇਖਿਆ ਗਿਆ। ਜਦੋਂ ਤੱਕ ਪਾਣੀ ਦਿਸ ਰਿਹਾ ਹੈ, ਫ਼ੋਟੋਆਂ ਸਭ ਤੋਂ ਵੱਧ ਕੰਮ ਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਇਹ ਸਲਾਹ ਹੈ, ਕਾਨੂੰਨੀ ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ। |  |
 | `al.started.pmfby` | The 72‑hour clock started at {time}, when the event began — not when this message reached you. | 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ, ਜਦੋਂ ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਈ — ਇਹ ਸੁਨੇਹਾ ਮਿਲਣ ਵੇਲੇ ਨਹੀਂ। |  |
-| `al.voice` | Saboot alert. A flood is likely at your field. Please take three photos soon. This is advice, not a deadline. | ਸਬੂਤ ਅਲਰਟ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਲਦੀ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਲਓ। ਇਹ ਸਲਾਹ ਹੈ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ। |  |
-| `al.voice.pmfby` | Saboot alert. Flooding detected at your field. Your 72‑hour reporting clock has started. Tap “Take photos now” and take three photos. | ਸਬੂਤ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਮਿਲਿਆ ਹੈ। ਰਿਪੋਰਟ ਕਰਨ ਦੀ 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ। “ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ” ਦਬਾਓ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ। |  |
+| `al.voice` | Saboot alert. A flood is likely at your field. Please take three photos soon. This is advice, not a deadline. | ਸਬੂਤ ਐਪ ਦੀ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਲਦੀ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਲਓ। ਇਹ ਸਲਾਹ ਹੈ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ। |  |
+| `al.voice.pmfby` | Saboot alert. Flooding detected at your field. Your 72‑hour reporting clock has started. Tap “Take photos now” and take three photos. | ਸਬੂਤ ਐਪ ਦੀ ਚੇਤਾਵਨੀ। ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਮਿਲਿਆ ਹੈ। ਰਿਪੋਰਟ ਕਰਨ ਦੀ 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ। “ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ” ਦਬਾਓ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ। |  |
 | `al.cta` | Take photos now | ਹੁਣੇ ਫ਼ੋਟੋ ਖਿੱਚੋ |  |
 | `al.noDamage` | No damage at my field | ਮੇਰੇ ਖੇਤ ਵਿੱਚ ਨੁਕਸਾਨ ਨਹੀਂ |  |
 | `al.help` | Someone will help me | ਕੋਈ ਮੇਰੀ ਮਦਦ ਕਰੇਗਾ |  |
+| `al.how` | How this alert reached you (simulated) | ਇਹ ਚੇਤਾਵਨੀ ਤੁਹਾਡੇ ਤੱਕ ਕਿਵੇਂ ਪਹੁੰਚੀ (ਸਿਮੂਲੇਸ਼ਨ) |  |
+| `al.how.d` | A voice call in your language, then an SMS with a link to this screen. Here both are simulated: no call is made and no SMS is sent. | ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਇੱਕ ਵੌਇਸ ਕਾਲ, ਫਿਰ ਇਸ ਸਕ੍ਰੀਨ ਦੇ ਲਿੰਕ ਵਾਲਾ ਇੱਕ SMS। ਇੱਥੇ ਦੋਵੇਂ ਸਿਮੂਲੇਸ਼ਨ ਹਨ: ਕੋਈ ਕਾਲ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ SMS ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ। |  |
+| `al.how.sms` | Saboot: flood likely at your field ({plot}). Open the app to take photos while the water is visible. | ਸਬੂਤ ਐਪ: ਤੁਹਾਡੇ ਖੇਤ ({plot}) ਵਿੱਚ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ। ਪਾਣੀ ਦਿਸਦੇ ਹੋਏ ਫ਼ੋਟੋ ਲੈਣ ਲਈ ਐਪ ਖੋਲ੍ਹੋ। |  |
+| `al.how.nophone` | No smartphone? A helper in the village can take the photos for you, with your consent. | ਸਮਾਰਟਫ਼ੋਨ ਨਹੀਂ ਹੈ? ਪਿੰਡ ਦਾ ਕੋਈ ਸਹਾਇਕ ਤੁਹਾਡੀ ਸਹਿਮਤੀ ਨਾਲ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋ ਲੈ ਸਕਦਾ ਹੈ। |  |
 | `al.play` | Play voice message | ਆਵਾਜ਼ ਸੁਨੇਹਾ ਸੁਣੋ |  |
 | `al.expired` | Capture-soon advice has passed | ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ ਦਾ ਸਮਾਂ ਲੰਘ ਗਿਆ |  |
 | `al.expired.pmfby` | Reporting time is over | ਰਿਪੋਰਟ ਦਾ ਸਮਾਂ ਖ਼ਤਮ |  |
@@ -28,6 +32,8 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `al.lastHours` | Capture soon | ਜਲਦੀ ਫ਼ੋਟੋ ਲਓ |  |
 | `al.about` | about {t} | ਲਗਭਗ {t} |  |
 | `al.passedWords` | the advice window has passed | ਸਲਾਹ ਦੀ ਮਿਆਦ ਲੰਘ ਗਈ |  |
+| `al.passedLabel` | Capture-soon advice | ਜਲਦੀ ਫ਼ੋਟੋ ਲੈਣ ਦੀ ਸਲਾਹ |  |
+| `al.endedAt` | ended {time} | {time} ਨੂੰ ਖ਼ਤਮ ਹੋਈ |  |
 | `al.advice` | Advice, not a deadline | ਸਲਾਹ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ |  |
 | `al.lastHours.pmfby` | Last hours | ਆਖ਼ਰੀ ਘੰਟੇ |  |
 | `al.noDamageDone` | Thank you. We recorded: no damage. Nothing more is needed from you. | ਧੰਨਵਾਦ। ਅਸੀਂ ਦਰਜ ਕੀਤਾ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਤੁਹਾਡੇ ਤੋਂ ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। |  |
@@ -46,6 +52,8 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `cap.locating` | Finding location… | ਥਾਂ ਲੱਭ ਰਹੇ ਹਾਂ… |  |
 | `cap.gps` | GPS ±{acc} m | GPS ±{acc} ਮੀ |  |
 | `cap.simGps` | Simulated location | ਸਿਮੂਲੇਟਡ ਥਾਂ |  |
+| `cap.geoOff` | This phone gave no location for the photo. Turn on location, and allow it for this page, so the officer can see where the photo was taken. Then try again. | ਇਸ ਫ਼ੋਨ ਨੇ ਫ਼ੋਟੋ ਦੀ ਥਾਂ ਨਹੀਂ ਦਿੱਤੀ। ਲੋਕੇਸ਼ਨ ਚਾਲੂ ਕਰੋ, ਅਤੇ ਇਸ ਪੰਨੇ ਨੂੰ ਇਜਾਜ਼ਤ ਦਿਓ, ਤਾਂ ਜੋ ਅਧਿਕਾਰੀ ਵੇਖ ਸਕਣ ਕਿ ਫ਼ੋਟੋ ਕਿੱਥੇ ਖਿੱਚੀ ਗਈ। ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
+| `cap.geoSim` | Save it with a simulated location | ਸਿਮੂਲੇਟਡ ਥਾਂ ਨਾਲ ਸੰਭਾਲੋ |  |
 | `cap.hashing` | Securing photo… | ਫ਼ੋਟੋ ਸੁਰੱਖਿਅਤ ਕਰ ਰਹੇ ਹਾਂ… |  |
 | `cap.old` | This photo is older than this session. Please take a new photo with the camera. | ਇਹ ਫ਼ੋਟੋ ਇਸ ਸੈਸ਼ਨ ਤੋਂ ਪੁਰਾਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਮਰੇ ਨਾਲ ਨਵੀਂ ਫ਼ੋਟੋ ਖਿੱਚੋ। |  |
 | `cap.queued` | Saved on phone. Will send when network returns. | ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਨੈੱਟਵਰਕ ਆਉਣ ਉੱਤੇ ਭੇਜੀ ਜਾਵੇਗੀ। |  |
@@ -54,6 +62,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `cap.taken` | Taken | ਖਿੱਚੀ ਗਈ |  |
 | `cap.camDenied` | The camera is blocked or not available. Allow the camera in your browser settings and try again. You can also use a simulated photo, which is labelled Simulated. | ਕੈਮਰਾ ਬੰਦ ਹੈ ਜਾਂ ਉਪਲਬਧ ਨਹੀਂ। ਆਪਣੀ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਸੀਂ ਸਿਮੂਲੇਟਡ ਫ਼ੋਟੋ ਵੀ ਲੈ ਸਕਦੇ ਹੋ; ਉਸ ਉੱਤੇ "ਸਿਮੂਲੇਟਡ" ਲਿਖਿਆ ਹੋਵੇਗਾ। |  |
 | `cap.saveFail` | The photo could not be saved on this phone. Free some space and try again. | ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
+| `cap.sealFail` | The evidence could not be sealed on this phone. Free some space and try again. | ਸਬੂਤ ਇਸ ਫ਼ੋਨ ਤੇ ਸੀਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
 | `cap.badPhoto` | This photo could not be read. Take it again. | ਇਹ ਫ਼ੋਟੋ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਇਸ ਨੂੰ ਦੁਬਾਰਾ ਲਓ। |  |
 | `cap.needConsent` | {farmer} has not agreed yet. Ask for their consent before you take any photo. | {farmer} ਨੇ ਹਾਲੇ ਸਹਿਮਤੀ ਨਹੀਂ ਦਿੱਤੀ। ਕੋਈ ਵੀ ਫ਼ੋਟੋ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ ਲਓ। |  |
 | `cap.askConsent` | Ask for consent | ਸਹਿਮਤੀ ਲਓ |  |
@@ -78,6 +87,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `as.recording` | Recording… tap to stop | ਰਿਕਾਰਡਿੰਗ… ਰੋਕਣ ਲਈ ਦਬਾਓ |  |
 | `as.done` | Consent recorded at {time} | ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ |  |
 | `as.doneToast` | Consent recorded. | ਸਹਿਮਤੀ ਦਰਜ ਹੋਈ। |  |
+| `as.saveFail` | The consent could not be saved on this phone. Free some space and try again. | ਸਹਿਮਤੀ ਇਸ ਫ਼ੋਨ ਵਿੱਚ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
 | `as.start` | Start photos | ਫ਼ੋਟੋਆਂ ਸ਼ੁਰੂ ਕਰੋ |  |
 | `as.needName` | Enter the helper’s name first. | ਪਹਿਲਾਂ ਸਹਾਇਕ ਦਾ ਨਾਂ ਲਿਖੋ। |  |
 | `as.voiceSha` | Voice consent · fingerprint {h} | ਆਵਾਜ਼ ਨਾਲ ਸਹਿਮਤੀ · ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ {h} |  |
@@ -85,13 +95,17 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `as.noMic` | Microphone not available. Use press-and-hold instead. | ਮਾਈਕ੍ਰੋਫ਼ੋਨ ਉਪਲਬਧ ਨਹੀਂ। ਦਬਾ ਕੇ ਰੱਖਣ ਵਾਲਾ ਤਰੀਕਾ ਵਰਤੋ। |  |
 | `as.means` | What this means | ਇਸ ਦਾ ਮਤਲਬ |  |
 | `as.means1` | The photos stay on this phone. Only their fingerprints, the time and a place rounded to about 100 m can be shared. | ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੀ ਪਛਾਣ-ਛਾਪ, ਸਮਾਂ ਅਤੇ ਲਗਭਗ 100 ਮੀਟਰ ਤੱਕ ਗੋਲ ਕੀਤੀ ਹੋਈ ਥਾਂ ਸਾਂਝੀ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। |  |
-| `as.means2` | The helper only takes the photos. The officer decides. Saboot decides nothing. | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |  |
-| `as.means2.pmfby` | The helper only takes the photos. The insurer decides. Saboot decides nothing. | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |  |
+| `as.means2` | The helper only takes the photos. The officer decides. Saboot decides nothing. | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। ਸਬੂਤ ਐਪ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। |  |
+| `as.means2.pmfby` | The helper only takes the photos. The insurer decides. Saboot decides nothing. | ਸਹਾਇਕ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। ਸਬੂਤ ਐਪ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। |  |
 | `as.means3` | You can ask for a copy, or for everything to be deleted from this phone, at any time. | ਤੁਸੀਂ ਕਦੇ ਵੀ ਆਪਣੀ ਕਾਪੀ ਮੰਗ ਸਕਦੇ ਹੋ, ਜਾਂ ਇਸ ਫ਼ੋਨ ਤੋਂ ਸਭ ਕੁਝ ਮਿਟਵਾ ਸਕਦੇ ਹੋ। |  |
+| `as.uiCopy` | The same words in {lang}, for you | ਇਹੀ ਸ਼ਬਦ {lang} ਵਿੱਚ, ਤੁਹਾਡੇ ਲਈ |  |
 | `pk.title` | Your evidence | ਤੁਹਾਡਾ ਸਬੂਤ |  |
 | `pk.sealed` | Sealed | ਸੀਲ ਕੀਤਾ |  |
 | `pk.unsealed` | Not sealed yet | ਅਜੇ ਸੀਲ ਨਹੀਂ |  |
 | `pk.location` | Location | ਥਾਂ |  |
+| `pk.atPlot` | At plot {plot} | ਪਲਾਟ {plot} ਉੱਤੇ |  |
+| `pk.notChecked` | not checked against the plot | ਪਲਾਟ ਨਾਲ ਮਿਲਾ ਕੇ ਨਹੀਂ ਵੇਖਿਆ ਗਿਆ |  |
+| `pk.coords` | Location (coordinates) | ਥਾਂ (ਨਿਰਦੇਸ਼ਾਂਕ) |  |
 | `pk.hash` | Fingerprint | ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ |  |
 | `pk.tech` | Technical details: fingerprint, sync log and tamper-evident log | ਤਕਨੀਕੀ ਵੇਰਵੇ: ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਿੰਕ ਲੌਗ ਅਤੇ ਛੇੜਛਾੜ-ਸੂਚਕ ਲੌਗ |  |
 | `pk.chain` | Tamper-evident log | ਛੇੜਛਾੜ-ਰੋਧੀ ਰਿਕਾਰਡ |  |
@@ -99,20 +113,21 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `pk.queued` | Waiting for network: {n} queued | ਨੈੱਟਵਰਕ ਦੀ ਉਡੀਕ: {n} ਕਤਾਰ ਵਿੱਚ |  |
 | `pk.synced` | Received by server at {time} | ਸਰਵਰ ਨੂੰ {time} ਵਜੇ ਮਿਲਿਆ |  |
 | `pk.gap` | Delay of {gap} between photo time and server time — flagged for review. | ਫ਼ੋਟੋ ਦੇ ਸਮੇਂ ਅਤੇ ਸਰਵਰ ਦੇ ਸਮੇਂ ਵਿੱਚ {gap} ਦਾ ਫ਼ਰਕ — ਜਾਂਚ ਲਈ ਨਿਸ਼ਾਨਬੱਧ। |  |
-| `pk.cta` | Next: share your evidence | ਅੱਗੇ: ਆਪਣਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ |  |
+| `pk.cta` | Next: report the loss | ਅੱਗੇ: ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
 | `pk.cta.pmfby` | Next: report your loss | ਅੱਗੇ: ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
 | `pk.empty` | No photos yet. | ਅਜੇ ਕੋਈ ਫ਼ੋਟੋ ਨਹੀਂ। |  |
 | `pk.device` | Phone time | ਫ਼ੋਨ ਦਾ ਸਮਾਂ |  |
 | `pk.server` | Server time | ਸਰਵਰ ਦਾ ਸਮਾਂ |  |
 | `pk.syncNow` | Send now | ਹੁਣੇ ਭੇਜੋ |  |
 | `pk.prev` | previous | ਪਿਛਲਾ |  |
+| `pk.evObjection` | Evidence attached to the draft list | ਖਰੜਾ ਸੂਚੀ ਨਾਲ ਸਬੂਤ ਜੋੜਿਆ ਗਿਆ |  |
 | `pk.by` | Captured by | ਫ਼ੋਟੋਆਂ ਕਿਸ ਨੇ ਖਿੱਚੀਆਂ |  |
 | `pk.byValue` | {name}, {role} | {name}, {role} |  |
-| `k.title` | Show it on the judges’ laptop | ਜੱਜਾਂ ਦੇ ਲੈਪਟਾਪ ਉੱਤੇ ਵਿਖਾਓ |  |
-| `k.body` | Turn your sealed packet into a signed code. Only fingerprints, times and a rough location are shared; the photos stay on this phone. | ਆਪਣੇ ਸੀਲ ਕੀਤੇ ਪੈਕੇਟ ਨੂੰ ਦਸਤਖ਼ਤੀ ਕੋਡ ਵਿੱਚ ਬਦਲੋ। ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਸਾਂਝੀ ਹੁੰਦੀ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
+| `k.title` | Show it to the officer or patwari | ਅਧਿਕਾਰੀ ਜਾਂ ਪਟਵਾਰੀ ਨੂੰ ਵਿਖਾਓ |  |
+| `k.body` | Your proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone. | ਤੁਹਾਡਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
 | `k.btn` | Share as a QR code | QR ਕੋਡ ਨਾਲ ਸਾਂਝਾ ਕਰੋ |  |
 | `k.sheet` | Signed evidence code | ਦਸਤਖ਼ਤੀ ਪ੍ਰਮਾਣ ਕੋਡ |  |
-| `k.lead` | Show this QR code to the laptop’s camera, or copy the code or the link. Nothing is sent unless you choose to send it. | ਇਹ QR ਕੋਡ ਲੈਪਟਾਪ ਦੇ ਕੈਮਰੇ ਨੂੰ ਵਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਤੁਸੀਂ ਆਪ ਭੇਜੋ, ਤਾਂ ਹੀ ਕੁਝ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ। |  |
+| `k.lead` | Let the officer scan this QR code with their phone or laptop, or copy the code or the link. Nothing is sent unless you choose to send it. | ਅਧਿਕਾਰੀ ਨੂੰ ਇਹ QR ਕੋਡ ਆਪਣੇ ਫ਼ੋਨ ਜਾਂ ਲੈਪਟਾਪ ਨਾਲ ਸਕੈਨ ਕਰਨ ਦਿਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ। ਤੁਸੀਂ ਆਪ ਭੇਜੋ, ਤਾਂ ਹੀ ਕੁਝ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ। |  |
 | `k.send` | Send to the laptop | ਲੈਪਟਾਪ ਨੂੰ ਭੇਜੋ |  |
 | `k.sendHelp` | Sends only this signed code to the laptop this page was opened from. Photos stay on the phone. | ਸਿਰਫ਼ ਇਹ ਦਸਤਖ਼ਤੀ ਕੋਡ ਉਸ ਲੈਪਟਾਪ ਨੂੰ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ ਜਿੱਥੋਂ ਇਹ ਪੰਨਾ ਖੋਲ੍ਹਿਆ ਗਿਆ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
 | `k.sending` | Sending… | ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ… |  |
@@ -126,7 +141,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `k.bundleNote` | Open format, designed to be ingestible by other systems. It is not an integration with any system. Photos stay on the phone. | ਖੁੱਲ੍ਹਾ ਫਾਰਮੈਟ, ਜਿਸ ਨੂੰ ਹੋਰ ਸਿਸਟਮ ਪੜ੍ਹ ਸਕਣ। ਇਹ ਕਿਸੇ ਸਿਸਟਮ ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਨਹੀਂ ਹੈ। ਫ਼ੋਟੋਆਂ ਫ਼ੋਨ ਵਿੱਚ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
 | `k.share` | Share link | ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ |  |
 | `k.copied` | Copied | ਕਾਪੀ ਹੋ ਗਿਆ |  |
-| `k.code` | The code | ਕੋਡ |  |
+| `k.code` | Technical details: the code and a data file | ਤਕਨੀਕੀ ਵੇਰਵੇ: ਕੋਡ ਅਤੇ ਡਾਟਾ ਫ਼ਾਈਲ |  |
 | `k.making` | Signing your packet… | ਤੁਹਾਡੇ ਪੈਕੇਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋ ਰਹੇ ਹਨ… |  |
 | `k.stay` | Photos stay on this phone. The code holds only their fingerprints. | ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਕੋਡ ਵਿੱਚ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੇ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਹਨ। |  |
 | `k.fail` | Could not make the code. Check that your photos are sealed, then try again. | ਕੋਡ ਨਹੀਂ ਬਣ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਸੀਲ ਹੋ ਗਈਆਂ ਹਨ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। |  |
@@ -154,8 +169,15 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `set.deleteYes` | Yes, delete | ਹਾਂ, ਮਿਟਾਓ |  |
 | `set.deleteNo` | Keep my data | ਮੇਰਾ ਡਾਟਾ ਰਹਿਣ ਦਿਓ |  |
 | `set.deleted` | Your data was deleted from this phone. | ਤੁਹਾਡਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ। |  |
+| `set.farmerData` | {farmer}’s data on this phone | ਇਸ ਫ਼ੋਨ ਉੱਤੇ {farmer} ਦਾ ਡਾਟਾ |  |
+| `set.farmerDataHelp` | Only {farmer}’s consent, photos and sealed packet. No other farmer’s data is touched. | ਸਿਰਫ਼ {farmer} ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ। ਕਿਸੇ ਦੂਜੇ ਕਿਸਾਨ ਦਾ ਡਾਟਾ ਨਹੀਂ ਛੂਹਿਆ ਜਾਂਦਾ। |  |
+| `set.farmerExport` | Copy of {farmer}’s data (JSON) | {farmer} ਦੇ ਡਾਟੇ ਦੀ ਕਾਪੀ (JSON) |  |
+| `set.farmerDelete` | Delete {farmer}’s data from this phone | ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦਾ ਡਾਟਾ ਮਿਟਾਓ |  |
+| `set.farmerDeleteAsk` | Delete {farmer}’s photos, consent and sealed packet from this phone? Other farmers’ data stays. This cannot be undone. | ਇਸ ਫ਼ੋਨ ਤੋਂ {farmer} ਦੀਆਂ ਫ਼ੋਟੋਆਂ, ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਪੈਕੇਟ ਮਿਟਾਉਣਾ ਹੈ? ਦੂਜੇ ਕਿਸਾਨਾਂ ਦਾ ਡਾਟਾ ਰਹੇਗਾ। ਇਸ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ। |  |
+| `set.farmerKeep` | Keep it | ਰਹਿਣ ਦਿਓ |  |
+| `set.farmerDeleted` | {farmer}’s data was deleted from this phone. | {farmer} ਦਾ ਡਾਟਾ ਇਸ ਫ਼ੋਨ ਤੋਂ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ। |  |
 | `reg.title` | Your plot is registered | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ |  |
-| `reg.watching` | Saboot is watching rain, river and satellite signals over your field. | ਸਬੂਤ ਤੁਹਾਡੇ ਖੇਤ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖ ਰਿਹਾ ਹੈ। |  |
+| `reg.watching` | Saboot is watching rain, river and satellite signals over your field. | ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਖੇਤ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖ ਰਹੀ ਹੈ। |  |
 | `reg.allClear` | All clear | ਸਭ ਠੀਕ ਹੈ |  |
 | `reg.watch` | Heavy rain watch | ਭਾਰੀ ਮੀਂਹ ਦੀ ਚੇਤਾਵਨੀ |  |
 | `reg.rain` | Rain last 24 hours: {mm} mm | ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਦਾ ਮੀਂਹ: {mm} ਮਿਮੀ |  |
@@ -165,9 +187,11 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `reg.plot` | Plot | ਖੇਤ |  |
 | `reg.khasra` | Khasra no. | ਖਸਰਾ ਨੰ. |  |
 | `reg.season` | Season | ਮੌਸਮ |  |
+| `reg.at` | Registered at | ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਿੱਥੇ ਹੋਈ |  |
+| `reg.atV` | A CSC camp in the village (simulated) | ਪਿੰਡ ਵਿੱਚ CSC ਕੈਂਪ (ਸਿਮੂਲੇਸ਼ਨ) |  |
 | `reg.kharif` | Kharif 2026 | ਸਾਉਣੀ 2026 |  |
-| `reg.voice` | Your field is registered. If a flood hits your field, Saboot will call you and ask for three photos. | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗਾ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗਾ। |  |
-| `reg.voice.pmfby` | Your field is registered. If a flood hits your field, Saboot will call you. You will then have 72 hours to report. | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗਾ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ। |  |
+| `reg.voice` | Your field is registered. If a flood hits your field, Saboot will call you and ask for three photos. | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰਡ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ ਅਤੇ ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਮੰਗੇਗੀ। |  |
+| `reg.voice.pmfby` | Your field is registered. If a flood hits your field, Saboot will call you. You will then have 72 hours to report. | ਤੁਹਾਡਾ ਖੇਤ ਰਜਿਸਟਰ ਹੈ। ਜੇ ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਹੜ੍ਹ ਆਉਂਦਾ ਹੈ, ਤਾਂ ਸਬੂਤ ਐਪ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ। ਫਿਰ ਤੁਹਾਡੇ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ 72 ਘੰਟੇ ਹੋਣਗੇ। |  |
 | `reg.listen` | Listen | ਸੁਣੋ |  |
 | `hm.consentTitle` | Consent from {farmer} | ਕਿਸਾਨ {farmer} ਦੀ ਸਹਿਮਤੀ |  |
 | `hm.consentIntro` | Read this out to {farmer}. {farmer} agrees by pressing and holding the button, or by speaking. Nothing is captured without it. | {farmer} ਨੂੰ ਇਹ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। {farmer} ਬਟਨ ਦਬਾ ਕੇ ਰੱਖ ਕੇ, ਜਾਂ ਬੋਲ ਕੇ ਸਹਿਮਤੀ ਦਿੰਦੇ ਹਨ। ਇਸ ਤੋਂ ਬਿਨਾਂ ਕੁਝ ਵੀ ਦਰਜ ਨਹੀਂ ਹੁੰਦਾ। |  |
@@ -195,6 +219,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `hm.a.view` | View | ਵੇਖੋ |  |
 | `hm.note` | Each farmer’s consent and photos are sealed in that farmer’s own log, with your name on every photo. You only capture. Saboot decides nothing. | ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਫ਼ੋਟੋਆਂ ਉਸੇ ਕਿਸਾਨ ਦੇ ਆਪਣੇ ਲਾਗ ਵਿੱਚ ਸੀਲ ਹੁੰਦੀਆਂ ਹਨ, ਹਰ ਫ਼ੋਟੋ ਉੱਤੇ ਤੁਹਾਡਾ ਨਾਂ ਰਹਿੰਦਾ ਹੈ। ਤੁਸੀਂ ਸਿਰਫ਼ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦੇ ਹੋ। ਸਬੂਤ ਕੋਈ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |  |
 | `hm.phoneBtn` | A farmer without a smartphone (design simulation) | ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ (ਡਿਜ਼ਾਈਨ ਸਿਮੂਲੇਸ਼ਨ) |  |
+| `hm.fpFuture` | Future: a farmer with no smartphone? | ਅੱਗੇ: ਬਿਨਾਂ ਸਮਾਰਟਫ਼ੋਨ ਵਾਲਾ ਕਿਸਾਨ? |  |
 | `hm.end` | End helper session | ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰੋ |  |
 | `hm.r.sarpanch` | Sarpanch | ਸਰਪੰਚ |  |
 | `hm.r.csc` | CSC operator | ਸੀਐੱਸਸੀ ਚਲਾਉਣ ਵਾਲਾ |  |
@@ -207,20 +232,33 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `hm.card.btn` | Open helper mode | ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ |  |
 | `hm.noDamage` | The farmer reports no damage | ਕਿਸਾਨ ਨੇ ਦੱਸਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ |  |
 | `hm.next` | Next farmer | ਅਗਲਾ ਕਿਸਾਨ |  |
-| `fl.title` | Share your evidence | ਆਪਣਾ ਪ੍ਰਮਾਣ ਸਾਂਝਾ ਕਰੋ |  |
+| `hm.endAsk` | End the helper session? Each farmer’s consent and sealed evidence stays on this phone. | ਸਹਾਇਕ ਸੈਸ਼ਨ ਖ਼ਤਮ ਕਰਨਾ ਹੈ? ਹਰ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਅਤੇ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਇਸੇ ਫ਼ੋਨ ਉੱਤੇ ਰਹੇਗਾ। |  |
+| `hm.endYes` | Yes, end it | ਹਾਂ, ਖ਼ਤਮ ਕਰੋ |  |
+| `hm.endNo` | Keep working | ਕੰਮ ਜਾਰੀ ਰੱਖੋ |  |
+| `hm.seal` | Seal {farmer}’s evidence | {farmer} ਦਾ ਸਬੂਤ ਸੀਲ ਕਰੋ |  |
+| `hm.pkTitle` | {farmer}’s evidence | {farmer} ਦਾ ਸਬੂਤ |  |
+| `hm.kBody` | {farmer}’s proof as a code the officer can scan. It holds only fingerprints, times and a rough location; the photos stay on this phone. | {farmer} ਦਾ ਸਬੂਤ, ਇੱਕ ਕੋਡ ਵਜੋਂ ਜਿਸ ਨੂੰ ਅਧਿਕਾਰੀ ਸਕੈਨ ਕਰ ਸਕਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ, ਸਮਾਂ ਅਤੇ ਅੰਦਾਜ਼ਨ ਥਾਂ ਹੈ; ਫ਼ੋਟੋਆਂ ਇਸੇ ਫ਼ੋਨ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
+| `hm.flTitle` | Report {farmer}’s loss | {farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
+| `hm.flTitle.pmfby` | Report {farmer}’s loss | {farmer} ਦੇ ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
+| `hm.noDamageDone` | Recorded for {farmer}: no damage. Nothing more is needed. | {farmer} ਲਈ ਦਰਜ ਕੀਤਾ ਗਿਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। ਹੋਰ ਕੁਝ ਨਹੀਂ ਚਾਹੀਦਾ। |  |
+| `hm.jumpAlert` | Jump to the first alert (replay) | ਪਹਿਲੀ ਚੇਤਾਵਨੀ ਉੱਤੇ ਜਾਓ (ਰੀਪਲੇ) |  |
+| `hm.paused` | The replay pauses when you open a farmer, so their consent, photos and seal carry the replay time at which you did them. | ਕਿਸੇ ਕਿਸਾਨ ਨੂੰ ਖੋਲ੍ਹਦੇ ਹੀ ਰੀਪਲੇ ਰੁਕ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਜੋ ਉਨ੍ਹਾਂ ਦੀ ਸਹਿਮਤੀ, ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਉੱਤੇ ਰੀਪਲੇ ਦਾ ਉਹੀ ਸਮਾਂ ਦਰਜ ਹੋਵੇ ਜਦੋਂ ਤੁਸੀਂ ਇਹ ਕੀਤੇ। |  |
+| `fl.title` | Report the loss | ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
 | `fl.title.pmfby` | Report your loss | ਨੁਕਸਾਨ ਦੀ ਰਿਪੋਰਟ ਕਰੋ |  |
-| `fl.intro` | Saboot does not submit anything. Show your sealed evidence to the officer who assesses your village. Your details are ready. | ਸਬੂਤ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦਾ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ। |  |
-| `fl.intro.pmfby` | Saboot does not file for you. Report through the official channel. Your details are ready. | ਸਬੂਤ ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਾਅਵਾ ਦਰਜ ਨਹੀਂ ਕਰਦਾ। ਸਰਕਾਰੀ ਰਾਹ ਰਾਹੀਂ ਰਿਪੋਰਟ ਕਰੋ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਤਿਆਰ ਹੈ। |  |
+| `fl.intro` | Saboot does not submit anything. Tell the officer who assesses your village and show your sealed evidence: its QR code is on the Proof tab. Your details are ready. | ਸਬੂਤ ਐਪ ਕੁਝ ਵੀ ਜਮ੍ਹਾ ਨਹੀਂ ਕਰਦੀ। ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ ਅਤੇ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਵਿਖਾਓ: ਉਸ ਦਾ QR ਕੋਡ “ਮੇਰਾ ਸਬੂਤ” ਟੈਬ ਉੱਤੇ ਹੈ। ਤੁਹਾਡਾ ਵੇਰਵਾ ਤਿਆਰ ਹੈ। |  |
+| `fl.intro.pmfby` | Saboot does not file for you. Report through the official channel. Your details are ready. | ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਾਅਵਾ ਦਰਜ ਨਹੀਂ ਕਰਦੀ। ਸਰਕਾਰੀ ਰਾਹ ਰਾਹੀਂ ਰਿਪੋਰਟ ਕਰੋ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਤਿਆਰ ਹੈ। |  |
 | `fl.summary` | Your details | ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ |  |
 | `fl.copy` | Copy details | ਜਾਣਕਾਰੀ ਕਾਪੀ ਕਰੋ |  |
 | `fl.copied` | Copied | ਕਾਪੀ ਹੋ ਗਈ |  |
 | `fl.copyFail` | Could not copy. Please read the details aloud instead. | ਕਾਪੀ ਨਹੀਂ ਹੋ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਣਕਾਰੀ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। |  |
+| `fl.again` | Your details and how to report | ਤੁਹਾਡਾ ਵੇਰਵਾ ਅਤੇ ਰਿਪੋਰਟ ਕਰਨ ਦਾ ਤਰੀਕਾ |  |
 | `fl.steps` | How to report | ਰਿਪੋਰਟ ਕਿਵੇਂ ਕਰੀਏ |  |
 | `fl.s1` | Tell the officer who assesses your village that you have sealed photos of the flood. | ਆਪਣੇ ਪਿੰਡ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਹੜ੍ਹ ਦੀਆਂ ਸੀਲ ਕੀਤੀਆਂ ਫ਼ੋਟੋਆਂ ਹਨ। |  |
 | `fl.s1.pmfby` | Call the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, or open the Crop Insurance App. | Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਉੱਤੇ ਫ਼ੋਨ ਕਰੋ, ਜਾਂ Crop Insurance App ਖੋਲ੍ਹੋ। |  |
 | `fl.s2` | Give your plot number and show the details on this screen. | ਆਪਣਾ ਖੇਤ ਨੰਬਰ ਦੱਸੋ ਅਤੇ ਇਸ ਸਕ੍ਰੀਨ ਦਾ ਵੇਰਵਾ ਵਿਖਾਓ। |  |
 | `fl.s2.pmfby` | Say: crop loss from flood. Give your policy number and plot number. | ਕਹੋ: ਹੜ੍ਹ ਨਾਲ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ। ਆਪਣਾ ਪਾਲਿਸੀ ਨੰਬਰ ਅਤੇ ਖੇਤ ਨੰਬਰ ਦੱਸੋ। |  |
-| `fl.s3` | If asked, read out your evidence fingerprint. | ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣੇ ਸਬੂਤ ਦਾ ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। |  |
+| `fl.s3` | If asked, read out your check code (8 digits). | ਪੁੱਛੇ ਜਾਣ ਉੱਤੇ ਆਪਣਾ ਜਾਂਚ ਕੋਡ (8 ਅੰਕ) ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। |  |
+| `fl.check` | Check code | ਜਾਂਚ ਕੋਡ |  |
 | `fl.s4` | Write down any receipt or entry number you are given. | ਤੁਹਾਨੂੰ ਜੋ ਵੀ ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ ਮਿਲੇ, ਉਹ ਲਿਖ ਲਓ। |  |
 | `fl.s4.pmfby` | Write down the reference number they give you. | ਉਹ ਜੋ ਹਵਾਲਾ ਨੰਬਰ ਦੇਣ, ਉਸ ਨੂੰ ਲਿਖ ਲਓ। |  |
 | `fl.ref` | Receipt or entry number | ਰਸੀਦ ਜਾਂ ਐਂਟਰੀ ਨੰਬਰ |  |
@@ -236,9 +274,10 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `fl.deadline.pmfby` | Report before | ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਰਿਪੋਰਟ ਕਰੋ |  |
 | `fl.farmer` | Farmer | ਕਿਸਾਨ |  |
 | `fl.event` | Event began | ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਈ |  |
-| `st.title` | Claim status | ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ |  |
-| `st.note` | Saboot tracks. The officer decides. | ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। |  |
-| `st.note.pmfby` | Saboot tracks. The insurer decides. | ਸਬੂਤ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। |  |
+| `st.title` | Evidence status | ਸਬੂਤ ਦੀ ਸਥਿਤੀ |  |
+| `st.title.pmfby` | Claim status | ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ |  |
+| `st.note` | Saboot tracks. The officer decides. | ਸਬੂਤ ਐਪ ਨਜ਼ਰ ਰੱਖਦੀ ਹੈ। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। |  |
+| `st.note.pmfby` | Saboot tracks. The insurer decides. | ਸਬੂਤ ਐਪ ਨਜ਼ਰ ਰੱਖਦੀ ਹੈ। ਫ਼ੈਸਲਾ ਬੀਮਾ ਕੰਪਨੀ ਕਰਦੀ ਹੈ। |  |
 | `st.detected` | Event detected | ਘਟਨਾ ਪਛਾਣੀ ਗਈ |  |
 | `st.alerted` | Alert received | ਚੇਤਾਵਨੀ ਮਿਲੀ |  |
 | `st.captured` | Photos taken | ਫ਼ੋਟੋਆਂ ਖਿੱਚੀਆਂ |  |
@@ -264,19 +303,18 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `st.escalated` | Escalated to the district office | ਜ਼ਿਲ੍ਹਾ ਦਫ਼ਤਰ ਨੂੰ ਭੇਜਿਆ ਗਿਆ |  |
 | `st.escalated.pmfby` | Escalated to the district agriculture office | ਜ਼ਿਲ੍ਹਾ ਖੇਤੀਬਾੜੀ ਦਫ਼ਤਰ ਨੂੰ ਭੇਜਿਆ ਗਿਆ |  |
 | `st.none` | No reminders needed. | ਅਜੇ ਯਾਦ ਦਿਵਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ। |  |
-| `st.decisionNote` | Saboot never decides. The officer does. | ਸਬੂਤ ਕਦੇ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। |  |
-| `st.decisionNote.pmfby` | Saboot never decides claims. | ਸਬੂਤ ਕਦੇ ਵੀ ਦਾਅਵਿਆਂ ਦਾ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |  |
+| `st.decisionNote` | Saboot never decides. The officer does. | ਸਬੂਤ ਐਪ ਕਦੇ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ। |  |
+| `st.decisionNote.pmfby` | Saboot never decides claims. | ਸਬੂਤ ਐਪ ਕਦੇ ਵੀ ਦਾਅਵਿਆਂ ਦਾ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦੀ। |  |
 | `st.surveyAt` | Scheduled {time} | {time} ਲਈ ਤੈਅ |  |
 | `f.nav.home` | Home | ਹੋਮ |  |
 | `f.nav.photos` | Photos | ਫ਼ੋਟੋ |  |
-| `f.nav.packet` | Proof | ਸਬੂਤ |  |
-| `f.nav.file` | Share | ਸਾਂਝਾ ਕਰੋ |  |
-| `f.nav.file.pmfby` | Report | ਰਿਪੋਰਟ |  |
-| `f.nav.status` | Status | ਸਥਿਤੀ |  |
+| `f.nav.packet` | Proof | ਮੇਰਾ ਸਬੂਤ |  |
+| `f.nav.report` | Report | ਰਿਪੋਰਟ |  |
 | `f.read` | Read aloud | ਸੁਣੋ |  |
 | `f.stop` | Stop | ਰੋਕੋ |  |
 | `f.captions` | Captions | ਕੈਪਸ਼ਨ |  |
-| `f.voiceNA` | Voice is not available on this phone for this language. Please read the captions. | ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਪਸ਼ਨ ਪੜ੍ਹੋ। |  |
+| `f.voiceNA` | This phone has no {lang} voice of its own, so nothing is played: Saboot never sends your words to an online voice. Please read the captions, or add a {lang} voice in the phone’s text-to-speech settings. | ਇਸ ਫ਼ੋਨ ਵਿੱਚ {lang} ਦੀ ਆਪਣੀ ਆਵਾਜ਼ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਕੁਝ ਨਹੀਂ ਚਲਾਇਆ ਗਿਆ: ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਸ਼ਬਦ ਕਿਸੇ ਔਨਲਾਈਨ ਆਵਾਜ਼ ਨੂੰ ਕਦੇ ਨਹੀਂ ਭੇਜਦੀ। ਕਿਰਪਾ ਕਰਕੇ ਕੈਪਸ਼ਨ ਪੜ੍ਹੋ, ਜਾਂ ਫ਼ੋਨ ਦੀ ਟੈਕਸਟ-ਟੂ-ਸਪੀਚ ਸੈਟਿੰਗ ਵਿੱਚ {lang} ਆਵਾਜ਼ ਜੋੜੋ। |  |
+| `f.voiceCall` | In real use this message also comes as a phone call (simulated here). | ਅਸਲ ਵਰਤੋਂ ਵਿੱਚ ਇਹ ਸੁਨੇਹਾ ਫ਼ੋਨ ਕਾਲ ਰਾਹੀਂ ਵੀ ਆਉਂਦਾ ਹੈ (ਇੱਥੇ ਸਿਮੂਲੇਟਡ)। |  |
 | `f.rewound` | The replay moved forward to your latest action, so nothing you did is lost. | ਰੀਪਲੇ ਤੁਹਾਡੀ ਆਖ਼ਰੀ ਕਾਰਵਾਈ ਤੱਕ ਅੱਗੇ ਵਧ ਗਿਆ, ਇਸ ਲਈ ਤੁਹਾਡਾ ਕੀਤਾ ਹੋਇਆ ਕੁਝ ਵੀ ਨਹੀਂ ਗੁਆਚਿਆ। |  |
 | `f.ok` | OK | ਠੀਕ ਹੈ |  |
 | `prov.live` | Live | ਲਾਈਵ |  |
@@ -302,10 +340,11 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `ctl.ask.keep` | Keep what was captured | ਜੋ ਲਿਆ ਗਿਆ ਹੈ ਉਸ ਨੂੰ ਰੱਖੋ |  |
 | `ctl.ask.go` | Clear it and start over | ਮਿਟਾ ਕੇ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ |  |
 | `ctl.more` | More controls | ਹੋਰ ਕੰਟਰੋਲ |  |
+| `ctl.moreShort` | Moments | ਪਲ |  |
 | `ctl.moreTitle` | Replay controls | ਰੀਪਲੇ ਕੰਟਰੋਲ |  |
 | `ctl.net` | Phone network | ਫ਼ੋਨ ਨੈੱਟਵਰਕ |  |
 | `sim.tag` | Simulation | ਸਿਮੂਲੇਸ਼ਨ |  |
-| `sim.tagShort` | Sim | SIM |  |
+| `sim.tagShort` | Sim | ਸਿਮ. |  |
 | `sim.eyebrow` | Simulation | ਸਿਮੂਲੇਸ਼ਨ |  |
 | `sim.h` | One flood, end to end. | ਇੱਕ ਹੜ੍ਹ, ਸ਼ੁਰੂ ਤੋਂ ਅੰਤ ਤੱਕ। |  |
 | `sim.lead` | A week of synthetic weather over {plots} fictional plots. Play it, scrub it or jump to a moment. You hold the farmer’s phone; the officer sees the evidence. | {plots} ਕਾਲਪਨਿਕ ਖੇਤਾਂ ਉੱਤੇ ਇੱਕ ਹਫ਼ਤੇ ਦਾ ਨਕਲੀ ਮੌਸਮ। ਇਸ ਨੂੰ ਚਲਾਓ, ਅੱਗੇ-ਪਿੱਛੇ ਕਰੋ ਜਾਂ ਕਿਸੇ ਪਲ ਉੱਤੇ ਜਾਓ। ਕਿਸਾਨ ਦਾ ਫ਼ੋਨ ਤੁਹਾਡੇ ਹੱਥ ਵਿੱਚ ਹੈ; ਅਧਿਕਾਰੀ ਪ੍ਰਮਾਣ ਵੇਖਦਾ ਹੈ। |  |
@@ -313,7 +352,6 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `sim.tab.farmer` | Farmer | ਕਿਸਾਨ |  |
 | `sim.tab.insurer` | Insurer | ਬੀਮਾ ਕੰਪਨੀ |  |
 | `sim.tab.insurer.relief` | Officer | ਅਧਿਕਾਰੀ |  |
-| `sim.tab.ledger` | Ledger | ਲੇਜਰ |  |
 | `sim.tab.explainer` | Explainer | ਵਿਆਖਿਆ |  |
 | `sim.phoneCap` | The farmer’s phone, running for real in your browser | ਕਿਸਾਨ ਦਾ ਫ਼ੋਨ, ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਸੱਚਮੁੱਚ ਚੱਲ ਰਿਹਾ ਹੈ |  |
 | `sim.loading` | Loading the flood replay… | ਹੜ੍ਹ ਦਾ ਰੀਪਲੇ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… |  |
@@ -337,10 +375,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `hero.h` | The clock starts at the storm. | ਘੜੀ ਤੂਫ਼ਾਨ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ। |  |
 | `hero.l1` | Saboot watches rain, river and satellite signals over registered fields, starts the evidence clock when a flood is likely, and calls the farmer in their language. | ਸਬੂਤ ਰਜਿਸਟਰਡ ਖੇਤਾਂ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ ਅਤੇ ਸੈਟੇਲਾਈਟ ਸੰਕੇਤਾਂ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ, ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਹੁੰਦੇ ਹੀ ਪ੍ਰਮਾਣ ਦੀ ਘੜੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ ਅਤੇ ਕਿਸਾਨ ਨੂੰ ਉਸ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਫ਼ੋਨ ਕਰਦਾ ਹੈ। |  |
 | `hero.l2` | It guides photos that work offline and seals them so any edit shows. The officer who assesses the loss gets a ranked, checkable trail. | ਇਹ ਆਫ਼ਲਾਈਨ ਵੀ ਚੱਲਣ ਵਾਲੀਆਂ ਫ਼ੋਟੋਆਂ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਸੀਲ ਕਰਦਾ ਹੈ ਕਿ ਕੋਈ ਵੀ ਤਬਦੀਲੀ ਦਿਸ ਜਾਵੇ। ਨੁਕਸਾਨ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਵਾਲੇ ਅਧਿਕਾਰੀ ਨੂੰ ਕ੍ਰਮਵਾਰ, ਜਾਂਚਣ ਯੋਗ ਰਿਕਾਰਡ ਮਿਲਦਾ ਹੈ। |  |
-| `hero.run` | Run the simulation | ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ |  |
-| `hero.how` | How it works | ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ |  |
+| `hero.run` | Explore it yourself | ਆਪ ਚਲਾ ਕੇ ਵੇਖੋ |  |
 | `hero.clockLabel` | Illustration: a clock that starts counting at the storm | ਚਿੱਤਰ: ਇੱਕ ਘੜੀ, ਜੋ ਤੂਫ਼ਾਨ ਨਾਲ ਗਿਣਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ |  |
-| `hero.clockCap` | Counted from the event, not from the phone call | ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਤੀ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ |  |
+| `hero.clockCap` | Illustration: an evidence clock starts at the event, not at the phone call | ਉਦਾਹਰਨ: ਸਬੂਤ ਦੀ ਘੜੀ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਚੱਲਦੀ ਹੈ, ਫ਼ੋਨ ਕਾਲ ਤੋਂ ਨਹੀਂ |  |
 | `hero.labels` | Every value on screen says where it came from: | ਸਕ੍ਰੀਨ ਉੱਤੇ ਹਰ ਅੰਕੜਾ ਦੱਸਦਾ ਹੈ ਕਿ ਉਹ ਕਿੱਥੋਂ ਆਇਆ: |  |
 | `pb.eyebrow` | The problem | ਸਮੱਸਿਆ |  |
 | `pb.h` | Evidence fades faster than assessments happen. | ਪ੍ਰਮਾਣ ਮੁਲਾਂਕਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਫਿੱਕੇ ਪੈ ਜਾਂਦੇ ਹਨ। |  |
@@ -377,6 +414,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `foot.build` | Build {b} | ਬਿਲਡ {b} |  |
 | `tour.invite` | New here? Take the 2-minute judge tour. | ਪਹਿਲੀ ਵਾਰ? 2 ਮਿੰਟ ਦਾ ਜੱਜ ਟੂਰ ਲਓ। |  |
 | `tour.start` | Start tour | ਟੂਰ ਸ਼ੁਰੂ ਕਰੋ |  |
+| `tour.hero` | Take the 2-minute tour | 2 ਮਿੰਟ ਦਾ ਟੂਰ ਲਓ |  |
+| `tour.menu` | Guided tour, 2 minutes | ਗਾਈਡ ਵਾਲਾ ਟੂਰ, 2 ਮਿੰਟ |  |
+| `tour.loading` | Loading the tour… | ਟੂਰ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… |  |
 | `tour.dismiss` | Dismiss | ਹਟਾਓ |  |
 | `tour.step` | Judge tour · {n} / {total} | ਜੱਜ ਟੂਰ · {n} / {total} |  |
 | `tour.skip` | Skip tour | ਟੂਰ ਛੱਡੋ |  |
@@ -387,6 +427,9 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `tour.next` | Next | ਅੱਗੇ |  |
 | `tour.finish` | Finish | ਸਮਾਪਤ |  |
 | `tour.manual` | Auto-advance is off because your device asks for reduced motion. | ਤੁਹਾਡਾ ਡਿਵਾਈਸ ਘੱਟ ਹਿਲਜੁਲ (ਰਿਡਿਊਸਡ ਮੋਸ਼ਨ) ਚਾਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਟੂਰ ਆਪਣੇ ਆਪ ਅੱਗੇ ਨਹੀਂ ਵਧੇਗਾ। |  |
+| `tour.offline` | Go offline | ਆਫ਼ਲਾਈਨ ਕਰੋ |  |
+| `tour.online` | Back online | ਮੁੜ ਔਨਲਾਈਨ ਕਰੋ |  |
+| `tour.tamperTry` | Run the tamper test | Tamper test ਚਲਾਓ |  |
 | `tour.s1.t` | The clock starts at the storm | ਘੜੀ ਤੂਫ਼ਾਨ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ |  |
 | `tour.s1.b` | After a flood, the assessment often happens once the evidence has faded. Saboot starts a clock at the event, counted from when the water arrives, not from when the farmer hears. Everything here is a simulation with synthetic data. | ਹੜ੍ਹ ਤੋਂ ਬਾਅਦ ਮੁਲਾਂਕਣ ਅਕਸਰ ਉਦੋਂ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਪ੍ਰਮਾਣ ਫਿੱਕੇ ਪੈ ਚੁੱਕੇ ਹੁੰਦੇ ਹਨ। ਸਬੂਤ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਘੜੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ, ਯਾਨੀ ਜਦੋਂ ਪਾਣੀ ਪਹੁੰਚਦਾ ਹੈ ਉਦੋਂ ਤੋਂ, ਨਾ ਕਿ ਜਦੋਂ ਕਿਸਾਨ ਨੂੰ ਪਤਾ ਲੱਗਦਾ ਹੈ। ਇੱਥੇ ਸਭ ਕੁਝ ਨਕਲੀ ਡਾਟੇ ਵਾਲਾ ਸਿਮੂਲੇਸ਼ਨ ਹੈ। |  |
 | `tour.s1.b.pmfby` | For a flood, crop-insurance loss has to be reported within 72 hours, counted from when the water arrives, not from when the farmer hears. Saboot closes that gap. Everything here is a simulation with synthetic data. | ਹੜ੍ਹ ਵਿੱਚ ਫ਼ਸਲ ਬੀਮਾ ਨੁਕਸਾਨ ਦੀ ਸੂਚਨਾ 72 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਦੇਣੀ ਪੈਂਦੀ ਹੈ, ਜੋ ਪਾਣੀ ਆਉਣ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣੇ ਜਾਂਦੇ ਹਨ, ਕਿਸਾਨ ਨੂੰ ਪਤਾ ਲੱਗਣ ਤੋਂ ਨਹੀਂ। ਸਬੂਤ ਇਹੀ ਫ਼ਾਸਲਾ ਮਿਟਾਉਂਦਾ ਹੈ। ਇੱਥੇ ਸਭ ਕੁਝ ਨਕਲੀ ਡਾਟਾ ਵਾਲਾ ਸਿਮੂਲੇਸ਼ਨ ਹੈ। |  |
@@ -396,10 +439,12 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `tour.s3.b` | {name} gets a voice call in {language}, {focus} after the event began, and is asked to capture soon. The median farmer in this replay is called {median} after the event; the slowest tenth wait {p90}, because only radar can see their plots. The advice is not a deadline. | {name} ਨੂੰ {language} ਵਿੱਚ ਫ਼ੋਨ ਆਉਂਦਾ ਹੈ, ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ {focus} ਬਾਅਦ, ਅਤੇ ਜਲਦੀ ਫ਼ੋਟੋਆਂ ਲੈਣ ਲਈ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਇਸ ਰੀਪਲੇ ਵਿੱਚ ਵਿਚਕਾਰਲੇ ਕਿਸਾਨ (ਮੱਧਮਾਨ) ਨੂੰ ਘਟਨਾ ਤੋਂ {median} ਬਾਅਦ ਫ਼ੋਨ ਆਉਂਦਾ ਹੈ; ਸਭ ਤੋਂ ਹੌਲੀ ਦਸਵੇਂ ਹਿੱਸੇ ਨੂੰ {p90} ਉਡੀਕ ਕਰਨੀ ਪੈਂਦੀ ਹੈ, ਕਿਉਂਕਿ ਉਨ੍ਹਾਂ ਦੇ ਖੇਤ ਸਿਰਫ਼ ਰਡਾਰ ਨੂੰ ਦਿਸਦੇ ਹਨ। ਇਹ ਸਲਾਹ ਹੈ, ਸਮਾਂ-ਸੀਮਾ ਨਹੀਂ। |  |
 | `tour.s3.b.pmfby` | {name} gets a voice call in {language}, {focus} after the event began. The countdown already reads {left}, because Saboot counts from the event. The median farmer in this replay is called {median} after the event; the slowest tenth wait {p90}. | {name} ਨੂੰ {language} ਵਿੱਚ ਫ਼ੋਨ ਆਉਂਦਾ ਹੈ, ਘਟਨਾ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ {focus} ਬਾਅਦ। ਉਲਟੀ ਗਿਣਤੀ ਪਹਿਲਾਂ ਹੀ {left} ਦਿਖਾਉਂਦੀ ਹੈ, ਕਿਉਂਕਿ ਸਬੂਤ ਘਟਨਾ ਦੇ ਸਮੇਂ ਤੋਂ ਗਿਣਦਾ ਹੈ। ਇਸ ਰੀਪਲੇ ਵਿੱਚ ਵਿਚਕਾਰਲੇ ਕਿਸਾਨ (ਮੱਧਮਾਨ) ਨੂੰ ਘਟਨਾ ਤੋਂ {median} ਬਾਅਦ ਫ਼ੋਨ ਆਉਂਦਾ ਹੈ; ਸਭ ਤੋਂ ਹੌਲੀ ਦਸਵੇਂ ਹਿੱਸੇ ਨੂੰ {p90} ਉਡੀਕ ਕਰਨੀ ਪੈਂਦੀ ਹੈ। |  |
 | `tour.s4.t` | Three guided photos, even offline | ਤਿੰਨ ਨਿਰਦੇਸ਼ਿਤ ਫ਼ੋਟੋਆਂ, ਆਫ਼ਲਾਈਨ ਵੀ |  |
-| `tour.s4.b` | Whole field, close-up, landmark. Each photo gets time, place and a SHA-256 fingerprint on the phone. Switch the network to Weak or Offline: items wait, and the sync log shows phone time against server time. | ਪੂਰਾ ਖੇਤ, ਨੇੜਿਓਂ, ਪਛਾਣ ਚਿੰਨ੍ਹ। ਹਰ ਫ਼ੋਟੋ ਨੂੰ ਫ਼ੋਨ ਉੱਤੇ ਹੀ ਸਮਾਂ, ਥਾਂ ਅਤੇ SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਮਿਲਦਾ ਹੈ। ਨੈੱਟਵਰਕ ਨੂੰ ਕਮਜ਼ੋਰ ਜਾਂ ਆਫ਼ਲਾਈਨ ਕਰੋ: ਚੀਜ਼ਾਂ ਕਤਾਰ ਵਿੱਚ ਰੁਕਦੀਆਂ ਹਨ, ਅਤੇ ਸਿੰਕ ਰਿਕਾਰਡ ਫ਼ੋਨ ਦਾ ਸਮਾਂ ਅਤੇ ਸਰਵਰ ਦਾ ਸਮਾਂ ਵਿਖਾਉਂਦਾ ਹੈ। |  |
+| `tour.s4.b` | Whole field, close-up, landmark. Each photo gets time, place and a SHA-256 fingerprint on the phone. Try it offline with the button below: items wait, and the sync log shows phone time against server time. | ਪੂਰਾ ਖੇਤ, ਨੇੜਿਓਂ, ਪਛਾਣ ਚਿੰਨ੍ਹ। ਹਰ ਫ਼ੋਟੋ ਨੂੰ ਫ਼ੋਨ ਉੱਤੇ ਹੀ ਸਮਾਂ, ਥਾਂ ਅਤੇ SHA-256 ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ ਮਿਲਦਾ ਹੈ। ਹੇਠਲੇ ਬਟਨ ਨਾਲ ਆਫ਼ਲਾਈਨ ਕਰਕੇ ਵੇਖੋ: ਚੀਜ਼ਾਂ ਕਤਾਰ ਵਿੱਚ ਰੁਕਦੀਆਂ ਹਨ, ਅਤੇ ਸਿੰਕ ਰਿਕਾਰਡ ਫ਼ੋਨ ਦਾ ਸਮਾਂ ਅਤੇ ਸਰਵਰ ਦਾ ਸਮਾਂ ਵਿਖਾਉਂਦਾ ਹੈ। |  |
 | `tour.s5.t` | Evidence that shows any edit | ਹਰ ਬਦਲਾਅ ਵਿਖਾਉਣ ਵਾਲਾ ਪ੍ਰਮਾਣ |  |
 | `tour.s5.b` | Every action is chained to the one before. Change anything later, even a timestamp, and verification fails. The farmer shows the sealed evidence to the officer; Saboot never files and never decides. | ਹਰ ਕਾਰਵਾਈ ਆਪਣੀ ਪਿਛਲੀ ਕਾਰਵਾਈ ਨਾਲ ਜੁੜੀ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਕੁਝ ਵੀ ਬਦਲੋ, ਸਮਾਂ ਵੀ, ਤਾਂ ਜਾਂਚ ਫ਼ੇਲ੍ਹ ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ; ਸਬੂਤ ਨਾ ਕੁਝ ਜਮ੍ਹਾ ਕਰਦਾ ਹੈ, ਨਾ ਫ਼ੈਸਲਾ ਕਰਦਾ ਹੈ। |  |
 | `tour.s5.b.pmfby` | Every action is chained to the one before. Change anything later, even a timestamp, and verification fails. The farmer files through the official channel; Saboot never files and never decides. | ਹਰ ਕਾਰਵਾਈ ਪਿਛਲੀ ਨਾਲ ਜੁੜੀ ਹੁੰਦੀ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਕੁਝ ਵੀ ਬਦਲੋ, ਸਮਾਂ ਵੀ, ਤਾਂ ਜਾਂਚ ਫ਼ੇਲ੍ਹ ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿਸਾਨ ਸਰਕਾਰੀ ਰਾਹ ਰਾਹੀਂ ਦਾਅਵਾ ਦਰਜ ਕਰਦਾ ਹੈ; ਸਬੂਤ ਨਾ ਦਰਜ ਕਰਦਾ ਹੈ, ਨਾ ਫ਼ੈਸਲਾ ਕਰਦਾ ਹੈ। |  |
+| `tour.s5t.t` | Tamper check: one changed record breaks the chain | ਛੇੜਛਾੜ ਜਾਂਚ: ਇੱਕ ਬਦਲਿਆ ਰਿਕਾਰਡ ਸਾਰੀ ਕੜੀ ਤੋੜ ਦਿੰਦਾ ਹੈ |  |
+| `tour.s5t.b` | The officer’s console keeps every event in a hash chain. Run the tamper test: one record is backdated by 6 hours without re-hashing, and verification fails at exactly that record. The tour puts it back when you move on. | ਅਧਿਕਾਰੀ ਦੇ ਕੰਸੋਲ ਵਿੱਚ ਹਰ ਘਟਨਾ ਇੱਕ ਹੈਸ਼-ਕੜੀ ਵਿੱਚ ਦਰਜ ਹੈ। “Tamper test” ਚਲਾਓ: ਇੱਕ ਰਿਕਾਰਡ ਦਾ ਸਮਾਂ ਮੁੜ ਹੈਸ਼ ਕੀਤੇ ਬਿਨਾਂ 6 ਘੰਟੇ ਪਿੱਛੇ ਕਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਜਾਂਚ ਠੀਕ ਉਸੇ ਰਿਕਾਰਡ ਉੱਤੇ ਫ਼ੇਲ੍ਹ ਹੁੰਦੀ ਹੈ। ਅੱਗੇ ਵਧਣ ਉੱਤੇ ਟੂਰ ਉਸ ਨੂੰ ਵਾਪਸ ਠੀਕ ਕਰ ਦਿੰਦਾ ਹੈ। |  |
 | `tour.s6.t` | Ranked evidence, not verdicts | ਤਰਤੀਬਵਾਰ ਪ੍ਰਮਾਣ, ਫ਼ੈਸਲੇ ਨਹੀਂ |  |
 | `tour.s6.b` | Officers see a ranked worklist with evidence tiers and their uncertainty, a draft list for review and an audit ledger. The decision is made outside Saboot, by a person. | ਅਧਿਕਾਰੀ ਨੂੰ ਪ੍ਰਮਾਣ-ਪੱਧਰਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਅਨਿਸ਼ਚਿਤਤਾ ਸਮੇਤ ਕ੍ਰਮਵਾਰ ਕੰਮ-ਸੂਚੀ, ਸਮੀਖਿਆ ਲਈ ਖਰੜਾ ਸੂਚੀ ਅਤੇ ਆਡਿਟ ਲੇਜਰ ਦਿਖਦਾ ਹੈ। ਫ਼ੈਸਲਾ ਸਬੂਤ ਦੇ ਬਾਹਰ, ਕਿਸੇ ਵਿਅਕਤੀ ਵੱਲੋਂ ਹੁੰਦਾ ਹੈ। |  |
 | `tour.s6.b.pmfby` | Insurers and district officers see evidence tiers with their uncertainty, an inspection queue and an audit ledger. The decision is made outside Saboot, by a person. | ਬੀਮਾ ਕੰਪਨੀ ਅਤੇ ਜ਼ਿਲ੍ਹਾ ਅਫ਼ਸਰ ਅਨਿਸ਼ਚਿਤਤਾ ਸਮੇਤ ਪ੍ਰਮਾਣ-ਪੱਧਰ, ਜਾਂਚ ਕਤਾਰ ਅਤੇ ਆਡਿਟ ਲੇਜਰ ਵੇਖਦੇ ਹਨ। ਫ਼ੈਸਲਾ ਸਬੂਤ ਤੋਂ ਬਾਹਰ, ਇੱਕ ਵਿਅਕਤੀ ਕਰਦਾ ਹੈ। |  |
@@ -436,6 +481,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `arch.aud.s` | Append-only, verifiable | ਸਿਰਫ਼ ਜੁੜਨ ਵਾਲਾ, ਜਾਂਚਣਯੋਗ |  |
 | `arch.caption` | Sources feed the event detector, the plausibility score and the evidence clock on the server. The clock triggers the farmer alert, guided capture and the sealed evidence packet on the phone. The packet feeds the officer console, the assessment worklist, the evidence handoff and the audit ledger. Saboot decides nothing in this chain. | ਸਰੋਤ ਸਰਵਰ ਉੱਤੇ ਘਟਨਾ ਪਛਾਣ, ਭਰੋਸਯੋਗਤਾ ਸਕੋਰ ਅਤੇ ਪ੍ਰਮਾਣ ਦੀ ਘੜੀ ਨੂੰ ਡਾਟਾ ਦਿੰਦੇ ਹਨ। ਘੜੀ ਫ਼ੋਨ ਉੱਤੇ ਕਿਸਾਨ ਦੀ ਚੇਤਾਵਨੀ, ਨਿਰਦੇਸ਼ਿਤ ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪ੍ਰਮਾਣ ਪੈਕੇਟ ਨੂੰ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ। ਪੈਕੇਟ ਅਧਿਕਾਰੀ ਕੰਸੋਲ, ਮੁਲਾਂਕਣ ਕੰਮ-ਸੂਚੀ, ਪ੍ਰਮਾਣ ਸੌਂਪਣ ਅਤੇ ਆਡਿਟ ਲੇਜਰ ਨੂੰ ਡਾਟਾ ਦਿੰਦਾ ਹੈ। ਇਸ ਲੜੀ ਵਿੱਚ ਸਬੂਤ ਕੁਝ ਵੀ ਤੈਅ ਨਹੀਂ ਕਰਦਾ। |  |
 | `arch.caption.pmfby` | Sources feed the event detector, the plausibility score and the 72‑hour clock on the server. The clock triggers the farmer alert, guided capture and the sealed evidence packet on the phone. The packet feeds the insurer console, district triage, the filing handoff and the audit ledger. Nobody in this chain is Saboot deciding a claim. | ਸਰੋਤ ਸਰਵਰ ਉੱਤੇ ਘਟਨਾ ਪਛਾਣ, ਭਰੋਸਯੋਗਤਾ ਸਕੋਰ ਅਤੇ 72 ਘੰਟਿਆਂ ਦੀ ਘੜੀ ਨੂੰ ਡਾਟਾ ਦਿੰਦੇ ਹਨ। ਘੜੀ ਫ਼ੋਨ ਉੱਤੇ ਕਿਸਾਨ ਦੀ ਚੇਤਾਵਨੀ, ਨਿਰਦੇਸ਼ਿਤ ਫ਼ੋਟੋਆਂ ਅਤੇ ਸੀਲ ਕੀਤੇ ਪ੍ਰਮਾਣ ਪੈਕੇਟ ਨੂੰ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ। ਪੈਕੇਟ ਬੀਮਾ ਕੰਸੋਲ, ਜ਼ਿਲ੍ਹਾ ਤਰਜੀਹ, ਦਾਅਵਾ ਦਰਜ ਕਰਾਉਣ ਅਤੇ ਆਡਿਟ ਲੇਜਰ ਤੱਕ ਜਾਂਦਾ ਹੈ। ਇਸ ਸਾਰੀ ਕੜੀ ਵਿੱਚ ਸਬੂਤ ਕਿਤੇ ਵੀ ਦਾਅਵੇ ਦਾ ਫ਼ੈਸਲਾ ਨਹੀਂ ਕਰਦਾ। |  |
+| `arch.h` | What runs where: the architecture | ਕੀ ਕਿੱਥੇ ਚੱਲਦਾ ਹੈ: ਢਾਂਚਾ |  |
 | `wf.h` | Five steps | ਪੰਜ ਕਦਮ |  |
 | `wf.1.t` | Detect | ਪਛਾਣ |  |
 | `wf.1.b` | Rules watch rain, river, terrain and radar over every registered plot and flag a likely flood. | ਨਿਯਮ ਹਰ ਰਜਿਸਟਰਡ ਖੇਤ ਉੱਤੇ ਮੀਂਹ, ਦਰਿਆ, ਜ਼ਮੀਨ ਅਤੇ ਰਡਾਰ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦੇ ਹਨ ਅਤੇ ਸੰਭਾਵੀ ਹੜ੍ਹ ਨੂੰ ਨਿਸ਼ਾਨਬੱਧ ਕਰਦੇ ਹਨ। |  |
@@ -450,6 +496,7 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `wf.5.b` | The farmer shows the sealed evidence to the officer. Saboot keeps the audit trail and tracks the officer’s acknowledgement; the officer decides, outside Saboot. | ਕਿਸਾਨ ਸੀਲ ਕੀਤਾ ਹੋਇਆ ਪ੍ਰਮਾਣ ਅਧਿਕਾਰੀ ਨੂੰ ਵਿਖਾਉਂਦਾ ਹੈ। ਸਬੂਤ ਆਡਿਟ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ ਅਤੇ ਅਧਿਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ; ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, ਸਬੂਤ ਦੇ ਬਾਹਰ। |  |
 | `wf.5.b.pmfby` | Details are ready for the official channels (in India, for example, the Crop Insurance App, or the Krishi Rakshak Portal & Helpline (KRPH), toll-free 14447, a helpline and grievance channel). Saboot tracks the acknowledgement and escalates if it slips. | ਜਾਣਕਾਰੀ ਸਰਕਾਰੀ ਰਾਹ ਲਈ ਤਿਆਰ ਰਹਿੰਦੀ ਹੈ (ਭਾਰਤ ਵਿੱਚ, ਮਿਸਾਲ ਵਜੋਂ, Crop Insurance App, ਜਾਂ Krishi Rakshak Portal & Helpline (KRPH), ਟੋਲ-ਫ਼ਰੀ 14447, ਜੋ ਹੈਲਪਲਾਈਨ ਅਤੇ ਸ਼ਿਕਾਇਤ ਦਾ ਰਾਹ ਹੈ)। ਸਬੂਤ ਪੁਸ਼ਟੀ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖਦਾ ਹੈ ਅਤੇ ਦੇਰ ਹੋਣ ਉੱਤੇ ਸ਼ਿਕਾਇਤ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ। |  |
 | `rs.h` | What is real and what is simulated | ਕੀ ਅਸਲੀ ਹੈ ਅਤੇ ਕੀ ਸਿਮੂਲੇਟਡ |  |
+| `rs.key` | Real: code that runs in your browser on this page. Simulated: invented data or a scripted stand-in. Partly real: real code working on simulated inputs or services. | ਅਸਲੀ: ਉਹ ਕੋਡ ਜੋ ਇਸੇ ਪੰਨੇ ਉੱਤੇ ਤੁਹਾਡੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਸਿਮੂਲੇਟਡ: ਘੜਿਆ ਹੋਇਆ ਡਾਟਾ ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਤੈਅ ਨਕਲੀ ਹਿੱਸਾ। ਅੰਸ਼ਕ ਤੌਰ ਉੱਤੇ ਅਸਲੀ: ਅਸਲੀ ਕੋਡ, ਜੋ ਸਿਮੂਲੇਟਡ ਇਨਪੁੱਟ ਜਾਂ ਸੇਵਾਵਾਂ ਉੱਤੇ ਚੱਲਦਾ ਹੈ। |  |
 | `rs.c` | Part | ਹਿੱਸਾ |  |
 | `rs.demo` | In this demo | ਇਸ ਡੈਮੋ ਵਿੱਚ |  |
 | `rs.status` | Status | ਸਥਿਤੀ |  |
@@ -557,6 +604,12 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `m.deadline.pmfby` | Deadline | ਸਮਾਂ-ਸੀਮਾ |  |
 | `m.confirm` | Confirmation | ਪੁਸ਼ਟੀ |  |
 | `m.draft` | Draft list | ਖਰੜਾ ਸੂਚੀ |  |
+| `rp.h` | Is any of this real? One past flood, replayed | ਕੀ ਇਸ ਵਿੱਚੋਂ ਕੁਝ ਅਸਲੀ ਹੈ? ਇੱਕ ਪੁਰਾਣਾ ਹੜ੍ਹ, ਦੁਬਾਰਾ ਚਲਾਇਆ |  |
+| `rp.b` | Apart from the fictional district, two of the rules, as this app codes them, were run offline over {points} sample points of a published map of one real flood: {flooded} inside the mapped flood, {dry} outside it. | ਕਾਲਪਨਿਕ ਜ਼ਿਲ੍ਹੇ ਤੋਂ ਵੱਖ, ਦੋ ਨਿਯਮ, ਜਿਵੇਂ ਇਹ ਐਪ ਉਹਨਾਂ ਨੂੰ ਚਲਾਉਂਦੀ ਹੈ, ਇੱਕ ਅਸਲੀ ਹੜ੍ਹ ਦੇ ਛਪੇ ਨਕਸ਼ੇ ਦੇ {points} ਨਮੂਨਾ ਬਿੰਦੂਆਂ ਉੱਤੇ ਔਫ਼ਲਾਈਨ ਚਲਾਏ ਗਏ: {flooded} ਹੜ੍ਹ ਵਾਲੇ ਹਿੱਸੇ ਦੇ ਅੰਦਰ, {dry} ਉਸ ਤੋਂ ਬਾਹਰ। |  |
+| `rp.a` | Rain alone flagged {caught} of the {flooded} flooded points, and {fa} of the {dry} dry ones. | ਸਿਰਫ਼ ਮੀਂਹ ਦੇ ਨਿਯਮ ਨੇ {flooded} ਹੜ੍ਹ ਵਾਲੇ ਬਿੰਦੂਆਂ ਵਿੱਚੋਂ {caught} ਨੂੰ, ਅਤੇ {dry} ਸੁੱਕੇ ਬਿੰਦੂਆਂ ਵਿੱਚੋਂ {fa} ਨੂੰ ਨਿਸ਼ਾਨਬੱਧ ਕੀਤਾ। |  |
+| `rp.not` | This is not a validation: one flood, rain and river data far coarser than the flood map, no farmer, field or claim involved, and no lead time. Source: {source}. | ਇਹ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੈ: ਇੱਕੋ ਹੜ੍ਹ, ਨਕਸ਼ੇ ਨਾਲੋਂ ਕਿਤੇ ਮੋਟੇ ਮੀਂਹ ਅਤੇ ਦਰਿਆ ਦੇ ਅੰਕੜੇ, ਕੋਈ ਕਿਸਾਨ, ਖੇਤ ਜਾਂ ਦਾਅਵਾ ਸ਼ਾਮਲ ਨਹੀਂ, ਅਤੇ ਕੋਈ ਅਗਾਊਂ ਸਮਾਂ ਨਹੀਂ। ਸਰੋਤ: {source}। |  |
+| `rp.go` | See every count, with its limits, in the officer console | ਹਰ ਗਿਣਤੀ, ਉਸ ਦੀਆਂ ਹੱਦਾਂ ਸਮੇਤ, ਅਧਿਕਾਰੀ ਕੰਸੋਲ ਵਿੱਚ ਵੇਖੋ |  |
+| `rp.go.pmfby` | See every count, with its limits, in the insurer console | ਹਰ ਗਿਣਤੀ, ਉਸ ਦੀਆਂ ਹੱਦਾਂ ਸਮੇਤ, ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਕੰਸੋਲ ਵਿੱਚ ਵੇਖੋ |  |
 | `conn.label` | Phone network | ਫ਼ੋਨ ਨੈੱਟਵਰਕ |  |
 | `conn.online` | Online | ਆਨਲਾਈਨ |  |
 | `conn.weak` | Weak signal (2G) | ਕਮਜ਼ੋਰ ਸਿਗਨਲ (2G) |  |
@@ -590,13 +643,16 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `fe.note` | Not simulated: anonymous conversations with verbal consent, listed in docs/INTERVIEWS.md. What people said is their own account, not a finding. | ਸਿਮੂਲੇਟ ਨਹੀਂ: ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਗੱਲਾਂ, docs/INTERVIEWS.md ਵਿੱਚ ਦਰਜ। ਲੋਕਾਂ ਨੇ ਜੋ ਕਿਹਾ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ, ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ। |  |
 | `fe.strip` | {n} interviews · {states} states · {roles} roles | {n} ਇੰਟਰਵਿਊ · {states} ਰਾਜ · {roles} ਭੂਮਿਕਾਵਾਂ |  |
 | `fe.target` | {state} interviews: {n} so far. | {state} ਵਿੱਚ ਇੰਟਰਵਿਊ: ਹੁਣ ਤੱਕ {n}। |  |
+| `fe.next` | Next: interviews in {state}. | ਅਗਲਾ ਕਦਮ: {state} ਵਿੱਚ ਇੰਟਰਵਿਊ। |  |
 | `fe.letters` | Letters of interest: {n} | ਦਿਲਚਸਪੀ ਦੇ ਪੱਤਰ: {n} |  |
 | `fe.users` | People using it: {n} | ਇਸ ਨੂੰ ਵਰਤਣ ਵਾਲੇ ਲੋਕ: {n} |  |
 | `fe.raised` | What interviewees raised | ਇੰਟਰਵਿਊ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਕੀ ਦੱਸਿਆ |  |
 | `fe.theme` | Reported in {state}: {theme} | {state} ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ: {theme} |  |
 | `fe.quote` | “{quote}” ({role}, {state}) | “{quote}” ({role}, {state}) |  |
 | `fe.landing.h` | We asked the people who do this work | ਅਸੀਂ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਪੁੱਛਿਆ ਜੋ ਇਹ ਕੰਮ ਕਰਦੇ ਹਨ |  |
-| `fe.landing.note` | Anonymous phone conversations with verbal consent; recording was not part of it. The list is in docs/INTERVIEWS.md. What they told us is their own account. | ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਸੂਚੀ docs/INTERVIEWS.md ਵਿੱਚ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ। |  |
+| `fe.landing.note` | Anonymous phone conversations with verbal consent; recording was not part of it. What they told us is their own account. | ਜ਼ੁਬਾਨੀ ਸਹਿਮਤੀ ਨਾਲ ਕੀਤੀਆਂ ਗੁਮਨਾਮ ਫ਼ੋਨ ਗੱਲਾਂ; ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਕੀਤੀ ਗਈ। ਉਨ੍ਹਾਂ ਨੇ ਜੋ ਦੱਸਿਆ ਉਹ ਉਨ੍ਹਾਂ ਦਾ ਆਪਣਾ ਤਜਰਬਾ ਹੈ। |  |
+| `fe.who` | Who we spoke to | ਅਸੀਂ ਕਿਨ੍ਹਾਂ ਨਾਲ ਗੱਲ ਕੀਤੀ |  |
+| `fe.listLink` | The full list, in the project’s code | ਪੂਰੀ ਸੂਚੀ, ਪ੍ਰੋਜੈਕਟ ਦੇ ਕੋਡ ਵਿੱਚ |  |
 | `fe.role.patwari` | Patwari | ਪਟਵਾਰੀ |  |
 | `fe.role.assessor` | Insurer loss assessor | ਬੀਮਾ ਕੰਪਨੀ ਦੇ ਨੁਕਸਾਨ ਮੁਲਾਂਕਣਕਾਰ |  |
 | `fe.role.farmer` | Farmer | ਕਿਸਾਨ |  |
@@ -604,7 +660,19 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `ob.title` | Officer’s draft list | ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ |  |
 | `ob.soon` | Later, the officer publishes a draft list. This is simulated: about {time}. If your entry looks wrong, you can attach your sealed evidence until {until}. | ਅੱਗੇ ਚੱਲ ਕੇ ਅਧਿਕਾਰੀ ਇੱਕ ਖਰੜਾ ਸੂਚੀ ਜਾਰੀ ਕਰਨਗੇ। ਇਹ ਸਿਮੂਲੇਸ਼ਨ ਹੈ: ਲਗਭਗ {time}। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ। |  |
 | `ob.open` | The officer’s draft list is out (simulated). If your entry looks wrong, attach your sealed evidence. This is open until {until}. | ਅਧਿਕਾਰੀ ਦੀ ਖਰੜਾ ਸੂਚੀ ਆ ਗਈ ਹੈ (ਸਿਮੂਲੇਟਿਡ)। ਜੇ ਤੁਹਾਡੀ ਐਂਟਰੀ ਗ਼ਲਤ ਲੱਗੇ, ਤਾਂ ਆਪਣਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜੋ। ਇਹ {until} ਤੱਕ ਖੁੱਲ੍ਹਾ ਹੈ। |  |
-| `ob.attach` | Attach my sealed evidence | ਮੇਰਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਜੋੜੋ |  |
+| `ob.attach` | Looks wrong: attach my evidence | ਗ਼ਲਤ ਲੱਗਦੀ ਹੈ: ਮੇਰਾ ਸਬੂਤ ਜੋੜੋ |  |
+| `ob.right` | Looks right | ਸਹੀ ਲੱਗਦੀ ਹੈ |  |
+| `ob.rightNote` | Good. You do not need to do anything. If you change your mind, you can attach your evidence until {until}. | ਠੀਕ ਹੈ। ਤੁਹਾਨੂੰ ਕੁਝ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਜੇ ਤੁਹਾਡੀ ਰਾਇ ਬਦਲੇ, ਤਾਂ {until} ਤੱਕ ਆਪਣਾ ਸਬੂਤ ਜੋੜ ਸਕਦੇ ਹੋ। |  |
+| `ob.mine` | Your entry on the draft list | ਖਰੜਾ ਸੂਚੀ ਵਿੱਚ ਤੁਹਾਡੀ ਐਂਟਰੀ |  |
+| `ob.listed` | Plot {plot} is on the list. | ਪਲਾਟ {plot} ਸੂਚੀ ਵਿੱਚ ਹੈ। |  |
+| `ob.notListed` | Plot {plot} is not on the list. | ਪਲਾਟ {plot} ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਹੈ। |  |
+| `ob.tier` | Evidence: {tier}. This only orders the officer’s review; it is not a decision. | ਸਬੂਤ: {tier}। ਇਹ ਸਿਰਫ਼ ਅਧਿਕਾਰੀ ਦੀ ਜਾਂਚ ਦਾ ਕ੍ਰਮ ਤੈਅ ਕਰਦਾ ਹੈ; ਇਹ ਫ਼ੈਸਲਾ ਨਹੀਂ ਹੈ। |  |
+| `ob.tier.supported` | supported | ਸਮਰਥਿਤ |  |
+| `ob.tier.partial` | partial | ਅੰਸ਼ਕ |  |
+| `ob.tier.insufficient` | not enough yet | ਹਾਲੇ ਕਾਫ਼ੀ ਨਹੀਂ |  |
+| `ob.share` | Radar estimate: {lo}–{hi}% of the plot under water. This is not crop damage. | ਰਡਾਰ ਦਾ ਅੰਦਾਜ਼ਾ: ਪਲਾਟ ਦਾ {lo}–{hi}% ਪਾਣੀ ਹੇਠ। ਇਹ ਫ਼ਸਲ ਦਾ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ। |  |
+| `ob.photos` | Your photos reached the officer’s side at {time}. | ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ {time} ਵਜੇ ਅਧਿਕਾਰੀ ਤੱਕ ਪਹੁੰਚੀਆਂ। |  |
+| `ob.noPhotos` | Your photos have not reached the officer’s side yet. | ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਹਾਲੇ ਅਧਿਕਾਰੀ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚੀਆਂ। |  |
 | `ob.needSeal` | Take and seal your photos first. Then you can attach them here. | ਪਹਿਲਾਂ ਆਪਣੀਆਂ ਫ਼ੋਟੋਆਂ ਖਿੱਚੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸੀਲ ਕਰੋ। ਫਿਰ ਇੱਥੇ ਜੋੜ ਸਕਦੇ ਹੋ। |  |
 | `ob.filed` | Your sealed evidence is attached to your entry ({time}). The officer decides, outside Saboot. | ਤੁਹਾਡਾ ਸੀਲ ਕੀਤਾ ਸਬੂਤ ਤੁਹਾਡੀ ਐਂਟਰੀ ਨਾਲ ਜੁੜ ਗਿਆ ({time})। ਫ਼ੈਸਲਾ ਅਧਿਕਾਰੀ ਕਰਦਾ ਹੈ, Saboot ਤੋਂ ਬਾਹਰ। |  |
 | `ob.answered` | The officer has responded ({time}), outside Saboot. Saboot only shows that a response came. | ਅਧਿਕਾਰੀ ਨੇ ਜਵਾਬ ਦਿੱਤਾ ({time}), Saboot ਤੋਂ ਬਾਹਰ। Saboot ਸਿਰਫ਼ ਇੰਨਾ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਜਵਾਬ ਆਇਆ। |  |
@@ -614,24 +682,92 @@ Do not translate the brand (सबूत / ਸਬੂਤ stays), and never add a 
 | `fp.note` | Nothing here places a real call or sends an SMS or WhatsApp message. It shows how the flow would work, and it changes nothing in the replay. | ਇੱਥੇ ਕੋਈ ਅਸਲੀ ਫ਼ੋਨ ਕਾਲ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ ਐੱਸਐੱਮਐੱਸ ਜਾਂ ਵਟਸਐਪ ਸੁਨੇਹਾ ਨਹੀਂ ਜਾਂਦਾ। ਇਹ ਸਿਰਫ਼ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਪ੍ਰਕਿਰਿਆ ਕਿਵੇਂ ਚੱਲੇਗੀ, ਅਤੇ ਰੀਪਲੇ ਵਿੱਚ ਕੁਝ ਨਹੀਂ ਬਦਲਦਾ। |  |
 | `fp.stepsLabel` | Steps of the call | ਕਾਲ ਦੇ ਪੜਾਅ |  |
 | `fp.s1` | Missed call | ਮਿਸਡ ਕਾਲ |  |
-| `fp.s2` | Saboot calls back | ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਦਾ ਹੈ |  |
+| `fp.s2` | Saboot calls back | ਸਬੂਤ ਐਪ ਵਾਪਸ ਕਾਲ ਕਰਦੀ ਹੈ |  |
 | `fp.s3` | Keypad answer | ਕੀਪੈਡ ਨਾਲ ਜਵਾਬ |  |
 | `fp.s4` | A helper records the photos | ਸਹਾਇਕ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ |  |
-| `fp.s1.b` | In the design, the farmer gives a missed call and Saboot calls back and reads the alert aloud. | ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦਾ ਹੈ। |  |
+| `fp.s1.b` | In the design, the farmer gives a missed call and Saboot calls back and reads the alert aloud. | ਡਿਜ਼ਾਈਨ ਵਿੱਚ, ਕਿਸਾਨ ਮਿਸਡ ਕਾਲ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਬੂਤ ਐਪ ਵਾਪਸ ਕਾਲ ਕਰਕੇ ਚੇਤਾਵਨੀ ਬੋਲ ਕੇ ਸੁਣਾਉਂਦੀ ਹੈ। |  |
 | `fp.call` | Give a missed call | ਮਿਸਡ ਕਾਲ ਦਿਓ |  |
-| `fp.incoming` | Call from Saboot | ਸਬੂਤ ਦੀ ਕਾਲ |  |
+| `fp.incoming` | Call from Saboot | ਸਬੂਤ ਐਪ ਦੀ ਕਾਲ |  |
 | `fp.press` | Listen, then press 1 or 2. | ਸੁਣੋ, ਫਿਰ 1 ਜਾਂ 2 ਦਬਾਓ। |  |
 | `fp.k1` | You pressed 1: damage. | ਤੁਸੀਂ 1 ਦਬਾਇਆ: ਨੁਕਸਾਨ। |  |
 | `fp.k2` | You pressed 2: no damage. | ਤੁਸੀਂ 2 ਦਬਾਇਆ: ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ। |  |
 | `fp.kother` | Please press 1 for damage or 2 for no damage. | ਨੁਕਸਾਨ ਲਈ 1 ਜਾਂ ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ ਲਈ 2 ਦਬਾਓ। |  |
-| `fp.prompt` | Namaste. This is Saboot. Heavy rain or a rising river was detected near your field. Press 1 if your field has water damage. Press 2 if it has no damage. | ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ। ਇਹ ਸਬੂਤ ਹੈ। ਤੁਹਾਡੇ ਖੇਤ ਕੋਲ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਮਿਲਿਆ ਹੈ। ਜੇ ਖੇਤ ਵਿੱਚ ਪਾਣੀ ਨਾਲ ਨੁਕਸਾਨ ਹੈ ਤਾਂ 1 ਦਬਾਓ। ਜੇ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ ਤਾਂ 2 ਦਬਾਓ। |  |
+| `fp.prompt` | Namaste. This is Saboot. Heavy rain or a rising river was detected near your field. Press 1 if your field has water damage. Press 2 if it has no damage. | ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ। ਇਹ ਸਬੂਤ ਐਪ ਹੈ। ਤੁਹਾਡੇ ਖੇਤ ਕੋਲ ਭਾਰੀ ਮੀਂਹ ਜਾਂ ਦਰਿਆ ਦਾ ਵਧਦਾ ਪਾਣੀ ਮਿਲਿਆ ਹੈ। ਜੇ ਖੇਤ ਵਿੱਚ ਪਾਣੀ ਨਾਲ ਨੁਕਸਾਨ ਹੈ ਤਾਂ 1 ਦਬਾਓ। ਜੇ ਨੁਕਸਾਨ ਨਹੀਂ ਹੈ ਤਾਂ 2 ਦਬਾਓ। |  |
 | `fp.play` | Play the call | ਕਾਲ ਸੁਣੋ |  |
 | `fp.keypad` | Phone keypad | ਫ਼ੋਨ ਦਾ ਕੀਪੈਡ |  |
 | `fp.key1` | Damage | ਨੁਕਸਾਨ |  |
 | `fp.key2` | No damage | ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ |  |
-| `fp.out1` | Saboot asks a helper near you to visit and record the photos for you. This call files nothing. | ਸਬੂਤ ਤੁਹਾਡੇ ਨੇੜੇ ਦੇ ਕਿਸੇ ਸਹਾਇਕ ਨੂੰ ਕਹਿੰਦਾ ਹੈ ਕਿ ਉਹ ਆ ਕੇ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋਆਂ ਖਿੱਚੇ। ਇਸ ਕਾਲ ਨਾਲ ਕੋਈ ਰਿਪੋਰਟ ਦਰਜ ਨਹੀਂ ਹੁੰਦੀ। |  |
-| `fp.out2` | Saboot logs “no damage” for this plot and starts nothing. | ਸਬੂਤ ਇਸ ਖੇਤ ਲਈ “ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ” ਦਰਜ ਕਰਦਾ ਹੈ ਅਤੇ ਕੁਝ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰਦਾ। |  |
-| `fp.logHead` | What Saboot would record | ਸਬੂਤ ਕੀ ਦਰਜ ਕਰੇਗਾ |  |
+| `fp.out1` | Saboot asks a helper near you to visit and record the photos for you. This call files nothing. | ਸਬੂਤ ਐਪ ਤੁਹਾਡੇ ਨੇੜੇ ਦੇ ਕਿਸੇ ਸਹਾਇਕ ਨੂੰ ਕਹਿੰਦੀ ਹੈ ਕਿ ਉਹ ਆ ਕੇ ਤੁਹਾਡੇ ਲਈ ਫ਼ੋਟੋਆਂ ਖਿੱਚੇ। ਇਸ ਕਾਲ ਨਾਲ ਕੋਈ ਰਿਪੋਰਟ ਦਰਜ ਨਹੀਂ ਹੁੰਦੀ। |  |
+| `fp.out2` | Saboot logs “no damage” for this plot and starts nothing. | ਸਬੂਤ ਐਪ ਇਸ ਖੇਤ ਲਈ “ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ” ਦਰਜ ਕਰਦੀ ਹੈ ਅਤੇ ਕੁਝ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰਦੀ। |  |
+| `fp.logHead` | What Saboot would record | ਸਬੂਤ ਐਪ ਕੀ ਦਰਜ ਕਰੇਗੀ |  |
 | `fp.helper` | The helper visits with a smartphone, reads the consent aloud with the farmer, takes the three photos and seals the packet. The packet names the helper and carries the farmer’s consent. | ਸਹਾਇਕ ਸਮਾਰਟਫ਼ੋਨ ਲੈ ਕੇ ਆਉਂਦਾ ਹੈ, ਕਿਸਾਨ ਨਾਲ ਸਹਿਮਤੀ ਬੋਲ ਕੇ ਪੜ੍ਹਦਾ ਹੈ, ਤਿੰਨ ਫ਼ੋਟੋਆਂ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਪੈਕੇਟ ਸੀਲ ਕਰਦਾ ਹੈ। ਪੈਕੇਟ ਵਿੱਚ ਸਹਾਇਕ ਦਾ ਨਾਂ ਅਤੇ ਕਿਸਾਨ ਦੀ ਸਹਿਮਤੀ ਦਰਜ ਰਹਿੰਦੀ ਹੈ। |  |
 | `fp.open` | Open helper mode | ਸਹਾਇਕ ਮੋਡ ਖੋਲ੍ਹੋ |  |
 | `fp.again` | Start again | ਫਿਰ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ |  |
+| `fd.title` | Field mode | ਫ਼ੀਲਡ ਮੋਡ |  |
+| `fd.enter` | Use it for real (field mode) | ਅਸਲ ਵਿੱਚ ਵਰਤੋ (ਫ਼ੀਲਡ ਮੋਡ) |  |
+| `fd.enterHelp` | Real photos on this phone, for a real farmer. The simulation stays as it is. | ਅਸਲ ਕਿਸਾਨ ਲਈ, ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਅਸਲ ਫ਼ੋਟੋਆਂ। ਸਿਮੂਲੇਸ਼ਨ ਜਿਵੇਂ ਹੈ ਉਵੇਂ ਰਹਿੰਦਾ ਹੈ। |  |
+| `fd.strip` | Field mode: real photos on this phone. Nothing is sent unless you share the code. Saboot decides nothing. | ਫ਼ੀਲਡ ਮੋਡ: ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਅਸਲ ਫ਼ੋਟੋਆਂ। ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਕੋਡ ਸਾਂਝਾ ਨਹੀਂ ਕਰਦੇ, ਕੁਝ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ। Saboot ਕੁਝ ਤੈਅ ਨਹੀਂ ਕਰਦਾ। |  |
+| `fd.leave` | Leave field mode | ਫ਼ੀਲਡ ਮੋਡ ਛੱਡੋ |  |
+| `fd.stay` | Everything here is kept only on this phone, in this browser’s storage. Clearing the browser’s data deletes it. | ਇੱਥੇ ਸਭ ਕੁਝ ਸਿਰਫ਼ ਇਸ ਫ਼ੋਨ ਉੱਤੇ, ਇਸ ਬ੍ਰਾਊਜ਼ਰ ਦੀ ਸਟੋਰੇਜ ਵਿੱਚ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਬ੍ਰਾਊਜ਼ਰ ਦਾ ਡਾਟਾ ਸਾਫ਼ ਕਰਨ ਨਾਲ ਇਹ ਮਿਟ ਜਾਂਦਾ ਹੈ। |  |
+| `fd.tabFarmer` | Capture | ਫ਼ੋਟੋ ਲਓ |  |
+| `fd.tabOfficer` | Received evidence | ਮਿਲੇ ਸਬੂਤ |  |
+| `fd.new` | New farmer | ਨਵਾਂ ਕਿਸਾਨ |  |
+| `fd.records` | Farmers on this phone | ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਕਿਸਾਨ |  |
+| `fd.name` | Farmer’s name | ਕਿਸਾਨ ਦਾ ਨਾਮ |  |
+| `fd.village` | Village | ਪਿੰਡ |  |
+| `fd.khasra` | Plot / khasra number | ਖੇਤ / ਖਸਰਾ ਨੰਬਰ |  |
+| `fd.crop` | Crop | ਫ਼ਸਲ |  |
+| `fd.lang` | Farmer’s language | ਕਿਸਾਨ ਦੀ ਭਾਸ਼ਾ |  |
+| `fd.by` | Photos taken by (your name) | ਫ਼ੋਟੋਆਂ ਲੈਣ ਵਾਲਾ (ਤੁਹਾਡਾ ਨਾਮ) |  |
+| `fd.byShort` | Typed on this phone by {who}. | {who} ਨੇ ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਲਿਖਿਆ। |  |
+| `fd.save` | Save farmer | ਕਿਸਾਨ ਸੰਭਾਲੋ |  |
+| `fd.need` | Fill in every field. | ਹਰ ਖ਼ਾਨਾ ਭਰੋ। |  |
+| `fd.consentTitle` | Consent from {farmer} | {farmer} ਦੀ ਸਹਿਮਤੀ |  |
+| `fd.consentIntro` | Read this out to {farmer} in their language. No photo can be taken until {farmer} agrees. | {farmer} ਨੂੰ ਉਹਨਾਂ ਦੀ ਭਾਸ਼ਾ ਵਿੱਚ ਇਹ ਪੜ੍ਹ ਕੇ ਸੁਣਾਓ। {farmer} ਦੇ ਸਹਿਮਤ ਹੋਣ ਤੱਕ ਕੋਈ ਫ਼ੋਟੋ ਨਹੀਂ ਲਈ ਜਾ ਸਕਦੀ। |  |
+| `fd.agree` | {farmer} agrees | {farmer} ਸਹਿਮਤ ਹਨ |  |
+| `fd.consented` | Consent recorded at {time} | ਸਹਿਮਤੀ {time} ਵਜੇ ਦਰਜ ਹੋਈ |  |
+| `fd.clock` | Start the clock now | ਘੜੀ ਹੁਣ ਸ਼ੁਰੂ ਕਰੋ |  |
+| `fd.clockHelp` | Starts this record’s clock at this phone’s time. Photo times are counted from it. | ਇਸ ਰਿਕਾਰਡ ਦੀ ਘੜੀ ਇਸ ਫ਼ੋਨ ਦੇ ਸਮੇਂ ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। ਫ਼ੋਟੋਆਂ ਦਾ ਸਮਾਂ ਇਸੇ ਤੋਂ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ। |  |
+| `fd.clockAt` | Clock started at {time} | ਘੜੀ {time} ਵਜੇ ਸ਼ੁਰੂ ਹੋਈ |  |
+| `fd.photos` | Photos | ਫ਼ੋਟੋਆਂ |  |
+| `fd.take` | Open camera | ਕੈਮਰਾ ਖੋਲ੍ਹੋ |  |
+| `fd.file` | Phone camera app | ਫ਼ੋਨ ਦੀ ਕੈਮਰਾ ਐਪ |  |
+| `fd.noCam` | The camera did not open here. Use “Phone camera app” instead. | ਕੈਮਰਾ ਇੱਥੇ ਨਹੀਂ ਖੁੱਲ੍ਹਿਆ। ਇਸ ਦੀ ਥਾਂ “ਫ਼ੋਨ ਦੀ ਕੈਮਰਾ ਐਪ” ਵਰਤੋ। |  |
+| `fd.saving` | Saving the photo… | ਫ਼ੋਟੋ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ… |  |
+| `fd.saveFail` | The photo could not be saved on this phone. | ਫ਼ੋਟੋ ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕੀ। |  |
+| `fd.photoAt` | Taken at {time} | {time} ਵਜੇ ਲਈ ਗਈ |  |
+| `fd.noLoc` | no location | ਕੋਈ ਲੋਕੇਸ਼ਨ ਨਹੀਂ |  |
+| `fd.gps` | GPS ±{m} m | GPS ±{m} ਮੀ |  |
+| `fd.seal` | Seal {farmer}’s evidence | {farmer} ਦੇ ਸਬੂਤ ਸੀਲ ਕਰੋ |  |
+| `fd.sealNeed` | Consent, the clock and at least one photo come first. | ਪਹਿਲਾਂ ਸਹਿਮਤੀ, ਘੜੀ ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਫ਼ੋਟੋ ਚਾਹੀਦੀ ਹੈ। |  |
+| `fd.sealed` | Sealed at {time}. These photos can no longer change in this record. | {time} ਵਜੇ ਸੀਲ ਹੋਇਆ। ਇਸ ਰਿਕਾਰਡ ਵਿੱਚ ਇਹ ਫ਼ੋਟੋਆਂ ਹੁਣ ਨਹੀਂ ਬਦਲ ਸਕਦੀਆਂ। |  |
+| `fd.sealFail` | Could not seal. Signing needs this page over https or on localhost. | ਸੀਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਸਾਈਨ ਕਰਨ ਲਈ ਇਹ ਪੰਨਾ https ਜਾਂ localhost ਉੱਤੇ ਖੁੱਲ੍ਹਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। |  |
+| `fd.isSealed` | sealed | ਸੀਲ ਹੋਇਆ |  |
+| `fd.notSealed` | not sealed yet | ਅਜੇ ਸੀਲ ਨਹੀਂ |  |
+| `fd.share` | Share the evidence | ਸਬੂਤ ਸਾਂਝਾ ਕਰੋ |  |
+| `fd.shareLead` | Show this QR code to the officer, or send the code or the link. Only the code leaves this phone, and only when you share it. The photos stay here. | ਇਹ QR ਕੋਡ ਅਧਿਕਾਰੀ ਨੂੰ ਦਿਖਾਓ, ਜਾਂ ਕੋਡ ਜਾਂ ਲਿੰਕ ਭੇਜੋ। ਸਿਰਫ਼ ਕੋਡ ਇਸ ਫ਼ੋਨ ਤੋਂ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਤਾਂ ਹੀ ਜਦੋਂ ਤੁਸੀਂ ਇਸਨੂੰ ਸਾਂਝਾ ਕਰੋ। ਫ਼ੋਟੋਆਂ ਇੱਥੇ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ। |  |
+| `fd.copyCode` | Copy the code | ਕੋਡ ਕਾਪੀ ਕਰੋ |  |
+| `fd.copyLink` | Copy the link | ਲਿੰਕ ਕਾਪੀ ਕਰੋ |  |
+| `fd.copied` | Copied | ਕਾਪੀ ਹੋ ਗਿਆ |  |
+| `fd.copyFail` | Copying is blocked here. The code is selected in the box: copy it by hand. | ਇੱਥੇ ਕਾਪੀ ਕਰਨਾ ਰੁਕਿਆ ਹੋਇਆ ਹੈ। ਕੋਡ ਡੱਬੇ ਵਿੱਚ ਚੁਣਿਆ ਹੋਇਆ ਹੈ: ਇਸਨੂੰ ਆਪ ਕਾਪੀ ਕਰੋ। |  |
+| `fd.codeBox` | Evidence code | ਸਬੂਤ ਕੋਡ |  |
+| `fd.qr` | QR code of the evidence code | ਸਬੂਤ ਕੋਡ ਦਾ QR ਕੋਡ |  |
+| `fd.recv.lead` | Codes received from farmers’ phones. Each one is checked here, on this phone. The farmer’s name and village are not in the code: they stay on the farmer’s phone. | ਕਿਸਾਨਾਂ ਦੇ ਫ਼ੋਨਾਂ ਤੋਂ ਮਿਲੇ ਕੋਡ। ਹਰ ਕੋਡ ਇੱਥੇ, ਇਸ ਫ਼ੋਨ ਉੱਤੇ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ। ਕਿਸਾਨ ਦਾ ਨਾਮ ਅਤੇ ਪਿੰਡ ਕੋਡ ਵਿੱਚ ਨਹੀਂ ਹਨ: ਉਹ ਕਿਸਾਨ ਦੇ ਫ਼ੋਨ ਉੱਤੇ ਰਹਿੰਦੇ ਹਨ। |  |
+| `fd.recv.paste` | Paste a code or link | ਕੋਡ ਜਾਂ ਲਿੰਕ ਚਿਪਕਾਓ |  |
+| `fd.recv.check` | Check and add | ਜਾਂਚੋ ਅਤੇ ਜੋੜੋ |  |
+| `fd.recv.scan` | Scan QR | QR ਸਕੈਨ ਕਰੋ |  |
+| `fd.recv.stopScan` | Stop scanning | ਸਕੈਨ ਬੰਦ ਕਰੋ |  |
+| `fd.recv.none` | Nothing received yet. | ਅਜੇ ਕੁਝ ਨਹੀਂ ਮਿਲਿਆ। |  |
+| `fd.recv.ok` | Unchanged since sealing | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਨਹੀਂ ਬਦਲਿਆ |  |
+| `fd.recv.bad` | Changed after sealing, or not a Saboot code. Do not trust this copy. | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਦਲਿਆ ਗਿਆ, ਜਾਂ Saboot ਕੋਡ ਨਹੀਂ ਹੈ। ਇਸ ਕਾਪੀ ਉੱਤੇ ਭਰੋਸਾ ਨਾ ਕਰੋ। |  |
+| `fd.recv.at` | Received at {time} (this phone’s clock) | {time} ਵਜੇ ਮਿਲਿਆ (ਇਸ ਫ਼ੋਨ ਦੀ ਘੜੀ) |  |
+| `fd.recv.sealAt` | Sealed at {time} (the farmer’s phone clock) | {time} ਵਜੇ ਸੀਲ ਹੋਇਆ (ਕਿਸਾਨ ਦੇ ਫ਼ੋਨ ਦੀ ਘੜੀ) |  |
+| `fd.recv.clock` | Photo times count from a clock started by hand | ਫ਼ੋਟੋਆਂ ਦਾ ਸਮਾਂ ਹੱਥ ਨਾਲ ਸ਼ੁਰੂ ਕੀਤੀ ਘੜੀ ਤੋਂ ਗਿਣਿਆ ਗਿਆ |  |
+| `fd.recv.after` | {h} h after the clock started | ਘੜੀ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ {h} ਘੰਟੇ ਬਾਅਦ |  |
+| `fd.recv.photos` | {n} photo(s) | {n} ਫ਼ੋਟੋ |  |
+| `fd.recv.noProof` | This shows only that the code was not changed. It does not prove who sealed it or what the photos show. Saboot decides nothing. | ਇਸ ਤੋਂ ਸਿਰਫ਼ ਇਹ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਕੋਡ ਬਦਲਿਆ ਨਹੀਂ ਗਿਆ। ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਕਿਸ ਨੇ ਸੀਲ ਕੀਤਾ ਜਾਂ ਫ਼ੋਟੋਆਂ ਵਿੱਚ ਕੀ ਹੈ। Saboot ਕੁਝ ਤੈਅ ਨਹੀਂ ਕਰਦਾ। |  |
+| `fd.got.ok` | Checked and added: unchanged since sealing. | ਜਾਂਚਿਆ ਅਤੇ ਜੋੜਿਆ: ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਨਹੀਂ ਬਦਲਿਆ। |  |
+| `fd.got.dup` | This code is already in the list. | ਇਹ ਕੋਡ ਪਹਿਲਾਂ ਹੀ ਸੂਚੀ ਵਿੱਚ ਹੈ। |  |
+| `fd.got.bad` | Changed after sealing, or not a Saboot code. It was not added. | ਸੀਲ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਦਲਿਆ ਗਿਆ, ਜਾਂ Saboot ਕੋਡ ਨਹੀਂ ਹੈ। ਇਸਨੂੰ ਜੋੜਿਆ ਨਹੀਂ ਗਿਆ। |  |
+| `fd.got.sim` | This code is from the demo, not from real photos. Field mode keeps only real photos, so it was not added. | ਇਹ ਕੋਡ ਡੈਮੋ ਦਾ ਹੈ, ਅਸਲ ਫ਼ੋਟੋਆਂ ਦਾ ਨਹੀਂ। ਫ਼ੀਲਡ ਮੋਡ ਸਿਰਫ਼ ਅਸਲ ਫ਼ੋਟੋਆਂ ਰੱਖਦਾ ਹੈ, ਇਸ ਲਈ ਇਸਨੂੰ ਜੋੜਿਆ ਨਹੀਂ ਗਿਆ। |  |
+| `fd.got.crypto` | This page cannot check signatures here. Open it over https or on localhost. | ਇਹ ਪੰਨਾ ਇੱਥੇ ਦਸਤਖ਼ਤ ਨਹੀਂ ਜਾਂਚ ਸਕਦਾ। ਇਸਨੂੰ https ਜਾਂ localhost ਉੱਤੇ ਖੋਲ੍ਹੋ। |  |
