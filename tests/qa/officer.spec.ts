@@ -369,3 +369,20 @@ test('the real-data replay is where a judge looks: a REPLAY card in How it works
   await expect(page.locator('[data-rp-counts]')).toContainText(String(a.caught));
   expect(errors).toEqual([]);
 });
+
+test('OFF-2: a check that was never run stays on screen in the verdict, marked "(not reached)"', async ({ page }) => {
+  const errors: string[] = [];
+  await page.addInitScript(() => { Object.defineProperty(navigator, 'mediaDevices', { value: { getUserMedia: () => Promise.reject(new DOMException('none', 'NotFoundError')) } }); });
+  await open(page, V('1440x900'), 'en', errors);
+  await sab(page, `s.tab('insurer');`);
+  await page.getByRole('button', { name: /Import evidence/ }).first().click();
+  const sheet = page.locator('.import-sheet');
+  await expect(sheet.getByRole('radio', { name: /Paste code/ })).toHaveAttribute('aria-checked', 'true', { timeout: 10_000 });
+  await sheet.locator('textarea').fill('hello');
+  await sheet.getByRole('button', { name: /^Verify/ }).click();
+  const rows = sheet.locator('.k-steps li');
+  await expect(rows).toHaveCount(3);
+  expect(await rows.evaluateAll((els) => els.map((e) => getComputedStyle(e).position))).toEqual(['static', 'static', 'static']);
+  await expect(rows.filter({ hasText: '(not reached)' })).toHaveCount(2);
+  for (const r of await rows.all()) await expect(r).toBeInViewport();
+});

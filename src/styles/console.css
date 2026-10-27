@@ -305,7 +305,7 @@
 .k-steps li { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-left: 4px solid var(--rule); border-radius: 0 var(--r-chip) var(--r-chip) 0; background: var(--paper); }
 .k-steps .ok { color: var(--ok); border-left-color: var(--ok); }
 .k-steps .bad { color: var(--bad); border-left-color: var(--bad); background: var(--bad-tint); font-weight: 600; }
-.k-steps .skip { color: var(--kali-2); border-left-style: dashed; }
+.k-steps .not-reached { color: var(--kali-2); border-left-style: dashed; }
 .k-try { align-self: flex-start; border-color: var(--bad); color: var(--bad); background: var(--paper); }
 @media (hover: hover) { .k-try:hover { background: var(--bad-tint); } }
 .imp-drawer .k-verdict p { flex: 1; min-width: 0; }

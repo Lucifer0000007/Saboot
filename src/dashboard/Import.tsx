@@ -33,7 +33,7 @@ function Checks({ res }: { res: KResult }) {
   return (
     <ol class="k-steps" role="list">
       {steps.map(([l, s]) => (
-        <li key={l} class={s === null ? 'skip' : s ? 'ok' : 'bad'}>
+        <li key={l} class={s === null ? 'not-reached' : s ? 'ok' : 'bad'}>
           <Icon name={s === null ? 'target' : s ? 'okShape' : 'barShape'} size={16} />
           <span>{l}{s === null ? ' (not reached)' : ''}</span>
         </li>
