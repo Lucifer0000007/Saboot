@@ -5,7 +5,7 @@ import { fmtClock } from '../../lib/time';
 import { short } from '../../lib/hash';
 import { announce } from '../../lib/announce';
 import { lowData } from '../../lib/prefs';
-import { view, addShot, addSyntheticShot, getGeo, simGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
+import { view, full, addShot, addSyntheticShot, getGeo, simGeo, watchGeo, seal, busy, photoUrl, photoTick, ConsentMissing } from '../focus';
 import { activePlotId, focusPlot } from '../../sim/engine';
 import { normalizePhoto, isFresh, SHOTS, type ShotKind } from '../photo';
 import { screen } from '../nav';
@@ -82,6 +82,8 @@ export async function sealOrSay(setMsg: (m: string | null) => void): Promise<boo
 
 export function Capture() {
   const v = view.value;
+  /** Sealed in the whole log, not only at the replay time: a scrub back to before the seal must not reopen capture (FARM-01). */
+  const sealed = !!full.value.seal;
   const [sel, setSel] = useState<ShotKind | null>(null);
   const [phase, setPhase] = useState<'idle' | 'locating' | 'hashing'>('idle');
   const [msg, setMsg] = useState<string | null>(null);
@@ -189,7 +191,7 @@ export function Capture() {
             {tr('cap.askConsent')} <span class="arrow" aria-hidden="true">→</span>
           </button>
         </div>
-      ) : kind && !all ? (
+      ) : kind && !all && !sealed ? (
         <div class="shotcard" data-tour="shot">
           {/* a helper capturing for a farmer sees whose photos these are on the card itself (audit H12) */}
           <p class="eyebrow">{tr('cap.step', { n })}{activePlotId.value !== null && <> · {nm(focusPlot.value!.name)}</>}</p>
@@ -224,7 +226,7 @@ export function Capture() {
         </div>
       ) : (
         <>
-          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || !!v.seal} onClick={async () => { if (await sealOrSay(setMsg)) screen.value = 'packet'; }}>
+          <button type="button" class="pill pill-primary pill-lg pill-block" disabled={busy.value || sealed} onClick={async () => { if (await sealOrSay(setMsg)) screen.value = 'packet'; }}>
             <Icon name="lock" /> {sealLabel()} <span class="arrow" aria-hidden="true">→</span>
           </button>
           {msg && <p class="note note-bad" role="alert" data-seal-fail><Icon name="barShape" /><span>{msg}</span></p>}
@@ -247,7 +249,7 @@ export function Capture() {
                   <Icon name={s.recvT === null ? 'clock' : 'okShape'} size={16} /> {s.recvT === null ? tr('cap.queued') : tr('cap.sent')}
                 </span>
               </div>
-              {!v.seal && (
+              {!sealed && (
                 <button type="button" class="pill pill-ghost pill-sm" onClick={() => setSel(k)} aria-label={`${tr('cap.retake')}: ${tr('shot.' + k)}`}>
                   {tr('cap.retake')}
                 </button>

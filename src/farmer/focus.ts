@@ -390,6 +390,8 @@ async function requireConsent(key: string) {
 export async function addShot(kind: ShotKind, blob: Blob, w: number, h: number, geo: Geo, synthetic: boolean, helper?: string) {
   // the farmer this photo is for is fixed now: moving on to another farmer while it is saved must not move the photo
   const key = activeKey.value;
+  // no photo after the seal, even with the replay scrubbed back to before it: the packet would not hold it (FARM-01)
+  if (reduce(await currentLog(key), Infinity).seal) throw new Error('Already sealed.');
   if (!synthetic) await requireConsent(key);
   busy.value = true;
   // ask the browser to keep what is captured when storage runs low; if it refuses, the farmer is told (FarmerApp). A

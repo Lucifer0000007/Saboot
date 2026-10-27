@@ -216,3 +216,22 @@ test('the hero starts the tour first and offers to explore; the banner and the m
   await expect(page.locator('.tour-card')).toBeVisible({ timeout: 20_000 });
   expect(errors).toEqual([]);
 });
+
+test('FARM-01: after the seal, scrubbing back to Trigger reopens no photo card or retake, and no photo joins the log', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('capture');`);
+  for (let i = 0; i < 3; i++) {
+    await page.getByRole('button', { name: /Use simulated photo/ }).click();
+    await expect(page.locator('.shots li')).toHaveCount(i + 1, { timeout: 10_000 });
+  }
+  await page.getByRole('button', { name: /Seal my evidence/ }).click();
+  await expect.poll(() => page.evaluate('window.__sab.state().sealed')).toBe(true);
+  const events = await page.evaluate('window.__sab.state().events');
+  await sab(page, `await s.jump('trigger'); s.screen('capture');`);
+  await expect(page.locator('.farmer .f-title')).toBeVisible();
+  await expect(page.locator('.farmer [data-tour=shot]')).toHaveCount(0);
+  await expect(page.locator('.farmer .shots button')).toHaveCount(0);
+  expect(await page.evaluate('window.__sab.state().events')).toBe(events);
+  expect(errors).toEqual([]);
+});
