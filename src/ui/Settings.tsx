@@ -14,6 +14,7 @@ import { download } from '../lib/download';
 import { showToast } from '../lib/announce';
 import { buildLabel } from '../lib/build';
 import { enterField } from '../field/on';
+import { nm } from '../lib/names';
 
 function Toggle({ sig, label, help, icon, onChange }: { sig: Signal<boolean>; label: string; help?: string; icon: IconName; onChange?: (v: boolean) => void }) {
   return (
@@ -136,7 +137,7 @@ export function Settings() {
         </div>
       </fieldset>
       <Toggle sig={highContrast} label={tr('set.contrast')} icon="eye" />
-      {activePlotId.value !== null && focusPlot.value && <FarmerData id={activePlotId.value} name={focusPlot.value.name} />}
+      {activePlotId.value !== null && focusPlot.value && <FarmerData id={activePlotId.value} name={nm(focusPlot.value.name)} />}
       <YourData />
       <fieldset class="set-group" data-field-entry>
         <legend><Icon name="camera" /> {tr('fd.title')}</legend>

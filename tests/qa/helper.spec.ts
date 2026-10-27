@@ -458,3 +458,13 @@ test('HM-1: a filing reference is refused for a farmer who has not agreed, and n
   expect((await logs(page))['P-05']?.events ?? 0).toBe(0);
   expect(errors).toEqual([]);
 });
+
+test('HM-6: the per-farmer data section in Settings names the farmer in the page script', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'hi', errors);
+  await sab(page, `s.seek(20); await s.helper(1); s.active('P-05'); s.tab('farmer'); s.screen('packet'); s.settings(true);`);
+  const sec = page.locator('[data-farmer-data]');
+  await expect(sec).toContainText('मोहिंदर ढिल्लों');
+  await expect(sec).not.toContainText('Mohinder');
+  expect(errors).toEqual([]);
+});
