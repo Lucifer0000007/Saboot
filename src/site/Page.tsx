@@ -7,6 +7,7 @@ import { tr, langLoading } from '../lib/i18n';
 import { loadScenario, model, t } from '../sim/engine';
 import { jumpTo, type MomentId } from '../sim/moments';
 import { loadFocus, restoreClock } from '../farmer/focus';
+import { resumeHelper } from '../farmer/helper';
 import { Settings } from '../ui/Settings';
 import { ResetAsk } from '../ui/ControlBar';
 import { Presenter } from '../tour/Presenter';
@@ -92,6 +93,8 @@ async function applyDeepLink() {
     else if (d.tab || d.k) requestAnimationFrame(() => scrollToId('simulation', false));
     else if (d.section) requestAnimationFrame(() => scrollToId(d.section!, false));
     restoreClock();
+    // a helper session still running comes back to its farmer; a moment link is the demo farmer's story (audit CC-01)
+    if (!d.at) await resumeHelper();
     // an officer link with no moment lands where the console has something to show, but only for a visitor whose replay
     // has not started: it never moves a clock that a stored log has already set (audit OF-07, J5)
     if (d.tab === 'insurer' && !d.at && !d.k && t.value === 0) await jumpTo('deadline');

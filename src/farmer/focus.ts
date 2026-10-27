@@ -60,6 +60,8 @@ export const helperSession = signal<HelperSession | null>(null);
 const KEY = 'focus-chain';
 const IDS = 'log-ids';
 const SESSION = 'helper-session';
+/** The farmer a helper has open, kept beside the session (audit H4). */
+const ACTIVE = 'helper-active';
 const kvKey = (k: string) => (k === DEMO ? KEY : 'log:' + k);
 let loaded = false;
 
@@ -93,8 +95,12 @@ export async function startHelperSession(s: HelperSession) {
 export async function endHelperSession() {
   activePlotId.value = null;
   helperSession.value = null;
-  await dbDel('kv', SESSION);
+  await Promise.all([dbDel('kv', SESSION), dbDel('kv', ACTIVE)]);
 }
+/** Remember which farmer the helper has open, so a phone that drops the page (its camera app took the memory) comes back
+ *  to that farmer, not to the demo farmer (audit H4). null: the helper is on the queue. */
+export const keepActive = (id: string | null) => (id ? dbSet('kv', ACTIVE, id) : dbDel('kv', ACTIVE));
+export const storedActive = () => dbGet<string>('kv', ACTIVE);
 
 /** Writes one at a time (and across tabs where the browser has Web Locks), so two actions can never overwrite each other. */
 let writes: Promise<unknown> = Promise.resolve();
@@ -152,7 +158,7 @@ export async function resetFocus() {
   rewound.value = false;
   photoUrls.forEach((u) => URL.revokeObjectURL(u));
   photoUrls.clear();
-  await Promise.all([dbDel('kv', KEY), dbDel('kv', IDS), dbDel('kv', SESSION), ...ids.map((id) => dbDel('kv', kvKey(id))), dbClear('photos'), dbClear('outbox')]);
+  await Promise.all([dbDel('kv', KEY), dbDel('kv', IDS), dbDel('kv', SESSION), dbDel('kv', ACTIVE), ...ids.map((id) => dbDel('kv', kvKey(id))), dbClear('photos'), dbClear('outbox')]);
 }
 
 /**

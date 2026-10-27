@@ -4,7 +4,7 @@
 import { computed } from '@preact/signals';
 import { model, t, activePlotId, pause, seek } from '../sim/engine';
 import type { Plot } from '../sim/model';
-import { logs, reduce, recordConsent, ensureFocus, endHelperSession, startHelperSession, type FocusView } from './focus';
+import { logs, reduce, recordConsent, ensureFocus, endHelperSession, startHelperSession, helperSession, keepActive, storedActive, type FocusView } from './focus';
 import { screen } from './nav';
 
 /** The farmers in the helper's queue, in order. The scenario names them; the app never guesses. */
@@ -83,6 +83,7 @@ export function openFarmer(id: string, state: QueueState) {
   pause();
   activePlotId.value = id;
   screen.value = nextScreen(state);
+  void keepActive(id);
 }
 
 /** After a farmer is done: straight to the next farmer the helper still has work for, else the queue (audit H13). */
@@ -96,6 +97,20 @@ export function nextFarmer() {
 export function backToQueue() {
   activePlotId.value = null;
   screen.value = 'helper';
+  void keepActive(null);
+}
+
+/**
+ * The page opens while a helper session is running (a reload, or a phone that dropped the page while its camera app was
+ * open): back to the farmer the helper had open, at the step that farmer's own log is at, else the queue (audit H4).
+ * Consent and photos are in each farmer's log, so nothing is asked again.
+ */
+export async function resumeHelper() {
+  if (!helperSession.value) return;
+  const id = await storedActive();
+  const q = queue.value.find((x) => x.plot.id === id);
+  if (q) openFarmer(q.plot.id, q.state);
+  else backToQueue();
 }
 
 export async function leaveHelperMode() {

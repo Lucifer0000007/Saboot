@@ -108,3 +108,52 @@ test('Android Back closes the tour, as Skip does, and stays on the site (R1)', a
   expect(onSite(page)).toBe(true);
   expect(errors).toEqual([]);
 });
+
+const logs = (page: Page) => page.evaluate('window.__sab.logs()') as Promise<Record<string, { events: number; head: string | null; consentFarmer: string | null }>>;
+const ready = async (page: Page) => {
+  await page.waitForFunction(() => !!window.__sab, null, { timeout: 20_000 });
+  await page.evaluate('window.__sab.ready()');
+};
+
+test('a reload mid-capture, or the page opened again, returns to the helper’s farmer with the consent intact (H4)', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('390x844'), 'en', errors);
+  await sab(page, `s.seek(20); s.tab('farmer'); s.screen('home');`);
+  await page.locator('[data-helper-card]').getByRole('button', { name: /Open helper mode/ }).click();
+  await page.getByLabel('Your name').fill('Test Helper');
+  await page.getByRole('radio', { name: 'Sarpanch' }).check();
+  await page.getByRole('button', { name: /Start helper session/ }).click();
+  await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).click();
+  await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
+  const hold = page.locator('button.hold');
+  await hold.scrollIntoViewIfNeeded();
+  const b = (await hold.boundingBox())!;
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+  await page.mouse.down();
+  await page.waitForTimeout(2300);
+  await page.mouse.up();
+  await expect(page.locator('.farmer')).toContainText('Consent recorded at', { timeout: 10_000 });
+  await page.getByRole('button', { name: /Start photos/ }).click();
+  await page.getByRole('button', { name: /Use simulated photo/ }).click();
+  await expect(page.locator('.shots li')).toHaveCount(1, { timeout: 10_000 });
+  const before = (await logs(page))['P-05'];
+  // the reload a phone does when it dropped the page for its camera app, and the page opened again from the home screen
+  for (const how of ['reload', 'open again']) {
+    if (how === 'reload') await page.reload(); else await page.goto('/');
+    await ready(page);
+    await expect(page.locator('[data-helper-bar]'), how).toContainText('Capturing for Mohinder Dhillon (P-05)', { timeout: 20_000 });
+    await expect(page.locator('.shots li'), how).toHaveCount(1);
+    await expect(page.locator('.farmer .f-title'), how).not.toHaveText(/Consent from/);
+    const after = (await logs(page))['P-05'];
+    expect(after.head, how).toBe(before.head);
+    expect(after.consentFarmer, how).toBe('Mohinder Dhillon');
+  }
+  // back on the queue, a reload stays on the queue
+  await page.getByRole('button', { name: /Back to the queue|Back to queue/ }).click();
+  await expect(page.locator('[data-helper-screen]')).toBeVisible();
+  await page.reload();
+  await ready(page);
+  await expect(page.locator('[data-helper-screen]')).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('[data-helper-bar]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
