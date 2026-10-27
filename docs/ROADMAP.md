@@ -1,6 +1,6 @@
 # Roadmap: what is not built, and why
 
-Everything here is **not built**. Each item says what it would change and what it needs. There are no dates, because the order
+Everything here is **not built**, except where an item says which part already is. Each item says what it would change and what it needs. There are no dates, because the order
 depends on what real conversations and a real pilot show (`docs/PILOT-PLAN.md`). Where an item came from an outside review, see
 `docs/REVIEW-RESPONSE.md`.
 
@@ -47,7 +47,8 @@ vectors and both verifiers (`src/k/payload.ts` and the independent `scripts/veri
 ## Pilot and product
 
 - A first pilot that needs no department data: `docs/PILOT-PLAN.md`, Phase 0 (a helper captures, an officer opens the sealed codes).
-- A "start the clock by hand" action for a helper who hears a flood warning, labelled HAND (the trust rule is built and tested).
+- A "start the clock by hand" action inside the demo's helper mode, labelled HAND (built only in field mode, `?mode=field`, D-97;
+  the trust rule is built and tested).
 - Real Hindi and Punjabi voice (`docs/recording-script.md`), and a native-speaker review of every string.
 - Real-device testing on an iPhone in Safari and a low-end Android phone.
 - Haryana conversations (none yet), and letters of interest (none yet): `docs/INTERVIEWS.md`.
