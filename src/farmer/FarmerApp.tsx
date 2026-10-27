@@ -94,7 +94,9 @@ export function FarmerApp({ framed }: { framed?: boolean }) {
     // scrolled to (audit H1, UI-02). The tour scrolls to its own targets.
     else if (h && tourStep.value === null) {
       const r = h.getBoundingClientRect();
-      const navB = document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0;
+      // below the lower of the sticky bars: the site nav, and the farmer header while a helper acts for a farmer (HM-4)
+      const navB = Math.max(document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0,
+        document.querySelector('.farmer .f-top')?.getBoundingClientRect().bottom ?? 0);
       if (r.top < navB || r.top > innerHeight * 0.6) scrollToPhone();
     }
     if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }

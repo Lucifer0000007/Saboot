@@ -386,3 +386,24 @@ test('HM-2: after Start helper session on a phone, the first farmer in the queue
   await expect.poll(() => onScreen(page.locator('ol.hq li').first(), false), { timeout: 5_000 }).toBe(true);
   expect(errors).toEqual([]);
 });
+
+test.describe('HM-4 on a touch phone', () => {
+  // mobile layout and touch, as the reporter found it: a farmer's row tapped after scrolling back to it
+  test.use({ isMobile: true, hasTouch: true });
+
+  test('HM-4: at 390x844 the consent screen opens with its title below the sticky farmer header and the helper bar on screen', async ({ page }) => {
+    const errors: string[] = [];
+    await open(page, V('390x844'), 'en', errors);
+    await startSession(page);
+    // the helper has scrolled on, then comes back to the farmer's row
+    await expect.poll(() => onScreen(page.locator('ol.hq li').first(), false), { timeout: 5_000 }).toBe(true);
+    await page.evaluate(() => scrollBy(0, 1000));
+    const row = page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ });
+    await row.scrollIntoViewIfNeeded();
+    await row.tap();
+    await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+    await expect.poll(() => onScreen(page.locator('.farmer .f-title')), { timeout: 5_000 }).toBe(true);
+    await expect(page.locator('[data-helper-bar]')).toBeInViewport();
+    expect(errors).toEqual([]);
+  });
+});
