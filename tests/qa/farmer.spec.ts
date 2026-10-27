@@ -235,3 +235,18 @@ test('FARM-01: after the seal, scrubbing back to Trigger reopens no photo card o
   expect(await page.evaluate('window.__sab.state().events')).toBe(events);
   expect(errors).toEqual([]);
 });
+
+test('FARM-02: a capture error clears once a later photo saves, and never shows under the seal button', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('alert'); s.tab('farmer'); s.screen('capture');`);
+  await page.locator('.farmer input[type=file]').setInputFiles({ name: 'broken.jpg', mimeType: 'image/jpeg', buffer: Buffer.from('not a photo') });
+  await expect(page.locator('.farmer .shotcard .note-bad')).toBeVisible({ timeout: 10_000 });
+  for (let i = 0; i < 3; i++) {
+    await page.getByRole('button', { name: /Use simulated photo/ }).click();
+    await expect(page.locator('.shots li')).toHaveCount(i + 1, { timeout: 10_000 });
+    await expect(page.locator('.farmer .note-bad')).toHaveCount(0);
+  }
+  await expect(page.locator('[data-seal-fail]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});

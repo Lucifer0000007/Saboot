@@ -125,6 +125,7 @@ export function Capture() {
 
   async function simulated() {
     if (!kind) return;
+    setMsg(null);
     setCamBlocked(false);
     setNoGeo(null);
     try {
