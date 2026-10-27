@@ -91,13 +91,14 @@ test('UI-04: starting the tour while its chunk is slow shows a loading card on s
   await expect(card).toHaveCount(0, { timeout: 15_000 });
 });
 
-test('R4: one dropped shared chunk does not leave the officer console broken: the page reloads once, back on that tab', async ({ page }) => {
+test('R4: one dropped shared chunk does not leave the officer console broken: it recovers on that tab', async ({ page }) => {
   let n = 0;
   await page.route(/\/assets\/state-[^/?]*\.js(\?.*)?$/, (r) => (++n === 1 ? r.abort('failed') : r.continue()));
   await open(page, PHONE, 'en', []);
   await sab(page, `s.tab('insurer');`);
   await expect(page.locator('.dash')).toBeVisible({ timeout: 30_000 });
-  expect(new URL(page.url()).searchParams.get('tab')).toBe('insurer');
+  // The console now recovers by fetching the file again, without a page reload, so the tab is checked on screen, not in the URL.
+  await expect(page.locator('#st-insurer')).toHaveAttribute('aria-selected', 'true');
   expect(n).toBeGreaterThan(1);
 });
 
