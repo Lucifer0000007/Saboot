@@ -41,3 +41,13 @@ test('CC-09: a rebuild still running when a tamper test starts does not wipe the
   assert.ok(statuses.value?.includes('tampered'), 'and the ledger on screen still shows the edited record');
   await restore();
 });
+
+test('OFF-3: a replay jump while the tamper test is on screen is caught up on restore, so the count matches the time shown', async () => {
+  await rebuild(rowsAt(60), 60, {});
+  await tamperTest();
+  await rebuild(rowsAt(raw.hours), raw.hours, {}); // the replay moves on while the ledger is frozen: skipped
+  await restore();
+  const caught = ledger.value.length;
+  await rebuild(rowsAt(raw.hours), raw.hours, {});
+  assert.equal(caught, ledger.value.length, 'after restore the ledger holds the records for the current time');
+});
