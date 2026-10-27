@@ -386,3 +386,19 @@ test('OFF-2: a check that was never run stays on screen in the verdict, marked "
   await expect(rows.filter({ hasText: '(not reached)' })).toHaveCount(2);
   for (const r of await rows.all()) await expect(r).toBeInViewport();
 });
+
+test('OFF-4: a view picked from the stuck view bar deep in the worklist opens on its own top', async ({ page }) => {
+  const errors: string[] = [];
+  await open(page, V('360x640'), 'en', errors);
+  await sab(page, `await s.jump('deadline'); s.tab('insurer');`);
+  await expect(page.locator('.queue > li').nth(6)).toBeVisible({ timeout: 20_000 });
+  await page.locator('.queue > li').nth(6).scrollIntoViewIfNeeded();
+  await page.evaluate(() => scrollBy(0, 600));
+  await page.locator('[data-view-bar] [role=radio]', { hasText: 'Tamper check' }).click();
+  // the view's own heading is on screen, under the stuck view bar
+  await expect.poll(() => page.locator('#tc-h').evaluate((el) => {
+    const t = el.getBoundingClientRect().top;
+    return t >= document.querySelector('[data-view-bar]')!.getBoundingClientRect().bottom && t < innerHeight;
+  }), { timeout: 10_000 }).toBe(true);
+  expect(errors).toEqual([]);
+});

@@ -106,7 +106,12 @@ export default function Dashboard() {
       {/* the views stay in reach: a bar that sticks under the nav (and the control bar on a laptop) while the console scrolls */}
       <div class="seg view-seg" role="radiogroup" data-view-bar aria-label="Console view" ref={bar}>
         {VIEWS[rail.value].map(([id, label, icon]) => (
-          <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => (insurerView.value = id)}>
+          <button key={id} type="button" role="radio" aria-checked={view === id} onClick={() => {
+            insurerView.value = id;
+            // deep in a view the bar is stuck: open the new view at its top, not at the old scroll offset (OFF-4)
+            const head = document.querySelector<HTMLElement>('.dash-head');
+            if (head && head.getBoundingClientRect().bottom < 0) requestAnimationFrame(() => head.scrollIntoView({ block: 'start' }));
+          }}>
             <Icon name={icon} size={16} /> {label}
           </button>
         ))}
