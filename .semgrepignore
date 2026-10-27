@@ -26,8 +26,10 @@ public/*.svg
 tests/vectors/
 tests/fixtures/
 
-# Local tooling output and replay raw data (git-ignored).
+# A generated explainer HTML and its tool receipts (tracked, not shipped in the site).
 .archify/
+
+# Replay raw data and local tooling output (git-ignored).
 data/replay/raw/
 data/real/
 saboot-qr.svg
