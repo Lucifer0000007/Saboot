@@ -11,6 +11,7 @@ import { screen } from '../nav';
 import { backToQueue } from '../helper';
 import { VoiceCaption } from '../parts';
 import { nm, nameIn } from '../../lib/names';
+import { tourStep } from '../../tour/state';
 
 const ROLES = ['as.family', 'as.volunteer', 'as.bank'];
 const HOLD_MS = 2000;
@@ -47,6 +48,34 @@ export function Assist() {
     m.stream.getTracks().forEach((x) => x.stop());
     mic.current = null;
   }, []);
+  // The consent just recorded swaps the long form for the short done view on the same screen, so FarmerApp's per-screen
+  // scroll does not run: on a phone, bring the next step on screen and focus it (FARM-03, HM-3).
+  const had = useRef(!!v.consent);
+  useEffect(() => {
+    if (!v.consent || had.current) return;
+    had.current = true;
+    const show = () => {
+      const b = document.querySelector<HTMLElement>('.farmer .f-stack button.pill-primary');
+      if (!b) return;
+      if (!b.closest('.framed') && tourStep.value === null) {
+        const r = b.getBoundingClientRect();
+        const top = Math.max(document.querySelector('header.nav')?.getBoundingClientRect().bottom ?? 0,
+          document.querySelector('.farmer .f-top')?.getBoundingClientRect().bottom ?? 0);
+        const bottom = Math.min(innerHeight, document.querySelector('.ctrl-dock')?.getBoundingClientRect().top ?? innerHeight);
+        const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        if (r.top < top || r.bottom > bottom) b.scrollIntoView({ block: 'center', behavior });
+      }
+      b.focus({ preventScroll: true });
+    };
+    if (v.consent.method !== 'hold') { show(); return; }
+    // the finger (or the key) that held is still down: wait until it lifts, so its release cannot press the button that
+    // has moved under it
+    let timer = 0;
+    const up = () => { off(); timer = window.setTimeout(show, 400); };
+    const off = () => ['pointerup', 'pointercancel', 'keyup'].forEach((e) => removeEventListener(e, up, true));
+    ['pointerup', 'pointercancel', 'keyup'].forEach((e) => addEventListener(e, up, true));
+    return () => { off(); clearTimeout(timer); };
+  }, [!!v.consent]);
 
   if (v.consent) {
     return (

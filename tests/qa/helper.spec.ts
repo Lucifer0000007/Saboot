@@ -407,3 +407,40 @@ test.describe('HM-4 on a touch phone', () => {
     expect(errors).toEqual([]);
   });
 });
+
+/** Wait until a smooth scroll has finished: scrollY holds still for 300 ms. */
+async function scrollSettled(page: Page) {
+  await expect.poll(async () => {
+    const a = await page.evaluate(() => scrollY);
+    await page.waitForTimeout(300);
+    return a === (await page.evaluate(() => scrollY));
+  }, { timeout: 5_000 }).toBe(true);
+}
+
+test.describe('FARM-03 / HM-3 on a touch phone', () => {
+  // mobile layout and touch, as the reporter found it: the consent held by a finger
+  test.use({ isMobile: true, hasTouch: true });
+
+  test('FARM-03 / HM-3: once the hold records consent on a phone, Start photos is on screen', async ({ page, context }) => {
+    const errors: string[] = [];
+    await open(page, V('360x640'), 'en', errors);
+    await startSession(page);
+    await page.locator('[data-farmer="P-05"]').getByRole('button', { name: /Start/ }).tap();
+    await expect(page.locator('.farmer .f-title')).toHaveText('Consent from Mohinder Dhillon');
+    await expect(page.locator('[data-consent-farmer]')).not.toHaveAttribute('lang', 'en');
+    await scrollSettled(page);
+    // the finger is on the hold button, in the middle of the screen where nothing sticky covers it
+    const hold = page.locator('button.hold');
+    await hold.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+    await scrollSettled(page);
+    const bx = (await hold.boundingBox())!;
+    const cdp = await context.newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bx.x + bx.width / 2, y: bx.y + bx.height / 2 }] });
+    await page.waitForTimeout(2400);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await expect(page.locator('.farmer')).toContainText('Consent recorded at', { timeout: 10_000 });
+    await scrollSettled(page);
+    await expect.poll(() => onScreen(page.getByRole('button', { name: /Start photos/ })), { timeout: 5_000 }).toBe(true);
+    expect(errors).toEqual([]);
+  });
+});
