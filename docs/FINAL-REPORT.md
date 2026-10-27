@@ -1,4 +1,4 @@
-# Final report: what was done on `overflow/final-prep`, in plain language
+# Final report: what was done on `overflow/final-prep` and its follow-up `overflow/mobile-final`, in plain language
 
 For the Overflow team before the final. Every claim here points at a file, a test or a command; nothing is a promise about
 the real world. No calendar dates: the order of events is in `git log`.
@@ -11,9 +11,9 @@ rules, shown as raw counts under a REPLAY label; and a label on every value sayi
 typed by hand. Along the way the audit found 80 problems; every blocker and every major one on the demo path is fixed, each
 with a test that was red before the fix. Later work added a rebuilt visual layer (`docs/DESIGN.md`), the citation fixes, and
 seven real conversations in five states as FIELD evidence (`src/data/fieldEvidence.ts`, `docs/INTERVIEWS.md`). At the code
-freeze: 712 of 715 Playwright tests pass (24 of them in the dark theme), 563 captures with 0 problems, 280 unit tests, 46
+freeze, re-run after the R4 test was updated: 713 of 715 Playwright tests pass (24 of them in the dark theme), 563 captures with 0 problems, 280 unit tests, 46
 Firefox and WebKit smoke tests, Lighthouse 96 to 98 / 100 / 100 on all three pages with LCP 2.11 s and interactive 2.76 to
-2.88 s. Not passing: two reload tests (R2 reading position, R4 dropped chunk), red since `pre-field-mode`, and INP at 288 to
+2.88 s. Not passing: one reload test (R2 reading position), red since `pre-field-mode`, and INP at 288 to
 312 ms against a 200 ms limit.
 
 ## 2. The mistakes that mattered most, and what was done
@@ -41,6 +41,10 @@ bits, import and tamper check on the laptop with a wall-clock receipt time, the 
 labels. Kept and simplified: the officer worklist and the draft list. Merged: the ledger into the import's tamper check. Demoted
 or cut: the hand-entered water depth (first on the cut line; the HAND trust rule is built, tested and waiting for an input),
 real voice calls (NO-GO), the extra tooling (documented, nothing installed). The table: `docs/FEATURE-MAP.md`.
+
+Added: a minimal field mode (`?mode=field`, or 'Use it for real (field mode)' in the farmer app's Settings): typed farmer
+(HAND), consent in their language, a clock started by hand, real photos, a seal and the signed code; every value LIVE or HAND
+(D-97).
 
 ## 4. USP, MVP, X factor
 
@@ -97,14 +101,16 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 ## 8. Remaining risks
 
 - LCP is 2.11 s on all three pages (median of 5) since the boot script stopped requesting code before the first paint
-  (`docs/DESIGN_LOG.md`, iteration 2). Time to interactive on `?tab=insurer` reads 2.4 to 3.2 s against a 3 s limit
-  depending on machine load (the same with and without the newest landing section). `npm run deploy` runs this gate and
-  refuses on a failure: rerun `node scripts/lighthouse.mjs --runs=5` on a quiet machine first.
+  (`docs/DESIGN_LOG.md`, iteration 2). Time to interactive reads 2.76 to 2.88 s on all three pages (three runs) against a
+  3 s limit; the `pre-field-mode` build read 3.06 to 3.49 s on the same machine. `npm run deploy` runs this gate and refuses
+  on a failure: rerun `node scripts/lighthouse.mjs --runs=5` on a quiet machine first.
+- INP fails: 288 to 312 ms against a 200 ms limit on this machine (256 to 264 ms at `pre-field-mode`).
 - A Hindi or Punjabi first visit paints at 2.3 s on the budget profile and about 3 s on fast 3G; the Lighthouse gate measures
   English only (audit L5-01, L5-02, open).
 - The 100× replay drops to about 27 frames a second on a 4× throttled phone (L5-04, not on the demo path).
-- The translations are machine-made and flagged `needs-native-review`; farmer and village names are Latin in Hindi and
-  Punjabi (L4-16).
+- The translations are machine-made and flagged `needs-native-review`; farmer and village names are written in Devanagari or
+  Gurmukhi on the farmer's and helper's screens (`src/lib/names.ts`, D-87, needs-native-review); logs, exports and the
+  console stay Latin.
 - No `{{VERIFY}}` claim remains (`docs/DECISIONS.md`, D-51): each was cited, softened to what the evidence supports, or
   reworded as Saboot's design. The code is MIT-licensed, held by Ayush Kumar Sharma (`LICENSE`).
 - The field evidence has roles, places, dates and consent only: no raw note is in `docs/interviews/raw/` yet, so no theme,
@@ -121,9 +127,10 @@ prompts outside, the Chrome extension (yours to install), every other plugin on 
 4. Install the Chrome extension and run `/chrome` if you want exploratory checks (`docs/SETUP.md`).
 5. Record three backup clips with a "RECORDED" caption (`docs/USP-MVP.md`).
 6. Deploy from this branch when you are ready: `npm run deploy` (it runs the full gate first). Not before the demo starts.
-8. For the receiver: install mkcert, make the certificate for the laptop's address, put the root on the demo phone, start
+7. For the receiver: install mkcert, make the certificate for the laptop's address, put the root on the demo phone, start
    `scripts/receipt-server.mjs`, rehearse both paths (`docs/SETUP.md`, "The demo receiver"). Have the two reviewers work
-   through `translation/hi.md` and `translation/pa.md` (regenerated: 628 rows each). Add the raw interview notes to
+   through `translation/hi.md` and `translation/pa.md` (regenerated: 764 rows each; strings changed since the first export are listed in
+   `translation/CHANGES.md`). Add the raw interview notes to
    `docs/interviews/raw/`, then the themes to `src/data/fieldEvidence.ts`, and rerun `scripts/interviews-doc.mjs`; a Haryana
    farmer or patwari conversation closes the biggest gap. The receiver certificate is already in `.cache/demo.pem`.
-7. Optional: a Copernicus Global Flood Monitoring login if you ever want an Indian-side replay (R-2).
+8. Optional: a Copernicus Global Flood Monitoring login if you ever want an Indian-side replay (R-2).
