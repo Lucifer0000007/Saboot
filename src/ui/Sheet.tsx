@@ -62,7 +62,10 @@ export function Sheet({
       root.removeEventListener('keydown', onKey);
       // a sheet closed over another one leaves the page locked for the one still open (audit UI-08)
       if (!openSheets.length) document.documentElement.classList.remove('sheet-open');
-      if (prev && document.contains(prev)) prev.focus({ preventScroll: true });
+      // back to the opener, unless the action that closed the sheet moved focus on itself (a menu link focuses the section
+      // heading it scrolled to, audit UI-13)
+      const now = document.activeElement;
+      if (prev && document.contains(prev) && (!now || now === document.body || root.contains(now))) prev.focus({ preventScroll: true });
     };
   }, []);
   return (
